@@ -11,14 +11,22 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
-    "react-scripts": "1.1.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
+  "homepage": "./",
+  "main": "src/electron-starter.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "dev": "nf start -p 3000"
+  },
+  "devDependencies": {
+    "electron": "^1.7.12",
+    "foreman": "^2.0.0",
+    "react-scripts": "1.1.0"
   }
 }
