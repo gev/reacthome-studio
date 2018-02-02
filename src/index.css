@@ -4,7 +4,7 @@
   font-family: system;
   font-style: normal;
   font-weight: 300;
-  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Helvetica"), local("Tahoma"), local("Arial");
+  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Helvetica"), local("Tahoma"), local("Arial");
 }  
 
 * {
@@ -12,7 +12,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-family: "system";
+  font-family: system 'ubuntu light';
 }
 
 html, body, #root {
