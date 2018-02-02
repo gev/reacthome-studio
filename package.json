@@ -13,7 +13,8 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "next",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "ubuntu-fontface": "^0.1.13"
   },
   "homepage": "./",
   "main": "src/electron-starter.js",
