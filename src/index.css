@@ -5,11 +5,11 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-weight: 400;
-  font-family: 'Ubuntu';
 }
 
 html, body, #root {
+  font-weight: 400;
+  font-family: 'Ubuntu';
   overflow: hidden;
   height: 100vh;
   width: 100vw;
