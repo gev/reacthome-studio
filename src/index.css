@@ -1,18 +1,12 @@
 @import "~ubuntu-fontface/ubuntu.css";
 
-@font-face {
-  font-family: system;
-  font-style: normal;
-  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans");
-}  
-
 * {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-weight: 300;
-  font-family: 'system', 'Ubuntu';
+  font-weight: 400;
+  font-family: 'Ubuntu';
 }
 
 html, body, #root {
