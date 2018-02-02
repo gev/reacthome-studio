@@ -26,8 +26,6 @@
     "dev": "nf start -p 3000"
   },
   "devDependencies": {
-    "electron": "^1.7.12",
-    "foreman": "^2.0.0",
     "react-scripts": "1.1.0"
   }
 }
