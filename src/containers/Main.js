@@ -8,6 +8,7 @@ class Main extends Component {
       <div className="App">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Welcome to Reacthome</h1>
+        <webview src="https://get.webgl.org/" />
       </div>
     );
   }
