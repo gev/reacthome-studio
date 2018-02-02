@@ -8,7 +8,7 @@ class Main extends Component {
       <div className="App">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Welcome to Reacthome</h1>
-        <webview src="https://get.webgl.org/" />
+        <webview className="App-content" src="https://threejs.org/examples/webgl_geometry_cube.html" />
       </div>
     );
   }
