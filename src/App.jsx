@@ -1,3 +1,4 @@
+// @flow
 
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
@@ -12,7 +13,7 @@ const history = createHashHistory();
 const store = createStore(history);
 const theme = createMuiTheme();
 
-export default class extends Component {
+export default class extends Component<{}> {
   render() {
     return (
       <Provider store={store}>

@@ -53,4 +53,4 @@ export default function (history) {
   }
 
   return store;
-};
+}

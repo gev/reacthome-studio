@@ -12,7 +12,10 @@ if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 
 const createWindow = async () => {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ fullscreen: true });
+  mainWindow = new BrowserWindow({
+    fullscreen: true,
+    icon: '../assets/icon.png'
+  });
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`);
