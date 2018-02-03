@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "evgeny",
-  "license": "MIT",
+  "license": "",
   "config": {
     "forge": {
       "make_targets": {

@@ -1,13 +1,15 @@
 [ignore]
-.*/.history/.*
-.*/node_modules/.*
+<PROJECT_ROOT>/.history/.*
+<PROJECT_ROOT>/node_modules/.*
 
 [include]
 
 [libs]
+<PROJECT_ROOT>/flow-typed/.*
 
 [lints]
 
 [options]
+emoji=true
 
 [strict]
