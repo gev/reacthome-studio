@@ -12,7 +12,11 @@
     "lint": "eslint --cache --color --ext .jsx,.js src"
   },
   "keywords": [],
-  "author": "Evgeny Gazdovsky",
+  "author": {
+    "name": "Evgeny Gazdovsky",
+    "email": "gazdovsky@gmail.com",
+    "url": "https://github.com/gev"
+  },
   "license": "",
   "config": {
     "forge": {
