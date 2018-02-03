@@ -2,7 +2,7 @@
   "name": "reacthome-electron",
   "productName": "reacthome-electron",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Reacthome electron boilerplate",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -12,7 +12,7 @@
     "lint": "eslint --cache --color --ext .jsx,.js src"
   },
   "keywords": [],
-  "author": "evgeny",
+  "author": "Evgeny Gazdovsky",
   "license": "",
   "config": {
     "forge": {
