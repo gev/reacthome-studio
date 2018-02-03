@@ -24,8 +24,7 @@
           "zip"
         ],
         "linux": [
-          "deb",
-          "rpm"
+          "deb"
         ]
       },
       "electronPackagerConfig": {
@@ -34,7 +33,13 @@
       "electronWinstallerConfig": {
         "name": "reacthome_electron"
       },
-      "electronInstallerDebian": {},
+      "electronInstallerDebian": {
+        "icon": "assets/icon.png",
+        "categories": [
+          "Utility"
+        ],
+        "homepage": "http://reacthome.net"      
+      },
       "electronInstallerRedhat": {},
       "github_repository": {
         "owner": "",
