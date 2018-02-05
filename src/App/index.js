@@ -1,4 +1,3 @@
-// @flow
 
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
@@ -7,13 +6,14 @@ import { createHashHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui';
 import createStore from './store';
-import { Main } from './containers';
+import rootReducer from './reducer';
+import Main from '../containers';
 
 const history = createHashHistory();
-const store = createStore(history);
+const store = createStore(rootReducer, history);
 const theme = createMuiTheme();
 
-export default class extends Component<{}> {
+export default class extends Component {
   render() {
     return (
       <Provider store={store}>
@@ -28,3 +28,5 @@ export default class extends Component<{}> {
     );
   }
 }
+
+// export { default as Apps } from './Apps';

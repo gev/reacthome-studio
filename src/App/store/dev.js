@@ -1,9 +1,11 @@
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
-import rootReducer from '../reducers';
-import * as actions from '../actions';
+import rootReducer from '../reducer';
+import * as actions_ from '../actions';
+import * as actions from '../../actions';
 
 export default function (history) {
   // Redux Configuration
@@ -27,6 +29,7 @@ export default function (history) {
   // Redux DevTools Configuration
   const actionCreators = {
     ...routerActions,
+    ...actions_,
     ...actions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

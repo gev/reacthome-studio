@@ -1,4 +1,3 @@
-// @flow
 
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui';
@@ -41,7 +40,7 @@ class Main extends Component<Props> {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
-        <img src="../assets/logo.svg" className={classes.logo} alt="logo" />
+        <img src="./assets/logo.svg" className={classes.logo} alt="logo" />
         <h1 className={classes.title}>Welcome to Reacthome</h1>
         <webview className={classes.content} src="https://threejs.org/examples/webgl_geometry_cube.html" />
       </div>
