@@ -1,4 +1,5 @@
 
+// import { NativeModules, NativeEventEmitter } from 'react-native';
 
 // const manager = NativeModules.AppManager;
 // const emitter = new NativeEventEmitter(manager);
@@ -8,6 +9,6 @@
 //   manager.runApp(name);
 // });
 
-const manager = {};
+// export default manager;
 
-export default manager;
+export default {};

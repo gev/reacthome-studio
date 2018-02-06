@@ -1,13 +1,10 @@
 @import "~ubuntu-fontface/ubuntu.css";
 
 * {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
-html, body, #root {
+html, body, #App {
   font-weight: 400;
   font-family: 'Ubuntu';
   overflow: hidden;
@@ -15,6 +12,7 @@ html, body, #root {
   width: 100vw;
   padding: 0;
   margin: 0;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: #333333;
+  cursor: default;
 }
