@@ -4,10 +4,9 @@ import { createSocket } from 'dgram';
 import type { Children } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import os from 'os';
 // import { AppState, AsyncStorage, Platform } from 'react-native';
 import { addApps, removeApps, runApp } from './actions';
-import { CURRENT_APP, PORT, GROUP, DISCOVERY, DISCOVERY_INTERVAL } from './constants';
+import { CURRENT_APP, PORT, GROUP, DISCOVERY, DISCOVERY_INTERVAL, PLATFORM } from './constants';
 
 type Props = {
   name: ?string,
@@ -82,7 +81,7 @@ class AppManager extends Component<Props> {
         }, 2 * DISCOVERY_INTERVAL);
 
         const filter = ({ apps = [] }) =>
-          apps.filter(({ platform = [] }) => platform.includes(os.platform()));
+          apps.filter(({ platform = [] }) => platform.includes(PLATFORM));
 
         fetch(`http://${host}/apps.json`)
           .then(response => response.json())
