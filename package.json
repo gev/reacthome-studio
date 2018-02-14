@@ -42,7 +42,7 @@
         "categories": [
           "Utility"
         ],
-        "homepage": "http://reacthome.net"      
+        "homepage": "http://reacthome.net"
       },
       "electronInstallerRedhat": {},
       "github_repository": {
@@ -83,7 +83,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
-    "electron-forge": "^5.0.0",
+    "electron-forge": "^5.1.0",
     "electron-prebuilt-compile": "1.7.11",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^15",

@@ -763,7 +763,7 @@ babel-plugin-transform-es2015-block-scoping@^6.23.0:
     babel-types "^6.26.0"
     lodash "^4.17.4"
 
-babel-plugin-transform-es2015-classes@^6.23.0, babel-plugin-transform-es2015-classes@^6.24.1:
+babel-plugin-transform-es2015-classes@^6.23.0:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-classes/-/babel-plugin-transform-es2015-classes-6.24.1.tgz#5a4c58a50c9c9461e564b4b2a3bfabc97a2584db"
   dependencies:
@@ -2108,9 +2108,9 @@ electron-forge-template-vue@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/electron-forge-template-vue/-/electron-forge-template-vue-1.0.3.tgz#58a11ec972a0f0518e1306da7a573fbaf6b4ac50"
 
-electron-forge@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/electron-forge/-/electron-forge-5.0.0.tgz#f009ab1066c244cdbd1ac536cdd405565aa0688e"
+electron-forge@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/electron-forge/-/electron-forge-5.1.0.tgz#09d5b9714fbe6a786a0d71e6571d63432f6a113e"
   dependencies:
     "@octokit/rest" "^14.0.4"
     aws-sdk "^2.9.0"
