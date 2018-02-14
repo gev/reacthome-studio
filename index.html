@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <title>Reacthome</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      var bundlePath = './bundle/renderer.bundle.js';
+      if(typeof process !== 'undefined' && process.env.NODE_ENV === 'DEV') {
+        const port = process.env.PORT || 8080;
+        bundlePath = `http://localhost:${port}/bundle/renderer.bundle.js`;
+        var bundleScriptEl = document.createElement('script');
+        bundleScriptEl.src = bundlePath;
+        bundleScriptEl.async = true;
+        document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
+      } else {
+        require(bundlePath);
+      }
+    </script>
+  </body>
+</html>

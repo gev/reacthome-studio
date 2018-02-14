@@ -18,4 +18,3 @@ function apps(state = [], action) {
 }
 
 export default combineReducers({ ...reducers, apps, routing });
-

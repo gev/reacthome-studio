@@ -1,10 +1,10 @@
-@import "~ubuntu-fontface/ubuntu.css";
+/* @import "~ubuntu-fontface/ubuntu.css"; */
 
 * {
   user-select: none;
 }
 
-html, body, #App {
+html, body, #app {
   font-weight: 400;
   font-family: 'Ubuntu';
   overflow: hidden;
