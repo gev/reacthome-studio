@@ -7,7 +7,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui';
 import createStore from './store';
 import rootReducer from './reducer';
-import AppManager from './AppManager';
 import Main from '../containers';
 
 const history = createHashHistory();
@@ -33,18 +32,17 @@ export default class extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AppManager>
-          <ConnectedRouter history={history}>
-            <MuiThemeProvider theme={theme}>
-              <Switch>
-                <Route exact path="/" component={Main} />
-              </Switch>
-            </MuiThemeProvider>
-          </ConnectedRouter>
-        </AppManager>
+        <ConnectedRouter history={history}>
+          <MuiThemeProvider theme={theme}>
+            <Switch>
+              <Route exact path="/" component={Main} />
+            </Switch>
+          </MuiThemeProvider>
+        </ConnectedRouter>
       </Provider>
     );
   }
 }
 
 export { default as Apps } from './Apps';
+export { default as AppManager } from './AppManager';
