@@ -54,11 +54,7 @@ class AppManager extends Component<Props> {
     const socket = createSocket('udp4');
 
     function discovery() {
-      socket.send(DISCOVERY, 0, DISCOVERY.length, port, group, (err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
+      socket.send(DISCOVERY, 0, DISCOVERY.length, port, group);
     }
 
     socket.on('error', console.log);
