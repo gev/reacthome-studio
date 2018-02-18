@@ -19,6 +19,7 @@ type Props = {
 };
 
 const timer = {};
+const buff = Buffer.from([DISCOVERY]);
 
 class AppManager extends Component<Props> {
   componentWillMount() {
@@ -49,12 +50,16 @@ class AppManager extends Component<Props> {
     this.startDiscovery();
   }
 
+  componentWillUnmount() {
+    this.socket.close();
+  }
+
   startDiscovery() {
     const { port = APPS_PORT, group = APPS_GROUP } = this.props;
     const socket = createSocket('udp4');
 
     function discovery() {
-      socket.send(DISCOVERY, 0, DISCOVERY.length, port, group);
+      socket.send(buff, 0, buff.length, port, group);
     }
 
     socket.on('error', console.log);
