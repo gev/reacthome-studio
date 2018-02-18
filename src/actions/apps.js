@@ -1,5 +1,5 @@
 
-import { ADD_APPS, REMOVE_APPS } from './constants';
+import { ADD_APPS, REMOVE_APPS } from '../constants';
 import manager from './manager';
 
 export const addApps = (host, apps) => ({ type: ADD_APPS, apps: { host, ...apps } });

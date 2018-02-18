@@ -5,7 +5,7 @@ import { ChevronRight } from 'material-ui-icons';
 import type { StyleRules } from 'material-ui';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { downloadApp, runApp, runDefaultApp } from './actions';
+import { downloadApp, runApp, runDefaultApp } from '../actions';
 
 const styles = {
   container: {

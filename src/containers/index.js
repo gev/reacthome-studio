@@ -1,5 +1,5 @@
 
-import Main from './Main';
-
-export default Main;
+export { default as Main } from './Main';
+export { default as AppManager } from './AppManager';
+export { default as Apps } from './Apps';
 
