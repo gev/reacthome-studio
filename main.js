@@ -6,7 +6,7 @@ const url = require('url');
 let mainWindow;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 1920, height: 1080 });
+  mainWindow = new BrowserWindow({ fullscreen: true });
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
