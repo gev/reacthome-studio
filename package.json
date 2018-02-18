@@ -1,6 +1,6 @@
 {
-  "name": "reacthome-electron",
-  "productName": "reacthome-electron",
+  "name": "reacthome-devices",
+  "productName": "reacthome-devices",
   "version": "1.0.0",
   "description": "Reacthome electron boilerplate",
   "main": "main.js",
