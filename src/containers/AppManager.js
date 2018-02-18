@@ -10,7 +10,7 @@ import { CURRENT_APP, APPS_PORT, APPS_GROUP, DISCOVERY, DISCOVERY_INTERVAL, PLAT
 
 type Props = {
   name: ?string,
-  port: ?string,
+  port: ?number,
   group: ?string,
   children: Children,
   runApp: () => void,
