@@ -1,4 +1,9 @@
 
-import { Apps } from '../App';
+import React from 'react';
+import { AppManager, Apps } from '../App';
 
-export default Apps;
+export default ({ name }: { name: ?string }) => (
+  <AppManager name={name}>
+    <Apps />
+  </AppManager>
+);
