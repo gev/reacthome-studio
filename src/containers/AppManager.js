@@ -5,8 +5,8 @@ import type { Children } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { AppState, AsyncStorage, Platform } from 'react-native';
-import { addApps, removeApps, runApp } from './actions';
-import { CURRENT_APP, PORT, GROUP, DISCOVERY, DISCOVERY_INTERVAL, PLATFORM } from './constants';
+import { addApps, removeApps, runApp } from '../actions';
+import { CURRENT_APP, APPS_PORT, APPS_GROUP, DISCOVERY, DISCOVERY_INTERVAL, PLATFORM } from '../constants';
 
 type Props = {
   name: ?string,
@@ -50,7 +50,7 @@ class AppManager extends Component<Props> {
   }
 
   startDiscovery() {
-    const { port = PORT, group = GROUP } = this.props;
+    const { port = APPS_PORT, group = APPS_GROUP } = this.props;
     const socket = createSocket('udp4');
 
     function discovery() {

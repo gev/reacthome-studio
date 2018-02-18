@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AppManager, Apps } from '../App';
+import { AppManager, Apps } from '../containers';
 
 export default ({ name }: { name: ?string }) => (
   <AppManager name={name}>

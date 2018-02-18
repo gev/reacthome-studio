@@ -1,5 +1,9 @@
 
-export const PORT = 2017;
-export const DROUP = '224.0.0.1';
+import os from 'os';
+
 export const DISCOVERY_INTERVAL = 1000;
-export const 
+export const DISCOVERY = Buffer.from([0xf0]);
+export const PLATFORM = os.platform();
+
+export * from './apps';
+export * from './devices';

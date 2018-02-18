@@ -5,9 +5,9 @@ import { Route, Switch } from 'react-router';
 import { createHashHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui';
+import { Main } from './containers';
+import rootReducer from './reducers';
 import createStore from './store';
-import rootReducer from './reducer';
-import Main from '../containers';
 
 const history = createHashHistory();
 const store = createStore(rootReducer, history);
@@ -43,6 +43,3 @@ export default class extends Component {
     );
   }
 }
-
-export { default as Apps } from './Apps';
-export { default as AppManager } from './AppManager';
