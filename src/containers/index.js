@@ -1,5 +1,5 @@
 
-import Main from './Main';
+import Main from './Devices';
 
 export default Main;
 
