@@ -18,36 +18,33 @@ const styles = {
 };
 
 type Props = {
-  devices: {},
+  devices: [],
   classes: StyleRules
 };
 
 class Apps extends Component<Props> {
   render() {
-    const { devices } = this.state;
-    const { classes } = this.props;
+    const { devices, classes } = this.props;
     return (
       <div className={classes.container}>
+        <Typography component="h1" type="headline" align="center">Found Devices</Typography>
         {
-          devices.length > 0
-            ? apps.map(s => (
-              <div key={s.name}>
-                <Typography component="h1" type="headline" align="center">{s.title}</Typography>
-                <MenuList>
-                  {
-                    s.apps.map(app => (
-                      <MenuItem key={app.name} onClick={this.downloadApp(app.name, s.host)}>
-                        <ListItemText
-                          primary={app.title}
-                          secondary={app.description}
-                        />
-                        <ChevronRight />
-                      </MenuItem>
-                    ))
-                  }
-                </MenuList>
-              </div>
-            ))
+          devices || devices.length > 0
+            ? (
+              <MenuList>
+                {
+                  devices.map(({ id, ip, type }) => (
+                    <MenuItem key={id}>
+                      <ListItemText
+                        primary={type}
+                        secondary={`${id} ${ip}`}
+                      />
+                      <ChevronRight />
+                    </MenuItem>
+                  ))
+                }
+              </MenuList>
+            )
             : <CircularProgress size={100} color="primary" />
         }
       </div>

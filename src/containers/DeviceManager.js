@@ -20,15 +20,22 @@ const timer = {};
 
 class DeviceManager extends Component<Props> {
   componentWillMount() {
-    this.startDiscovery();
+    const { ip = IP } = this.props;
+    const a = ip.split('.');
+    a.unshift(DISCOVERY);
+    this.startDiscovery(Buffer.from(a));
   }
 
-  startDiscovery() {
+  componentWillUnmount() {
+    this.socket.close();
+  }
+
+  startDiscovery(buff) {
     const { port = DEVICES_PORT, group = DEVICES_GROUP, ip = IP } = this.props;
     const socket = createSocket('udp4');
 
     function discovery() {
-      socket.send(DISCOVERY, 0, DISCOVERY.length, port, group);
+      socket.send(buff, 0, buff.length, port, group);
     }
 
     socket.on('error', console.log);
@@ -40,14 +47,14 @@ class DeviceManager extends Component<Props> {
 
     socket.on('message', (data) => {
       try {
-        const uid = data.slice(0, 6).map(i => i.toString(16)).join(':');
+        const id = data.slice(0, 6).map(i => i.toString(16)).join(':');
         switch (data[6]) {
           case 0xf0: {
-            clearTimeout(timer[uid]);
-            this.props.addDevice(uid, data.slice(7, 4).join('.'), data[11]);
-            timer[uid] = setTimeout(() => {
-              this.props.removeDevice(uid);
-              delete timer[uid];
+            clearTimeout(timer[id]);
+            this.props.addDevice(id, data.slice(7, 4).join('.'), data[11]);
+            timer[id] = setTimeout(() => {
+              this.props.removeDevice(id);
+              delete timer[id];
             }, 2 * DISCOVERY_INTERVAL);
             break;
           }
