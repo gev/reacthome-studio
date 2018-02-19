@@ -58,9 +58,9 @@ class AppManager extends Component<Props> {
     const { port = APPS_PORT, group = APPS_GROUP } = this.props;
     this.socket = createSocket('udp4');
 
-    function discovery() {
+    const discovery = () => {
       this.socket.send(buff, 0, buff.length, port, group);
-    }
+    };
 
     this.socket.on('error', console.log);
 
