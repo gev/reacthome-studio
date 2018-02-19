@@ -19,7 +19,7 @@ const styles = {
 };
 
 type Props = {
-  apps: {},
+  apps: [],
   classes: StyleRules,
   downloadApp: (string, string) => void
 };
