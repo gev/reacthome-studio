@@ -104,6 +104,6 @@ class AppManager extends Component<Props> {
 }
 
 export default connect(
-  state => state,
+  (state, props) => props,
   dispatch => bindActionCreators({ addApps, removeApps, runApp }, dispatch)
 )(AppManager);
