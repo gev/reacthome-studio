@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { AppManager, Apps } from '../containers';
+import { DeviceManager, Devices } from '../containers';
 
-export default ({ name }: { name: ?string }) => (
-  <AppManager name={name}>
-    <Apps />
-  </AppManager>
+export default () => (
+  <DeviceManager>
+    <Devices />
+  </DeviceManager>
 );

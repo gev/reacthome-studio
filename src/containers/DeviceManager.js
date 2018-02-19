@@ -8,9 +8,10 @@ import { addDevice, removeDevice } from '../actions';
 import { IP, DEVICES_PORT, DEVICES_GROUP, DISCOVERY, DISCOVERY_INTERVAL } from '../constants';
 
 type Props = {
-  ip: ?string,
+  ip: string,
   port: ?number,
   group: ?string,
+  devices: ?[],
   children: Children,
   addDevice: () => void,
   removeDevice: () => void
@@ -32,26 +33,34 @@ class DeviceManager extends Component<Props> {
 
   startDiscovery(buff) {
     const { port = DEVICES_PORT, group = DEVICES_GROUP, ip = IP } = this.props;
-    const socket = createSocket('udp4');
 
-    function discovery() {
-      socket.send(buff, 0, buff.length, port, group);
-    }
+    this.socket = createSocket('udp4');
 
-    socket.on('error', console.log);
+    const discovery = () => {
+      this.socket.send(buff, 0, buff.length, port, group);
+    };
 
-    socket.once('listening', () => {
+    this.socket.on('error', console.log);
+
+    this.socket.once('listening', () => {
       setInterval(discovery, DISCOVERY_INTERVAL);
       discovery();
     });
 
-    socket.on('message', (data) => {
+    this.socket.on('message', (data) => {
+      const { devices } = this.props;
       try {
         const id = data.slice(0, 6).map(i => i.toString(16)).join(':');
         switch (data[6]) {
-          case 0xf0: {
+          case DISCOVERY: {
             clearTimeout(timer[id]);
-            this.props.addDevice(id, data.slice(7, 4).join('.'), data[11]);
+            const address = `${data[10]}:${data[9]}:${data[8]}:${data[7]}`;
+            const type = data[11];
+            const device = devices.some(i =>
+              i.id === id && i.ip === address && i.type === type);
+            if (!device) {
+              this.props.addDevice(id, address, type);
+            }
             timer[id] = setTimeout(() => {
               this.props.removeDevice(id);
               delete timer[id];
@@ -66,7 +75,7 @@ class DeviceManager extends Component<Props> {
       }
     });
 
-    socket.bind(port, ip);
+    this.socket.bind(port, ip);
   }
 
   render() {
@@ -75,6 +84,6 @@ class DeviceManager extends Component<Props> {
 }
 
 export default connect(
-  state => state,
+  ({ devices }, props) => ({ ...props, devices }),
   dispatch => bindActionCreators({ addDevice, removeDevice }, dispatch)
 )(DeviceManager);
