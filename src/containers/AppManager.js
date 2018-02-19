@@ -56,20 +56,20 @@ class AppManager extends Component<Props> {
 
   startDiscovery() {
     const { port = APPS_PORT, group = APPS_GROUP } = this.props;
-    const socket = createSocket('udp4');
+    this.socket = createSocket('udp4');
 
     function discovery() {
-      socket.send(buff, 0, buff.length, port, group);
+      this.socket.send(buff, 0, buff.length, port, group);
     }
 
-    socket.on('error', console.log);
+    this.socket.on('error', console.log);
 
-    socket.once('listening', () => {
+    this.socket.once('listening', () => {
       setInterval(discovery, DISCOVERY_INTERVAL);
       discovery();
     });
 
-    socket.on('message', (data) => {
+    this.socket.on('message', (data) => {
       try {
         /* eslint no-bitwise: "off" */
         const host = `${data.slice(0, 4).join('.')}:${(data[4] << 8) | data[5]}`;
@@ -95,7 +95,7 @@ class AppManager extends Component<Props> {
       }
     });
 
-    socket.bind();
+    this.socket.bind();
   }
 
   render() {
