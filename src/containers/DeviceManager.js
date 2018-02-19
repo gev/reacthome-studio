@@ -50,7 +50,7 @@ class DeviceManager extends Component<Props> {
     this.socket.on('message', (data) => {
       const { devices } = this.props;
       try {
-        const id = data.slice(0, 6).map(i => i.toString(16)).join(':');
+        const id = Array.from(data.slice(0, 6)).map(i => `0${i.toString(16)}`.slice(-2)).join(':');
         switch (data[6]) {
           case DISCOVERY: {
             clearTimeout(timer[id]);
