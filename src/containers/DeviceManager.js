@@ -106,11 +106,20 @@ class DeviceManager extends Component<Props> {
               this.send(Buffer.from(a), address);
             }
             clearTimeout(this.timer[id]);
-            const type = data.length === 8 ? data[7] : undefined;
+            let type;
+            let version;
+            if (data.length === 10) {
+              [,,,,,,, type] = data;
+              version = data.slice(8, 10).join('.');
+            }
             if (device) {
-              this.props.updateDevice({ ...device, ip: address, type });
+              this.props.updateDevice({
+                ...device, ip: address, type, version
+              });
             } else {
-              this.props.addDevice(id, address, type);
+              this.props.addDevice({
+                id, ip: address, type, version
+              });
             }
             this.timer[id] = setTimeout(() => {
               this.props.removeDevice(id);

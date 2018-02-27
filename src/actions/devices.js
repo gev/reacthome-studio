@@ -10,7 +10,7 @@ import {
   DEVICE_READY
 } from '../constants';
 
-export const addDevice = (id, ip, type) => ({ type: ADD_DEVICE, device: { id, ip, type } });
+export const addDevice = (device) => ({ type: ADD_DEVICE, device });
 export const updateDevice = (device) => ({ type: UPDATE_DEVICE, device });
 export const removeDevice = (id) => ({ type: REMOVE_DEVICE, id });
 export const setNewFirmware = (id, newFirmware) => ({ type: SET_NEW_FIRMWARE, id, newFirmware });

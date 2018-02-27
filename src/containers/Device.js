@@ -20,7 +20,7 @@ import { setNewFirmware, updateFirmware } from '../actions';
 const styles = {
   container: {
     justifyItems: 'center',
-    alignItems: 'baseline',
+    alignItems: 'center',
     flexDirection: 'row'
   },
   control: {
@@ -32,6 +32,7 @@ type Props = {
   id: string,
   ip: string,
   name: string,
+  version: ?string,
   firmware: string,
   newFirmware: ?string,
   status: ?string,
@@ -51,20 +52,27 @@ class Devices extends Component<Props> {
 
   render() {
     const {
-      id, ip, name, firmware, newFirmware, status, classes
+      id, ip, name, version, firmware, newFirmware, status, classes
     } = this.props;
     return (
       <Grid container className={classes.container}>
         <Grid item xs={2}>
           <Typography variant="headline">{name}</Typography>
         </Grid>
-        <Grid item xs={3}>
-          <Typography>{id} / {ip}</Typography>
+        <Grid item xs={1}>
+          {
+            version && (
+              <Typography>v {version}</Typography>
+            )
+          }
+        </Grid>
+        <Grid item xs={2}>
+          <Typography>{id}<br />{ip}</Typography>
         </Grid>
         {
           firmware && [
-            <Grid key="firmware" item xs={3}>
-              <Typography>Current firmware <strong>{firmware}</strong></Typography>
+            <Grid key="firmware" item xs={2}>
+              <Typography>Current firmware<br /><strong>{firmware}</strong></Typography>
             </Grid>,
             <Grid key="newFirmware" item xs={2}>
               <FormControl className={classes.control}>
