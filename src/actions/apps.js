@@ -1,6 +1,6 @@
 
 import { ADD_APPS, REMOVE_APPS } from '../constants';
-import manager from './manager';
+import manager from './AppManager';
 
 export const addApps = (host, apps) => ({ type: ADD_APPS, apps: { host, ...apps } });
 export const removeApps = (host) => ({ type: REMOVE_APPS, host });
