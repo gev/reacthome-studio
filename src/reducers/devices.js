@@ -6,14 +6,16 @@ import {
   SET_NEW_FIRMWARE,
   DEVICE_TYPES,
   SET_DEVICE_STATUS,
-  BOOTLOADER,
-  DEVICE_READY
+  SET_DEVICE_STATE,
+  BOOTLOADER
 } from '../constants';
 
 export default function devices(state = [], action) {
   switch (action.type) {
     case ADD_DEVICE: {
-      const device = { ...action.device, ...DEVICE_TYPES[action.device.type], status: DEVICE_READY };
+      const device = {
+        ...action.device, ...DEVICE_TYPES[action.device.type],
+      };
       if (device.type !== BOOTLOADER) device.newFirmware = device.firmware;
       return [...state, device].sort((a, b) => (a.type < b.type));
     }
@@ -25,14 +27,17 @@ export default function devices(state = [], action) {
       return state.filter(i => i.id !== action.id);
     case SET_NEW_FIRMWARE: {
       const { id, newFirmware } = action;
-      return state.map(i => (i.id === id ? { ...i, newFirmware } : i));
+      return state.map(i => (i.id === id ? { ...i, newFirmware, pending: false } : i));
     }
     case SET_DEVICE_STATUS: {
       const { id, status } = action;
-      return state.map(i => (i.id === id ? { ...i, status } : i));
+      return state.map(i => (i.id === id ? { ...i, ...status } : i));
+    }
+    case SET_DEVICE_STATE: {
+      const { id } = action;
+      return state.map(i => (i.id === id ? { ...i, state: { ...i.state, ...action.state } } : i));
     }
     default:
       return state;
   }
 }
-

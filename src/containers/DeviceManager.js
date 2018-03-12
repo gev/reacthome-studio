@@ -10,24 +10,36 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   addDevice,
-  removeDevice,
+  setDeviceStatus,
+  setDeviceState,
   updateDevice,
-  updatingFirmware,
-  deviceReady
+  removeDevice
 } from '../actions';
 import {
   IP,
   DEVICES_PORT,
   DEVICES_GROUP,
+  READY,
   DISCOVERY,
   DISCOVERY_INTERVAL,
-  UPDATE_FIRMWARE,
   BOOTLOAD,
   BOOTLOAD_FINISH,
   BOOTLOAD_WRITE,
   MAC_ADDRESS,
   DEFAULT_MAC_ADDRESS,
   ERROR,
+  FIND_ME,
+  BOOTLOAD_SUCCESS,
+  DEVICE_DIM4,
+  DIMMER,
+  DIM_SET,
+  DIM_TYPE_UNPLUGGED,
+  DIM_TYPE_RELAY,
+  DIM_FADE,
+  DIM_TYPE,
+  DEVICE_DO8,
+  DO,
+  DOPPLER
 } from '../constants';
 
 type Props = {
@@ -39,11 +51,11 @@ type Props = {
   build: string,
   devices: ?[],
   children: Children,
-  addDevice: () => void,
-  removeDevice: () => void,
-  updateDevice: (Object) => void,
-  updatingFirmware: (string) => void,
-  deviceReady: (string) => void
+  addDevice: (device: {}) => void,
+  setDeviceStatus: (id: string, status: string) => void,
+  setDeviceState: (id: string, state: {}) => void,
+  updateDevice: ({}) => void,
+  removeDevice: (id: string) => void
 };
 
 class DeviceManager extends Component<Props> {
@@ -54,13 +66,44 @@ class DeviceManager extends Component<Props> {
     this.startDiscovery(Buffer.from(a));
   }
 
-  componentDidUpdate() {
-    this.props.devices
-      .filter(device => device.status === UPDATE_FIRMWARE)
-      .forEach(device => {
-        this.props.updatingFirmware(device.id);
+  componentDidUpdate(prevProps) {
+    this.props.devices.forEach((device) => {
+      const prev = prevProps.devices.find(i => i.id === device.id) || {};
+      if (device.finding !== prev.finding) {
+        this.send(Buffer.from([FIND_ME, device.finding ? 1 : 0]), device.ip);
+      }
+      if (device.updating && !prev.updating) {
         this.updateFirmware(device);
-      });
+      }
+      if (device.state !== prev.state) {
+        switch (device.type) {
+          case DEVICE_DIM4: {
+            Object.entries(device.state).forEach(([i, v]) => {
+              if (v.type !== ((prev.state || {})[i] || {}).type) {
+                this.send(Buffer.from([DIMMER, parseInt(i, 10), DIM_TYPE, v.type]), device.ip);
+              }
+              if (v.value !== ((prev.state || {})[i] || {}).value) {
+                this.send(Buffer.from([
+                  DIMMER, parseInt(i, 10), DIM_FADE, v.value, 40
+                ]), device.ip);
+              }
+            });
+            break;
+          }
+          case DEVICE_DO8: {
+            Object.entries(device.state).forEach(([i, v]) => {
+              if (v.value !== ((prev.state || {})[i] || {}).value) {
+                this.send(Buffer.from([
+                  DO, parseInt(i, 10), v.value
+                ]), device.ip);
+              }
+            });
+            break;
+          }
+          default:
+        }
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -73,6 +116,15 @@ class DeviceManager extends Component<Props> {
   send = (buff, ip) => {
     const { port = DEVICES_PORT } = this.props;
     this.socket.send(buff, port, ip);
+  }
+
+  sendFirmware = (queue, packet, ip) => {
+    console.log(queue.length);
+    queue.timeout = setTimeout(() => {
+      console.log(packet);
+      this.sendFirmware(queue, packet, ip);
+    }, 1000);
+    this.send(packet, ip);
   }
 
   startDiscovery(buff) {
@@ -97,7 +149,19 @@ class DeviceManager extends Component<Props> {
         const id = Array.from(data.slice(0, 6)).map(i => `0${i.toString(16)}`.slice(-2)).join(':');
         const device = devices.find(i => i.id === id);
         switch (data[6]) {
+          case READY:
           case DISCOVERY: {
+            const ready = data[6] === READY;
+
+            clearTimeout(this.timer[id]);
+
+            let type;
+            let version;
+            if (data.length === 10) {
+              [,,,,,,, type] = data;
+              version = data.slice(8, 10).join('.');
+            }
+
             if (id === DEFAULT_MAC_ADDRESS) {
               const a = randombytes(7);
               a[0] = MAC_ADDRESS;
@@ -105,43 +169,73 @@ class DeviceManager extends Component<Props> {
               a[1] |= 0b00000010;
               this.send(Buffer.from(a), address);
             }
-            clearTimeout(this.timer[id]);
-            let type;
-            let version;
-            if (data.length === 10) {
-              [,,,,,,, type] = data;
-              version = data.slice(8, 10).join('.');
-            }
+
             if (device) {
-              this.props.updateDevice({
-                ...device, ip: address, type, version
-              });
+              if (device.ip !== address ||
+                  device.type !== type ||
+                  device.version !== version ||
+                  device.offline) {
+                let { pending, updating } = device;
+                if (pending) {
+                  pending = false;
+                  updating = true;
+                }
+                this.props.updateDevice({
+                  ...device, ip: address, type, version, offline: false, pending, updating, ready
+                });
+              }
             } else {
               this.props.addDevice({
-                id, ip: address, type, version
+                id, ip: address, type, version, ready
               });
             }
+
             this.timer[id] = setTimeout(() => {
-              this.props.removeDevice(id);
-              delete this.timer[id];
+              if (id === DEFAULT_MAC_ADDRESS) {
+                this.props.removeDevice(id);
+              } else {
+                this.props.setDeviceStatus(id, { offline: true });
+                this.timer[id] = setTimeout(() => {
+                  this.props.removeDevice(id);
+                }, 60000);
+              }
             }, 2 * DISCOVERY_INTERVAL);
             break;
           }
           case BOOTLOAD: {
-            const queue = this.firmwareQueue[id];
-            if (queue) {
-              if (queue.length > 0) {
-                this.send(queue.shift(), address);
-              } else {
-                this.send(Buffer.from([BOOTLOAD, BOOTLOAD_FINISH]), address);
-                this.props.deviceReady(id);
+            switch (data[7]) {
+              case BOOTLOAD_SUCCESS: {
+                const queue = this.firmwareQueue[id];
+                if (queue) {
+                  clearTimeout(queue.timeout);
+                  if (queue.length > 0) {
+                    this.sendFirmware(queue, queue.shift(), address);
+                  } else {
+                    this.props.setDeviceStatus(id, { updating: false });
+                    this.send(Buffer.from([BOOTLOAD, BOOTLOAD_FINISH]), address);
+                  }
+                }
+                break;
               }
+              default:
             }
             break;
           }
+          case DOPPLER:
+            this.props.setDeviceState(id, { value: data.readUInt16LE(8) });
+            break;
+          case DIMMER:
+            // this.props.setDeviceState(id, { [data[7]]: { type: data[8], value: data[9] } });
+            console.log(data);
+            break;
           case ERROR:
             if (data[7] === BOOTLOAD) {
-              this.props.deviceReady(id);
+              console.log(data);
+              this.props.setDeviceStatus(id, { updating: false });
+              const queue = this.firmwareQueue[id];
+              if (queue) {
+                clearTimeout(queue.timeout);
+              }
             }
             break;
           default:
@@ -161,7 +255,7 @@ class DeviceManager extends Component<Props> {
     const { workspace, project, build } = this.props;
     const file = path.normalize(path.join(workspace, project, 'dist', device.newFirmware, build, `${project}.${build}.hex`));
     const lineReader = createInterface({ input: createReadStream(file) });
-    let buff;
+    let packet;
     let stop = false;
 
     lineReader.on('line', (line) => {
@@ -178,16 +272,16 @@ class DeviceManager extends Component<Props> {
                 let index = offset + i;
                 if ((index % 0x40) === 0) {
                   rowAddress += index;
-                  buff = Buffer.alloc(70);
-                  buff.fill(0xff);
-                  buff.writeUInt8(BOOTLOAD, 0);
-                  buff.writeUInt8(BOOTLOAD_WRITE, 1);
-                  buff.writeUInt32BE(rowAddress, 2);
-                  queue.push(buff);
+                  packet = Buffer.alloc(70);
+                  packet.fill(0xff);
+                  packet.writeUInt8(BOOTLOAD, 0);
+                  packet.writeUInt8(BOOTLOAD_WRITE, 1);
+                  packet.writeUInt32BE(rowAddress, 2);
+                  queue.push(packet);
                   offset -= index;
                   index = 0;
                 }
-                buff.writeUInt8(parseInt(line.slice(j, j + 2), 16), 6 + index);
+                packet.writeUInt8(parseInt(line.slice(j, j + 2), 16), 6 + index);
               }
             } catch (err) {
               console.log(err);
@@ -197,7 +291,7 @@ class DeviceManager extends Component<Props> {
         }
         case '1': {
           this.firmwareQueue[device.id] = queue;
-          this.send(queue.shift(), device.ip);
+          this.sendFirmware(queue, queue.shift(), device.ip);
           break;
         }
         case '4':
@@ -217,6 +311,6 @@ class DeviceManager extends Component<Props> {
 export default connect(
   ({ devices }, props) => ({ ...props, devices }),
   dispatch => bindActionCreators({
-    addDevice, removeDevice, updateDevice, updatingFirmware, deviceReady
+    addDevice, setDeviceStatus, setDeviceState, updateDevice, removeDevice
   }, dispatch)
 )(DeviceManager);

@@ -44,11 +44,14 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
+    "chart.js": "^2.7.2",
     "history": "^4.7.2",
     "ip": "gev/ip",
-    "material-ui": "^1.0.0-beta.33",
+    "material-ui": "^1.0.0-beta.35",
     "material-ui-icons": "^1.0.0-beta.17",
+    "material-ui-old": "npm:material-ui@latest",
     "react": "^16.2.0",
+    "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",

@@ -12,7 +12,8 @@ const styles = (theme) => ({
     width: '100%',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    overflow: 'auto'
   },
   item: {
     padding: theme.spacing.unit * 2
