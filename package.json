@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "chart.js": "^2.7.2",
+    "fast-deep-equal": "gev/fast-deep-equal",
     "history": "^4.7.2",
     "ip": "gev/ip",
     "material-ui": "^1.0.0-beta.35",

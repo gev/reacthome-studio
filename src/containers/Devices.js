@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { CircularProgress, withStyles } from 'material-ui';
 import type { StyleRules } from 'material-ui';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Device from './Device';
 
@@ -21,30 +20,26 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  devices: [],
+  device: {},
   classes: StyleRules
 };
 
 class Devices extends Component<Props> {
   render() {
-    const { devices, classes } = this.props;
+    const { device = {}, classes } = this.props;
     return (
       <div className={classes.container}>
         {
-          devices.length > 0
-            ? devices.map((device) => (
-              <div key={device.id} className={classes.item}>
-                <Device {...device} />
+          Object.entries(device)
+            .map(([id, dev]) => (
+              <div key={id} className={classes.item}>
+                <Device id={id} {...dev} />
               </div>
             ))
-            : <CircularProgress size={100} color="primary" />
         }
       </div>
     );
   }
 }
 
-export default connect(
-  ({ devices }, props) => ({ ...props, devices }),
-  (dispatch) => bindActionCreators({ }, dispatch)
-)(withStyles(styles)(Devices));
+export default connect(({ device }, props) => ({ ...props, device }))(withStyles(styles)(Devices));

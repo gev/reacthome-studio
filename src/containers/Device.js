@@ -19,7 +19,13 @@ import type { StyleRules } from 'material-ui';
 import { Warning } from 'material-ui-icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { DEVICE_BOOTLOADER, DEVICE_TYPES, DEVICE_DIM4, DEVICE_DO8, DEVICE_DOPPLER } from '../constants';
+import {
+  DEVICE_TYPES,
+  DEVICE_TYPE_BOOTLOADER,
+  DEVICE_TYPE_DIM4,
+  DEVICE_TYPE_DO8,
+  DEVICE_TYPE_DOPPLER
+} from '../constants';
 import { setNewFirmware, setDeviceStatus } from '../actions';
 import Doppler from './Doppler';
 import Dimmer from './Dimmer';
@@ -59,7 +65,7 @@ type Props = {
   firmware: string,
   newFirmware: ?string,
   ready: ?boolean,
-  offline: ?boolean,
+  online: ?boolean,
   finding: ?boolean,
   pending: ?boolean,
   updating: ?boolean,
@@ -86,11 +92,11 @@ class Devices extends Component<Props> {
       id, type, classes, state = {}
     } = this.props;
     switch (type) {
-      case DEVICE_DOPPLER:
+      case DEVICE_TYPE_DOPPLER:
         return (
           <Doppler id={id} {...state} />
         );
-      case DEVICE_DIM4:
+      case DEVICE_TYPE_DIM4:
         return (
           <Grid container className={classes.container}>
             <Grid item xs={3}>
@@ -107,7 +113,7 @@ class Devices extends Component<Props> {
             </Grid>
           </Grid>
         );
-      case DEVICE_DO8:
+      case DEVICE_TYPE_DO8:
         return (
           <Grid container className={classes.container}>
             <Grid item xs={3}>
@@ -143,18 +149,18 @@ class Devices extends Component<Props> {
 
   render() {
     const {
-      id, ip, name, version,
-      firmware, newFirmware,
+      id, ip, type, version,
+      newFirmware,
       ready = false,
-      offline = false,
+      online = false,
       finding = false,
       pending = false,
       updating = false,
-      hasFindMeAction = false,
       classes
     } = this.props;
+    const { name, hasFindMeAction = false, firmware } = DEVICE_TYPES[type];
     return (
-      <Card className={offline ? classes.offline : ''}>
+      <Card className={!online ? classes.offline : ''}>
         <CardHeader
           title={name}
           subheader={`${id} / ${ip} / v${version}`}
@@ -171,7 +177,7 @@ class Devices extends Component<Props> {
                     <InputLabel>Find me</InputLabel>
                     <Switch
                       checked={finding}
-                      disabled={offline}
+                      disabled={online}
                       onChange={this.findMe}
                       color="secondary"
                     />
@@ -182,14 +188,14 @@ class Devices extends Component<Props> {
                 <FormControl className={classes.control}>
                   <InputLabel htmlFor="firmware">New firmware</InputLabel>
                   <Select
-                    value={newFirmware || firmware}
+                    value={newFirmware || firmware || ''}
                     disabled={updating}
                     onChange={this.setNewFirmware}
                     inputProps={{ id: 'firmware' }}
                   > {
                       Object.entries(DEVICE_TYPES)
                         .filter(([i, v]) => (
-                          (String(DEVICE_BOOTLOADER) !== i) && v.firmware))
+                          (String(DEVICE_TYPE_BOOTLOADER) !== i) && v.firmware))
                         .map(([i, v]) => (
                           <MenuItem key={i} value={v.firmware}>{v.firmware}</MenuItem>
                         ))

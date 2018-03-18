@@ -8,11 +8,11 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui';
 import { MuiThemeProvider as OldMuiThemeProvider } from 'material-ui-old';
 import { getMuiTheme } from 'material-ui-old/styles';
 import { Main } from './containers';
-import rootReducer from './reducers';
+import reducer from './reducer';
 import createStore from './store';
 
 const history = createHashHistory();
-const store = createStore(rootReducer, history);
+const store = createStore(reducer, history);
 
 const palette = {
   palette: {
