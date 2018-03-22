@@ -9,9 +9,11 @@ const offline = (id) => (dispatch) => {
   dispatch(set(id, { online: false }));
 };
 
-const online = (id, type, ip) => (dispatch) => {
+const online = (id, type, version, ip, port) => (dispatch) => {
   clearTimeout(timeout[id]);
-  dispatch(set(id, { type, ip, online: true }));
+  dispatch(set(id, {
+    type, version, ip, port, online: true
+  }));
   timeout[id] = setTimeout(() => {
     dispatch(offline(id));
     delete timeout[id];

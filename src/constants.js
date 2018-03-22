@@ -2,8 +2,8 @@
 export const DEVICE_PORT = 2017;
 export const DEVICE_GROUP = '224.0.0.1';
 
-export const APPLICATION_PORT = 2018;
-export const APPLICATION_GROUP = '224.0.0.2';
+export const SERVICE_PORT = 2018;
+export const SERVICE_GROUP = '224.0.0.2';
 
 export const DISCOVERY_INTERVAL = 1000;
 
@@ -11,9 +11,10 @@ export const STATE = 'state';
 export const DEVICE = 'device';
 export const SERVICE = 'service';
 
-export const ACTION_DISCOVERY = 0xF0;
-export const ACTION_READY = 0xF1;
-export const ACTION_ERROR = 0xFF;
+export const ACTION_DISCOVERY = 0xf0;
+export const ACTION_READY = 0xf1;
+export const ACTION_GET_STATE = 0xf2;
+export const ACTION_ERROR = 0xff;
 
 export const DEVICE_TYPE_UNKNOWN = 0x00;
 export const DEVICE_TYPE_SENSOR4 = 0x01;

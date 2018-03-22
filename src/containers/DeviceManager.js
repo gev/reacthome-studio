@@ -7,14 +7,15 @@ import { createSocket } from 'dgram';
 import type { Children } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { APPLICATION_PORT, APPLICATION_GROUP } from '../constants';
-import { dispatchAction } from '../actions';
+import { SERVICE_PORT, SERVICE_GROUP } from '../constants';
+import dispatchAction from '../actions';
 
 type Props = {
   workspace: string,
   project: string,
   build: string,
   children: Children,
+  dispatchAction: (action: {}, port: number, address: string) => void
 };
 
 class DeviceManager extends Component<Props> {
@@ -22,15 +23,15 @@ class DeviceManager extends Component<Props> {
     this.socket = createSocket('udp4');
     this.socket
       .on('error', console.log)
-      .on('message', (data) => {
+      .on('message', (data, { address, port }) => {
         try {
-          this.props.dispatchAction(JSON.parse(data));
+          this.props.dispatchAction(JSON.parse(data), port, address);
         } catch (err) {
           console.log(err);
         }
       })
-      .bind(APPLICATION_PORT, () => {
-        this.socket.addMembership(APPLICATION_GROUP);
+      .bind(SERVICE_PORT, () => {
+        this.socket.addMembership(SERVICE_GROUP);
       });
   }
 

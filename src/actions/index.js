@@ -1,50 +1,30 @@
 
 import { createSocket } from 'dgram';
-import { contains } from 'fast-deep-equal';
-import { APPLICATION_PORT, ACTION_DISCOVERY, DEVICE, SERVICE, DISCOVERY_INTERVAL } from '../constants';
-import createAction from './actions';
+import { online } from './status';
+import { applyAction } from './create';
+import { ACTION_DISCOVERY, ACTION_GET_STATE, DEVICE, STATE, SERVICE } from '../constants';
 
-const timeout = {};
 const socket = createSocket('udp4');
 
-const set = createAction(SERVICE);
-
-const offline = (id) => (dispatch) => {
-  dispatch(set(id, { online: false }));
+const send = (action, port, ip) => {
+  socket.send(JSON.stringify(action), port, ip);
 };
 
-const online = (id, type, ip) => (dispatch) => {
-  clearTimeout(timeout[id]);
-  dispatch(set(id, { type, ip, online: true }));
-  timeout[id] = setTimeout(() => {
-    dispatch(offline(id));
-    delete timeout[id];
-  }, 3 * DISCOVERY_INTERVAL);
-};
-
-module.exports = { offline, online };
-
-
-const send = (ip, action) => {
-  socket.send(JSON.stringify(action), APPLICATION_PORT);
-};
-
-const apply = (action) => (dispatch, getState) => {
-  const { type, id, payload } = action;
-  if (contains(getState()[type][id], payload)) return;
-  dispatch(action);
-  send(action);
-};
-
-export default (type) => (id, payload) => apply({ type, id, payload });
-
-export const dispatchAction = (action) => (dispatch) => {
+export default ({ sid, action }, port, ip) => (dispatch, getState) => {
+  const { id, payload } = action;
   switch (action.type) {
     case ACTION_DISCOVERY: {
+      const { type, version } = payload;
+      const prev = getState()[SERVICE][id];
+      if (!prev || !prev.online) {
+        send({ type: ACTION_GET_STATE }, port, ip);
+      }
+      dispatch(online(id, type, version, ip, port));
       break;
     }
+    case STATE:
     case DEVICE:
-      dispatch(apply(action));
+      dispatch(applyAction(action));
       break;
     default:
       console.log(action);
