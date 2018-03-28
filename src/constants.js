@@ -7,14 +7,25 @@ export const SERVICE_GROUP = '224.0.0.2';
 
 export const DISCOVERY_INTERVAL = 1000;
 
+export const POOL = 'pool';
 export const STATE = 'state';
 export const DEVICE = 'device';
+export const CHANNEL = 'channel';
 export const SERVICE = 'service';
 
+export const ACTION_DO = 0x00;
+export const ACTION_DIMMER = 0xd0;
 export const ACTION_DISCOVERY = 0xf0;
 export const ACTION_READY = 0xf1;
-export const ACTION_GET_STATE = 0xf2;
+export const ACTION_FIND_ME = 0xfa;
+export const ACTION_BOOTLOAD = 0xfb;
 export const ACTION_ERROR = 0xff;
+
+export const ACTION_ADD = 'ACTION_PUT';
+export const ACTION_GET = 'ACTION_GET';
+export const ACTION_SET = 'ACTION_SET';
+
+export const APP_TYPE_DAEMON = 0x00;
 
 export const DEVICE_TYPE_UNKNOWN = 0x00;
 export const DEVICE_TYPE_SENSOR4 = 0x01;
@@ -33,7 +44,11 @@ export const DEVICE_TYPE_DO8_DI16 = 0x0d;
 export const DEVICE_TYPE_DIM4 = 0x0e;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
 
-export const APP_TYPE_DAEMON = 0x00;
+export const DIM_OFF = 0x0;
+export const DIM_ON = 0x1;
+export const DIM_SET = 0x2;
+export const DIM_FADE = 0x3;
+export const DIM_TYPE = 0x4;
 
 export const DIM_TYPE_UNPLUGGED = 0x0;
 export const DIM_TYPE_RISING_EDGE = 0x1;

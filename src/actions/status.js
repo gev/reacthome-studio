@@ -1,15 +1,15 @@
 
-import createAction from './create';
-import { SERVICE, DISCOVERY_INTERVAL } from '../constants';
+import { add, set } from './create';
+import { DISCOVERY_INTERVAL, SERVICE } from '../constants';
 
 const timeout = {};
-const set = createAction(SERVICE);
 
-const offline = (id) => (dispatch) => {
+export const offline = (id) => (dispatch) => {
   dispatch(set(id, { online: false }));
+  dispatch(add(id, SERVICE));
 };
 
-const online = (id, type, version, ip, port) => (dispatch) => {
+export const online = (id, type, version, ip, port) => (dispatch) => {
   clearTimeout(timeout[id]);
   dispatch(set(id, {
     type, version, ip, port, online: true
@@ -18,6 +18,5 @@ const online = (id, type, version, ip, port) => (dispatch) => {
     dispatch(offline(id));
     delete timeout[id];
   }, 3 * DISCOVERY_INTERVAL);
+  dispatch(add(id, SERVICE));
 };
-
-module.exports = { offline, online };

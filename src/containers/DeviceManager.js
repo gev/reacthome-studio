@@ -1,14 +1,11 @@
 
-import path from 'path';
-import { createInterface } from 'readline';
-import { createReadStream } from 'fs';
 import { Component } from 'react';
 import { createSocket } from 'dgram';
 import type { Children } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SERVICE_PORT, SERVICE_GROUP } from '../constants';
-import dispatchAction from '../actions';
+import { dispatchAction } from '../actions';
 
 type Props = {
   workspace: string,
@@ -217,59 +214,6 @@ class DeviceManager extends Component<Props> {
   //   });
 
   //   this.socket.bind(port, ip);
-  // }
-
-  // updateFirmware(device) {
-  //   const queue = [];
-  //   const { workspace, project, build } = this.props;
-  //   const file = path.normalize(path.join(workspace, project, 'dist', device.newFirmware, build, `${project}.${build}.hex`));
-  //   const lineReader = createInterface({ input: createReadStream(file) });
-  //   let packet;
-  //   let stop = false;
-
-  //   lineReader.on('line', (line) => {
-  //     switch (line[8]) {
-  //       case '0': {
-  //         if (!stop) {
-  //           try {
-  //             const size = parseInt(line.slice(1, 3), 16);
-  //             const address = parseInt(line.slice(3, 7), 16);
-  //             let rowAddress = address - (address % 0x40);
-  //             let offset = address - rowAddress;
-  //             for (let i = 0; i < size; i++) {
-  //               const j = (9 + (2 * i));
-  //               let index = offset + i;
-  //               if ((index % 0x40) === 0) {
-  //                 rowAddress += index;
-  //                 packet = Buffer.alloc(70);
-  //                 packet.fill(0xff);
-  //                 packet.writeUInt8(BOOTLOAD, 0);
-  //                 packet.writeUInt8(BOOTLOAD_WRITE, 1);
-  //                 packet.writeUInt32BE(rowAddress, 2);
-  //                 queue.push(packet);
-  //                 offset -= index;
-  //                 index = 0;
-  //               }
-  //               packet.writeUInt8(parseInt(line.slice(j, j + 2), 16), 6 + index);
-  //             }
-  //           } catch (err) {
-  //             console.log(err);
-  //           }
-  //         }
-  //         break;
-  //       }
-  //       case '1': {
-  //         this.firmwareQueue[device.id] = queue;
-  //         this.sendFirmware(queue, queue.shift(), device.ip);
-  //         break;
-  //       }
-  //       case '4':
-  //         stop = true;
-  //         break;
-  //       default:
-  //         console.log(line);
-  //     }
-  //   });
   // }
 
   render() {

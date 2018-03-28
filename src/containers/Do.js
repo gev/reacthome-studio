@@ -11,7 +11,8 @@ import {
 import type { StyleRules } from 'material-ui';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setDeviceState } from '../actions';
+import { request } from '../actions';
+import { ACTION_DO } from '../constants';
 
 const styles = {
   container: {
@@ -32,10 +33,7 @@ type PropsType = {
 
 class Do extends Component<PropsType> {
   setValue = (event) => {
-    const { id, index } = this.props;
-    this.props.setDeviceState(id, {
-      [index]: { value: event.target.checked ? 1 : 0 }
-    });
+    this.props.setValue(event.target.checked);
   }
 
   render() {
@@ -46,7 +44,7 @@ class Do extends Component<PropsType> {
         <CardContent>
           <div className={classes.container}>
             <Switch
-              checked={value !== 0}
+              checked={value}
               color="secondary"
               onChange={this.setValue}
             />
@@ -63,6 +61,13 @@ class Do extends Component<PropsType> {
 }
 
 export default connect(
-  props => props,
-  (dispatch) => bindActionCreators({ setDeviceState }, dispatch)
+  ({ pool }, props) => pool[`${props.id}.${props.index}`],
+  (dispatch, { service, id, index }) => bindActionCreators({
+    setValue: (value) => request(
+      service,
+      {
+        id, type: ACTION_DO, index, value
+      }
+    )
+  }, dispatch)
 )(withStyles(styles)(Do));

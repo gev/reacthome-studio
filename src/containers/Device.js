@@ -24,9 +24,11 @@ import {
   DEVICE_TYPE_BOOTLOADER,
   DEVICE_TYPE_DIM4,
   DEVICE_TYPE_DO8,
-  DEVICE_TYPE_DOPPLER
+  DEVICE_TYPE_DOPPLER,
+  ACTION_FIND_ME,
+  ACTION_BOOTLOAD
 } from '../constants';
-import { setNewFirmware, setDeviceStatus } from '../actions';
+import { set, request } from '../actions';
 import Doppler from './Doppler';
 import Dimmer from './Dimmer';
 import Do from './Do';
@@ -64,6 +66,7 @@ type Props = {
   hasFindMeAction: ?boolean,
   firmware: string,
   newFirmware: ?string,
+  pendingFirmware: ?string,
   ready: ?boolean,
   online: ?boolean,
   finding: ?boolean,
@@ -76,40 +79,41 @@ type Props = {
 
 class Devices extends Component<Props> {
   setNewFirmware = (event) => {
-    this.props.setNewFirmware(this.props.id, event.target.value);
+    this.props.setNewFirmware(event.target.value);
   }
 
   updateFirmware = () => {
-    this.props.setDeviceStatus(this.props.id, { pending: true });
+    const { newFirmware, updateFirmware } = this.props;
+    updateFirmware(newFirmware);
   }
 
   findMe = event => {
-    this.props.setDeviceStatus(this.props.id, { finding: event.target.checked });
+    this.props.findMe(event.target.checked);
   }
 
   content = () => {
     const {
-      id, type, classes, state = {}
+      service, id, type, classes
     } = this.props;
     switch (type) {
       case DEVICE_TYPE_DOPPLER:
         return (
-          <Doppler id={id} {...state} />
+          <Doppler id={id} />
         );
       case DEVICE_TYPE_DIM4:
         return (
           <Grid container className={classes.container}>
             <Grid item xs={3}>
-              <Dimmer id={id} index={1} {...state[1]} />
+              <Dimmer service={service} id={id} index={1} />
             </Grid>
             <Grid item xs={3}>
-              <Dimmer id={id} index={2} {...state[2]} />
+              <Dimmer service={service} id={id} index={2} />
             </Grid>
             <Grid item xs={3}>
-              <Dimmer id={id} index={3} {...state[3]} />
+              <Dimmer service={service} id={id} index={3} />
             </Grid>
             <Grid item xs={3}>
-              <Dimmer id={id} index={4} {...state[4]} />
+              <Dimmer service={service} id={id} index={4} />
             </Grid>
           </Grid>
         );
@@ -117,28 +121,28 @@ class Devices extends Component<Props> {
         return (
           <Grid container className={classes.container}>
             <Grid item xs={3}>
-              <Do id={id} index={1} {...state[1]} />
+              <Do service={service} id={id} index={1} />
             </Grid>
             <Grid item xs={3}>
-              <Do id={id} index={2} {...state[2]} />
+              <Do service={service} id={id} index={2} />
             </Grid>
             <Grid item xs={3}>
-              <Do id={id} index={3} {...state[3]} />
+              <Do service={service} id={id} index={3} />
             </Grid>
             <Grid item xs={3}>
-              <Do id={id} index={4} {...state[4]} />
+              <Do service={service} id={id} index={4} />
             </Grid>
             <Grid item xs={3}>
-              <Do id={id} index={5} {...state[5]} />
+              <Do service={service} id={id} index={5} />
             </Grid>
             <Grid item xs={3}>
-              <Do id={id} index={6} {...state[6]} />
+              <Do service={service} id={id} index={6} />
             </Grid>
             <Grid item xs={3}>
-              <Do id={id} index={7} {...state[7]} />
+              <Do service={service} id={id} index={7} />
             </Grid>
             <Grid item xs={3}>
-              <Do id={id} index={8} {...state[8]} />
+              <Do service={service} id={id} index={8} />
             </Grid>
           </Grid>
         );
@@ -150,7 +154,7 @@ class Devices extends Component<Props> {
   render() {
     const {
       id, ip, type, version,
-      newFirmware,
+      newFirmware, pendingFirmware,
       ready = false,
       online = false,
       finding = false,
@@ -177,7 +181,7 @@ class Devices extends Component<Props> {
                     <InputLabel>Find me</InputLabel>
                     <Switch
                       checked={finding}
-                      disabled={online}
+                      disabled={!online}
                       onChange={this.findMe}
                       color="secondary"
                     />
@@ -188,7 +192,7 @@ class Devices extends Component<Props> {
                 <FormControl className={classes.control}>
                   <InputLabel htmlFor="firmware">New firmware</InputLabel>
                   <Select
-                    value={newFirmware || firmware || ''}
+                    value={newFirmware || ''}
                     disabled={updating}
                     onChange={this.setNewFirmware}
                     inputProps={{ id: 'firmware' }}
@@ -213,7 +217,7 @@ class Devices extends Component<Props> {
                   pending && !updating ? (
                     <Typography>
                       <small>Pending update firmware</small><br />
-                      <strong>{newFirmware}</strong>
+                      <strong>{pendingFirmware}</strong>
                     </Typography>
                   ) : null
                 }
@@ -235,8 +239,10 @@ class Devices extends Component<Props> {
 }
 
 export default connect(
-  props => props,
-  (dispatch) => bindActionCreators({
-    setNewFirmware, setDeviceStatus
+  (state, props) => props,
+  (dispatch, { id, service }) => bindActionCreators({
+    findMe: (finding) => request(service, { type: ACTION_FIND_ME, id, finding }),
+    updateFirmware: (newFirmware) => request(service, { id, type: ACTION_BOOTLOAD, pendingFirmware: newFirmware }),
+    setNewFirmware: (newFirmware) => set(id, { newFirmware })
   }, dispatch)
 )(withStyles(styles)(Devices));

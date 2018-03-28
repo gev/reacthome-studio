@@ -26,20 +26,20 @@ type Props = {
 
 class Devices extends Component<Props> {
   render() {
-    const { device = {}, classes } = this.props;
+    const { service, pool, classes } = this.props;
     return (
       <div className={classes.container}>
         {
-          Object.entries(device)
-            .map(([id, dev]) => (
-              <div key={id} className={classes.item}>
-                <Device id={id} {...dev} />
-              </div>
-            ))
+          service.map(s => pool[s].device && pool[s].device.map(id => (
+            <div key={id} className={classes.item}>
+              <Device id={id} service={s} {...pool[id]} />
+            </div>
+          )))
         }
       </div>
     );
   }
 }
 
-export default connect(({ device }, props) => ({ ...props, device }))(withStyles(styles)(Devices));
+export default connect(({ service, pool }, props) =>
+  ({ ...props, service, pool }))(withStyles(styles)(Devices));

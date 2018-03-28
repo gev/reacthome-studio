@@ -17,14 +17,17 @@ import { Slider } from 'material-ui-old';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-  DIM_TYPE_UNPLUGGED,
+  ACTION_DIMMER,
+  DIM_TYPE,
   DIM_TYPES,
+  DIM_TYPE_UNPLUGGED,
   DIM_TYPE_RISING_EDGE,
   DIM_TYPE_FALLING_EDGE,
   DIM_TYPE_PWM,
-  DIM_TYPE_RELAY
+  DIM_TYPE_RELAY,
+  DIM_FADE
 } from '../constants';
-import { setDeviceState } from '../actions';
+import { request } from '../actions';
 
 const styles = {
   container: {
@@ -55,18 +58,13 @@ class Dimmer extends Component<PropsType> {
     this.setState({ anchorEl: null });
   };
 
-  setType = (type) => () => {
-    const { id, index, value } = this.props;
-    this.props.setDeviceState(id, { [index]: { type, value } });
+  setType = (value) => () => {
+    this.props.setType(value);
     this.hideMenu();
   };
 
   setValue = (event, value) => {
-    const { id, index, type } = this.props;
-    console.log(event.target.checked, value);
-    this.props.setDeviceState(id, {
-      [index]: { type, value: event.target.checked ? 255 : value || 0 }
-    });
+    this.props.setValue(event.target.checked ? 255 : value || 0);
   }
 
   render() {
@@ -91,7 +89,7 @@ class Dimmer extends Component<PropsType> {
               >
                 {
                   DIM_TYPES.map((t, i) => (
-                    <MenuItem key={t} value={i} selected={i === type} onClick={this.setType(i)}>
+                    <MenuItem key={t} selected={i === type} onClick={this.setType(i)}>
                       {t}
                     </MenuItem>
                   ))
@@ -112,7 +110,7 @@ class Dimmer extends Component<PropsType> {
                 <Typography variant="display3">
                   {
                     type === DIM_TYPE_RELAY ? (
-                      value ? 'On' : 'Off' 
+                      value ? 'On' : 'Off'
                     ) : value
                   }
                 </Typography>
@@ -133,6 +131,13 @@ class Dimmer extends Component<PropsType> {
 }
 
 export default connect(
-  props => props,
-  (dispatch) => bindActionCreators({ setDeviceState }, dispatch)
+  ({ pool }, props) => pool[`${props.id}.${props.index}`],
+  (dispatch, { service, id, index }) => bindActionCreators({
+    setType: (value) => request(service, {
+      id, index, type: ACTION_DIMMER, action: DIM_TYPE, value
+    }),
+    setValue: (value) => request(service, {
+      id, index, type: ACTION_DIMMER, action: DIM_FADE, value, velocity: 128
+    })
+  }, dispatch)
 )(withStyles(styles)(Dimmer));
