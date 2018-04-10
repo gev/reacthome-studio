@@ -1,6 +1,9 @@
 
-export { default as Main } from './Main';
-export { default as AppManager } from './AppManager';
 export { default as Apps } from './Apps';
-export { default as DeviceManager } from './DeviceManager';
+export { default as AppManager } from './AppManager';
+export { default as ServiceManager } from './ServiceManager';
+export { default as Projects } from './Projects';
+export { default as Project } from './Project';
+export { default as Daemons } from './Daemons';
 export { default as Devices } from './Devices';
+export { default as Main } from './Main';

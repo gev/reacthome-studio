@@ -1,17 +1,7 @@
 
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import { ACTION_ADD, ACTION_SET, SERVICE } from './constants';
-
-const put = (type) => (state = [], action) => {
-  switch (action.type) {
-    case ACTION_ADD:
-      if (type !== action.payload.type) return state;
-      return [...state, action.payload.id];
-    default:
-      return state;
-  }
-};
+import { ACTION_SET } from './constants';
 
 const pool = (state = {}, { type, id, payload }) => {
   switch (type) {
@@ -22,8 +12,4 @@ const pool = (state = {}, { type, id, payload }) => {
   }
 };
 
-export default combineReducers({
-  [SERVICE]: put(SERVICE),
-  routing,
-  pool
-});
+export default combineReducers({ routing, pool });

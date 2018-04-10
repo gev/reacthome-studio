@@ -1,3 +1,4 @@
 
-export { set, put } from './create';
+export { set, add, create, remove } from './create';
 export { dispatchAction, request } from './service';
+export { online, offline } from './status';

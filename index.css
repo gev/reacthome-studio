@@ -1,5 +1,6 @@
 /* @import "~ubuntu-fontface/ubuntu.css"; */
-
+@import "node_modules/material-components-web/dist/material-components-web.min.css";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 * {
   user-select: none;
 }
@@ -7,12 +8,103 @@
 html, body, #app {
   font-weight: 400;
   font-family: 'Ubuntu';
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
+  /* overflow: hidden; */
+  height: 100%;
+  width: 100%;
   padding: 0;
   margin: 0;
   background-color: white;
   color: #333333;
   cursor: default;
+}
+
+.container {
+  widows: 100%;
+  height: 100%;
+}
+
+.content {
+}
+
+.paper {
+  padding: 1rem;
+}
+
+.grid {
+  width: 100vw;
+}
+
+.grid-cell {
+  padding: 0.5rem;
+  min-height: 1.2rem;
+  max-height: 1.2rem;
+  white-space: nowrap;
+  border: #eee solid 1px;
+  background-color: #fff;
+}
+
+.grid-cell:hover {
+  transition-property: background-color;
+  transition-duration: 100ms;
+  background-color: #eee;
+}
+
+th .grid-cell {
+  padding: 0.5rem;
+  white-space: nowrap;
+  background-color: #eee;
+  border: #ddd solid 1px;
+}
+
+.grid table {
+  border-collapse: collapse;
+}
+
+.grid td  {
+  padding: 0;
+  border: none;
+}
+
+.grid th {
+  padding: 0;
+  border: none;
+  position: sticky;
+  top: 64px;
+}
+
+.grid-column {
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 4px 0 5px 0 rgba(0,0,0,.14), 1px 0 10px 0 rgba(0,0,0,.12);
+  position: sticky;
+  width: 20%;
+  right: -80%;
+  left: 0;
+}
+
+.grid-column table {
+  width: 100%;  
+}
+
+.grid-column td .grid-cell {
+  text-align: left;
+}
+
+.grid-body td .grid-cell {
+  text-align: center;
+}
+
+.grid-body {
+  display: inline-block;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  padding-left: 20%;
+  width: 80%;
+}
+
+.player {
+  width: 320px;
+  height: 240px;
+  border: #ddd solid 1px;
 }

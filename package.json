@@ -28,7 +28,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "concurrently": "^3.5.1",
-    "electron": "^1.8.2",
+    "electron": "^2.0.0-beta.7",
     "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-flowtype": "^2.44.0",
@@ -48,6 +48,7 @@
     "fast-deep-equal": "gev/fast-deep-equal",
     "history": "^4.7.2",
     "ip": "gev/ip",
+    "material-icons": "^0.2.1",
     "material-ui": "^1.0.0-beta.35",
     "material-ui-icons": "^1.0.0-beta.17",
     "material-ui-old": "npm:material-ui@latest",
@@ -59,6 +60,8 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "rmwc": "1.3.0",
+    "uuid": "^3.2.1"
   }
 }

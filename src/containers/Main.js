@@ -1,9 +1,10 @@
 
 import React from 'react';
-import { Devices, DeviceManager } from '../containers';
+import { Daemons, Projects } from '../containers';
 
 export default () => (
-  <DeviceManager>
-    <Devices />
-  </DeviceManager>
+  <div>
+    <Projects />
+    <Daemons />
+  </div>
 );

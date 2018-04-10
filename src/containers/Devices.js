@@ -4,6 +4,7 @@ import { CircularProgress, withStyles } from 'material-ui';
 import type { StyleRules } from 'material-ui';
 import { connect } from 'react-redux';
 import Device from './Device';
+import { ROOT } from '../constants';
 
 const styles = (theme) => ({
   container: {
@@ -20,26 +21,29 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  device: {},
+  device: [],
+  service: string,
   classes: StyleRules
 };
 
 class Devices extends Component<Props> {
   render() {
-    const { service, pool, classes } = this.props;
+    const { service, device, classes } = this.props;
     return (
       <div className={classes.container}>
         {
-          service.map(s => pool[s].device && pool[s].device.map(id => (
-            <div key={id} className={classes.item}>
-              <Device id={id} service={s} {...pool[id]} />
+          device.map(d => (
+            <div key={d.id} className={classes.item}>
+              <Device service={service} {...d} />
             </div>
-          )))
+          ))
         }
       </div>
     );
   }
 }
 
-export default connect(({ service, pool }, props) =>
-  ({ ...props, service, pool }))(withStyles(styles)(Devices));
+export default connect(
+  ({ pool }, { daemon }) =>
+    ({ device: ((pool[daemon] || {}).device || []).map(id => ({ id, ...pool[id] })) })
+)(withStyles(styles)(Devices));

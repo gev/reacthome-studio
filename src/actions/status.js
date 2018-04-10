@@ -1,12 +1,11 @@
 
 import { add, set } from './create';
-import { DISCOVERY_INTERVAL, SERVICE } from '../constants';
+import { DISCOVERY_INTERVAL, DAEMON, ROOT } from '../constants';
 
 const timeout = {};
 
 export const offline = (id) => (dispatch) => {
   dispatch(set(id, { online: false }));
-  dispatch(add(id, SERVICE));
 };
 
 export const online = (id, type, version, ip, port) => (dispatch) => {
@@ -18,5 +17,5 @@ export const online = (id, type, version, ip, port) => (dispatch) => {
     dispatch(offline(id));
     delete timeout[id];
   }, 3 * DISCOVERY_INTERVAL);
-  dispatch(add(id, SERVICE));
+  dispatch(add(ROOT, DAEMON, id));
 };

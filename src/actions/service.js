@@ -6,7 +6,7 @@ import {
   ACTION_GET, POOL,
   ACTION_SET,
 } from '../constants';
-import { put, set } from './create';
+import { set } from './create';
 
 const socket = createSocket('udp4');
 
@@ -27,8 +27,7 @@ export const dispatchAction = (action, port, ip) => (dispatch, getState) => {
       break;
     }
     case ACTION_SET: {
-      dispatch(set(payload.id, payload.payload));
-      dispatch(put(id, payload.type, payload.id));
+      dispatch(set(id, payload));
       break;
     }
     default:

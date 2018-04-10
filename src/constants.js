@@ -1,4 +1,6 @@
 
+export const FILE = './tmp/state.json';
+
 export const DEVICE_PORT = 2017;
 export const DEVICE_GROUP = '224.0.0.1';
 
@@ -6,12 +8,6 @@ export const SERVICE_PORT = 2018;
 export const SERVICE_GROUP = '224.0.0.2';
 
 export const DISCOVERY_INTERVAL = 1000;
-
-export const POOL = 'pool';
-export const STATE = 'state';
-export const DEVICE = 'device';
-export const CHANNEL = 'channel';
-export const SERVICE = 'service';
 
 export const ACTION_DO = 0x00;
 export const ACTION_DIMMER = 0xd0;
@@ -21,7 +17,6 @@ export const ACTION_FIND_ME = 0xfa;
 export const ACTION_BOOTLOAD = 0xfb;
 export const ACTION_ERROR = 0xff;
 
-export const ACTION_ADD = 'ACTION_PUT';
 export const ACTION_GET = 'ACTION_GET';
 export const ACTION_SET = 'ACTION_SET';
 
@@ -139,3 +134,63 @@ export const DEVICE_TYPES = {
     name: 'Outdated'
   }
 };
+
+export const POOL = 'pool';
+export const ROOT = 'root';
+export const STATE = 'state';
+export const DAEMON = 'daemon';
+export const DEVICE = 'device';
+export const CHANNEL = 'channel';
+export const SERVICE = 'service';
+export const PROJECT = 'project';
+export const LOCATION = 'location';
+export const CODE = 'code';
+export const TITLE = 'title';
+
+export const LIGHT_220 = 'light_220';
+export const LIGHT_LED = 'light_LED';
+export const BUTTON = 'button';
+export const SENSOR = 'sensor';
+export const MOTION_SENSOR = 'motion_sensor';
+export const SMOCK_SENSOR = 'smock_sensor';
+export const LEAKAGE_SENSOR = 'leakage_sensor';
+export const VALVE_WATER = 'valve_water';
+export const VALVE_HEATING = 'valve_heating';
+export const TV_IR = 'TV_IR';
+export const AC_IR = 'AC_IR';
+export const FAN = 'fan';
+export const SOCKET_220 = 'socket_220';
+export const SOCKET_RJ45 = 'socket_RJ45';
+export const BOILER = 'boiler';
+export const PUMP = 'pump';
+export const ACCESS_POINT = 'access_point';
+export const CAMERA = 'camera';
+export const INTERCOM = 'intercom';
+export const TOUCH_SCREEN_PANEL = 'touch_screen_panel';
+
+export const EQUIPMENT = 'equipment';
+
+export const EQUIPMENT_TYPE = [
+  LIGHT_220,
+  LIGHT_LED,
+  BUTTON,
+  SENSOR,
+  MOTION_SENSOR,
+  SMOCK_SENSOR,
+  LEAKAGE_SENSOR,
+  VALVE_WATER,
+  VALVE_HEATING,
+  TV_IR,
+  AC_IR,
+  FAN,
+  SOCKET_220,
+  SOCKET_RJ45,
+  BOILER,
+  PUMP,
+  ACCESS_POINT,
+  CAMERA,
+  INTERCOM,
+  TOUCH_SCREEN_PANEL
+];
+
+export const INTERFACE = 'interface';
