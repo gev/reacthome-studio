@@ -3,7 +3,7 @@ import { Component } from 'react';
 
 type Props = {
   change: (field: string, value: string) => void,
-  add: (field: string) => void
+  add: (field: string, type: ?string) => void
 };
 
 export default class extends Component<Props> {
@@ -13,7 +13,7 @@ export default class extends Component<Props> {
     change({ [id]: value });
   }
 
-  add = (field) => () => {
-    this.props.add(field);
+  add = (field, type) => () => {
+    this.props.add(field, type);
   }
 }

@@ -26,6 +26,6 @@ export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id }) => bindActionCreators({
     change: (payload) => set(id, payload),
-    add: (field) => create(id, field)
+    add: (field, type) => create(id, field, type)
   }, dispatch)
 )(Container);

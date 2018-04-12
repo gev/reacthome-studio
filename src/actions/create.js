@@ -35,9 +35,14 @@ export const set = (id, payload) => (dispatch, getState) => {
   }));
 };
 
-export const create = (id, field) => (dispatch, getState) => {
+export const create = (id, field, type) => (dispatch, getState) => {
   const subject = uuid();
   const prev = getState()[POOL][id];
+  dispatch(apply({
+    id: subject,
+    type: ACTION_SET,
+    payload: { type }
+  }));
   dispatch(apply({
     id,
     type: ACTION_SET,

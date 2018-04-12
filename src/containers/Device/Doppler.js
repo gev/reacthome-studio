@@ -12,7 +12,7 @@ import type { StyleRules } from 'material-ui';
 import { Line } from 'react-chartjs-2';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setDeviceState } from '../actions';
+import { setDeviceState } from '../../actions';
 
 const optDoppler = {
   responsive: true,

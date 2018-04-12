@@ -55,83 +55,83 @@ export const DIM_TYPES = ['Unplugged', 'Rising edge', 'Falling edge', 'PWM', 'Re
 
 export const DEVICE_TYPES = {
   [DEVICE_TYPE_UNKNOWN]: {
-    name: 'Unknown'
+    title: 'Unknown'
   },
   [DEVICE_TYPE_SENSOR4]: {
-    name: 'Sensor-4',
+    title: 'Sensor-4',
     firmware: 'sensor4',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_SENSOR6]: {
-    name: 'Sensor-6',
+    title: 'Sensor-6',
     firmware: 'sensor6',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_THI]: {
-    name: 'THI',
+    title: 'THI',
     firmware: 'thi'
   },
   [DEVICE_TYPE_DOPPLER]: {
-    name: 'Doppler',
+    title: 'Doppler',
     firmware: 'doppler'
   },
   [DEVICE_TYPE_DMX]: {
-    name: 'DMX',
+    title: 'DMX',
     firmware: 'dmx',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_RS485]: {
-    name: 'RS-485',
+    title: 'RS-485',
     firmware: 'rs485',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_IR6]: {
-    name: 'IR-6',
+    title: 'IR-6',
     firmware: 'ir6',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DI16]: {
-    name: 'DI-16',
+    title: 'DI-16',
     firmware: 'di16',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DI32]: {
-    name: 'DI-32',
+    title: 'DI-32',
     firmware: 'di32',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DO8]: {
-    name: 'DO-8',
+    title: 'DO-8',
     firmware: 'do8',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DO16]: {
-    name: 'DO-16',
+    title: 'DO-16',
     firmware: 'do16',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DI16_DO8]: {
-    name: 'DI-16 / DO-8',
+    title: 'DI-16 / DO-8',
     firmware: 'di16_do8',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DO8_DI16]: {
-    name: 'DO-8 / DI-16',
+    title: 'DO-8 / DI-16',
     firmware: 'do8_di16',
     hasFindMeAction: true,
   },
   [DEVICE_TYPE_DIM4]: {
-    name: 'Dimmer-4',
+    title: 'Dimmer-4',
     firmware: 'dim4',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_BOOTLOADER]: {
-    name: 'Bootloader',
+    title: 'Bootloader',
     firmware: 'bootloader',
     hasFindMeAction: true
   },
   undefined: {
-    name: 'Outdated'
+    title: 'Outdated'
   }
 };
 

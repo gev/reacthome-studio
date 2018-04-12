@@ -11,7 +11,7 @@ export default class extends AbstractDetails {
     const { project, id, location } = this.props;
     return (
       <div>
-        <DetailSection title={LOCATION} action={<ToolbarIcon use="add" onClick={this.add(LOCATION)} />}>
+        <DetailSection title={LOCATION} action={<ToolbarIcon use="add" onClick={this.add(LOCATION, LOCATION)} />}>
           {
             location && (
               location.map(i => (
