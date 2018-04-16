@@ -41,7 +41,7 @@ const Row = connect((props: RowProps) => {
 
   const onoff = (event) => {
     request({
-      type: ACTION_DIMMER, action: event.target.value ? DIM_ON : DIM_OFF, id, index
+      type: ACTION_DIMMER, action: event.target.checked ? DIM_ON : DIM_OFF, id, index
     });
   };
 
@@ -51,13 +51,17 @@ const Row = connect((props: RowProps) => {
         <Typography use="caption">{index}</Typography>
       </td>
       <td>
-        <Switch checked={!!value} onClick={setValue} onChange={onoff} />
+        <Switch checked={!!value} onChange={onoff} />
       </td>
       <td width="100%">
-        <Slider value={value || 0} min={0} max={255} step={1} onChange={setValue} />
-      </td>
-      <td>
-        <Typography use="title">{value || 0}</Typography>
+        <Slider
+          min={0}
+          step={1}
+          max={255}
+          value={value || 0}
+          onInput={setValue}
+          displayMarkers
+        />
       </td>
       <td>
         <SimpleMenu handle={<Button>{DIM_TYPES[type] || 'Type'}</Button>}>

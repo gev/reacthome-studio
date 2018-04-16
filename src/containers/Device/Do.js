@@ -37,7 +37,7 @@ const Cell = connect((props: CellProps) => {
   return (
     <td>
       <div><Typography use="caption">{index}</Typography></div>
-      <div><Switch checked={!!value} onClick={setValue} /></div>
+      <div><Switch checked={!!value} onChange={setValue} /></div>
     </td>
   );
 });

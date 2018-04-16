@@ -45,6 +45,6 @@ class Projects extends Component<Props> {
 export default connect(
   ({ pool }) => ({ project: ((pool.root || {}).project || []).map(id => ({ id, ...pool[id] })) }),
   (dispatch) => bindActionCreators({
-    createProject: () => create(ROOT, PROJECT)
+    createProject: () => create(ROOT, PROJECT, PROJECT)
   }, dispatch)
 )(Projects);
