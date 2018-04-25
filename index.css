@@ -18,11 +18,114 @@ html, body, #app {
   cursor: default;
 }
 
+table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 0.5rem; 
+}
+
 .container {
   widows: 100%;
   height: 100%;
 }
 
+.content {
+}
+
 .paper {
   padding: 1rem;
+}
+
+.grid {
+  width: 100vw;
+}
+
+.grid-cell {
+  padding: 0.5rem;
+  min-height: 1.2rem;
+  max-height: 1.2rem;
+  white-space: nowrap;
+  border: #eee solid 1px;
+  /* background-color: #fff; */
+}
+
+.grid-cell-header {
+  background-color: #eee;
+  border: #ddd solid 1px;
+}
+
+.grid-cell-hover {
+  background-color: #ddd;
+  border: #ccc solid 1px;
+}
+
+.grid-cell:hover {
+  border: #333 solid 1px;
+}
+
+.grid td  {
+  padding: 0;
+  border: none;
+}
+
+.grid th {
+  padding: 0;
+  border: none;
+  position: sticky;
+  top: 64px;
+}
+
+.grid-column {
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 4px 0 5px 0 rgba(0,0,0,.14), 1px 0 10px 0 rgba(0,0,0,.12);
+  position: sticky;
+  width: 20%;
+  right: -80%;
+  left: 0;
+}
+
+.grid-column table {
+  width: 100%;  
+}
+
+.grid-column td .grid-cell {
+  text-align: left;
+}
+
+.grid-body td .grid-cell {
+  text-align: center;
+}
+
+.grid-body {
+  display: inline-block;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  padding-left: 20%;
+  width: 80%;
+}
+
+.offline {
+  opacity: 0.5;
+}
+
+.level-0 {
+  background-color: #f8f8f8
+}
+
+.dropzone-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+
+.dropzone {
+  height: 100%;
+  width: 100%;
 }
