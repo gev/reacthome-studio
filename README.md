@@ -1,1 +1,1 @@
-# reacthome-devices
+# reacthome-electron
