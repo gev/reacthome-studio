@@ -13,14 +13,15 @@ type Props = {
 };
 
 class GridCell extends Component<Props> {
-  to = (id, field) => () => {
-    this.props.to(id, field);
+  click = () => {
+    const { id, field, to } = this.props;
+    to(id, field);
   }
 
   render() {
-    const { id, count, field } = this.props;
+    const { count } = this.props;
     return (
-      <div className="grid-cell" onClick={this.to(id, field)}>
+      <div className="grid-cell" onClick={this.click}>
         <Typography use="caption">{count || ''}</Typography>
       </div>
     );
@@ -36,7 +37,7 @@ const Row = connect(
     };
   },
   (dispatch, { project }) => bindActionCreators({
-    to: (location, field) => push(`/project/${project}/${location}/${field}`)
+    to: (site, field) => push(`/project/${project}/${site}/${field}`)
   }, dispatch)
 )(GridCell);
 

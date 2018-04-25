@@ -50,20 +50,21 @@ td {
   max-height: 1.2rem;
   white-space: nowrap;
   border: #eee solid 1px;
-  background-color: #fff;
+  /* background-color: #fff; */
+}
+
+.grid-cell-header {
+  background-color: #eee;
+  border: #ddd solid 1px;
+}
+
+.grid-cell-hover {
+  background-color: #ddd;
+  border: #ccc solid 1px;
 }
 
 .grid-cell:hover {
-  transition-property: background-color;
-  transition-duration: 100ms;
-  background-color: #eee;
-}
-
-th .grid-cell {
-  padding: 0.5rem;
-  white-space: nowrap;
-  background-color: #eee;
-  border: #ddd solid 1px;
+  border: #333 solid 1px;
 }
 
 .grid td  {
@@ -111,4 +112,20 @@ th .grid-cell {
 
 .offline {
   opacity: 0.5;
+}
+
+.level-0 {
+  background-color: #f8f8f8
+}
+
+.dropzone-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+
+.dropzone {
+  height: 100%;
+  width: 100%;
 }

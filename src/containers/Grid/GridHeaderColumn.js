@@ -4,28 +4,31 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import Typography from 'rmwc/Typography';
-import { LOCATION } from '../../constants';
+import { SITE } from '../../constants';
 
 type Props = {
   project: string,
-  location: [],
+  site: [],
   level: ?number,
-  to: (location: string) => void
+  selected: ?string;
+  to: (site: string) => void
 };
 
 class GridHeaderColumn extends Component<Props> {
-  to = (location) => () => {
-    this.props.to(location);
+  to = (site) => () => {
+    this.props.to(site);
   }
 
   render() {
-    const { project, location, level = 0 } = this.props;
+    const {
+      project, site, level = 0, selected
+    } = this.props;
     return (
-      location.map(l => [
-        <tr key={l.id}>
+      site.map(l => [
+        <tr key={l.id} className={level === 0 ? 'level-0' : ''}>
           <td>
             <div
-              className="grid-cell"
+              className={`grid-cell ${l.id === selected ? 'grid-cell-hover' : ''}`}
               style={{ textIndent: 24 * level }}
               onClick={this.to(l.id)}
             >
@@ -33,7 +36,7 @@ class GridHeaderColumn extends Component<Props> {
             </div>
           </td>
         </tr>,
-        <Row key={`sub-${l.id}`} id={l.id} level={level + 1} project={project} />
+        <Row key={`sub-${l.id}`} id={l.id} level={level + 1} project={project} selected={selected}/>
       ])
     );
   }
@@ -41,11 +44,11 @@ class GridHeaderColumn extends Component<Props> {
 
 const Row = connect(
   ({ pool }, { id }) => ({
-    location: ((pool[id] || {}).location || []).map(i =>
+    site: ((pool[id] || {}).site || []).map(i =>
       ({ id: i, ...pool[i] }))
   }),
   (dispatch, { project }) => bindActionCreators({
-    to: (location) => push(`/project/${project}/${location}/${LOCATION}`)
+    to: (site) => push(`/project/${project}/${site}/${SITE}`)
   }, dispatch)
 )(GridHeaderColumn);
 

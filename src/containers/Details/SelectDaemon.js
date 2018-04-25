@@ -3,19 +3,21 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SimpleMenu, MenuItem } from 'rmwc/Menu';
-import { ROOT, DAEMON } from '../../constants';
+import { ROOT, DAEMON, PROJECT } from '../../constants';
 import { set } from '../../actions';
 
 type Props = {
+  id: string,
   options: [],
   handle: Component,
-  change: (payload: {}) => void
+  set: (id: string, payload: {}) => void
 };
 
 class Container extends Component<Props> {
   change = (value) => () => {
-    const { change } = this.props;
-    change({ [DAEMON]: value });
+    const { id } = this.props;
+    this.props.set(id, { [DAEMON]: value });
+    this.props.set(value, { [PROJECT]: id });
   }
 
   render() {
@@ -42,7 +44,5 @@ export default connect(
       };
     })
   }),
-  (dispatch, { id }) => bindActionCreators({
-    change: (payload) => set(id, payload),
-  }, dispatch)
+  (dispatch) => bindActionCreators({ set }, dispatch)
 )(Container);

@@ -1,6 +1,4 @@
 
-export { default as Apps } from './Apps';
-export { default as AppManager } from './AppManager';
 export { default as ServiceManager } from './ServiceManager';
 export { default as Projects } from './Projects';
 export { default as Project } from './Project';

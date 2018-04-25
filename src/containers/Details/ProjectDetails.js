@@ -3,14 +3,14 @@ import React from 'react';
 import { ToolbarIcon, } from 'rmwc/Toolbar';
 import Card from './Card';
 import SelectDaemon from './SelectDaemon';
-import { LOCATION, DAEMON } from '../../constants';
+import { SITE, DAEMON } from '../../constants';
 import DetailSection from './DetailSection';
 import AbstractDetails from './AbstractDetails';
 
 export default class extends AbstractDetails {
   render() {
     const {
-      project, id, daemon, location
+      project, id, daemon, site
     } = this.props;
     return (
       <div>
@@ -28,11 +28,11 @@ export default class extends AbstractDetails {
             daemon && <Card id={daemon} project={project} parent={id} field={DAEMON} />
           }
         </DetailSection>
-        <DetailSection title={LOCATION} action={<ToolbarIcon use="add" onClick={this.add(LOCATION, LOCATION)} />}>
+        <DetailSection title={SITE} action={<ToolbarIcon use="add" onClick={this.add(SITE, SITE)} />}>
           {
-            location && (
-              location.map(i => (
-                <Card key={i} id={i} project={project} parent={id} field={LOCATION} multiple />
+            site && (
+              site.map(i => (
+                <Card key={i} id={i} project={project} parent={id} field={SITE} multiple />
               ))
             )
           }

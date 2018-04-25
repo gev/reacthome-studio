@@ -60,7 +60,6 @@ const Row = connect((props: RowProps) => {
           max={255}
           value={value || 0}
           onInput={setValue}
-          displayMarkers
         />
       </td>
       <td>

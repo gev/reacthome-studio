@@ -1,11 +1,12 @@
 
-import fs from 'fs';
+import path from 'path';
+import { writeFile, createReadStream, createWriteStream } from 'fs';
 import { v4 as uuid } from 'uuid';
 import { contains } from 'fast-deep-equal';
 import { FILE, POOL, ACTION_SET } from '../constants';
 
 const store = (state) => {
-  fs.writeFile(FILE, JSON.stringify(state[POOL], null, 2), err => {
+  writeFile(FILE, JSON.stringify(state[POOL], null, 2), err => {
     if (err) console.error(err);
   });
 };
@@ -62,4 +63,16 @@ export const remove = (id, field, subject) => (dispatch, getState) => {
       [field]: prev[field].filter(i => i !== subject)
     }
   }));
+};
+
+export const attach = (id, field, file) => (dispatch) => {
+  const name = uuid() + path.parse(file).ext;
+  const rs = createReadStream(file);
+  const ws = createWriteStream(path.join('./tmp/assets', name));
+  rs.on('error', console.error);
+  ws.on('error', console.error);
+  ws.on('close', () => {
+    dispatch(set(id, { [field]: name }));
+  });
+  rs.pipe(ws);
 };

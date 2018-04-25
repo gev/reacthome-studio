@@ -143,9 +143,10 @@ export const DEVICE = 'device';
 export const CHANNEL = 'channel';
 export const SERVICE = 'service';
 export const PROJECT = 'project';
-export const LOCATION = 'location';
+export const SITE = 'site';
 export const CODE = 'code';
 export const TITLE = 'title';
+export const IMAGE = 'image';
 
 export const LIGHT_220 = 'light_220';
 export const LIGHT_LED = 'light_LED';
