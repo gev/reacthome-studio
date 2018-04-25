@@ -1,6 +1,10 @@
 
 import React from 'react';
+import { Daemons, Projects } from '../containers';
 
 export default () => (
-  <div />
+  <div>
+    <Projects />
+    <Daemons />
+  </div>
 );

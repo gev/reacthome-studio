@@ -1,1 +1,1 @@
-# reacthome-electron
+# reacthome-studio
