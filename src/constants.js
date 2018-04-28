@@ -16,3 +16,7 @@ export const ACTION_GET = 'ACTION_GET';
 export const ACTION_SET = 'ACTION_SET';
 
 export const APP_TYPE_DAEMON = 0x00;
+
+export const POOL = 'pool';
+export const ROOT = 'root';
+export const DAEMON = 'daemon';
