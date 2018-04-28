@@ -16,7 +16,7 @@ import {
 } from 'rmwc/Card';
 import { TextField } from 'rmwc/TextField';
 import { remove, set, attach } from '../../actions';
-import { TITLE, CODE, IMAGE } from '../../constants';
+import { asset, TITLE, CODE, IMAGE } from '../../constants';
 import { height } from 'window-size';
 
 type Props = {
@@ -47,7 +47,7 @@ class Container extends Component<Props> {
     } = this.props;
     return (
       <Card>
-        <CardMedia sixteenByNine style={{ backgroundImage: `url(./tmp/assets/${image}` }}>
+        <CardMedia sixteenByNine style={{ backgroundImage: `url(${asset(image)})` }}>
           <div className="dropzone-container">
             <Dropzone className="dropzone" accept="image/jpeg, image/png" onDrop={this.attachImage} multiple={false} />
           </div>
