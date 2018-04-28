@@ -138,11 +138,9 @@ export const DEVICE_TYPES = {
 
 export const POOL = 'pool';
 export const ROOT = 'root';
-export const STATE = 'state';
 export const DAEMON = 'daemon';
 export const DEVICE = 'device';
 export const CHANNEL = 'channel';
-export const SERVICE = 'service';
 export const PROJECT = 'project';
 export const SITE = 'site';
 export const CODE = 'code';
