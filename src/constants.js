@@ -5,9 +5,6 @@ import { remote } from 'electron';
 export const FILE = path.join(remote.app.getAppPath(), 'tmp', 'state.json');
 export const asset = (a = '') => path.join(remote.app.getAppPath(), 'tmp', 'assets', a);
 
-export const DEVICE_PORT = 2017;
-export const DEVICE_GROUP = '224.0.0.1';
-
 export const SERVICE_PORT = 2018;
 export const SERVICE_GROUP = '224.0.0.2';
 
