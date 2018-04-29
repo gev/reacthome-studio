@@ -16,38 +16,3 @@ html, body, #app {
   color: #333333;
   cursor: default;
 }
-
-table {
-  width: 100%;
-  text-align: center;
-  border-collapse: collapse;
-}
-
-td {
-  padding: 0.5rem; 
-}
-
-.container {
-  widows: 100%;
-  height: 100%;
-}
-
-.paper {
-  padding: 1rem;
-}
-
-.offline {
-  opacity: 0.5;
-}
-
-.dropzone-container {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-}
-
-.dropzone {
-  height: 100%;
-  width: 100%;
-}
