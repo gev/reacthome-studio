@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { EQUIPMENT_TYPE } from '../../constants';
 import GridCell from './GridCell';
+import style from './grid.css';
 
 type Props = {
   site: [],
@@ -18,7 +19,7 @@ class GridBody extends Component<Props> {
     } = this.props;
     return (
       site.map(l => [
-        <tr key={l} className={level === 0 ? 'level-0' : ''}>
+        <tr key={l} className={level === 0 ? style.level0 : ''}>
           {
             EQUIPMENT_TYPE.map(p => (
               <td key={p} onMouseEnter={onSelect(l, p)} onMouseLeave={onSelect()}>

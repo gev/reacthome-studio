@@ -4,6 +4,7 @@ import { Typography } from 'rmwc/Typography';
 import GridHeaderColumn from './GridHeaderColumn';
 import GridHeaderRow from './GridHeaderRow';
 import GridBody from './GridBody';
+import style from './grid.css';
 
 type Props = {
   project: string
@@ -25,8 +26,8 @@ export default class extends Component<Props, State> {
     const { project } = this.props;
     const { site, field } = this.state;
     return (
-      <div className="grid">
-        <div className="grid-body">
+      <div className={style.grid}>
+        <div className={style.gridBody}>
           <table>
             <GridHeaderRow selected={field} />
             <tbody>
@@ -34,12 +35,12 @@ export default class extends Component<Props, State> {
             </tbody>
           </table>
         </div>
-        <div className="grid-column">
+        <div className={style.gridColumn}>
           <table>
             <thead>
               <tr>
                 <th>
-                  <div className="grid-cell grid-cell-header">
+                  <div className={`${style.gridCell} ${style.gridCellHeader}`}>
                     <Typography use="caption">site</Typography>
                   </div>
                 </th>

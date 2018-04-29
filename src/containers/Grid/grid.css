@@ -1,0 +1,74 @@
+
+.grid {
+  width: 100vw;
+}
+
+.gridCell {
+  padding: 0.5rem;
+  min-height: 1.2rem;
+  max-height: 1.2rem;
+  white-space: nowrap;
+  border: #eee solid 1px;
+  /* background-color: #fff; */
+}
+
+.gridCellHeader {
+  background-color: #eee;
+  border: #ddd solid 1px;
+}
+
+.gridCellHover {
+  background-color: #ddd;
+  border: #ccc solid 1px;
+}
+
+.gridCell:hover {
+  border: #333 solid 1px;
+}
+
+.grid td  {
+  padding: 0;
+  border: none;
+}
+
+.grid th {
+  padding: 0;
+  border: none;
+  position: sticky;
+  top: 64px;
+}
+
+.gridColumn {
+  display: inline-block;
+  background-color: #fff;
+  box-shadow: 4px 0 5px 0 rgba(0,0,0,.14), 1px 0 10px 0 rgba(0,0,0,.12);
+  position: sticky;
+  width: 20%;
+  right: -80%;
+  left: 0;
+}
+
+.gridColumn table {
+  width: 100%;  
+}
+
+.gridColumn td .gridCell {
+  text-align: left;
+}
+
+.gridBody td .gridCell {
+  text-align: center;
+}
+
+.gridBody {
+  display: inline-block;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  padding-left: 20%;
+  width: 80%;
+}
+
+.level0 {
+  background-color: #f8f8f8
+}
