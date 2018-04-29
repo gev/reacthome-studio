@@ -35,15 +35,31 @@ const config = {
       },
       {
         test: /\.css$/,
+        exclude: [
+          path.resolve('./node_modules/material-components-web'),
+          path.resolve('./node_modules/@material')
+        ],
         loader: 'style-loader'
       },
       {
         test: /\.css$/,
+        exclude: [
+          path.resolve('./node_modules/material-components-web'),
+          path.resolve('./node_modules/@material')
+        ],
         loader: 'css-loader',
         query: {
           modules: true,
           localIdentName: '[name]__[local]___[hash:base64:5]'
         }
+      },
+      {
+        test: /\.css$/,
+        include: [
+          path.resolve('./node_modules/material-components-web'),
+          path.resolve('./node_modules/@material')
+        ],
+        use: ['style-loader', 'css-loader']
       }]
   },
   plugins: [
