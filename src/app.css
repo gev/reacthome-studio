@@ -1,6 +1,5 @@
 /* @import "~ubuntu-fontface/ubuntu.css"; */
-@import "node_modules/material-components-web/dist/material-components-web.min.css";
-@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+/* @import "https://fonts.googleapis.com/icon?family=Material+Icons"; */
 * {
   user-select: none;
 }
