@@ -1,10 +1,10 @@
-var path = require('path');
-var webpack = require('webpack');
-var express = require('express');
-var config = require('./webpack.config');
+const path = require('path');
+const webpack = require('webpack');
+const express = require('express');
+const config = require('./webpack.config.dev');
 
-var app = express();
-var compiler = webpack(config);
+const app = express();
+const compiler = webpack(config);
 
 const port = process.env.PORT || 8080;
 
@@ -17,11 +17,11 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(port, function(err) {
+app.listen(port, (err) => {
   if (err) {
     return console.error(err);
   }

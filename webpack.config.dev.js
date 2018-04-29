@@ -1,17 +1,21 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
+const port = process.env.PORT || '8080';
 
 const config = {
   context: __dirname,
+  devtool: '#source-map',
   entry: [
     'babel-polyfill',
     path.resolve(__dirname, './renderer.js'),
+    `webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
   ],
   target: 'electron-renderer',
   output: {
     filename: 'renderer.bundle.js',
     path: path.join(__dirname, 'bundle'),
+    publicPath: `http://localhost:${port}/bundle/`,
     libraryTarget: 'commonjs2'
   },
   module: {
@@ -25,7 +29,7 @@ const config = {
         ],
         exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react'],
+          presets: ['es2015', 'react', 'react-hmre'],
           plugins: ['transform-object-rest-spread', 'transform-class-properties']
         }
       },
@@ -47,10 +51,7 @@ const config = {
       }]
   },
   plugins: [
-    new UglifyJSPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    })
+    new webpack.HotModuleReplacementPlugin(),
   ]
 };
 
