@@ -11,7 +11,6 @@ import { Main, ServiceManager } from './containers';
 import { FILE, POOL } from './constants';
 import createStore from './store';
 import reducer from './reducer';
-import './app.css';
 
 const history = createHashHistory();
 const store = createStore(reducer, { [POOL]: JSON.parse(fs.readFileSync(FILE)) }, history);
