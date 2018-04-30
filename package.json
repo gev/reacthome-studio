@@ -52,7 +52,6 @@
     "fast-deep-equal": "gev/fast-deep-equal",
     "history": "^4.7.2",
     "ip": "gev/ip",
-    "material-design-icons": "^3.0.1",
     "react": "^16.2.0",
     "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.2.0",
