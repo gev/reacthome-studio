@@ -1,7 +1,5 @@
 /* @import "~ubuntu-fontface/ubuntu.css"; */
 /* @import "https://fonts.googleapis.com/icon?family=Material+Icons"; */
-@import "~material-components-web/dist/material-components-web.min.css";
-/* @import "~material-design-icons/iconfont/material-icons.css"; */
 * {
   user-select: none;
 }
