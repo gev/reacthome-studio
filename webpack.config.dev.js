@@ -64,6 +64,10 @@ const config = {
           path.resolve('./node_modules/@material')
         ],
         use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|svg)$/,
+        loader: 'file?name=fonts/[name].[ext]'
       }]
   },
   plugins: [
