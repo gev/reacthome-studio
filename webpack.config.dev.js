@@ -38,11 +38,6 @@ const config = {
         loader: 'json-loader'
       },
       {
-        test: /\.(woff|woff2|eot|ttf|svg)$/,
-        // loader: 'file?name=[name].[ext]'
-        loader: 'file?name=[name].[ext]'
-      },
-      {
         test: /\.css$/,
         exclude: [
           path.resolve('./node_modules/material-components-web'),

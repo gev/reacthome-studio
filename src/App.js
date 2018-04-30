@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router';
 import { createHashHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
 import { RMWCProvider } from 'rmwc/Provider';
+import 'material-components-web/dist/material-components-web.min.css';
 import { Main, Project, ServiceManager } from './containers';
 import { FILE, POOL } from './constants';
 import createStore from './store';
