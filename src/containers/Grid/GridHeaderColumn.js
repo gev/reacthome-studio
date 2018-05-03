@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import Typography from 'rmwc/Typography';
 import { SITE } from '../../constants';
-import style from './grid.css';
+import styles from './grid.css';
 
 type Props = {
   project: string,
@@ -26,10 +26,10 @@ class GridHeaderColumn extends Component<Props> {
     } = this.props;
     return (
       site.map(l => [
-        <tr key={l.id} className={level === 0 ? style.level0 : ''}>
+        <tr key={l.id} className={level === 0 ? styles.level0 : ''}>
           <td>
             <div
-              className={`${style.gridCell} ${l.id === selected ? style.gridCellHover : ''}`}
+              className={`${styles.gridCell} ${l.id === selected ? styles.gridCellHover : ''}`}
               style={{ textIndent: 24 * level }}
               onClick={this.to(l.id)}
             >

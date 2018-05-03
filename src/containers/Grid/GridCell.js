@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import Typography from 'rmwc/Typography';
-import style from './grid.css';
+import styles from './grid.css';
 
 type Props = {
   id: string,
@@ -22,7 +22,7 @@ class GridCell extends Component<Props> {
   render() {
     const { count } = this.props;
     return (
-      <div className={style.gridCell} onClick={this.click}>
+      <div className={styles.gridCell} onClick={this.click}>
         <Typography use="caption">{count || ''}</Typography>
       </div>
     );
