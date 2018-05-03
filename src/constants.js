@@ -14,6 +14,7 @@ export const ACTION_DISCOVERY = 0xf0;
 
 export const ACTION_GET = 'ACTION_GET';
 export const ACTION_SET = 'ACTION_SET';
+export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 
 export const APP_TYPE_DAEMON = 0x00;
 
