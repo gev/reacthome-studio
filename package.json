@@ -54,6 +54,7 @@
     "ip": "gev/ip",
     "koa": "^2.5.1",
     "koa-static": "^4.0.2",
+    "node-fetch": "^2.1.2",
     "react": "^16.2.0",
     "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.2.0",

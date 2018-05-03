@@ -1,14 +1,16 @@
 
 import fs from 'fs';
+import fetch from 'node-fetch';
 import { createSocket } from 'dgram';
 import { online } from './status';
 import {
-  asset,
   POOL,
   ACTION_GET,
   ACTION_SET,
   ACTION_DOWNLOAD,
   ACTION_DISCOVERY,
+  SERVICE_PORT,
+  asset
 } from '../constants';
 import { set } from './create';
 
@@ -32,6 +34,20 @@ export const dispatchAction = (action, port, ip) => (dispatch, getState) => {
     }
     case ACTION_SET: {
       dispatch(set(id, payload));
+      break;
+    }
+    case ACTION_DOWNLOAD: {
+      const { name } = action;
+      const file = asset(name);
+      fs.exists(file, (exists) => {
+        if (exists) return;
+        fetch(`http://${ip}:${SERVICE_PORT}/${name}`)
+          .then(res => {
+            if (res.status !== 200) return;
+            res.body.pipe(fs.createWriteStream(file));
+          })
+          .catch(console.err);
+      });
       break;
     }
     default:
