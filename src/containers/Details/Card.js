@@ -1,6 +1,4 @@
 
-import { post } from 'request';
-import { createReadStream } from 'fs';
 import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
@@ -17,7 +15,6 @@ import {
 import { TextField } from 'rmwc/TextField';
 import { remove, set, attach } from '../../actions';
 import { asset, TITLE, CODE, IMAGE } from '../../constants';
-import { height } from 'window-size';
 
 type Props = {
   code: ?string,

@@ -1,10 +1,13 @@
 
+import fs from 'fs';
 import { createSocket } from 'dgram';
 import { online } from './status';
 import {
+  asset,
   ACTION_DISCOVERY,
   ACTION_GET, POOL,
   ACTION_SET,
+  ACTION_BOOTLOAD,
 } from '../constants';
 import { set } from './create';
 
@@ -55,6 +58,11 @@ const sendSubjectTree = (id, subject, pool, port, ip, a) => {
       });
     } else if (v) {
       sendSubjectTree(v, pool[v], pool, port, ip, a);
+      if (typeof v !== 'string') return;
+      fs.exists(asset(v), (exists) => {
+        if (!exists) return;
+        send({ type: ACTION_BOOTLOAD, name: v }, port, ip);
+      });
     }
   });
   sendSubject(id, subject, port, ip);
