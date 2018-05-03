@@ -4,10 +4,11 @@ import { createSocket } from 'dgram';
 import { online } from './status';
 import {
   asset,
-  ACTION_DISCOVERY,
-  ACTION_GET, POOL,
+  POOL,
+  ACTION_GET,
   ACTION_SET,
   ACTION_DOWNLOAD,
+  ACTION_DISCOVERY,
 } from '../constants';
 import { set } from './create';
 
