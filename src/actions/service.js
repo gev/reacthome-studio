@@ -67,6 +67,12 @@ const sendSubject = (id, payload, port, ip) => {
 const sendSubjectTree = (id, subject, pool, port, ip, a) => {
   if (a.includes(id)) return;
   a.push(id);
+  Object.keys(pool).forEach(k => {
+    const t = k.split('/');
+    if (t.length > 1 && t[0] === id) {
+      sendSubjectTree(k, pool[k], pool, port, ip, a);
+    }
+  });
   if (!subject) return;
   Object.values(subject).forEach(v => {
     if (Array.isArray(v)) {

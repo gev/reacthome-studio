@@ -2,13 +2,26 @@
 import path from 'path';
 import { remote } from 'electron';
 
-export const FILE = path.join(remote.app.getAppPath(), 'tmp', 'state.json');
 export const asset = (a = '') => path.join(remote.app.getAppPath(), 'tmp', 'assets', a);
+export const tmp = (a) => path.join(remote.app.getAppPath(), 'tmp', a);
+export const FILE = tmp('state.json');
 
 export const SERVICE_PORT = 2018;
 export const SERVICE_GROUP = '224.0.0.2';
 
 export const DISCOVERY_INTERVAL = 1000;
+
+export const ACTION = 'action';
+
+export const ACTION_GET = 'ACTION_GET';
+export const ACTION_SET = 'ACTION_SET';
+export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
+
+export const ACTION_LIGHT_ON = 'ACTION_LIGHT_ON';
+export const ACTION_LIGHT_OFF = 'ACTION_LIGHT_OFF';
+export const ACTION_LIGHT_SET = 'ACTION_LIGHT_SET';
+export const ACTION_SITE_LIGHT_OFF = 'ACTION_SITE_LIGHT_OFF';
+export const ACTION_SETPOINT = 'ACTION_SETPOINT';
 
 export const ACTION_DO = 0x00;
 export const ACTION_DIMMER = 0xd0;
@@ -17,10 +30,6 @@ export const ACTION_READY = 0xf1;
 export const ACTION_FIND_ME = 0xfa;
 export const ACTION_BOOTLOAD = 0xfb;
 export const ACTION_ERROR = 0xff;
-
-export const ACTION_GET = 'ACTION_GET';
-export const ACTION_SET = 'ACTION_SET';
-export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 
 export const APP_TYPE_DAEMON = 0x00;
 
@@ -39,7 +48,12 @@ export const DEVICE_TYPE_DO16 = 0x0b;
 export const DEVICE_TYPE_DI16_DO8 = 0x0c;
 export const DEVICE_TYPE_DO8_DI16 = 0x0d;
 export const DEVICE_TYPE_DIM4 = 0x0e;
+export const DEVICE_TYPE_PLC = 0xfe;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
+
+export const DI_OFF = 0x0;
+export const DI_ON = 0x1;
+export const DI_HOLD = 0x2;
 
 export const DIM_OFF = 0x0;
 export const DIM_ON = 0x1;
@@ -127,6 +141,11 @@ export const DEVICE_TYPES = {
     firmware: 'dim4',
     hasFindMeAction: true
   },
+  [DEVICE_TYPE_PLC]: {
+    title: 'PLC',
+    firmware: 'plc',
+    hasFindMeAction: false,
+  },
   [DEVICE_TYPE_BOOTLOADER]: {
     title: 'Bootloader',
     firmware: 'bootloader',
@@ -144,32 +163,40 @@ export const DEVICE = 'device';
 export const CHANNEL = 'channel';
 export const PROJECT = 'project';
 export const SITE = 'site';
+export const SCENE = 'scene';
 export const CODE = 'code';
 export const TITLE = 'title';
 export const IMAGE = 'image';
+export const MAIN_URL = 'main_URL';
+export const PREVIEW_URL = 'preview_URL';
 
+export const LIGHT = 'light';
 export const LIGHT_220 = 'light_220';
 export const LIGHT_LED = 'light_LED';
 export const BUTTON = 'button';
 export const SENSOR = 'sensor';
-export const MOTION_SENSOR = 'motion_sensor';
 export const SMOCK_SENSOR = 'smock_sensor';
+export const MOTION_SENSOR = 'motion_sensor';
 export const LEAKAGE_SENSOR = 'leakage_sensor';
-export const VALVE_WATER = 'valve_water';
 export const VALVE_HEATING = 'valve_heating';
-export const TV_IR = 'TV_IR';
-export const AC_IR = 'AC_IR';
-export const FAN = 'fan';
+export const VALVE_WATER = 'valve_water';
 export const SOCKET_220 = 'socket_220';
-export const SOCKET_RJ45 = 'socket_RJ45';
 export const BOILER = 'boiler';
 export const PUMP = 'pump';
+export const FAN = 'fan';
+export const TV_IR = 'TV_IR';
+export const AC_IR = 'AC_IR';
+export const SOCKET_RJ45 = 'socket_RJ45';
 export const ACCESS_POINT = 'access_point';
 export const CAMERA = 'camera';
 export const INTERCOM = 'intercom';
 export const TOUCH_SCREEN_PANEL = 'touch_screen_panel';
 
 export const EQUIPMENT = 'equipment';
+
+export const DO = 'do';
+export const DI = 'di';
+export const DIM = 'dim';
 
 export const EQUIPMENT_TYPE = [
   LIGHT_220,
@@ -192,6 +219,14 @@ export const EQUIPMENT_TYPE = [
   CAMERA,
   INTERCOM,
   TOUCH_SCREEN_PANEL
+];
+
+export const ACTION_TYPE = [
+  ACTION_LIGHT_OFF,
+  ACTION_LIGHT_ON,
+  ACTION_LIGHT_SET,
+  ACTION_SITE_LIGHT_OFF,
+  ACTION_SETPOINT
 ];
 
 export const INTERFACE = 'interface';

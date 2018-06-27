@@ -1,10 +1,12 @@
 
 import React from 'react';
-import { SITE, PROJECT, DAEMON } from '../../constants';
-import SiteDetails from './SiteDetails';
-import ProjectDetails from './ProjectDetails';
-import DaemonDetails from './DaemonDetails';
-import FieldDetails from './FieldDetails';
+import { SITE, PROJECT, DAEMON, SENSOR, SCENE } from '../../constants';
+import SiteDetails from './DetailsSite';
+import ProjectDetails from './DetailsProject';
+import DaemonDetails from './DetailsDaemon';
+import FieldDetails from './DetailsField';
+import SensorDetails from './DetailsSensor';
+import SceneDetails from './DetailsScene';
 
 type Props = {
   type: ?string,
@@ -16,6 +18,8 @@ export default (props: Props) => {
   if (!field && type === PROJECT) return <ProjectDetails {...props} />;
   if (!field && type === SITE) return <SiteDetails {...props} />;
   if (!field && type === DAEMON) return <DaemonDetails {...props} />;
+  if (!field && type === SCENE) return <SceneDetails {...props} />;
+  if (field === SENSOR) return <SensorDetails {...props} />;
   if (field) return <FieldDetails {...props} />;
   return null;
 };

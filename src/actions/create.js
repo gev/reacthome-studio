@@ -1,15 +1,20 @@
 
 import path from 'path';
-import { writeFile, createReadStream, createWriteStream } from 'fs';
+import { writeFile, createReadStream, createWriteStream, rename } from 'fs';
 import { v4 as uuid } from 'uuid';
 import { contains } from 'fast-deep-equal';
-import { asset, FILE, POOL, ACTION_SET } from '../constants';
+import debounce from 'debounce';
+import { asset, tmp, FILE, POOL, ACTION_SET } from '../constants';
 
-const store = (state) => {
-  writeFile(FILE, JSON.stringify(state[POOL], null, 2), err => {
-    if (err) console.error(err);
+const store = debounce((state) => {
+  const file = tmp(uuid());
+  writeFile(file, Buffer.from(JSON.stringify(state[POOL], null, 2)), e1 => {
+    if (e1) console.error(e1);
+    rename(file, FILE, e2 => {
+      if (e2) console.error('error', e2);
+    });
   });
-};
+}, 1000, true);
 
 const apply = (action) => (dispatch, getState) => {
   dispatch(action);
@@ -17,6 +22,7 @@ const apply = (action) => (dispatch, getState) => {
 };
 
 export const add = (id, field, subject) => (dispatch, getState) => {
+  if (!id) return;
   const prev = getState()[POOL][id];
   if (prev && prev[field] && prev[field].includes(subject)) return;
   dispatch(apply({
@@ -29,6 +35,7 @@ export const add = (id, field, subject) => (dispatch, getState) => {
 };
 
 export const set = (id, payload) => (dispatch, getState) => {
+  if (!id) return;
   const prev = getState()[POOL][id];
   if (prev && contains(prev, payload)) return;
   dispatch(apply({
@@ -36,13 +43,14 @@ export const set = (id, payload) => (dispatch, getState) => {
   }));
 };
 
-export const create = (id, field, type) => (dispatch, getState) => {
+export const create = (id, field, type, bind) => (dispatch, getState) => {
+  if (!id || !field) return;
   const subject = uuid();
   const prev = getState()[POOL][id];
   dispatch(apply({
     id: subject,
     type: ACTION_SET,
-    payload: { type }
+    payload: bind ? { type, [bind]: id } : { type }
   }));
   dispatch(apply({
     id,
@@ -54,6 +62,7 @@ export const create = (id, field, type) => (dispatch, getState) => {
 };
 
 export const remove = (id, field, subject) => (dispatch, getState) => {
+  if (!id || !field || !subject) return;
   const prev = getState()[POOL][id];
   if (!prev || !prev[field] || !prev[field].includes(subject)) return;
   dispatch(apply({

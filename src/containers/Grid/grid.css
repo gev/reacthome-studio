@@ -9,7 +9,10 @@
   max-height: 1.2rem;
   white-space: nowrap;
   border: #eee solid 1px;
-  /* background-color: #fff; */
+}
+
+.gridCellBind {
+  background-color: #fff3f3;
 }
 
 .gridCellHeader {
@@ -70,5 +73,5 @@
 }
 
 .level0 {
-  background-color: #f8f8f8
+  background-color: #ffffe7
 }

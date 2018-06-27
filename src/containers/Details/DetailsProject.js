@@ -3,9 +3,9 @@ import React from 'react';
 import { ToolbarIcon, } from 'rmwc/Toolbar';
 import Card from './Card';
 import SelectDaemon from './SelectDaemon';
-import { SITE, DAEMON } from '../../constants';
+import { PARENT, SITE, DAEMON } from '../../constants';
 import DetailSection from './DetailSection';
-import AbstractDetails from './AbstractDetails';
+import AbstractDetails from './DetailsAbstract';
 
 export default class extends AbstractDetails {
   render() {
@@ -20,7 +20,7 @@ export default class extends AbstractDetails {
             <SelectDaemon
               id={id}
               value={daemon}
-              handle={<ToolbarIcon use="more_horiz" />}
+              handle={<ToolbarIcon theme="text-primary-on-light" use="more_horiz" />}
             />
           }
         >
@@ -28,7 +28,7 @@ export default class extends AbstractDetails {
             daemon && <Card id={daemon} project={project} parent={id} field={DAEMON} />
           }
         </DetailSection>
-        <DetailSection title={SITE} action={<ToolbarIcon use="add" onClick={this.add(SITE, SITE)} />}>
+        <DetailSection title={SITE} action={<ToolbarIcon use="add" onClick={this.create(SITE, SITE, PARENT)} />}>
           {
             site && (
               site.map(i => (

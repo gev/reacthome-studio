@@ -27,7 +27,7 @@ class GridHeaderColumn extends Component<Props> {
     return (
       site.map(l => [
         <tr key={l.id} className={level === 0 ? styles.level0 : ''}>
-          <td>
+          <td className="paper">
             <div
               className={`${styles.gridCell} ${l.id === selected ? styles.gridCellHover : ''}`}
               style={{ textIndent: 24 * level }}
@@ -49,7 +49,7 @@ const Row = connect(
       ({ id: i, ...pool[i] }))
   }),
   (dispatch, { project }) => bindActionCreators({
-    to: (site) => push(`/project/${project}/${site}/${SITE}`)
+    to: (site) => push(`/project/${project}/${site}`)
   }, dispatch)
 )(GridHeaderColumn);
 

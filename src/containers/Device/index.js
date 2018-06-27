@@ -102,9 +102,7 @@ class Devices extends Component<Props> {
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} placeholder="Code" fullwidth />
         </div>
-        <div className="paper">
-          <Device {...this.props} />
-        </div>
+        <Device {...this.props} />
         <CardActions>
           <CardActionButtons>
             <SimpleMenu handle={<CardAction>Firmware</CardAction>}>
@@ -149,12 +147,13 @@ class Devices extends Component<Props> {
 
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
+  // ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
   (dispatch, { id, daemon }) => bindActionCreators({
     findMe: (finding) => request(daemon, { type: ACTION_FIND_ME, id, finding }),
     updateFirmware: (newFirmware) =>
       request(daemon, { id, type: ACTION_BOOTLOAD, pendingFirmware: newFirmware }),
     setNewFirmware: (newFirmware) => set(id, { newFirmware }),
     removeDevice: () => remove(daemon, DEVICE, id),
-    change: (payload) => set(id, payload),
+    change: (payload) => set(id, payload)
   }, dispatch)
 )(Devices);

@@ -3,28 +3,45 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Dropzone from 'react-dropzone';
 import {
   Card,
-  CardMedia,
   CardAction,
   CardActions,
-  CardActionIcons,
-  CardActionButtons
+  CardActionIcons
 } from 'rmwc/Card';
+import { Typography } from 'rmwc/Typography';
 import { TextField } from 'rmwc/TextField';
-import { remove, set, attach } from '../../actions';
-import { asset, TITLE, CODE, IMAGE } from '../../constants';
+import { remove, set } from '../../../actions';
+import { CODE } from '../../../constants';
+import Button from './CardSensorButton';
 
 type Props = {
+  id: string;
   code: ?string,
-  title: ?string,
-  image: ?string,
+  site: ?string,
+  temperature: ?number;
+  humidity: ?number;
   change: (payload: {}) => void,
-  attachImage: (file: string) => void,
-  removeField: () => void,
-  details: () => void
+  removeField: () => void
 };
+
+type RowProps = {
+  title: string;
+  value: any;
+  magnitude: ?string;
+};
+
+const Row = ({ title, value, magnitude }: RowProps) => (
+  <tr>
+    <td className="paper">
+      <Typography use="body">{title}</Typography>
+    </td>
+    <td className="paper">
+      <Typography use="body">{value}{magnitude}</Typography>
+    </td>
+  </tr>
+);
+
 
 class Container extends Component<Props> {
   change = (event) => {
@@ -33,32 +50,30 @@ class Container extends Component<Props> {
     change({ [id]: value });
   }
 
-  attachImage = (accepted) => {
-    if (accepted.length !== 1) return;
-    this.props.attachImage(accepted[0].path);
-  }
-
   render() {
     const {
-      code, title, removeField, details, image
+      id, code, site, temperature, removeField, humidity
     } = this.props;
     return (
       <Card>
-        <CardMedia sixteenByNine style={{ backgroundImage: `url(${asset(image)})` }}>
-          <div className="dropzone-container">
-            <Dropzone className="dropzone" accept="image/jpeg, image/png" onDrop={this.attachImage} multiple={false} />
-          </div>
-        </CardMedia>
-        <div className="paper">
-          <TextField id={TITLE} value={title || ''} onChange={this.change} placeholder="Untitled" fullwidth />
-        </div>
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
+        <table style={{ textAlign: 'left' }}>
+          <tbody>
+            <Row title="Temperature" value={temperature} magnitude="°C" />
+            <Row title="Humidity" value={humidity} magnitude="%" />
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <Button id={id} site={site} index={1} />
+            <Button id={id} site={site} index={2} />
+            <Button id={id} site={site} index={3} />
+            <Button id={id} site={site} index={4} />
+          </tbody>
+        </table>
         <CardActions>
-          <CardActionButtons>
-            <CardAction onClick={details}>Details</CardAction>
-          </CardActionButtons>
           <CardActionIcons>
             <CardAction icon use="remove" onClick={removeField} />
           </CardActionIcons>
@@ -75,7 +90,6 @@ export default connect(
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : set(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
-    attachImage: (file) => attach(id, IMAGE, file),
     change: (payload) => set(id, payload)
   }, dispatch)
 )(Container);

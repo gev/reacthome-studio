@@ -5,8 +5,16 @@ import { Switch } from 'rmwc/Switch';
 import { Slider } from 'rmwc/Slider';
 import { Button } from 'rmwc/Button';
 import { SimpleMenu, MenuItem } from 'rmwc/Menu';
+import {
+  DIM,
+  ACTION_DIMMER,
+  DIM_TYPES,
+  DIM_FADE,
+  DIM_TYPE,
+  DIM_ON, DIM_OFF
+} from '../../constants';
+import Autocomplete from '../Filter';
 import connect from './connect';
-import { ACTION_DIMMER, DIM_TYPES, DIM_FADE, DIM_TYPE, DIM_ON, DIM_OFF } from '../../constants';
 
 type Props = {
   id: string;
@@ -17,15 +25,18 @@ type RowProps = {
   id: string;
   daemon: string;
   index: number;
+  bind: string;
   type: ?string;
   value: ?boolean;
   request: (action: {}) => void;
 };
 
-const Row = connect((props: RowProps) => {
+const Row = connect(DIM)((props: RowProps) => {
   const {
-    id, index, value, type, request
+    id, daemon, index, bind, value, type, request, set, get
   } = props;
+
+  const uid = `${id}/${DIM}/${index}`;
 
   const setType = (t) => () => {
     request({
@@ -35,7 +46,7 @@ const Row = connect((props: RowProps) => {
 
   const setValue = (event) => {
     request({
-      type: ACTION_DIMMER, action: DIM_FADE, id, index, value: event.target.value
+      type: ACTION_DIMMER, action: DIM_FADE, id, index, value: event.detail.value
     });
   };
 
@@ -45,15 +56,22 @@ const Row = connect((props: RowProps) => {
     });
   };
 
-  return (
-    <tr>
-      <td>
+  const select = (payload) => {
+    set(get(uid).bind, { bind: null });
+    set(get(payload).bind, { bind: null });
+    set(uid, { bind: payload });
+    set(payload, { bind: uid });
+  };
+
+  return ([
+    <tr key="control">
+      <td className="paper">
         <Typography use="caption">{index}</Typography>
       </td>
-      <td>
+      <td className="paper">
         <Switch checked={!!value} onChange={onoff} />
       </td>
-      <td width="100%">
+      <td className="paper" width="100%">
         <Slider
           min={0}
           step={1}
@@ -62,7 +80,7 @@ const Row = connect((props: RowProps) => {
           onInput={setValue}
         />
       </td>
-      <td>
+      <td className="paper">
         <SimpleMenu handle={<Button>{DIM_TYPES[type] || 'Type'}</Button>}>
           {
             DIM_TYPES.map((v, i) => (
@@ -71,20 +89,26 @@ const Row = connect((props: RowProps) => {
           }
         </SimpleMenu>
       </td>
+    </tr>,
+    <tr key="bind">
+      <td />
+      <td className="paper" colSpan={3}>
+        <Autocomplete id={bind} root={daemon} onSelect={select} />
+      </td>
+      <td />
     </tr>
-  );
+  ]);
 });
 
 export default class extends Component<Props> {
   render() {
-    const { id, daemon } = this.props;
     return (
       <table>
         <tbody>
-          <Row id={id} daemon={daemon} index={1} />
-          <Row id={id} daemon={daemon} index={2} />
-          <Row id={id} daemon={daemon} index={3} />
-          <Row id={id} daemon={daemon} index={4} />
+          <Row {...this.props} index={1} />
+          <Row {...this.props} index={2} />
+          <Row {...this.props} index={3} />
+          <Row {...this.props} index={4} />
         </tbody>
       </table>
     );

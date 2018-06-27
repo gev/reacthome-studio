@@ -8,12 +8,19 @@ import { ConnectedRouter } from 'react-router-redux';
 import { RMWCProvider } from 'rmwc/Provider';
 import 'material-components-web/dist/material-components-web.min.css';
 import { Main, Project, ServiceManager } from './containers';
-import { FILE, POOL } from './constants';
+import { FILE, POOL, ACTION, ACTION_TYPE } from './constants';
+import { set } from './actions';
 import createStore from './store';
 import reducer from './reducer';
 
 const history = createHashHistory();
-const store = createStore(reducer, { [POOL]: JSON.parse(fs.readFileSync(FILE)) }, history);
+const pool = JSON.parse(fs.readFileSync(FILE));
+
+const store = createStore(reducer, { [POOL]: pool }, history);
+
+ACTION_TYPE.forEach((a) => {
+  store.dispatch(set(a, { type: ACTION, code: a }));
+});
 
 export default class extends Component {
   render() {

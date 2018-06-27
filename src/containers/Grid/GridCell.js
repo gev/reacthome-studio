@@ -9,6 +9,7 @@ import styles from './grid.css';
 type Props = {
   id: string,
   count: number,
+  bind: number,
   field: string,
   to: (id: string, field: string) => void
 };
@@ -20,9 +21,10 @@ class GridCell extends Component<Props> {
   }
 
   render() {
-    const { count } = this.props;
+    const { count, bind } = this.props;
+    const binded = bind === count;
     return (
-      <div className={styles.gridCell} onClick={this.click}>
+      <div className={`${styles.gridCell} ${binded ? '' : styles.gridCellBind}`} onClick={this.click}>
         <Typography use="caption">{count || ''}</Typography>
       </div>
     );
@@ -33,8 +35,8 @@ const Row = connect(
   ({ pool }, { id, field }) => {
     const o = ((pool[id] || {})[field] || []);
     return {
-      title: o.map(i => (pool[i] || {}).code || 'Untitled').join(' '),
-      count: o.length
+      count: o.length,
+      bind: o.reduce((a, b) => a + (pool[b].bind ? 1 : 0), 0)
     };
   },
   (dispatch, { project }) => bindActionCreators({

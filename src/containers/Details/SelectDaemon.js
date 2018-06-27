@@ -2,9 +2,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { SimpleMenu, MenuItem } from 'rmwc/Menu';
-import { ROOT, DAEMON, PROJECT } from '../../constants';
 import { set } from '../../actions';
+import SelectMenu from './SelectMenu';
 
 type Props = {
   id: string,
@@ -14,35 +13,23 @@ type Props = {
 };
 
 class Container extends Component<Props> {
-  change = (value) => () => {
+  select = (daemon) => {
     const { id } = this.props;
-    this.props.set(id, { [DAEMON]: value });
-    this.props.set(value, { [PROJECT]: id });
+    this.props.set(id, { daemon });
+    this.props.set(daemon, { project: id });
   }
 
   render() {
     const { handle, options } = this.props;
     return (
-      <SimpleMenu handle={handle}>
-        {
-          options.map(i => (
-            <MenuItem key={i} onClick={this.change(i.value)}>{i.label || i.value}</MenuItem>
-          ))
-        }
-      </SimpleMenu>
+      <SelectMenu handle={handle} options={options} onSelect={this.select} />
     );
   }
 }
 
 export default connect(
   ({ pool }) => ({
-    options: ((pool[ROOT] || {})[DAEMON] || []).map(i => {
-      const o = pool[i] || {};
-      return {
-        value: i,
-        label: o.title || o.code
-      };
-    })
+    options: ((pool.root || {}).daemon || [])
   }),
   (dispatch) => bindActionCreators({ set }, dispatch)
 )(Container);

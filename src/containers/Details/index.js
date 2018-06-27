@@ -3,9 +3,9 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { TextField } from 'rmwc/TextField';
-import { set, create } from '../../actions';
+import { set, create, add, remove } from '../../actions';
 import { TITLE } from '../../constants';
-import AbstractDetails from './AbstractDetails';
+import AbstractDetails from './DetailsAbstract';
 import Details from './Details';
 
 class Container extends AbstractDetails {
@@ -23,9 +23,12 @@ class Container extends AbstractDetails {
 }
 
 export default connect(
-  ({ pool }, { id }) => pool[id] || {},
+  ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
   (dispatch, { id }) => bindActionCreators({
     change: (payload) => set(id, payload),
-    add: (field, type) => create(id, field, type)
+    create: (field, type, ref) => create(id, field, type, ref),
+    add: (field, subj) => add(id, field, subj),
+    set: (subj, payload) => set(subj, payload),
+    remove: (subj, field, obj) => remove(subj, field, obj)
   }, dispatch)
 )(Container);

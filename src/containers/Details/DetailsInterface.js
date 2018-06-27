@@ -2,16 +2,16 @@
 import React from 'react';
 import { ToolbarIcon, } from 'rmwc/Toolbar';
 import Card from './Card';
-import { SITE } from '../../constants';
+import { SITE, INTERFACE } from '../../constants';
 import DetailSection from './DetailSection';
-import AbstractDetails from './AbstractDetails';
+import DetailsAbstract from './DetailsAbstract';
 
-export default class extends AbstractDetails {
+export default class extends DetailsAbstract {
   render() {
     const { project, id, site } = this.props;
     return (
       <div>
-        <DetailSection title={SITE} action={<ToolbarIcon use="add" onClick={this.add(SITE, SITE)} />}>
+        <DetailSection title={SITE} action={<ToolbarIcon use="add" onClick={this.create(SITE, INTERFACE, SITE)} />}>
           {
             site && (
               site.map(i => (

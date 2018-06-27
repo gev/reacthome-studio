@@ -31,13 +31,13 @@ class MyToolbar extends Component<Props> {
       project, title, back, openMenu, details, equipment, iface, send
     } = this.props;
     return (
-      <Toolbar fixed theme="text-primary-on-light" style={{ backgroundColor: 'white' }}>
+      <Toolbar fixed style={{ backgroundColor: 'white' }}>
         <ToolbarRow>
           <ToolbarSection alignStart>
-            <ToolbarIcon use="menu" onClick={openMenu} />
-            <ToolbarIcon use="arrow_back" onClick={back} />
-            <ToolbarTitle>{title || project}</ToolbarTitle>
-            <ToolbarIcon use="play_arrow" onClick={send} />
+            <ToolbarIcon use="menu" theme="text-primary-on-background" onClick={openMenu} />
+            <ToolbarIcon use="arrow_back" theme="text-primary-on-background" onClick={back} />
+            <ToolbarTitle theme="text-primary-on-background" >{title || project}</ToolbarTitle>
+            <ToolbarIcon use="play_arrow" theme="text-primary-on-background" onClick={send} />
           </ToolbarSection>
           <Button onClick={details}><ButtonIcon use="star" />{PROJECT}</Button>
           <Button onClick={equipment}><ButtonIcon use="apps" />{EQUIPMENT}</Button>
@@ -51,7 +51,7 @@ class MyToolbar extends Component<Props> {
 export default connect(
   (state, props) => props,
   (dispatch, { project }) => bindActionCreators({
-    back: () => goBack(),
+    back: goBack,
     details: () => push(`/${PROJECT}/${project}`),
     equipment: () => push(`/${PROJECT}/${project}/${EQUIPMENT}`),
     iface: () => push(`/${PROJECT}/${project}/${INTERFACE}`),
