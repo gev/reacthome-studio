@@ -14,7 +14,7 @@ type Props = {
 
 type ActionProps = {
   action: number;
-  site: string;
+  root: string;
   title: string;
   value: ?number;
   scene: ?{};
@@ -23,7 +23,7 @@ type ActionProps = {
 
 const Action = (props: ActionProps) => {
   const {
-    value, action, site, title, scene = []
+    value, action, root, title, scene = []
   } = props;
   const select = (id) => {
     const s = [...scene];
@@ -47,7 +47,7 @@ const Action = (props: ActionProps) => {
         }
       </div>
       <div>
-        <SelectScene id={scene[action]} root={site} onSelect={select} />
+        <SelectScene id={scene[action]} root={root} onSelect={select} />
       </div>
     </td>
   );

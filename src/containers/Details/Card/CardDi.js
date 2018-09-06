@@ -19,7 +19,6 @@ type Props = {
   id: string;
   bind: ?string;
   code: ?string,
-  site: ?string,
   project: string,
   change: (payload: {}) => void,
   removeField: () => void,
@@ -42,7 +41,7 @@ class Container extends Component<Props> {
   }
   render() {
     const {
-      code, project, site, bind, removeField
+      code, project, bind, removeField
     } = this.props;
     return (
       <Card>
@@ -56,7 +55,7 @@ class Container extends Component<Props> {
           bind && (
             <table>
               <tbody>
-                <Di id={bind} site={site} />
+                <Di id={bind} root={project} />
               </tbody>
             </table>
           )

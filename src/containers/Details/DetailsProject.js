@@ -28,7 +28,7 @@ export default class extends AbstractDetails {
             daemon && <Card id={daemon} project={project} parent={id} field={DAEMON} />
           }
         </DetailSection>
-        <DetailSection title={SITE} action={<ToolbarIcon use="add" onClick={this.create(SITE, SITE, PARENT)} />}>
+        <DetailSection title={SITE} action={<ToolbarIcon theme="text-primary-on-light" use="add" onClick={this.create(SITE, SITE, PARENT)} />}>
           {
             site && (
               site.map(i => (

@@ -24,6 +24,7 @@ export const ACTION_SITE_LIGHT_OFF = 'ACTION_SITE_LIGHT_OFF';
 export const ACTION_SETPOINT = 'ACTION_SETPOINT';
 
 export const ACTION_DO = 0x00;
+export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
 export const ACTION_DISCOVERY = 0xf0;
 export const ACTION_READY = 0xf1;
@@ -41,13 +42,17 @@ export const DEVICE_TYPE_DOPPLER = 0x04;
 export const DEVICE_TYPE_DMX = 0x05;
 export const DEVICE_TYPE_RS485 = 0x06;
 export const DEVICE_TYPE_IR6 = 0x07;
+export const DEVICE_TYPE_IR_RECEIVER = 0x10;
 export const DEVICE_TYPE_DI16 = 0x08;
+export const DEVICE_TYPE_DI24 = 0x12;
 export const DEVICE_TYPE_DI32 = 0x09;
+export const DEVICE_TYPE_DO12 = 0x11;
 export const DEVICE_TYPE_DO8 = 0x0a;
 export const DEVICE_TYPE_DO16 = 0x0b;
 export const DEVICE_TYPE_DI16_DO8 = 0x0c;
 export const DEVICE_TYPE_DO8_DI16 = 0x0d;
 export const DEVICE_TYPE_DIM4 = 0x0e;
+export const DEVICE_TYPE_DIM8 = 0x0f;
 export const DEVICE_TYPE_PLC = 0xfe;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
 
@@ -106,9 +111,18 @@ export const DEVICE_TYPES = {
     firmware: 'ir6',
     hasFindMeAction: true
   },
+  [DEVICE_TYPE_IR_RECEIVER]: {
+    title: 'IR Receiver',
+    firmware: 'ir_receiver'
+  },
   [DEVICE_TYPE_DI16]: {
     title: 'DI-16',
     firmware: 'di16',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_DI24]: {
+    title: 'DI-24',
+    firmware: 'di24',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DI32]: {
@@ -119,6 +133,11 @@ export const DEVICE_TYPES = {
   [DEVICE_TYPE_DO8]: {
     title: 'DO-8',
     firmware: 'do8',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_DO12]: {
+    title: 'DO-12',
+    firmware: 'do12',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DO16]: {
@@ -139,6 +158,11 @@ export const DEVICE_TYPES = {
   [DEVICE_TYPE_DIM4]: {
     title: 'Dimmer-4',
     firmware: 'dim4',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_DIM8]: {
+    title: 'Dimmer-8',
+    firmware: 'dim8',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_PLC]: {

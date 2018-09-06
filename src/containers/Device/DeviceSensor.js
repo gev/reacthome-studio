@@ -1,11 +1,13 @@
 
 import React, { Component } from 'react';
 import { Typography } from 'rmwc/Typography';
+import DeviceDoppler from './DeviceDoppler';
 import Di from './DeviceDi';
 
 type Props = {
   temperature: ?number;
   humidity: ?number;
+  daemon: string;
   id: string;
 };
 
@@ -28,7 +30,9 @@ const Row = ({ title, value, magnitude }: RowProps) => (
 
 export default class extends Component<Props> {
   render() {
-    const { id, temperature, humidity } = this.props;
+    const {
+      id, temperature, humidity, daemon
+    } = this.props;
     return [
       <table key="climate" style={{ textAlign: 'left' }}>
         <tbody>
@@ -45,7 +49,8 @@ export default class extends Component<Props> {
             <td className="paper"><Di id={id} index={4} /></td>
           </tr>
         </tbody>
-      </table>
+      </table>,
+      <DeviceDoppler daemon={daemon} key="doppler" id={id} />
     ];
   }
 }

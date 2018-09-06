@@ -105,21 +105,29 @@ class Devices extends Component<Props> {
         <Device {...this.props} />
         <CardActions>
           <CardActionButtons>
-            <SimpleMenu handle={<CardAction>Firmware</CardAction>}>
-              {
-                Object
-                  .entries(DEVICE_TYPES)
-                  .filter(([i, v]) => (
-                    (String(DEVICE_TYPE_BOOTLOADER) !== i) && v.firmware))
-                  .map(([i, v]) => (
-                    <MenuItem key={i} onClick={this.updateFirmware(v.firmware)}>
-                      {
-                        v.firmware
-                      }
-                    </MenuItem>
-                  ))
-              }
-            </SimpleMenu>
+            {
+              type === DEVICE_TYPE_BOOTLOADER ? (
+                <SimpleMenu handle={<CardAction>Firmware</CardAction>}>
+                  {
+                    Object
+                      .entries(DEVICE_TYPES)
+                      .filter(([i, v]) => (
+                        (String(DEVICE_TYPE_BOOTLOADER) !== i) && v.firmware))
+                      .map(([i, v]) => (
+                        <MenuItem key={i} onClick={this.updateFirmware(v.firmware)}>
+                          {
+                            v.firmware
+                          }
+                        </MenuItem>
+                      ))
+                  }
+                </SimpleMenu>
+              ) : (
+                <CardAction onClick={this.updateFirmware(DEVICE_TYPES[type].firmware)}>
+                  Update
+                </CardAction>
+              )
+            }
             {
               !ready && (
                 <Icon use="warning" />

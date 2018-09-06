@@ -1,31 +1,36 @@
 
 import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setDeviceState } from '../../actions';
+import { bindActionCreators } from 'redux';
+import { Line } from 'react-chartjs-2';
+import { Typography } from 'rmwc/Typography';
+import { Slider } from 'rmwc/Slider';
+import { request } from '../../actions';
+import { ACTION_DOPPLER } from '../../constants';
 
 const optDoppler = {
   responsive: true,
+  animation: false,
   scales: {
     yAxes: [{
       display: true,
+      // type: 'logarithmic',
       ticks: {
         min: 0,
-        max: 0xffff
+        max: 300
       }
+    }],
+    xAxes: [{
+      display: false
     }]
   }
 };
 
-const art = {
-  label: 'Doppler',
+const art = (value = 0) => ({
+  label: value,
   fill: false,
-  lineTension: 0.1,
-  borderCapStyle: 'butt',
-  borderDash: [],
+  lineTension: 0,
   borderDashOffset: 0.0,
-  borderJoinStyle: 'miter',
   pointBackgroundColor: '#fff',
   pointBorderWidth: 1,
   pointHoverRadius: 5,
@@ -36,67 +41,89 @@ const art = {
   backgroundColor: 'rgba(75,192,192,0.4)',
   borderColor: 'rgba(75,192,192,1)',
   pointBorderColor: 'rgba(75,192,192,1)',
-  pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-};
+  pointHoverBackgroundColor: 'rgba(75,192,192,1)'
+});
 
-const n = 100;
+const n = 200;
 
 const initialData = {
   labels: new Array(n).fill(''),
-  datasets: [{ ...art, data: new Array(n).fill(0) }]
+  datasets: [{ ...art(0), data: new Array(n).fill(0) }]
 };
 
 type PropsType = {
-  value: number
+  value: number;
+  gain: number;
+  setGain: (value: number) => void
 };
 
 class Doppler extends Component<PropsType> {
-  state = { data: initialData, min: 0xFFFF, max: 0 };
+  state = {
+    data: initialData,
+    max: 0
+  }
 
-  componentWillReceiveProps() {
+  componentDidMount() {
+    this.t = setInterval(this.tick, 50);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.t);
+  }
+
+  // componentWillReceiveProps() {
+  //   this.tick();
+  // }
+
+  // shouldComponentUpdate({ value }) {
+  //   return value !== this.props.value;
+  // }
+
+  tick = () => {
     const { value } = this.props;
-    const { data, min, max } = this.state;
-    const labels = [...data.labels.slice(1), new Date().toLocaleTimeString()];
+    const { max, data } = this.state;
+    const a = [...data.datasets[0].data.slice(1), value];
     this.setState({
+      max: Math.max(...a),
       data: {
         ...data,
-        labels,
         datasets: [
           {
-            ...art,
-            data: [...data.datasets[0].data.slice(1), value]
+            ...art(`Value ${value} / ${max}`),
+            data: a
           }
         ]
       }
     });
-    if (value > max) {
-      this.setState({ max: value });
-    }
-    if (value < min) {
-      this.setState({ min: value });
-    }
   }
 
+  setGain = (event) => {
+    this.props.setGain(event.detail.value);
+  };
+
   render() {
-    const { value = 0 } = this.props;
-    const { data, min, max } = this.state;
+    const { gain = 0 } = this.props;
+    const { data } = this.state;
+
     return (
-      <div />
-      // <Card>
-      //   <CardHeader
-      //     title={`min: ${min}, max: ${max}, current: ${value}`}
-      //   />
-      //   <CardContent>
-      //     <div className={classes.container}>
-      //       <Line height={90} data={data} options={optDoppler} />
-      //     </div>
-      //   </CardContent>
-      // </Card>
+      <div className="paper">
+        <div>
+          <Line style={{ height: '200 px' }} data={data} options={optDoppler} />
+        </div>
+        <div>
+          <Slider value={gain} min={0} max={255} step={1} onInput={this.setGain} />
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Typography use="content">Gain {gain + 1}</Typography>
+        </div>
+      </div>
     );
   }
 }
 
 export default connect(
-  props => props,
-  (dispatch) => bindActionCreators({ setDeviceState }, dispatch)
+  ({ pool }, { id }) => pool[id] || {},
+  (dispatch, { daemon, id }) => bindActionCreators({
+    setGain: (gain) => request(daemon, { type: ACTION_DOPPLER, gain, id })
+  }, dispatch)
 )(Doppler);

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { SimpleMenu, MenuItem } from 'rmwc/Menu';
 import { Button } from 'rmwc/Button';
 import Autocomplete from '../../Filter';
-import { DI, DEVICE_TYPE_PLC } from '../../../constants';
+import { DI, DEVICE_TYPE_PLC, DEVICE_TYPE_DI24, DEVICE_TYPE_DI16 } from '../../../constants';
 
 type Props = {
   id: string,
@@ -31,6 +31,12 @@ const Di = c(({
   };
   let n;
   switch (type) {
+    case DEVICE_TYPE_DI16:
+      n = 16;
+      break;
+    case DEVICE_TYPE_DI24:
+      n = 25;
+      break;
     case DEVICE_TYPE_PLC:
       n = 36;
       break;
