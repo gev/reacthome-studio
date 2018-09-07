@@ -27,9 +27,11 @@ export const dispatchAction = (action, port, ip) => (dispatch, getState) => {
       const { type, version } = payload;
       const service = getState()[POOL][id];
       if (!service || !service.online) {
+        dispatch(online(id, type, version, ip, port));
         send({ type: ACTION_GET }, port, ip);
+      } else {
+        dispatch(online(id, type, version, ip, port));
       }
-      dispatch(online(id, type, version, ip, port));
       break;
     }
     case ACTION_SET: {
