@@ -16,6 +16,6 @@ export const online = (id, type, version, ip, port) => (dispatch) => {
   timeout[id] = setTimeout(() => {
     dispatch(offline(id));
     delete timeout[id];
-  }, 3 * DISCOVERY_INTERVAL);
+  }, 5 * DISCOVERY_INTERVAL);
   dispatch(add(ROOT, DAEMON, id));
 };
