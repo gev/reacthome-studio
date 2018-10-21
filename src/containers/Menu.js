@@ -1,12 +1,12 @@
 
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Drawer, DrawerContent } from 'rmwc/Drawer';
+import { Drawer, DrawerContent } from '@rmwc/drawer';
 import {
   ListItem,
   ListItemGraphic,
   ListItemText,
-} from 'rmwc/List';
+} from '@rmwc/list';
 
 type Props = {
   project: string,
@@ -18,10 +18,10 @@ export default class extends Component<Props> {
   render() {
     const { project, open, onClose } = this.props;
     return (
-      <Drawer temporary open={open} onClose={onClose}>
+      <Drawer modal open={open} onClose={onClose}>
         <DrawerContent>
           <ListItem tag={Link} to="/">
-            <ListItemGraphic>home</ListItemGraphic>
+            <ListItemGraphic icon="home" />
             <ListItemText>Home</ListItemText>
           </ListItem>
           <ListItem tag={Link} to={`/project/${project}`}>

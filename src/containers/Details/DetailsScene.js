@@ -1,50 +1,55 @@
 
 import React from 'react';
-import { ToolbarIcon, } from 'rmwc/Toolbar';
-import { ACTION, SCENE } from '../../constants';
-import { CardAction } from './Card';
-import AbstractDetails from './DetailsAbstract';
+import { ToolbarIcon, } from '@rmwc/toolbar';
+import Autocomplete from '../Filter';
 import DetailSection from './DetailSection';
-
-type Props = {
-  id: string;
-  project: string;
-  site: string;
-  field: string;
-  bind: string;
-  create: (field: string, type: string) => void
-};
-
-const Details = (props: Props) => {
-  const {
-    project, site, id, field, create, bind
-  } = props;
-  return (
-    <DetailSection title={field} action={<ToolbarIcon theme="text-primary-on-light" use="add" onClick={create(field, field, bind)} />}>
-      {
-        props[field] && (
-          props[field].map(i => (
-            <CardAction
-              key={i}
-              id={i}
-              project={project}
-              site={site}
-              parent={id}
-              field={field}
-              multiple
-            />
-          ))
-        )
-      }
-    </DetailSection>
-  );
-};
+import AbstractDetails from './DetailsAbstract';
+import Card from './Card';
+import SCENE from '../../constants';
 
 export default class extends AbstractDetails {
+  state = {};
+
+  select = (bind) => {
+    this.setState({ bind });
+  }
+
+  click = () => {
+    const { bind } = this.state;
+    const { add } = this.props;
+    add(SCENE, bind);
+  }
+
   render() {
+    const { bind } = this.state;
+    const {
+      project, id, field, daemon
+    } = this.props;
     return (
       <div>
-        <Details {...this.props} field={ACTION} bind={SCENE} create={this.create} />
+        <DetailSection
+          title={field}
+          action={[
+            <div key="select" style={{ paddingLeft: 24 }}><Autocomplete id={bind} root={project} onSelect={this.select} /></div>,
+            <ToolbarIcon key="add" theme="text-primary-on-background" icon="add" onClick={this.click} />
+          ]}
+        >
+          {
+            this.props[field] && (
+              this.props[field].map(i => (
+                <Card
+                  key={i}
+                  id={i}
+                  project={project}
+                  daemon={daemon}
+                  parent={id}
+                  field={field}
+                  multiple
+                />
+              ))
+            )
+          }
+        </DetailSection>
       </div>
     );
   }

@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'rmwc/Button';
-import { SCENE } from '../../../constants';
-import SelectMenu from '../SelectMenu';
+import { Button } from '@rmwc/button';
+import { SCRIPT } from '../../constants';
+import SelectMenu from './SelectMenu';
 
 type Props = {
   id: ?string,
@@ -20,7 +20,7 @@ class Container extends Component<Props> {
     } = this.props;
     return (
       <SelectMenu
-        handle={<Button theme={id ? 'primary' : 'text-hint-on-background'}>{title || code || SCENE}</Button>}
+        handle={<Button theme={id ? 'primary' : 'text-hint-on-background'}>{code || title || SCRIPT}</Button>}
         onSelect={onSelect}
         options={options}
       />
@@ -31,11 +31,11 @@ class Container extends Component<Props> {
 const filter = (pool, root, a = []) => {
   const o = pool[root];
   if (o) {
-    if (o.scene) o.scene.forEach(i => a.push(i));
-    if (o.site) o.site.forEach(i => filter(pool, i, a));
+    if (o.script) o.script.forEach(i => a.push(i));
+    if (o.script) o.script.forEach(i => filter(pool, i, a));
   }
   return a;
 };
 
-export default connect(({ pool }, { root, id }) =>
-  ({ ...pool[id], options: filter(pool, root) }))(Container);
+export default connect(({ pool }, { project, id }) =>
+  ({ ...pool[id], options: pool[project].script }))(Container);

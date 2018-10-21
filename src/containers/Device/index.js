@@ -8,13 +8,13 @@ import {
   CardActions,
   CardActionIcons,
   CardActionButtons
-} from 'rmwc/Card';
-import { Icon } from 'rmwc/Icon';
-import { Switch } from 'rmwc/Switch';
-import { LinearProgress } from 'rmwc/LinearProgress';
-import { SimpleMenu, MenuItem } from 'rmwc/Menu';
-import { TextField } from 'rmwc/TextField';
-import { Typography } from 'rmwc/Typography';
+} from '@rmwc/card';
+import { Icon } from '@rmwc/icon';
+import { Switch } from '@rmwc/switch';
+import { LinearProgress } from '@rmwc/linear-progress';
+import { SimpleMenu, MenuItem } from '@rmwc/menu';
+import { TextField } from '@rmwc/textfield';
+import { Typography } from '@rmwc/typography';
 import {
   CODE,
   DEVICE_TYPES,
@@ -130,7 +130,7 @@ class Devices extends Component<Props> {
             }
             {
               !ready && (
-                <Icon use="warning" />
+                <Icon icon="warning" />
               )
             }
           </CardActionButtons>
@@ -145,7 +145,7 @@ class Devices extends Component<Props> {
                 />
               )
             }
-            <CardAction icon use="remove" onClick={removeDevice} />
+            <CardAction icon="remove" onClick={removeDevice} />
           </CardActionIcons>
         </CardActions>
       </Card>
@@ -155,7 +155,6 @@ class Devices extends Component<Props> {
 
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
-  // ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
   (dispatch, { id, daemon }) => bindActionCreators({
     findMe: (finding) => request(daemon, { type: ACTION_FIND_ME, id, finding }),
     updateFirmware: (newFirmware) =>

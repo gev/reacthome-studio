@@ -2,10 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Typography } from 'rmwc/Typography';
+import { Typography } from '@rmwc/typography';
 import { set } from '../../../actions';
-import { DI_OFF, DI_ON, DI_HOLD } from '../../../constants';
-import SelectScene from './SelectScene';
+import { onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD, onClick, DI_CLICK } from '../../../constants';
+import SelectScript from '../SelectScript';
 
 type Props = {
   site: string;
@@ -13,41 +13,38 @@ type Props = {
 };
 
 type ActionProps = {
-  action: number;
-  root: string;
+  action: string;
+  project: string;
   title: string;
   value: ?number;
-  scene: ?{};
+  test: number;
   set: (id: string, payload: {}) => void;
 };
 
 const Action = (props: ActionProps) => {
   const {
-    value, action, root, title, scene = []
+    value, action, test, project, title
   } = props;
   const select = (id) => {
-    const s = [...scene];
-    s[action] = id;
-    props.set({ scene: s });
+    props.set({ [action]: id });
   };
   const clear = () => {
-    const s = [...scene];
-    delete s[action];
-    props.set({ scene: s });
+    props.set({ [action]: null });
   };
+  const script = props[action];
   return (
     <td className="paper">
       <div>
-        <Typography use="caption" theme={value === action ? 'secondary' : 'text-hint-on-background'}>
+        <Typography use="caption" theme={value === test ? 'secondary' : 'text-hint-on-background'}>
           {title}
         </Typography>
         {
-          scene[action] &&
+          script &&
             <Typography use="caption" onClick={clear}><strong> X </strong></Typography>
         }
       </div>
       <div>
-        <SelectScene id={scene[action]} root={root} onSelect={select} />
+        <SelectScript id={script} project={project} onSelect={select} />
       </div>
     </td>
   );
@@ -55,9 +52,10 @@ const Action = (props: ActionProps) => {
 
 const Container = (props : Props) => (
   <tr>
-    <Action {...props} action={DI_OFF} title="OFF" />
-    <Action {...props} action={DI_ON} title="ON" />
-    <Action {...props} action={DI_HOLD} title="HOLD" />
+    <Action {...props} action={onOn} test={DI_ON} title="ON" />
+    <Action {...props} action={onClick} test={DI_CLICK} title="CLICK" />
+    <Action {...props} action={onHold} test={DI_HOLD} title="HOLD" />
+    <Action {...props} action={onOff} test={DI_OFF} title="OFF" />
   </tr>
 );
 

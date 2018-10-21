@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField } from 'rmwc/TextField';
+import { TextField } from '@rmwc/textfield';
 
 type PropsType = {
   value: ?[];

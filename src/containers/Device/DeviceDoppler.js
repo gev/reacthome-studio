@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Line } from 'react-chartjs-2';
-import { Typography } from 'rmwc/Typography';
-import { Slider } from 'rmwc/Slider';
+import { Typography } from '@rmwc/typography';
+import { Slider } from '@rmwc/slider';
 import { request } from '../../actions';
 import { ACTION_DOPPLER } from '../../constants';
 
@@ -64,7 +64,7 @@ class Doppler extends Component<PropsType> {
   }
 
   componentDidMount() {
-    this.t = setInterval(this.tick, 50);
+    this.t = setInterval(this.tick, 100);
   }
 
   componentWillUnmount() {

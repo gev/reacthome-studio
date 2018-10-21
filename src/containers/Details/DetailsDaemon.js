@@ -24,9 +24,7 @@ const Container = ({ id, device }: Props) => (
   </div>
 );
 
-// export default connect(({ pool }, { id }) => pool[id] || {})(Container);
 export default connect(({ pool }, { id }) => ({
-  // device: ((pool[id] || {}).device || []).filter(i => pool[i] && pool[i].online).sort((aid, bid) => {
   device: ((pool[id] || {}).device || []).sort((aid, bid) => {
     const a = pool[aid] || {};
     const b = pool[bid] || {};

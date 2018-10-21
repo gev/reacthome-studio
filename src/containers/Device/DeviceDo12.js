@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import Do from './DeviceDo';
+import Do from './DeviceDoChannel';
 
 type Props = {
   id: string;

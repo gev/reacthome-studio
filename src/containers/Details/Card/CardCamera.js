@@ -9,8 +9,8 @@ import {
   CardActions,
   CardActionIcons,
   CardActionButtons
-} from 'rmwc/Card';
-import { TextField } from 'rmwc/TextField';
+} from '@rmwc/card';
+import { TextField } from '@rmwc/textfield';
 import { remove, set } from '../../../actions';
 import { TITLE, CODE, MAIN_URL, PREVIEW_URL } from '../../../constants';
 
@@ -54,7 +54,7 @@ class Container extends Component<Props> {
             <CardAction onClick={details}>Details</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon use="remove" onClick={removeField} />
+            <CardAction icon="remove" onClick={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

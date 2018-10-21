@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Typography } from 'rmwc/Typography';
-import { Icon } from 'rmwc/Icon';
+import { Typography } from '@rmwc/typography';
+import { Icon } from '@rmwc/icon';
 import { DI } from '../../constants';
 import connect from './connect';
 
@@ -13,6 +13,6 @@ type Props = {
 export default connect(DI)(({ index, value } : Props) => (
   <div>
     <div><Typography use="caption">{index}</Typography></div>
-    <div><Icon use="fiber_manual_record" theme={value ? 'secondary' : 'text-hint-on-background'} /></div>
+    <div><Icon icon="fiber_manual_record" theme={value ? 'secondary' : 'text-hint-on-background'} /></div>
   </div>
 ));

@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Typography } from 'rmwc/Typography';
-import { Switch } from 'rmwc/Switch';
+import { Typography } from '@rmwc/typography';
+import { Switch } from '@rmwc/switch';
 import { DO, ACTION_DO } from '../../constants';
 import connect from './connect';
 

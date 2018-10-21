@@ -1,6 +1,10 @@
 
 import path from 'path';
 import { remote } from 'electron';
+import ip from 'ip';
+
+export const { mac } = ip();
+export const version = '1.0';
 
 export const asset = (a = '') => path.join(remote.app.getAppPath(), 'tmp', 'assets', a);
 export const tmp = (a) => path.join(remote.app.getAppPath(), 'tmp', a);
@@ -12,6 +16,7 @@ export const SERVICE_GROUP = '224.0.0.2';
 export const DISCOVERY_INTERVAL = 1000;
 
 export const ACTION = 'action';
+export const OPERATOR = 'operator';
 
 export const ACTION_GET = 'ACTION_GET';
 export const ACTION_SET = 'ACTION_SET';
@@ -20,8 +25,15 @@ export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 export const ACTION_LIGHT_ON = 'ACTION_LIGHT_ON';
 export const ACTION_LIGHT_OFF = 'ACTION_LIGHT_OFF';
 export const ACTION_LIGHT_SET = 'ACTION_LIGHT_SET';
+export const ACTION_LIGHT_SET_RELATIVE = 'ACTION_LIGHT_SET_RELATIVE';
+export const ACTION_SITE_LIGHT_SET_RELATIVE = 'ACTION_SITE_LIGHT_SET_RELATIVE';
 export const ACTION_SITE_LIGHT_OFF = 'ACTION_SITE_LIGHT_OFF';
 export const ACTION_SETPOINT = 'ACTION_SETPOINT';
+export const ACTION_TIMER_START = 'ACTION_TIMER_START';
+export const ACTION_TIMER_STOP = 'ACTION_TIMER_STOP';
+export const ACTION_DOPPLER_HANDLE = 'ACTION_DOPPLER_HANDLE';
+export const ACTION_TOGGLE = 'ACTION_TOGGLE';
+export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
 export const ACTION_DO = 0x00;
 export const ACTION_DOPPLER = 0xb0;
@@ -53,12 +65,17 @@ export const DEVICE_TYPE_DI16_DO8 = 0x0c;
 export const DEVICE_TYPE_DO8_DI16 = 0x0d;
 export const DEVICE_TYPE_DIM4 = 0x0e;
 export const DEVICE_TYPE_DIM8 = 0x0f;
+export const DEVICE_TYPE_PNP = 0xe0;
 export const DEVICE_TYPE_PLC = 0xfe;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
 
 export const DI_OFF = 0x0;
 export const DI_ON = 0x1;
 export const DI_HOLD = 0x2;
+export const DI_CLICK = 0x3;
+
+export const DO_OFF = 0x0;
+export const DO_ON = 0x1;
 
 export const DIM_OFF = 0x0;
 export const DIM_ON = 0x1;
@@ -165,6 +182,11 @@ export const DEVICE_TYPES = {
     firmware: 'dim8',
     hasFindMeAction: true
   },
+  [DEVICE_TYPE_PNP]: {
+    title: 'PNP',
+    firmware: 'pnp',
+    hasFindMeAction: false,
+  },
   [DEVICE_TYPE_PLC]: {
     title: 'PLC',
     firmware: 'plc',
@@ -182,23 +204,31 @@ export const DEVICE_TYPES = {
 
 export const POOL = 'pool';
 export const ROOT = 'root';
+export const BIND = 'bind';
 export const DAEMON = 'daemon';
+export const STUDIO = 'studio';
 export const DEVICE = 'device';
 export const CHANNEL = 'channel';
 export const PROJECT = 'project';
 export const SITE = 'site';
 export const SCENE = 'scene';
+export const SCRIPT = 'script';
+export const TIMER = 'timer';
 export const CODE = 'code';
 export const TITLE = 'title';
 export const IMAGE = 'image';
 export const MAIN_URL = 'main_URL';
 export const PREVIEW_URL = 'preview_URL';
+export const QUIET = 'QUIET';
+export const LOW_THRESHOLD = 'LOW_THRESHOLD';
+export const HIGH_THRESHOLD = 'HIGH_THRESHOLD';
 
 export const LIGHT = 'light';
 export const LIGHT_220 = 'light_220';
 export const LIGHT_LED = 'light_LED';
 export const BUTTON = 'button';
 export const SENSOR = 'sensor';
+export const DOPPLER = 'doppler';
 export const SMOCK_SENSOR = 'smock_sensor';
 export const MOTION_SENSOR = 'motion_sensor';
 export const LEAKAGE_SENSOR = 'leakage_sensor';
@@ -216,17 +246,19 @@ export const CAMERA = 'camera';
 export const INTERCOM = 'intercom';
 export const TOUCH_SCREEN_PANEL = 'touch_screen_panel';
 
-export const EQUIPMENT = 'equipment';
+export const MODEL = 'model';
 
 export const DO = 'do';
 export const DI = 'di';
 export const DIM = 'dim';
 
-export const EQUIPMENT_TYPE = [
+export const MODEL_TYPE = [
+  SCENE,
   LIGHT_220,
   LIGHT_LED,
   BUTTON,
   SENSOR,
+  DOPPLER,
   MOTION_SENSOR,
   SMOCK_SENSOR,
   LEAKAGE_SENSOR,
@@ -249,8 +281,40 @@ export const ACTION_TYPE = [
   ACTION_LIGHT_OFF,
   ACTION_LIGHT_ON,
   ACTION_LIGHT_SET,
+  ACTION_LIGHT_SET_RELATIVE,
+  ACTION_SITE_LIGHT_SET_RELATIVE,
   ACTION_SITE_LIGHT_OFF,
-  ACTION_SETPOINT
+  ACTION_SETPOINT,
+  ACTION_TIMER_START,
+  ACTION_TIMER_STOP,
+  ACTION_DOPPLER_HANDLE,
+  ACTION_TOGGLE,
+  ACTION_SCRIPT_RUN
 ];
 
 export const INTERFACE = 'interface';
+
+export const onOff = 'onOff';
+export const onOn = 'onOn';
+export const onHold = 'onHold';
+export const onClick = 'onClick';
+export const onDoppler = 'onDoppler';
+export const onHighThreshold = 'onHighThreshold';
+export const onLowThreshold = 'onLowThreshold';
+export const onQuiet = 'onQuiet';
+export const onTemperature = 'onTemperature';
+export const onTemperatureExt = 'onTemperatureExt';
+export const onHumidity = 'onHumidity';
+export const onIllumination = 'onIllumination';
+
+export const OPERATOR_PLUS = 'OPERATOR_PLUS';
+export const OPERATOR_MINUS = 'OPERATOR_MINUS';
+export const OPERATOR_MUL = 'OPERATOR_MUL';
+export const OPERATOR_DIV = 'OPERATOR_DIV';
+
+export const OPERATORS = [
+  OPERATOR_PLUS,
+  OPERATOR_MINUS,
+  OPERATOR_MUL,
+  OPERATOR_DIV
+];

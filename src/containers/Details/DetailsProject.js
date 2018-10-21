@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ToolbarIcon, } from 'rmwc/Toolbar';
+import { ToolbarIcon, } from '@rmwc/toolbar';
 import Card from './Card';
 import SelectDaemon from './SelectDaemon';
 import { PARENT, SITE, DAEMON } from '../../constants';
@@ -20,19 +20,29 @@ export default class extends AbstractDetails {
             <SelectDaemon
               id={id}
               value={daemon}
-              handle={<ToolbarIcon theme="text-primary-on-light" use="more_horiz" />}
+              handle={<ToolbarIcon theme="text-primary-on-light" icon="more_horiz" />}
             />
           }
         >
           {
-            daemon && <Card id={daemon} project={project} parent={id} field={DAEMON} />
+            daemon && (
+              <Card id={daemon} project={project} parent={id} field={DAEMON} daemon={daemon} />
+            )
           }
         </DetailSection>
-        <DetailSection title={SITE} action={<ToolbarIcon theme="text-primary-on-light" use="add" onClick={this.create(SITE, SITE, PARENT)} />}>
+        <DetailSection title={SITE} action={<ToolbarIcon theme="text-primary-on-light" icon="add" onClick={this.create(SITE, SITE, PARENT)} />}>
           {
             site && (
               site.map(i => (
-                <Card key={i} id={i} project={project} parent={id} field={SITE} multiple />
+                <Card
+                  key={i}
+                  id={i}
+                  project={project}
+                  daemon={daemon}
+                  parent={id}
+                  field={SITE}
+                  multiple
+                />
               ))
             )
           }

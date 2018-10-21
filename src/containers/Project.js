@@ -1,23 +1,45 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ToolbarFixedAdjust } from 'rmwc/Toolbar';
+import { bindActionCreators } from 'redux';
 import Toolbar from './Toolbar';
 import Menu from './Menu';
 import Details from './Details';
 import Grid from './Grid';
-import { EQUIPMENT, INTERFACE } from '../constants';
+import { mac, version, STUDIO, ACTION_DISCOVERY, DISCOVERY_INTERVAL, MODEL, SCRIPT, TIMER } from '../constants';
+import { request } from '../actions';
 
 type Props = {
   match: {},
-  title: ?string
+  title: ?string,
+  daemon: ?string,
+  multicast: ?boolean,
+  discovery: (daemon: string, multicast: boolean) => void
 };
 
 class Project extends Component<Props> {
   state = { menuOpen: false };
 
-  componentWillReceiveProps() {
+  componentWillMount() {
+    const { daemon, multicast, discovery } = this.props;
+    if (daemon) {
+      this.timer = setInterval(() => {
+        discovery(daemon, multicast);
+      }, DISCOVERY_INTERVAL);
+    }
+  }
+
+  componentWillReceiveProps({ daemon, multicast, discovery }) {
     this.closeMenu();
+    if (daemon) {
+      this.timer = setInterval(() => {
+        discovery(daemon, multicast);
+      }, DISCOVERY_INTERVAL);
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   openMenu = () => {
@@ -29,30 +51,52 @@ class Project extends Component<Props> {
   }
 
   render() {
-    const { title, match: { params: { project, id, field } } } = this.props;
-    const isEquipment = id === EQUIPMENT;
-    const isInterface = id === INTERFACE;
+    const {
+      title, match: { params: { project, id, field } }, daemon
+    } = this.props;
+    const isModel = id === MODEL;
+    const isScript = id === SCRIPT;
+    const isTimer = id === TIMER;
     return (
       <div className="container">
-        <Toolbar project={project} id={id} title={title} openMenu={this.openMenu} />
-        <ToolbarFixedAdjust />
         <Menu project={project} open={this.state.menuOpen} onClose={this.closeMenu} />
+        <Toolbar project={project} id={id} title={title} openMenu={this.openMenu} />
         {
-          isEquipment &&
+          isModel &&
             <Grid project={project} />
         }
         {
-          isInterface &&
-            <div />
+          isScript &&
+            <Details project={project} daemon={daemon} id={project} field={SCRIPT} />
         }
         {
-          !(isEquipment || isInterface) &&
-            <Details project={project} id={id || project} field={field} />
+          isTimer &&
+            <Details project={project} daemon={daemon} id={project} field={TIMER} />
+        }
+        {
+          !(isModel || isScript || isTimer) &&
+            <Details project={project} daemon={daemon} id={id || project} field={field} />
         }
       </div>
     );
   }
 }
 
-export default connect(({ pool }, { match: { params: { project } } }) =>
-  ({ title: (pool[project] || {}).title }))(Project);
+const discovery = (multicast = true) => ({
+  id: mac,
+  type: ACTION_DISCOVERY,
+  payload: { type: STUDIO, version, multicast }
+});
+
+export default connect(
+  ({ pool }, { match: { params: { project } } }) => {
+    const { title, code, daemon } = pool[project] || {};
+    const { multicast } = pool[daemon] || {};
+    return {
+      title, code, daemon, multicast
+    };
+  },
+  (dispatch) => bindActionCreators({
+    discovery: (daemon, multicast) => request(daemon, discovery(multicast))
+  }, dispatch)
+)(Project);

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { SimpleMenu } from 'rmwc/Menu';
+import { SimpleMenu } from '@rmwc/menu';
 import SelectMenuItem from './SelectMenuItem';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default ({ handle, options, onSelect }: Props) => (
-  <SimpleMenu handle={handle}>
+  <SimpleMenu handle={handle} style={{ minWidth: 200 }}>
     {
       options.map(i => (
         <SelectMenuItem key={i} id={i} onSelect={onSelect} />

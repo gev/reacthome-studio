@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
-import { Typography } from 'rmwc/Typography';
-import { EQUIPMENT_TYPE } from '../../constants';
+import { Typography } from '@rmwc/typography';
+import { MODEL_TYPE } from '../../constants';
 import styles from './grid.css';
 
 type Props = {
@@ -15,7 +15,7 @@ export default class extends Component<Props> {
       <thead>
         <tr>
           {
-            EQUIPMENT_TYPE.map(i => (
+            MODEL_TYPE.map(i => (
               <th key={i}>
                 <div className={`${styles.gridCell} ${i === selected ? styles.gridCellHover : styles.gridCellHeader}`}>
                   <Typography use="caption">{i}</Typography>

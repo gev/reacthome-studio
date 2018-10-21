@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
-import Typography from 'rmwc/Typography';
+import Typography from '@rmwc/typography';
 import styles from './grid.css';
 
 type Props = {

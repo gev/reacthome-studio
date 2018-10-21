@@ -8,10 +8,11 @@ import {
   ToolbarRow,
   ToolbarTitle,
   ToolbarIcon,
-  ToolbarSection
-} from 'rmwc/Toolbar';
-import { Button, ButtonIcon } from 'rmwc/Button';
-import { EQUIPMENT, INTERFACE, PROJECT } from '../constants';
+  ToolbarSection,
+  ToolbarFixedAdjust
+} from '@rmwc/toolbar';
+import { Button, ButtonIcon } from '@rmwc/button';
+import { MODEL, PROJECT, SCRIPT, TIMER } from '../constants';
 import { sendProject } from '../actions';
 
 type Props = {
@@ -20,31 +21,34 @@ type Props = {
   openMenu: () => {},
   back: () => void,
   details: () => void,
-  equipment: () => void,
-  iface: () => void,
+  model: () => void,
+  script: () => void,
+  timer: () => void,
   send: () => void,
 };
 
 class MyToolbar extends Component<Props> {
   render() {
     const {
-      project, title, back, openMenu, details, equipment, iface, send
+      project, title, back, openMenu, details, model, script, timer, send
     } = this.props;
-    return (
-      <Toolbar fixed style={{ backgroundColor: 'white' }}>
+    return [
+      <Toolbar key="toolbar" fixed style={{ backgroundColor: 'white' }}>
         <ToolbarRow>
           <ToolbarSection alignStart>
-            <ToolbarIcon use="menu" theme="text-primary-on-background" onClick={openMenu} />
-            <ToolbarIcon use="arrow_back" theme="text-primary-on-background" onClick={back} />
+            <ToolbarIcon icon="menu" theme="text-primary-on-background" onClick={openMenu} />
+            <ToolbarIcon icon="arrow_back" theme="text-primary-on-background" onClick={back} />
             <ToolbarTitle theme="text-primary-on-background" >{title || project}</ToolbarTitle>
-            <ToolbarIcon use="play_arrow" theme="text-primary-on-background" onClick={send} />
+            <ToolbarIcon icon="play_arrow" theme="text-primary-on-background" onClick={send} />
           </ToolbarSection>
-          <Button onClick={details}><ButtonIcon use="star" />{PROJECT}</Button>
-          <Button onClick={equipment}><ButtonIcon use="apps" />{EQUIPMENT}</Button>
-          <Button onClick={iface}><ButtonIcon use="web" />{INTERFACE}</Button>
+          <Button onClick={details}><ButtonIcon icon="star" />{PROJECT}</Button>
+          <Button onClick={model}><ButtonIcon icon="apps" />{MODEL}</Button>
+          <Button onClick={script}><ButtonIcon icon="web" />{SCRIPT}</Button>
+          <Button onClick={timer}><ButtonIcon icon="timer" />{TIMER}</Button>
         </ToolbarRow>
-      </Toolbar>
-    );
+      </Toolbar>,
+      <ToolbarFixedAdjust key="adjust" />
+    ];
   }
 }
 
@@ -53,8 +57,9 @@ export default connect(
   (dispatch, { project }) => bindActionCreators({
     back: goBack,
     details: () => push(`/${PROJECT}/${project}`),
-    equipment: () => push(`/${PROJECT}/${project}/${EQUIPMENT}`),
-    iface: () => push(`/${PROJECT}/${project}/${INTERFACE}`),
+    model: () => push(`/${PROJECT}/${project}/${MODEL}`),
+    script: () => push(`/${PROJECT}/${project}/${SCRIPT}`),
+    timer: () => push(`/${PROJECT}/${project}/${TIMER}`),
     send: () => sendProject(project),
   }, dispatch)
 )(MyToolbar);

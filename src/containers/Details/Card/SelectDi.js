@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SimpleMenu, MenuItem } from 'rmwc/Menu';
-import { Button } from 'rmwc/Button';
+import { SimpleMenu } from '@rmwc/menu';
+import { Button } from '@rmwc/button';
+import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
 import { DI, DEVICE_TYPE_PLC, DEVICE_TYPE_DI24, DEVICE_TYPE_DI16 } from '../../../constants';
 
@@ -19,11 +20,10 @@ type DiProps = {
   onSelect: (i: number) => void
 };
 
-const c = connect(({ pool }, { id }) =>
-  ({ ...pool[id], get: (subj) => pool[subj] || {} }));
+const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Di = c(({
-  id, type, index, get, onSelect
+  id, type, index, onSelect
 }: DiProps) => {
   const a = [];
   const select = (i) => () => {
@@ -43,11 +43,8 @@ const Di = c(({
     default: n = 0;
   }
   for (let i = 1; i <= n; i += 1) {
-    const { title, code } = get(get(`${id}/${DI}/${i}`).bind);
     a.push((
-      <MenuItem key={`o${i}`} onClick={select(i)}>
-        {`${i} ${title || code || ''}`}
-      </MenuItem>
+      <MenuItem key={`o${i}`} index={i} onClick={select(i)} id={`${id}/${DI}/${i}`} />
     ));
   }
   return (

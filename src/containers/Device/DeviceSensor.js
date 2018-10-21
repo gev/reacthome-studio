@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
-import { Typography } from 'rmwc/Typography';
+import { Typography } from '@rmwc/typography';
 import DeviceDoppler from './DeviceDoppler';
-import Di from './DeviceDi';
+import Di from './DeviceDiChannel';
 
 type Props = {
   temperature: ?number;

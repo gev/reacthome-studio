@@ -7,10 +7,10 @@ import {
   List,
   ListItem,
   ListItemText
-} from 'rmwc/List';
-import { Button } from 'rmwc/Button';
+} from '@rmwc/list';
+import { Button } from '@rmwc/button';
 import { create } from '../actions';
-import { ROOT, PROJECT, EQUIPMENT } from '../constants';
+import { ROOT, PROJECT, MODEL } from '../constants';
 
 type Props = {
   project: [],
@@ -30,7 +30,7 @@ class Projects extends Component<Props> {
         <List>
           {
             project.map(p => (
-              <ListItem key={p.id} tag={Link} to={`/project/${p.id}/${EQUIPMENT}`}>
+              <ListItem key={p.id} tag={Link} to={`/project/${p.id}/${MODEL}`}>
                 <ListItemText>{p.title || p.id}</ListItemText>
               </ListItem>
             ))

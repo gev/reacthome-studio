@@ -8,22 +8,24 @@ import {
   CardAction,
   CardActions,
   CardActionIcons
-} from 'rmwc/Card';
-import { TextField } from 'rmwc/TextField';
-import { remove, set } from '../../../actions';
-import { CODE } from '../../../constants';
-import Do from './CardDoBind';
+} from '@rmwc/card';
+import { TextField } from '@rmwc/textfield';
+import { remove, set, makeBind } from '../../../actions';
+import { CODE, TITLE } from '../../../constants';
+import DeviceDo from './DeviceDo';
 import SelectDo from './SelectDo';
+import Do from './CardDoBind';
 
 type Props = {
   id: string;
   bind: ?string;
   code: ?string,
+  title: ?string;
   project: string,
+  daemon: string,
   change: (payload: {}) => void,
   removeField: () => void,
-  get: (subj: string) => {},
-  set: (subj: string, payload: {}) => void
+  makeBind: (id: string, bind: string) => void
 };
 
 class Container extends Component<Props> {
@@ -34,33 +36,36 @@ class Container extends Component<Props> {
   }
   select = (bind) => {
     const { id } = this.props;
-    this.props.set(this.props.get(id).bind, { bind: null });
-    this.props.set(this.props.get(bind).bind, { bind: null });
-    this.props.set(id, { bind });
-    this.props.set(bind, { bind: id });
+    this.props.makeBind(id, bind);
   }
   render() {
     const {
-      code, project, bind, removeField
+      code, project, daemon, bind, title, removeField
     } = this.props;
     return (
       <Card>
         <div className="paper">
+          <TextField id={TITLE} value={title || ''} onChange={this.change} placeholder="Untitled" fullwidth />
+        </div>
+        <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
-        <table>
-          <tbody>
-            <tr>
-              <td className="paper"><SelectDo id={bind} root={project} onSelect={this.select} /></td>
-              {
-                bind && <td className="paper"><Do id={bind} /></td>
-              }
-            </tr>
-          </tbody>
-        </table>
+        <div className="paper">
+          <SelectDo id={bind} root={project} onSelect={this.select} />
+        </div>
+        {
+          bind && [
+            <table key="bind">
+              <tbody>
+                <Do id={bind} project={project} />
+              </tbody>
+            </table>,
+            <DeviceDo id={bind} daemon={daemon} />
+          ]
+        }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon use="remove" onClick={removeField} />
+            <CardAction icon="remove" onClick={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>
@@ -76,6 +81,6 @@ export default connect(
     removeField: () => (multiple ? remove(parent, field, id) : set(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
     change: (payload) => set(id, payload),
-    set: (subj, payload) => set(subj, payload)
+    makeBind
   }, dispatch)
 )(Container);

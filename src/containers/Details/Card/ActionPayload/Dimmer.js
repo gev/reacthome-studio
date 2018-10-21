@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Slider } from 'rmwc/Slider';
+import { Slider } from '@rmwc/slider';
 import { set } from '../../../../actions';
 
 type Props = {

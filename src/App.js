@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { createHashHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
-import { RMWCProvider } from 'rmwc/Provider';
+import { RMWCProvider } from '@rmwc/provider';
 import 'material-components-web/dist/material-components-web.min.css';
 import { Main, Project, ServiceManager } from './containers';
 import { FILE, POOL, ACTION, ACTION_TYPE } from './constants';

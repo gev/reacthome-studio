@@ -67,7 +67,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "rmwc": "^1.6.3",
+    "rmwc": "^2.2.3",
     "uuid": "^3.2.1"
   }
 }

@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import {
   ListItem,
   ListItemText,
+  ListItemPrimaryText,
   ListItemSecondaryText
-} from 'rmwc/List';
+} from '@rmwc/list';
 
 type Props = {
   id: string,
@@ -26,8 +27,10 @@ export default class extends Component<Props> {
     } = this.props;
     return (
       <ListItem onMouseDown={this.select}>
-        <ListItemText>{title || code || id}</ListItemText>
-        <ListItemSecondaryText>{type}</ListItemSecondaryText>
+        <ListItemText>
+          <ListItemPrimaryText>{code || title || id}</ListItemPrimaryText>
+          <ListItemSecondaryText>{type}</ListItemSecondaryText>
+        </ListItemText>
       </ListItem>
     );
   }

@@ -1,12 +1,12 @@
 
 import React, { Component } from 'react';
-import { Grid, GridCell } from 'rmwc/Grid';
+import { Grid, GridCell } from '@rmwc/grid';
 import {
   Toolbar,
   ToolbarRow,
   ToolbarTitle,
   ToolbarSection
-} from 'rmwc/Toolbar';
+} from '@rmwc/toolbar';
 
 type Props = {
   title: string,

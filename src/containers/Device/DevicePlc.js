@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
-import Di from './DeviceDi';
-import Do from './DeviceDo';
+import Di from './DeviceDiChannel';
+import Do from './DeviceDoChannel';
 
 type Props = {
   id: string;
@@ -49,7 +49,7 @@ export default class extends Component<Props> {
         <tbody>
           <RowDi id={id} index={1} />
           <RowDi id={id} index={7} />
-          <RowDi id={id} index={18} />
+          <RowDi id={id} index={13} />
           <RowDi id={id} index={19} />
           <RowDi id={id} index={25} />
           <RowDi id={id} index={31} />

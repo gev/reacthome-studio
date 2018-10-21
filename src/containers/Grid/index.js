@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Typography } from 'rmwc/Typography';
+import { Typography } from '@rmwc/typography';
 import GridHeaderColumn from './GridHeaderColumn';
 import GridHeaderRow from './GridHeaderRow';
 import GridBody from './GridBody';

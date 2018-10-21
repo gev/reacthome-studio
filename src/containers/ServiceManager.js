@@ -4,7 +4,10 @@ import { createSocket } from 'dgram';
 import type { Children } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { SERVICE_PORT, SERVICE_GROUP, DAEMON, ROOT } from '../constants';
+import {
+  SERVICE_PORT,
+  SERVICE_GROUP
+} from '../constants';
 import { dispatchAction, offline } from '../actions';
 
 type Props = {
@@ -16,7 +19,8 @@ type Props = {
 
 class ServiceManager extends Component<Props> {
   componentWillMount() {
-    this.props.daemon.forEach(this.props.offline);
+    const { daemon = [] } = this.props;
+    daemon.forEach(this.props.offline);
     this.socket = createSocket('udp4');
     this.socket
       .on('error', console.log)
@@ -42,6 +46,6 @@ class ServiceManager extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }) => ({ daemon: (pool[ROOT] || {})[DAEMON] || [] }),
+  ({ pool }) => pool.root || {},
   dispatch => bindActionCreators({ dispatchAction, offline }, dispatch)
 )(ServiceManager);

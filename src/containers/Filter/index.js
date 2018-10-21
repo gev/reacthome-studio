@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { List } from 'rmwc/List';
+import { List } from '@rmwc/list';
 import TextField from './TextField';
 import Filter from './Filter';
 

@@ -35,7 +35,6 @@
 }
 
 .grid th {
-  padding: 0;
   border: none;
   position: sticky;
   top: 64px;
@@ -47,7 +46,6 @@
   box-shadow: 4px 0 5px 0 rgba(0,0,0,.14), 1px 0 10px 0 rgba(0,0,0,.12);
   position: sticky;
   width: 20%;
-  right: -80%;
   left: 0;
 }
 
@@ -66,7 +64,6 @@
 .gridBody {
   display: inline-block;
   position: absolute;
-  top: 64px;
   left: 0;
   padding-left: 20%;
   width: 80%;

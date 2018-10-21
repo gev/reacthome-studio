@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { EQUIPMENT_TYPE } from '../../constants';
+import { MODEL_TYPE } from '../../constants';
 import GridCell from './GridCell';
 import styles from './grid.css';
 
@@ -21,7 +21,7 @@ class GridBody extends Component<Props> {
       site.map(l => [
         <tr key={l} className={level === 0 ? styles.level0 : ''}>
           {
-            EQUIPMENT_TYPE.map(p => (
+            MODEL_TYPE.map(p => (
               <td key={p} onMouseEnter={onSelect(l, p)} onMouseLeave={onSelect()}>
                 <GridCell id={l} field={p} project={project} />
               </td>

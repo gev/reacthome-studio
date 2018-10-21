@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MenuItem } from 'rmwc/Menu';
+import { MenuItem } from '@rmwc/menu';
 
 type Props = {
   id: string,
@@ -19,7 +19,7 @@ class Container extends Component<Props> {
   render() {
     const { id, title, code } = this.props;
     return (
-      <MenuItem onClick={this.select}>{title || code || id}</MenuItem>
+      <MenuItem onClick={this.select}>{code || title || id}</MenuItem>
     );
   }
 }

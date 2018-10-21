@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button } from 'rmwc/Button';
+import { Button } from '@rmwc/button';
 import { LIGHT } from '../../../../constants';
 import { set } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
@@ -23,7 +23,7 @@ class Container extends Component<Props> {
     const { title, code, options } = this.props;
     return (
       <SelectMenu
-        handle={<Button>{title || code || LIGHT}</Button>}
+        handle={<Button>{code || title || LIGHT}</Button>}
         onSelect={this.select}
         options={options}
       />

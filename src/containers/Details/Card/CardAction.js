@@ -8,9 +8,9 @@ import {
   CardAction,
   CardActions,
   CardActionIcons
-} from 'rmwc/Card';
-import { Button } from 'rmwc/Button';
-import { TextField } from 'rmwc/TextField';
+} from '@rmwc/card';
+import { Button } from '@rmwc/button';
+import { TextField } from '@rmwc/textfield';
 import { remove, set, request } from '../../../actions';
 import { CODE, ACTION_TYPE } from '../../../constants';
 import SelectMenu from '../SelectMenu';
@@ -19,6 +19,7 @@ import ActionPayload from './ActionPayload';
 type Props = {
   id: string,
   site: string,
+  project: string,
   code: ?string,
   type: ?string,
   daemon: ?string,
@@ -46,7 +47,7 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      id, code, type, site, removeField,
+      id, code, type, site, project, removeField, daemon
     } = this.props;
     return (
       <Card>
@@ -60,11 +61,11 @@ class Container extends Component<Props> {
             onSelect={this.setType}
           />
         </div>
-        <ActionPayload id={id} site={site} />
+        <ActionPayload id={id} site={site} project={project} daemon={daemon} />
         <CardActions>
           <CardActionIcons>
-            <CardAction icon use="play_arrow" onClick={this.run} />
-            <CardAction icon use="remove" onClick={removeField} />
+            <CardAction icon="play_arrow" onClick={this.run} />
+            <CardAction icon="remove" onClick={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

@@ -24,13 +24,13 @@ export const dispatchAction = (action, port, ip) => (dispatch, getState) => {
   const { id, payload } = action;
   switch (action.type) {
     case ACTION_DISCOVERY: {
-      const { type, version } = payload;
+      const { type, version, multicast } = payload;
       const service = getState()[POOL][id];
       if (!service || !service.online) {
-        dispatch(online(id, type, version, ip, port));
+        dispatch(online(id, type, version, ip, port, multicast || service.multicast));
         send({ type: ACTION_GET }, port, ip);
       } else {
-        dispatch(online(id, type, version, ip, port));
+        dispatch(online(id, type, version, ip, port, multicast || service.multicast));
       }
       break;
     }
@@ -58,8 +58,8 @@ export const dispatchAction = (action, port, ip) => (dispatch, getState) => {
 };
 
 export const request = (id, action) => (dispatch, getState) => {
-  const service = getState()[POOL][id];
-  send(action, service.port, service.ip);
+  const { port, ip } = getState()[POOL][id];
+  send(action, port, ip);
 };
 
 const sendSubject = (id, payload, port, ip) => {

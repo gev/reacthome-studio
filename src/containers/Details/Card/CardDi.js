@@ -8,9 +8,9 @@ import {
   CardAction,
   CardActions,
   CardActionIcons
-} from 'rmwc/Card';
-import { TextField } from 'rmwc/TextField';
-import { remove, set } from '../../../actions';
+} from '@rmwc/card';
+import { TextField } from '@rmwc/textfield';
+import { remove, set, makeBind } from '../../../actions';
 import { CODE } from '../../../constants';
 import Di from './CardDiBind';
 import SelectDi from './SelectDi';
@@ -22,8 +22,7 @@ type Props = {
   project: string,
   change: (payload: {}) => void,
   removeField: () => void,
-  get: (subj: string) => {},
-  set: (subj: string, payload: {}) => void
+  makeBind: (id: string, bind: string) => void
 };
 
 class Container extends Component<Props> {
@@ -34,10 +33,7 @@ class Container extends Component<Props> {
   }
   select = (bind) => {
     const { id } = this.props;
-    this.props.set(this.props.get(id).bind, { bind: null });
-    this.props.set(this.props.get(bind).bind, { bind: null });
-    this.props.set(id, { bind });
-    this.props.set(bind, { bind: id });
+    this.props.makeBind(id, bind);
   }
   render() {
     const {
@@ -55,14 +51,14 @@ class Container extends Component<Props> {
           bind && (
             <table>
               <tbody>
-                <Di id={bind} root={project} />
+                <Di id={bind} project={project} />
               </tbody>
             </table>
           )
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon use="remove" onClick={removeField} />
+            <CardAction icon="remove" onClick={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>
@@ -71,13 +67,13 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
+  ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
     project, parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : set(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
     change: (payload) => set(id, payload),
-    set: (subj, payload) => set(subj, payload)
+    makeBind
   }, dispatch)
 )(Container);
