@@ -4,7 +4,11 @@ import { remote } from 'electron';
 import ip from 'ip';
 
 export const { mac } = ip();
-export const version = '1.0';
+export const VERSION = '1.0';
+
+export const STATE = 'state';
+export const ASSETS = 'assets';
+export const ASSETS_DIR = path.join('tmp', 'assets');
 
 export const asset = (a = '') => path.join(remote.app.getAppPath(), 'tmp', 'assets', a);
 export const tmp = (a) => path.join(remote.app.getAppPath(), 'tmp', a);
@@ -18,8 +22,8 @@ export const DISCOVERY_INTERVAL = 1000;
 export const ACTION = 'action';
 export const OPERATOR = 'operator';
 
-export const ACTION_GET = 'ACTION_GET';
 export const ACTION_SET = 'ACTION_SET';
+export const ACTION_INIT = 'ACTION_INIT';
 export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 
 export const ACTION_LIGHT_ON = 'ACTION_LIGHT_ON';

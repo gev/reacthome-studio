@@ -3,12 +3,6 @@ const { app, BrowserWindow } = require('electron');
 
 const path = require('path');
 const url = require('url');
-const Koa = require('koa');
-const serve = require('koa-static');
-
-const koa = new Koa();
-koa.use(serve('./tmp/assets/'));
-koa.listen(2018);
 
 let mainWindow;
 

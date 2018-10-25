@@ -54,6 +54,7 @@
     "history": "^4.7.2",
     "ip": "gev/ip",
     "koa": "^2.5.1",
+    "koa-mount": "^4.0.0",
     "koa-static": "^4.0.2",
     "node-fetch": "^2.1.2",
     "react": "^16.2.0",

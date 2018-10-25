@@ -8,14 +8,14 @@ export const offline = (id) => (dispatch) => {
   dispatch(set(id, { online: false, multicast: false }));
 };
 
-export const online = (id, type, version, ip, port, multicast) => (dispatch) => {
+export const online = (id, type, version, ip, multicast) => (dispatch) => {
   clearTimeout(timeout[id]);
   dispatch(set(id, {
-    type, version, ip, port, multicast, online: true
+    type, version, ip, multicast, online: true
   }));
   timeout[id] = setTimeout(() => {
     dispatch(offline(id));
     delete timeout[id];
-  }, 3 * DISCOVERY_INTERVAL);
+  }, 5 * DISCOVERY_INTERVAL);
   dispatch(add(ROOT, DAEMON, id));
 };

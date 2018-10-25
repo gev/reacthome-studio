@@ -1,37 +1,84 @@
 
-import fs from 'fs';
+import { exists, createWriteStream } from 'fs';
 import fetch from 'node-fetch';
 import { createSocket } from 'dgram';
 import { online } from './status';
 import {
+  VERSION,
+  STUDIO,
   POOL,
-  ACTION_GET,
+  ACTION_INIT,
   ACTION_SET,
-  ACTION_DOWNLOAD,
   ACTION_DISCOVERY,
+  ACTION_DOWNLOAD,
   SERVICE_PORT,
+  STATE,
+  ASSETS,
   asset
 } from '../constants';
 import { set } from './create';
 
 const socket = createSocket('udp4');
 
-const send = (action, port, ip) => {
-  socket.send(JSON.stringify(action), port, ip);
+const send = (action, ip) => {
+  socket.send(JSON.stringify(action), SERVICE_PORT, ip);
 };
 
-export const dispatchAction = (action, port, ip) => (dispatch, getState) => {
+export const download = (id, name) => (dispatch, getState) => {
+  const { ip } = getState()[POOL][id];
+  const file = asset(name);
+  exists(file, (ex) => {
+    if (ex) return;
+    fetch(`http://${ip}:${SERVICE_PORT}/${ASSETS}/${name}`)
+      .then(res => {
+        if (res.status !== 200) return;
+        const ws = createWriteStream(file);
+        ws.on('end', () => {
+          dispatch(set(ASSETS, { [name]: file }));
+        });
+        res.body.pipe(ws);
+      })
+      .catch(console.log);
+  });
+};
+
+export const init = (id) => (dispatch, getState) => {
+  const service = getState()[POOL][id];
+  if (!service || !service.ip) return;
+  fetch(`http://${service.ip}:${SERVICE_PORT}/${STATE}`)
+    .then(response => response.json())
+    .then(({ assets = [], state = {} }) => {
+      assets.forEach((name) => {
+        dispatch(download(id, name));
+      });
+      Object.entries(state).forEach(([k, v]) => {
+        dispatch(set(k, v));
+      });
+    })
+    .catch(console.error);
+};
+
+export const discovery = (id) => (dispatch, getState) => {
+  const { ip, multicast } = getState()[POOL][id] || {};
+  if (ip) {
+    send({
+      id,
+      type: ACTION_DISCOVERY,
+      payload: { type: STUDIO, VERSION, multicast }
+    }, ip);
+  }
+};
+
+export const dispatchAction = (action, ip) => (dispatch, getState) => {
   const { id, payload } = action;
   switch (action.type) {
     case ACTION_DISCOVERY: {
       const { type, version, multicast } = payload;
       const service = getState()[POOL][id];
       if (!service || !service.online) {
-        dispatch(online(id, type, version, ip, port, multicast || service.multicast));
-        send({ type: ACTION_GET }, port, ip);
-      } else {
-        dispatch(online(id, type, version, ip, port, multicast || service.multicast));
+        dispatch(init(id));
       }
+      dispatch(online(id, type, version, ip, multicast || (service && service.multicast)));
       break;
     }
     case ACTION_SET: {
@@ -40,16 +87,7 @@ export const dispatchAction = (action, port, ip) => (dispatch, getState) => {
     }
     case ACTION_DOWNLOAD: {
       const { name } = action;
-      const file = asset(name);
-      fs.exists(file, (exists) => {
-        if (exists) return;
-        fetch(`http://${ip}:${SERVICE_PORT}/${name}`)
-          .then(res => {
-            if (res.status !== 200) return;
-            res.body.pipe(fs.createWriteStream(file));
-          })
-          .catch(console.err);
-      });
+      dispatch(download(id, name));
       break;
     }
     default:
@@ -58,46 +96,12 @@ export const dispatchAction = (action, port, ip) => (dispatch, getState) => {
 };
 
 export const request = (id, action) => (dispatch, getState) => {
-  const { port, ip } = getState()[POOL][id];
-  send(action, port, ip);
-};
-
-const sendSubject = (id, payload, port, ip) => {
-  send({ type: ACTION_SET, id, payload }, port, ip);
-};
-
-const sendSubjectTree = (id, subject, pool, port, ip, a) => {
-  if (a.includes(id)) return;
-  a.push(id);
-  Object.keys(pool).forEach(k => {
-    const t = k.split('/');
-    if (t.length > 1 && t[0] === id) {
-      sendSubjectTree(k, pool[k], pool, port, ip, a);
-    }
-  });
-  if (!subject) return;
-  Object.values(subject).forEach(v => {
-    if (Array.isArray(v)) {
-      v.forEach(i => {
-        sendSubjectTree(i, pool[i], pool, port, ip, a);
-      });
-    } else if (v) {
-      sendSubjectTree(v, pool[v], pool, port, ip, a);
-      if (typeof v !== 'string') return;
-      fs.exists(asset(v), (exists) => {
-        if (!exists) return;
-        send({ type: ACTION_DOWNLOAD, name: v }, port, ip);
-      });
-    }
-  });
-  sendSubject(id, subject, port, ip);
+  const { ip } = getState()[POOL][id];
+  send(action, ip);
 };
 
 export const sendProject = (id) => (dispatch, getState) => {
-  const pool = getState()[POOL];
   const project = getState()[POOL][id];
-  if (!project) return;
-  const service = getState()[POOL][project.daemon];
-  if (!service) return;
-  sendSubjectTree(id, project, pool, service.port, service.ip, []);
+  if (!project || !project.daemon) return;
+  dispatch(request(project.daemon, { type: ACTION_INIT }));
 };
