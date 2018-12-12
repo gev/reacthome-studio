@@ -10,7 +10,7 @@ import {
   CardActionIcons
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
-import { remove, set, makeBind } from '../../../actions';
+import { remove, modify, makeBind } from '../../../actions';
 import { CODE } from '../../../constants';
 import Di from './CardDiBind';
 import SelectDi from './SelectDi';
@@ -71,9 +71,9 @@ export default connect(
   (dispatch, {
     project, parent, id, field, multiple
   }) => bindActionCreators({
-    removeField: () => (multiple ? remove(parent, field, id) : set(parent, { [field]: null })),
+    removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
-    change: (payload) => set(id, payload),
+    change: (payload) => modify(id, payload),
     makeBind
   }, dispatch)
 )(Container);

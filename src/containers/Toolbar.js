@@ -1,4 +1,5 @@
 
+import { remote } from 'electron';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { goBack, push } from 'react-router-redux';
@@ -13,7 +14,7 @@ import {
 } from '@rmwc/toolbar';
 import { Button, ButtonIcon } from '@rmwc/button';
 import { MODEL, PROJECT, SCRIPT, TIMER } from '../constants';
-import { sendProject } from '../actions';
+import { sendProject, exportProject } from '../actions';
 
 type Props = {
   project: string,
@@ -24,13 +25,23 @@ type Props = {
   model: () => void,
   script: () => void,
   timer: () => void,
-  send: () => void,
+  sendProject: () => void,
+  exportProject: (folder: string) => void
 };
 
 class MyToolbar extends Component<Props> {
+  exportProject = () => {
+    remote.dialog.showOpenDialog(
+      { buttonLabel: 'Export', properties: ['openDirectory', 'createDirectory'] },
+      (folder) => {
+        this.props.exportProject(folder[0]);
+      }
+    );
+  };
+
   render() {
     const {
-      project, title, back, openMenu, details, model, script, timer, send
+      project, title, back, openMenu, details, model, script, timer
     } = this.props;
     return [
       <Toolbar key="toolbar" fixed style={{ backgroundColor: 'white' }}>
@@ -39,7 +50,8 @@ class MyToolbar extends Component<Props> {
             <ToolbarIcon icon="menu" theme="text-primary-on-background" onClick={openMenu} />
             <ToolbarIcon icon="arrow_back" theme="text-primary-on-background" onClick={back} />
             <ToolbarTitle theme="text-primary-on-background" >{title || project}</ToolbarTitle>
-            <ToolbarIcon icon="play_arrow" theme="text-primary-on-background" onClick={send} />
+            <ToolbarIcon icon="play_arrow" theme="text-primary-on-background" onClick={this.props.sendProject} />
+            <ToolbarIcon icon="file_upload" theme="text-primary-on-background" onClick={this.exportProject} />
           </ToolbarSection>
           <Button onClick={details}><ButtonIcon icon="star" />{PROJECT}</Button>
           <Button onClick={model}><ButtonIcon icon="apps" />{MODEL}</Button>
@@ -60,6 +72,7 @@ export default connect(
     model: () => push(`/${PROJECT}/${project}/${MODEL}`),
     script: () => push(`/${PROJECT}/${project}/${SCRIPT}`),
     timer: () => push(`/${PROJECT}/${project}/${TIMER}`),
-    send: () => sendProject(project),
+    sendProject: () => sendProject(project),
+    exportProject: (folder) => exportProject(project, folder)
   }, dispatch)
 )(MyToolbar);

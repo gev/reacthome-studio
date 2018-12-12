@@ -11,21 +11,15 @@ import {
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE, TITLE } from '../../../constants';
-import DeviceDo from './DeviceDo';
-import SelectDo from './SelectDo';
-import Do from './CardDoBind';
+import { CODE, TITLE, CAMERA_URL, SIP_USER } from '../../../constants';
 
 type Props = {
-  id: string;
-  bind: ?string;
   code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
+  title: ?string,
+  SIP_user: ?string,
+  camera_URL: ?string,
   change: (payload: {}) => void,
   removeField: () => void,
-  makeBind: (id: string, bind: string) => void
 };
 
 class Container extends Component<Props> {
@@ -34,13 +28,9 @@ class Container extends Component<Props> {
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  select = (bind) => {
-    const { id } = this.props;
-    this.props.makeBind(id, bind);
-  }
   render() {
     const {
-      code, project, daemon, bind, title, removeField
+      code, title, removeField, SIP_user, camera_URL
     } = this.props;
     return (
       <Card>
@@ -51,18 +41,11 @@ class Container extends Component<Props> {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <SelectDo id={bind} root={project} onSelect={this.select} />
+          <TextField id={SIP_USER} value={SIP_user || ''} onChange={this.change} label={SIP_USER} />
         </div>
-        {
-          bind && [
-            <table key="bind">
-              <tbody>
-                <Do id={bind} project={project} />
-              </tbody>
-            </table>,
-            <DeviceDo id={bind} daemon={daemon} />
-          ]
-        }
+        <div className="paper">
+          <TextField id={CAMERA_URL} value={camera_URL || ''} onChange={this.change} label={CAMERA_URL} />
+        </div>
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />

@@ -19,6 +19,9 @@ import {
   BOILER,
   PUMP,
   FAN,
+  TV,
+  INTERCOM,
+  TOUCH,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -28,6 +31,9 @@ import CardSensor from './CardSensor';
 import CardDoppler from './CardDoppler';
 import CardDi from './CardDi';
 import CardDo from './CardDo';
+import CardTV from './CardTV';
+import CardTouch from './CardTouch';
+import CardIntercom from './CardIntercom';
 
 type Props = {
   type: ?string
@@ -59,6 +65,12 @@ const Container = (props: Props) => {
       return <CardDo {...props} />;
     case TIMER:
       return <CardTimer {...props} />;
+    case TV:
+      return <CardTV {...props} />;
+    case INTERCOM:
+      return <CardIntercom {...props} />;
+    case TOUCH:
+      return <CardTouch {...props} />;
     default:
       return <CardDefault {...props} />;
   }

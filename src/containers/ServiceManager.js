@@ -5,8 +5,8 @@ import type { Children } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-  SERVICE_PORT,
-  SERVICE_GROUP,
+  CLIENT_PORT,
+  CLIENT_GROUP,
   DISCOVERY_INTERVAL
 } from '../constants';
 import { dispatchAction, offline, discovery } from '../actions';
@@ -33,8 +33,8 @@ class ServiceManager extends Component<Props> {
           console.log(err);
         }
       })
-      .bind(SERVICE_PORT, () => {
-        this.socket.addMembership(SERVICE_GROUP);
+      .bind(CLIENT_PORT, () => {
+        this.socket.addMembership(CLIENT_GROUP);
       });
     this.startDiscovery(daemon);
   }

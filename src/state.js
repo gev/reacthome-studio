@@ -21,7 +21,7 @@ const build = (id, pool, state, assets, l = 0) => {
   });
 };
 
-module.exports = ({ getState }) => (id) => {
+module.exports = (getState) => (id) => {
   const { pool } = getState();
   const state = {};
   const assets = [];
@@ -30,5 +30,6 @@ module.exports = ({ getState }) => (id) => {
     const t = k.split('/');
     if (t.length > 1 && state[t[0]]) state[k] = pool[k];
   });
+  // Object.keys(state).forEach(i => {state[i].modified = Date.now()});
   return { assets, state };
 };

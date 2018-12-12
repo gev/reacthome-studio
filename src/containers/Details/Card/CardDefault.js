@@ -11,7 +11,7 @@ import {
   CardActionButtons
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
-import { remove, set } from '../../../actions';
+import { remove, modify } from '../../../actions';
 import { TITLE, CODE } from '../../../constants';
 
 type Props = {
@@ -59,8 +59,8 @@ export default connect(
   (dispatch, {
     project, parent, id, field, multiple
   }) => bindActionCreators({
-    removeField: () => (multiple ? remove(parent, field, id) : set(parent, { [field]: null })),
+    removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
-    change: (payload) => set(id, payload)
+    change: (payload) => modify(id, payload)
   }, dispatch)
 )(Container);

@@ -11,21 +11,14 @@ import {
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE, TITLE } from '../../../constants';
-import DeviceDo from './DeviceDo';
-import SelectDo from './SelectDo';
-import Do from './CardDoBind';
+import { CODE, TITLE, SIP_USER } from '../../../constants';
 
 type Props = {
-  id: string;
-  bind: ?string;
   code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
+  title: ?string,
+  SIP_user: ?string,
   change: (payload: {}) => void,
   removeField: () => void,
-  makeBind: (id: string, bind: string) => void
 };
 
 class Container extends Component<Props> {
@@ -34,13 +27,9 @@ class Container extends Component<Props> {
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  select = (bind) => {
-    const { id } = this.props;
-    this.props.makeBind(id, bind);
-  }
   render() {
     const {
-      code, project, daemon, bind, title, removeField
+      code, title, removeField, SIP_user
     } = this.props;
     return (
       <Card>
@@ -51,18 +40,8 @@ class Container extends Component<Props> {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <SelectDo id={bind} root={project} onSelect={this.select} />
+          <TextField id={SIP_USER} value={SIP_user || ''} onChange={this.change} label={SIP_USER} />
         </div>
-        {
-          bind && [
-            <table key="bind">
-              <tbody>
-                <Do id={bind} project={project} />
-              </tbody>
-            </table>,
-            <DeviceDo id={bind} daemon={daemon} />
-          ]
-        }
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />

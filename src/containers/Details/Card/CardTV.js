@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { getBrands, getModels } from 'reacthome-ircodes';
+import { Button } from '@rmwc/button';
 import {
   Card,
   CardAction,
@@ -10,11 +12,12 @@ import {
   CardActionIcons
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
+import { Typography } from '@rmwc/typography';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE, TITLE } from '../../../constants';
-import DeviceDo from './DeviceDo';
-import SelectDo from './SelectDo';
-import Do from './CardDoBind';
+import { CODE, TITLE, TV } from '../../../constants';
+import SelectIR from './SelectIR';
+import IR from './CardIRBind';
+import { SelectMenu } from '../../../components';
 
 type Props = {
   id: string;
@@ -22,25 +25,40 @@ type Props = {
   code: ?string,
   title: ?string;
   project: string,
-  daemon: string,
+  brand: ?string,
+  model: ?string,
   change: (payload: {}) => void,
   removeField: () => void,
   makeBind: (id: string, bind: string) => void
 };
 
 class Container extends Component<Props> {
+  state = {
+    brands: [], models: []
+  };
+  async componentWillMount() {
+    this.setState({ brands: await getBrands(TV) });
+  }
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  select = (bind) => {
+  selectIR = (bind) => {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
+  selectBrand = async (brand) => {
+    this.setState({ models: await getModels(TV, brand) });
+    this.props.change({ brand, model: null });
+  }
+  selectModel = (model) => {
+    this.props.change({ model });
+  }
   render() {
+    const { brands, models } = this.state;
     const {
-      code, project, daemon, bind, title, removeField
+      code, project, bind, title, brand, model, removeField
     } = this.props;
     return (
       <Card>
@@ -51,17 +69,28 @@ class Container extends Component<Props> {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <SelectDo id={bind} root={project} onSelect={this.select} />
+          <SelectMenu
+            handle={<Button theme={brand ? 'primary' : 'text-hint-on-background'}>{brand || 'brand'}</Button>}
+            onSelect={this.selectBrand}
+            options={brands}
+          />
+          <SelectMenu
+            handle={<Button theme={model ? 'primary' : 'text-hint-on-background'}>{model || 'model'}</Button>}
+            onSelect={this.selectModel}
+            options={models}
+          />
+        </div>
+        <div className="paper">
+          <SelectIR id={bind} root={project} onSelect={this.selectIR} />
         </div>
         {
-          bind && [
-            <table key="bind">
+          bind && (
+            <table>
               <tbody>
-                <Do id={bind} project={project} />
+                <IR id={bind} project={project} />
               </tbody>
-            </table>,
-            <DeviceDo id={bind} daemon={daemon} />
-          ]
+            </table>
+          )
         }
         <CardActions>
           <CardActionIcons>

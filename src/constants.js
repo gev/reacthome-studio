@@ -1,9 +1,7 @@
 
 import path from 'path';
 import { remote } from 'electron';
-import ip from 'ip';
 
-export const { mac } = ip();
 export const VERSION = '1.0';
 
 export const STATE = 'state';
@@ -14,8 +12,9 @@ export const asset = (a = '') => path.join(remote.app.getAppPath(), 'tmp', 'asse
 export const tmp = (a) => path.join(remote.app.getAppPath(), 'tmp', a);
 export const FILE = tmp('state.json');
 
-export const SERVICE_PORT = 2018;
-export const SERVICE_GROUP = '224.0.0.2';
+export const CLIENT_PORT = 2021;
+export const CLIENT_SERVER_PORT = 2020;
+export const CLIENT_GROUP = '224.0.0.2';
 
 export const DISCOVERY_INTERVAL = 1000;
 
@@ -26,6 +25,7 @@ export const ACTION_SET = 'ACTION_SET';
 export const ACTION_INIT = 'ACTION_INIT';
 export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 
+export const ACTION_RGB_SET = 'ACTION_RGB_SET';
 export const ACTION_LIGHT_ON = 'ACTION_LIGHT_ON';
 export const ACTION_LIGHT_OFF = 'ACTION_LIGHT_OFF';
 export const ACTION_LIGHT_SET = 'ACTION_LIGHT_SET';
@@ -94,6 +94,129 @@ export const DIM_TYPE_PWM = 0x3;
 export const DIM_TYPE_RELAY = 0x4;
 
 export const DIM_TYPES = ['Unplugged', 'Rising edge', 'Falling edge', 'PWM', 'Relay'];
+
+export const ROOT = 'root';
+export const BIND = 'bind';
+export const DAEMON = 'daemon';
+export const TOUCH = 'touch';
+export const MOBILE = 'mobile';
+export const STUDIO = 'studio';
+export const DEVICE = 'device';
+export const CHANNEL = 'channel';
+export const PROJECT = 'project';
+export const SITE = 'site';
+export const SCENE = 'scene';
+export const SCRIPT = 'script';
+export const TIMER = 'timer';
+export const CODE = 'code';
+export const TITLE = 'title';
+export const IMAGE = 'image';
+export const CAMERA_URL = 'camera_URL';
+export const PREVIEW_URL = 'preview_URL';
+export const MAIN_URL = 'main_URL';
+
+export const QUIET = 'QUIET';
+export const LOW_THRESHOLD = 'LOW_THRESHOLD';
+export const HIGH_THRESHOLD = 'HIGH_THRESHOLD';
+
+export const LIGHT = 'light';
+export const LIGHT_220 = 'light_220';
+export const LIGHT_LED = 'light_LED';
+export const BUTTON = 'button';
+export const SENSOR = 'sensor';
+export const DOPPLER = 'doppler';
+export const SMOCK_SENSOR = 'smock_sensor';
+export const MOTION_SENSOR = 'motion_sensor';
+export const LEAKAGE_SENSOR = 'leakage_sensor';
+export const VALVE_HEATING = 'valve_heating';
+export const VALVE_WATER = 'valve_water';
+export const SOCKET_220 = 'socket_220';
+export const BOILER = 'boiler';
+export const PUMP = 'pump';
+export const FAN = 'fan';
+export const TV = 'TV';
+export const AC = 'AC';
+export const SOCKET_RJ45 = 'socket_RJ45';
+export const ACCESS_POINT = 'access_point';
+export const CAMERA = 'camera';
+export const INTERCOM = 'intercom';
+export const SIP_USER = 'SIP_user';
+
+export const MODEL = 'model';
+
+export const IR = 'ir';
+export const DO = 'do';
+export const DI = 'di';
+export const DIM = 'dim';
+
+export const MODEL_TYPE = [
+  SCENE,
+  LIGHT_220,
+  LIGHT_LED,
+  BUTTON,
+  SENSOR,
+  DOPPLER,
+  MOTION_SENSOR,
+  SMOCK_SENSOR,
+  LEAKAGE_SENSOR,
+  VALVE_WATER,
+  VALVE_HEATING,
+  TV,
+  AC,
+  FAN,
+  SOCKET_220,
+  SOCKET_RJ45,
+  BOILER,
+  PUMP,
+  ACCESS_POINT,
+  CAMERA,
+  INTERCOM,
+  TOUCH
+];
+
+export const ACTION_TYPE = [
+  ACTION_LIGHT_OFF,
+  ACTION_LIGHT_ON,
+  ACTION_LIGHT_SET,
+  ACTION_LIGHT_SET_RELATIVE,
+  ACTION_SITE_LIGHT_SET_RELATIVE,
+  ACTION_SITE_LIGHT_OFF,
+  ACTION_RGB_SET,
+  ACTION_SETPOINT,
+  ACTION_TIMER_START,
+  ACTION_TIMER_STOP,
+  ACTION_DOPPLER_HANDLE,
+  ACTION_TOGGLE,
+  ACTION_SCRIPT_RUN
+];
+
+export const INTERFACE = 'interface';
+
+export const onIR = 'onIR';
+export const onOff = 'onOff';
+export const onOn = 'onOn';
+export const onHold = 'onHold';
+export const onClick = 'onClick';
+export const onDoppler = 'onDoppler';
+export const onHighThreshold = 'onHighThreshold';
+export const onLowThreshold = 'onLowThreshold';
+export const onQuiet = 'onQuiet';
+export const onTemperature = 'onTemperature';
+export const onTemperatureExt = 'onTemperatureExt';
+export const onHumidity = 'onHumidity';
+export const onIllumination = 'onIllumination';
+
+export const OPERATOR_PLUS = 'OPERATOR_PLUS';
+export const OPERATOR_MINUS = 'OPERATOR_MINUS';
+export const OPERATOR_MUL = 'OPERATOR_MUL';
+export const OPERATOR_DIV = 'OPERATOR_DIV';
+
+export const OPERATORS = [
+  OPERATOR_PLUS,
+  OPERATOR_MINUS,
+  OPERATOR_MUL,
+  OPERATOR_DIV
+];
 
 export const DEVICE_TYPES = {
   [DEVICE_TYPE_UNKNOWN]: {
@@ -196,6 +319,10 @@ export const DEVICE_TYPES = {
     firmware: 'plc',
     hasFindMeAction: false,
   },
+  [TOUCH]: {
+    title: 'Touch',
+    hasFindMeAction: false,
+  },
   [DEVICE_TYPE_BOOTLOADER]: {
     title: 'Bootloader',
     firmware: 'bootloader',
@@ -205,120 +332,3 @@ export const DEVICE_TYPES = {
     title: 'Outdated'
   }
 };
-
-export const POOL = 'pool';
-export const ROOT = 'root';
-export const BIND = 'bind';
-export const DAEMON = 'daemon';
-export const STUDIO = 'studio';
-export const DEVICE = 'device';
-export const CHANNEL = 'channel';
-export const PROJECT = 'project';
-export const SITE = 'site';
-export const SCENE = 'scene';
-export const SCRIPT = 'script';
-export const TIMER = 'timer';
-export const CODE = 'code';
-export const TITLE = 'title';
-export const IMAGE = 'image';
-export const MAIN_URL = 'main_URL';
-export const PREVIEW_URL = 'preview_URL';
-export const QUIET = 'QUIET';
-export const LOW_THRESHOLD = 'LOW_THRESHOLD';
-export const HIGH_THRESHOLD = 'HIGH_THRESHOLD';
-
-export const LIGHT = 'light';
-export const LIGHT_220 = 'light_220';
-export const LIGHT_LED = 'light_LED';
-export const BUTTON = 'button';
-export const SENSOR = 'sensor';
-export const DOPPLER = 'doppler';
-export const SMOCK_SENSOR = 'smock_sensor';
-export const MOTION_SENSOR = 'motion_sensor';
-export const LEAKAGE_SENSOR = 'leakage_sensor';
-export const VALVE_HEATING = 'valve_heating';
-export const VALVE_WATER = 'valve_water';
-export const SOCKET_220 = 'socket_220';
-export const BOILER = 'boiler';
-export const PUMP = 'pump';
-export const FAN = 'fan';
-export const TV_IR = 'TV_IR';
-export const AC_IR = 'AC_IR';
-export const SOCKET_RJ45 = 'socket_RJ45';
-export const ACCESS_POINT = 'access_point';
-export const CAMERA = 'camera';
-export const INTERCOM = 'intercom';
-export const TOUCH_SCREEN_PANEL = 'touch_screen_panel';
-
-export const MODEL = 'model';
-
-export const DO = 'do';
-export const DI = 'di';
-export const DIM = 'dim';
-
-export const MODEL_TYPE = [
-  SCENE,
-  LIGHT_220,
-  LIGHT_LED,
-  BUTTON,
-  SENSOR,
-  DOPPLER,
-  MOTION_SENSOR,
-  SMOCK_SENSOR,
-  LEAKAGE_SENSOR,
-  VALVE_WATER,
-  VALVE_HEATING,
-  TV_IR,
-  AC_IR,
-  FAN,
-  SOCKET_220,
-  SOCKET_RJ45,
-  BOILER,
-  PUMP,
-  ACCESS_POINT,
-  CAMERA,
-  INTERCOM,
-  TOUCH_SCREEN_PANEL
-];
-
-export const ACTION_TYPE = [
-  ACTION_LIGHT_OFF,
-  ACTION_LIGHT_ON,
-  ACTION_LIGHT_SET,
-  ACTION_LIGHT_SET_RELATIVE,
-  ACTION_SITE_LIGHT_SET_RELATIVE,
-  ACTION_SITE_LIGHT_OFF,
-  ACTION_SETPOINT,
-  ACTION_TIMER_START,
-  ACTION_TIMER_STOP,
-  ACTION_DOPPLER_HANDLE,
-  ACTION_TOGGLE,
-  ACTION_SCRIPT_RUN
-];
-
-export const INTERFACE = 'interface';
-
-export const onOff = 'onOff';
-export const onOn = 'onOn';
-export const onHold = 'onHold';
-export const onClick = 'onClick';
-export const onDoppler = 'onDoppler';
-export const onHighThreshold = 'onHighThreshold';
-export const onLowThreshold = 'onLowThreshold';
-export const onQuiet = 'onQuiet';
-export const onTemperature = 'onTemperature';
-export const onTemperatureExt = 'onTemperatureExt';
-export const onHumidity = 'onHumidity';
-export const onIllumination = 'onIllumination';
-
-export const OPERATOR_PLUS = 'OPERATOR_PLUS';
-export const OPERATOR_MINUS = 'OPERATOR_MINUS';
-export const OPERATOR_MUL = 'OPERATOR_MUL';
-export const OPERATOR_DIV = 'OPERATOR_DIV';
-
-export const OPERATORS = [
-  OPERATOR_PLUS,
-  OPERATOR_MINUS,
-  OPERATOR_MUL,
-  OPERATOR_DIV
-];

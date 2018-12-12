@@ -23,7 +23,7 @@ import {
   ACTION_BOOTLOAD,
   DEVICE
 } from '../../constants';
-import { set, remove, request } from '../../actions';
+import { modify, remove, request } from '../../actions';
 import Device from './Device';
 
 type Props = {
@@ -123,9 +123,11 @@ class Devices extends Component<Props> {
                   }
                 </SimpleMenu>
               ) : (
-                <CardAction onClick={this.updateFirmware(DEVICE_TYPES[type].firmware)}>
-                  Update
-                </CardAction>
+                DEVICE_TYPES[type].firmware && (
+                  <CardAction onClick={this.updateFirmware(DEVICE_TYPES[type].firmware)}>
+                    Update
+                  </CardAction>
+                )
               )
             }
             {
@@ -159,8 +161,8 @@ export default connect(
     findMe: (finding) => request(daemon, { type: ACTION_FIND_ME, id, finding }),
     updateFirmware: (newFirmware) =>
       request(daemon, { id, type: ACTION_BOOTLOAD, pendingFirmware: newFirmware }),
-    setNewFirmware: (newFirmware) => set(id, { newFirmware }),
+    setNewFirmware: (newFirmware) => modify(id, { newFirmware }),
     removeDevice: () => remove(daemon, DEVICE, id),
-    change: (payload) => set(id, payload)
+    change: (payload) => modify(id, payload)
   }, dispatch)
 )(Devices);

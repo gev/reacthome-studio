@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Typography } from '@rmwc/typography';
 import DeviceDoppler from './DeviceDoppler';
 import Di from './DeviceDiChannel';
+import RGB from '../RGB';
 
 type Props = {
   temperature: ?number;
@@ -34,6 +35,7 @@ export default class extends Component<Props> {
       id, temperature, humidity, daemon
     } = this.props;
     return [
+      <RGB key="rgb" daemon={daemon} id={id} />,
       <table key="climate" style={{ textAlign: 'left' }}>
         <tbody>
           <Row title="Temperature" value={temperature} magnitude="°C" />

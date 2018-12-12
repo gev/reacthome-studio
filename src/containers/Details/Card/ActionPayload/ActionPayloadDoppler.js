@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
-import { set } from '../../../../actions';
+import { modify } from '../../../../actions';
 import SelectScript from '../../SelectScript';
 import SelectDoppler from './SelectDoppler';
 import DeviceDoppler from '../../../Device/DeviceDoppler';
@@ -89,8 +89,8 @@ class Container extends Component<Props> {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id, payload }) => bindActionCreators({
-    setLow: (low) => set(id, { payload: { ...payload, low } }),
-    setHigh: (high) => set(id, { payload: { ...payload, high } }),
-    on: (on, script) => set(id, { payload: { ...payload, [on]: script } })
+    setLow: (low) => modify(id, { payload: { ...payload, low } }),
+    setHigh: (high) => modify(id, { payload: { ...payload, high } }),
+    on: (on, script) => modify(id, { payload: { ...payload, [on]: script } })
   }, dispatch)
 )(Container);

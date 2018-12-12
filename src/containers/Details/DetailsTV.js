@@ -1,23 +1,17 @@
 
 import React from 'react';
 import { ToolbarIcon, } from '@rmwc/toolbar';
-import { SCENE } from '../../constants';
 import Autocomplete from '../Filter';
 import DetailSection from './DetailSection';
 import AbstractDetails from './DetailsAbstract';
 import Card from './Card';
+import { SITE } from '../../constants';
 
 export default class extends AbstractDetails {
   state = {};
 
   select = (bind) => {
     this.setState({ bind });
-  }
-
-  click = () => {
-    const { bind } = this.state;
-    const { add } = this.props;
-    add(SCENE, bind);
   }
 
   render() {
@@ -31,7 +25,7 @@ export default class extends AbstractDetails {
           title={field}
           action={[
             <div key="select" style={{ paddingLeft: 24 }}><Autocomplete id={bind} root={project} onSelect={this.select} /></div>,
-            <ToolbarIcon key="add" theme="text-primary-on-background" icon="add" onClick={this.click} />
+            <ToolbarIcon key="add" theme="text-primary-on-background" icon="add" onClick={this.addBind(field, bind, SITE)} />
           ]}
         >
           {

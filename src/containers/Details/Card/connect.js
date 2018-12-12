@@ -1,11 +1,11 @@
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { set } from '../../../actions';
+import { modify } from '../../../actions';
 
 export default (type) => connect(
   ({ pool }, { id, index }) => pool[`${id}/${type}/${index}`] || {},
   (dispatch, { id, index }) => bindActionCreators({
-    set: (payload) => set(`${id}/${type}/${index}`, payload)
+    modify: (payload) => modify(`${id}/${type}/${index}`, payload)
   }, dispatch)
 );

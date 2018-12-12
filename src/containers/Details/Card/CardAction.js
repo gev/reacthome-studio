@@ -11,7 +11,7 @@ import {
 } from '@rmwc/card';
 import { Button } from '@rmwc/button';
 import { TextField } from '@rmwc/textfield';
-import { remove, set, request } from '../../../actions';
+import { remove, modify, request } from '../../../actions';
 import { CODE, ACTION_TYPE } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 import ActionPayload from './ActionPayload';
@@ -78,8 +78,8 @@ export default connect(
   (dispatch, {
     parent, id, field, multiple
   }) => bindActionCreators({
-    removeField: () => (multiple ? remove(parent, field, id) : set(parent, { [field]: null })),
-    change: (value) => set(id, value),
+    removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
+    change: (value) => modify(id, value),
     run: (daemon, action) => request(daemon, action)
   }, dispatch)
 )(Container);

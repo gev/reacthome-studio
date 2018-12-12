@@ -5,18 +5,18 @@ import { bindActionCreators } from 'redux';
 import { TextField } from '@rmwc/textfield';
 import SelectTimer from './SelectTimer';
 import SelectScript from './SelectScript';
-import { set } from '../../../../actions';
+import { modify } from '../../../../actions';
 
 type Props = {
   id: string;
   project: string;
   payload: ?{};
-  set: (time: number) => void;
+  modify: (time: number) => void;
 };
 
 class Container extends Component<Props> {
   onInput = (event) => {
-    this.props.set(Number(event.target.value));
+    this.props.modify(Number(parseInt(event.target.value, 10)));
   };
 
   render() {
@@ -36,6 +36,6 @@ class Container extends Component<Props> {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id, payload }) => bindActionCreators({
-    set: (time) => set(id, { payload: { ...payload, time } })
+    modify: (time) => modify(id, { payload: { ...payload, time } })
   }, dispatch)
 )(Container);

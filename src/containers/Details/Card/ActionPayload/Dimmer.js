@@ -3,16 +3,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Slider } from '@rmwc/slider';
-import { set } from '../../../../actions';
+import { modify } from '../../../../actions';
 
 type Props = {
   value: ?number,
-  set: (id: string) => void;
+  modify: (id: string) => void;
 };
 
 class Container extends Component<Props> {
   input = (event) => {
-    this.props.set(event.detail.value);
+    this.props.modify(event.detail.value);
   }
 
   render() {
@@ -32,6 +32,6 @@ class Container extends Component<Props> {
 export default connect(
   (state, { payload }) => payload,
   (dispatch, { action, payload }) => bindActionCreators({
-    set: (value) => set(action, { payload: { ...payload, value } }),
+    modify: (value) => modify(action, { payload: { ...payload, value } }),
   }, dispatch)
 )(Container);

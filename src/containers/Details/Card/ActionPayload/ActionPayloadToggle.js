@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { List, ListItem, ListItemGraphic } from '@rmwc/list';
 import { IconButton } from '@rmwc/icon-button';
 import { Typography } from '@rmwc/typography';
-import { set } from '../../../../actions';
+import { modify } from '../../../../actions';
 import Autocomplete from '../../../Filter';
 import SelectScript from '../../SelectScript';
 import { onOff, onOn } from '../../../../constants';
@@ -85,15 +85,15 @@ class Container extends Component<Props> {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id, payload = {} }) => bindActionCreators({
-    on: (on, script) => set(id, { payload: { ...payload, [on]: script } }),
+    on: (on, script) => modify(id, { payload: { ...payload, [on]: script } }),
     add: (subj) => {
       const { test = [] } = payload;
       if (test.includes(subj)) return {};
-      return set(id, { payload: { ...payload, test: [...test, subj] } });
+      return modify(id, { payload: { ...payload, test: [...test, subj] } });
     },
     remove: (subj) => {
       const { test = [] } = payload;
-      return set(id, { payload: { ...payload, test: test.filter(i => i !== subj) } });
+      return modify(id, { payload: { ...payload, test: test.filter(i => i !== subj) } });
     }
   }, dispatch)
 )(Container);

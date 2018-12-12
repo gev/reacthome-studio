@@ -2,21 +2,21 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { set } from '../../actions';
+import { modify } from '../../actions';
 import SelectMenu from './SelectMenu';
 
 type Props = {
   id: string,
   options: [],
   handle: Component,
-  set: (id: string, payload: {}) => void
+  modify: (id: string, payload: {}) => void
 };
 
 class Container extends Component<Props> {
   select = (daemon) => {
     const { id } = this.props;
-    this.props.set(id, { daemon });
-    this.props.set(daemon, { project: id });
+    this.props.modify(id, { daemon });
+    this.props.modify(daemon, { project: id });
   }
 
   render() {
@@ -31,5 +31,5 @@ export default connect(
   ({ pool }) => ({
     options: ((pool.root || {}).daemon || [])
   }),
-  (dispatch) => bindActionCreators({ set }, dispatch)
+  (dispatch) => bindActionCreators({ modify }, dispatch)
 )(Container);

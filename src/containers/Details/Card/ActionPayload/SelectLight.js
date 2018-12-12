@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
 import { LIGHT } from '../../../../constants';
-import { set } from '../../../../actions';
+import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
 
 type Props = {
   title: ?string,
   code: ?string,
   options: [],
-  set: (id: string) => void;
+  modify: (id: string) => void;
 };
 
 class Container extends Component<Props> {
   select = (id) => {
-    this.props.set(id);
+    this.props.modify(id);
   }
 
   render() {
@@ -47,6 +47,6 @@ export default connect(
     options: filter(pool, root)
   }),
   (dispatch, { action, payload }) => bindActionCreators({
-    set: (id) => set(action, { payload: { ...payload, id } }),
+    modify: (id) => modify(action, { payload: { ...payload, id } }),
   }, dispatch)
 )(Container);

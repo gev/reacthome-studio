@@ -11,8 +11,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import { RMWCProvider } from '@rmwc/provider';
 import 'material-components-web/dist/material-components-web.min.css';
 import { Main, Project, ServiceManager } from './containers';
-import { FILE, POOL, ACTION, ACTION_TYPE, STATE, ASSETS, ASSETS_DIR, SERVICE_PORT } from './constants';
-import { set } from './actions';
+import { FILE, ACTION, ACTION_TYPE, STATE, ASSETS, ASSETS_DIR, CLIENT_PORT } from './constants';
+import { modify, offline } from './actions';
 import createStore from './store';
 import reducer from './reducer';
 import state from './state';
@@ -20,21 +20,24 @@ import state from './state';
 const history = createHashHistory();
 const pool = JSON.parse(fs.readFileSync(FILE));
 
-const store = createStore(reducer, { [POOL]: pool }, history);
-const getState = state(store);
+const store = createStore(reducer, { pool }, history);
+const getState = state(store.getState);
+const { root } = store.getState().pool;
+if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
 
 ACTION_TYPE.forEach((a) => {
-  store.dispatch(set(a, { type: ACTION, code: a }));
+  store.dispatch(modify(a, { type: ACTION, code: a }));
 });
 
 const koa = new Koa();
 koa.use(mount(`/${ASSETS}`, assets(`./${ASSETS_DIR}/`)));
 koa.use(mount(`/${STATE}`, async (ctx, next) => {
+  console.log(ctx);
   await next();
   const id = ctx.path.substring(1);
   ctx.body = JSON.stringify(getState(id));
 }));
-koa.listen(SERVICE_PORT);
+koa.listen(CLIENT_PORT);
 
 export default class extends Component {
   render() {

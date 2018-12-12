@@ -12,7 +12,8 @@ import {
   ACTION_TIMER_STOP,
   ACTION_DOPPLER_HANDLE,
   ACTION_TOGGLE,
-  ACTION_SCRIPT_RUN
+  ACTION_SCRIPT_RUN,
+  ACTION_RGB_SET
 } from '../../../../constants';
 import ActionPayloadLight from './ActionPayloadLight';
 import ActionPayloadLightSet from './ActionPayloadLightSet';
@@ -24,6 +25,7 @@ import ActionPayloadTimerStop from './ActionPayloadTimerStop';
 import ActionPayloadDoppler from './ActionPayloadDoppler';
 import ActionPayloadToggle from './ActionPayloadToggle';
 import ActionPayloadScriptRun from './ActionPayloadScriptRun';
+import ActionPayloadRGBSet from './ActionPayloadRGBSet';
 
 type Props = {
   type: ?string
@@ -42,6 +44,8 @@ const Container = (props: Props) => {
       return <ActionPayloadSiteLightSetRelative {...props} />;
     case ACTION_SITE_LIGHT_OFF:
       return <ActionPayloadSiteLightOff {...props} />;
+    case ACTION_RGB_SET: 
+      return <ActionPayloadRGBSet {...props} />;
     case ACTION_TIMER_START:
       return <ActionPayloadTimerStart {...props} />;
     case ACTION_TIMER_STOP:

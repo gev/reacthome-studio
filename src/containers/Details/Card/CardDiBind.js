@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Typography } from '@rmwc/typography';
-import { set } from '../../../actions';
+import { modify } from '../../../actions';
 import { onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD, onClick, DI_CLICK } from '../../../constants';
 import SelectScript from '../SelectScript';
 
@@ -18,7 +18,7 @@ type ActionProps = {
   title: string;
   value: ?number;
   test: number;
-  set: (id: string, payload: {}) => void;
+  modify: (id: string, payload: {}) => void;
 };
 
 const Action = (props: ActionProps) => {
@@ -26,10 +26,10 @@ const Action = (props: ActionProps) => {
     value, action, test, project, title
   } = props;
   const select = (id) => {
-    props.set({ [action]: id });
+    props.modify({ [action]: id });
   };
   const clear = () => {
-    props.set({ [action]: null });
+    props.modify({ [action]: null });
   };
   const script = props[action];
   return (
@@ -62,6 +62,6 @@ const Container = (props : Props) => (
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id }) => bindActionCreators({
-    set: (payload) => set(id, payload)
+    modify: (payload) => modify(id, payload)
   }, dispatch)
 )(Container);

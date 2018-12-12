@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { set } from '../../../../actions';
+import { modify } from '../../../../actions';
 import SelectScript from '../../SelectScript';
 
 type Props = {
@@ -27,6 +27,6 @@ class Container extends Component<Props> {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id, payload }) => bindActionCreators({
-    setScript: (script) => set(id, { payload: { ...payload, id: script } })
+    setScript: (script) => modify(id, { payload: { ...payload, id: script } })
   }, dispatch)
 )(Container);

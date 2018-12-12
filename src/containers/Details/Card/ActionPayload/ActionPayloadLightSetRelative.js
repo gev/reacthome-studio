@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TextField } from '@rmwc/textfield';
-import { set } from '../../../../actions';
+import { modify } from '../../../../actions';
 import SelectLight from './SelectLight';
 import SelectOperator from './SelectOperator';
 
@@ -47,8 +47,8 @@ class Container extends Component<Props> {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id, payload }) => bindActionCreators({
-    setOperator: (operator) => set(id, { payload: { ...payload, operator } }),
-    setValue: (value) => set(id, { payload: { ...payload, value } })
+    setOperator: (operator) => modify(id, { payload: { ...payload, operator } }),
+    setValue: (value) => modify(id, { payload: { ...payload, value } })
   }, dispatch)
 )(Container);
 

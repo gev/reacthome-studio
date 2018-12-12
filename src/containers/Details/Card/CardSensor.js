@@ -11,11 +11,12 @@ import {
 } from '@rmwc/card';
 import { Typography } from '@rmwc/typography';
 import { TextField } from '@rmwc/textfield';
-import { remove, set } from '../../../actions';
+import { remove, modify } from '../../../actions';
 import { CODE, onTemperature, onHumidity, onDoppler } from '../../../constants';
 import Button from './CardSensorButton';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
+import RGB from '../../RGB';
 
 type Props = {
   id: string;
@@ -88,6 +89,7 @@ class Container extends Component<Props> {
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
+        <RGB id={id} daemon={daemon} />
         <table style={{ textAlign: 'left' }}>
           <tbody>
             <Row
@@ -155,8 +157,8 @@ export default connect(
   (dispatch, {
     project, parent, id, field, multiple
   }) => bindActionCreators({
-    removeField: () => (multiple ? remove(parent, field, id) : set(parent, { [field]: null })),
+    removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
-    change: (payload) => set(id, payload)
+    change: (payload) => modify(id, payload)
   }, dispatch)
 )(Container);

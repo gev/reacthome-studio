@@ -16,18 +16,18 @@ type ActionProps = {
   title: string;
   value: ?number;
   test: number;
-  set: (payload: {}) => void;
+  modify: (payload: {}) => void;
 };
 
 const Action = (props: ActionProps) => {
   const {
-    value, action, test, project, title, set
+    value, action, test, project, title, modify
   } = props;
   const select = (id) => {
-    set({ [action]: id });
+    modify({ [action]: id });
   };
   const clear = () => {
-    set({ [action]: null });
+    modify({ [action]: null });
   };
   const script = props[action];
   return (

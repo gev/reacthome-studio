@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
-import { SCRIPT } from '../../../../constants';
+import { SENSOR } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
 
@@ -23,7 +23,7 @@ class Container extends Component<Props> {
     const { title, code, options } = this.props;
     return (
       <SelectMenu
-        handle={<Button>{code || title || SCRIPT}</Button>}
+        handle={<Button>{code || title || SENSOR}</Button>}
         onSelect={this.select}
         options={options}
       />
@@ -34,18 +34,18 @@ class Container extends Component<Props> {
 const filter = (pool, root, a = []) => {
   const o = pool[root];
   if (o) {
-    a.push(root);
+    if (o.sensor) o.sensor.forEach(i => a.push(i));
     if (o.site) o.site.forEach(i => filter(pool, i, a));
   }
   return a;
 };
 
 export default connect(
-  ({ pool }, { project, payload: { script } = {} }) => ({
-    ...pool[script],
-    options: pool[project].script
+  ({ pool }, { root, payload: { id } = {} }) => ({
+    ...pool[id],
+    options: filter(pool, root)
   }),
   (dispatch, { action, payload }) => bindActionCreators({
-    modify: (script) => modify(action, { payload: { ...payload, script } }),
+    modify: (id) => modify(action, { payload: { ...payload, id } }),
   }, dispatch)
 )(Container);
