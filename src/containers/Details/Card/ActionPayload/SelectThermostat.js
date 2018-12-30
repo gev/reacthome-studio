@@ -3,14 +3,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
-import { SCRIPT } from '../../../../constants';
+import { THERMOSTAT } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
 
 type Props = {
   title: ?string,
   code: ?string,
-  field: ?string,
   options: [],
   modify: (id: string) => void;
 };
@@ -21,12 +20,10 @@ class Container extends Component<Props> {
   }
 
   render() {
-    const {
-      title, code, options, field
-    } = this.props;
+    const { title, code, options } = this.props;
     return (
       <SelectMenu
-        handle={<Button>{code || title || field || SCRIPT}</Button>}
+        handle={<Button>{code || title || THERMOSTAT}</Button>}
         onSelect={this.select}
         options={options}
       />
@@ -37,18 +34,18 @@ class Container extends Component<Props> {
 const filter = (pool, root, a = []) => {
   const o = pool[root];
   if (o) {
-    a.push(root);
+    if (o.thermostat) o.thermostat.forEach(i => a.push(i));
     if (o.site) o.site.forEach(i => filter(pool, i, a));
   }
   return a;
 };
 
 export default connect(
-  ({ pool }, { project, payload = {}, field = SCRIPT }) => ({
-    ...pool[payload[field]],
-    options: pool[project].script
+  ({ pool }, { root, payload: { id } = {} }) => ({
+    ...pool[id],
+    options: filter(pool, root)
   }),
-  (dispatch, { action, payload, field = SCRIPT }) => bindActionCreators({
-    modify: (script) => modify(action, { payload: { ...payload, [field]: script } }),
+  (dispatch, { action, payload }) => bindActionCreators({
+    modify: (id) => modify(action, { payload: { ...payload, id } }),
   }, dispatch)
 )(Container);

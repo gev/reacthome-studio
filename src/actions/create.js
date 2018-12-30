@@ -24,6 +24,8 @@ const apply = (action) => (dispatch, getState) => {
 
 export const add = (id, field, subject) => (dispatch, getState) => {
   if (!id) return;
+  if (!field) return;
+  if (!subject) return;
   const prev = getState().pool[id];
   if (prev && prev[field] && prev[field].includes(subject)) return;
   dispatch(modify(id, { [field]: prev && prev[field] ? [...prev[field], subject] : [subject] }));
@@ -74,6 +76,7 @@ export const remove = (id, field, subject) => (dispatch, getState) => {
 };
 
 export const attach = (id, field, file) => (dispatch) => {
+  console.log(file);
   const name = uuid() + path.parse(file).ext;
   const rs = createReadStream(file);
   const ws = createWriteStream(asset(name));

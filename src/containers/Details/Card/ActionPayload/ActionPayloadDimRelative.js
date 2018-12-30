@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TextField } from '@rmwc/textfield';
 import { modify } from '../../../../actions';
-import SelectLight from './SelectLight';
+import Autocomplete from '../../../Filter';
 import SelectOperator from './SelectOperator';
 
 type Props = {
-  id: string;
-  site: string;
+  root: string;
   payload: ?{};
   setOperator: (id: string) => void;
   setValue: (value: number) => void;
+  select: (id: string) => void;
 };
 
 class Container extends Component<Props> {
@@ -22,11 +22,11 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      id, site, payload, setOperator
+      payload = {}, setOperator, root, select
     } = this.props;
     return (
       <div className="paper">
-        <SelectLight root={site} action={id} payload={payload} />
+        <Autocomplete id={payload.id} root={root} onSelect={select} />
         <table>
           <tbody>
             <tr>
@@ -48,7 +48,8 @@ export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id, payload }) => bindActionCreators({
     setOperator: (operator) => modify(id, { payload: { ...payload, operator } }),
-    setValue: (value) => modify(id, { payload: { ...payload, value } })
+    setValue: (value) => modify(id, { payload: { ...payload, value } }),
+    select: (target) => modify(id, { payload: { ...payload, id: target } })
   }, dispatch)
 )(Container);
 

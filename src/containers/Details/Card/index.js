@@ -22,6 +22,8 @@ import {
   TV,
   INTERCOM,
   TOUCH,
+  THERMOSTAT,
+  CLOCK,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -34,6 +36,8 @@ import CardDo from './CardDo';
 import CardTV from './CardTV';
 import CardTouch from './CardTouch';
 import CardIntercom from './CardIntercom';
+import CardThermostat from './CardThermostat';
+import CardClock from './CardClock';
 
 type Props = {
   type: ?string
@@ -65,12 +69,16 @@ const Container = (props: Props) => {
       return <CardDo {...props} />;
     case TIMER:
       return <CardTimer {...props} />;
+    case CLOCK:
+      return <CardClock {...props} />;
     case TV:
       return <CardTV {...props} />;
     case INTERCOM:
       return <CardIntercom {...props} />;
     case TOUCH:
       return <CardTouch {...props} />;
+    case THERMOSTAT:
+      return <CardThermostat {...props} />;
     default:
       return <CardDefault {...props} />;
   }

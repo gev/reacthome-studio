@@ -5,7 +5,7 @@ import Toolbar from './Toolbar';
 import Menu from './Menu';
 import Details from './Details';
 import Grid from './Grid';
-import { MODEL, SCRIPT, TIMER } from '../constants';
+import { MODEL, SCRIPT, TIMER, CLOCK } from '../constants';
 
 type Props = {
   match: {},
@@ -35,6 +35,7 @@ class Project extends Component<Props> {
     const isModel = id === MODEL;
     const isScript = id === SCRIPT;
     const isTimer = id === TIMER;
+    const isClock = id === CLOCK;
     return (
       <div className="container">
         <Menu project={project} open={this.state.menuOpen} onClose={this.closeMenu} />
@@ -52,7 +53,11 @@ class Project extends Component<Props> {
             <Details project={project} daemon={daemon} id={project} field={TIMER} />
         }
         {
-          !(isModel || isScript || isTimer) &&
+          isClock &&
+            <Details project={project} daemon={daemon} id={project} field={CLOCK} />
+        }
+        {
+          !(isModel || isScript || isTimer || isClock) &&
             <Details project={project} daemon={daemon} id={id || project} field={field} />
         }
       </div>

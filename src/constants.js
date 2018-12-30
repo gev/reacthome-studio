@@ -25,17 +25,21 @@ export const ACTION_SET = 'ACTION_SET';
 export const ACTION_INIT = 'ACTION_INIT';
 export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 
-export const ACTION_RGB_SET = 'ACTION_RGB_SET';
-export const ACTION_LIGHT_ON = 'ACTION_LIGHT_ON';
-export const ACTION_LIGHT_OFF = 'ACTION_LIGHT_OFF';
-export const ACTION_LIGHT_SET = 'ACTION_LIGHT_SET';
-export const ACTION_LIGHT_SET_RELATIVE = 'ACTION_LIGHT_SET_RELATIVE';
-export const ACTION_SITE_LIGHT_SET_RELATIVE = 'ACTION_SITE_LIGHT_SET_RELATIVE';
+export const ACTION_RGB_DIM = 'ACTION_RGB_DIM';
+export const ACTION_ON = 'ACTION_ON';
+export const ACTION_OFF = 'ACTION_OFF';
+export const ACTION_DIM = 'ACTION_DIM';
+export const ACTION_DIM_RELATIVE = 'ACTION_DIM_RELATIVE';
+export const ACTION_SITE_LIGHT_DIM_RELATIVE = 'ACTION_SITE_LIGHT_DIM_RELATIVE';
 export const ACTION_SITE_LIGHT_OFF = 'ACTION_SITE_LIGHT_OFF';
 export const ACTION_SETPOINT = 'ACTION_SETPOINT';
 export const ACTION_TIMER_START = 'ACTION_TIMER_START';
 export const ACTION_TIMER_STOP = 'ACTION_TIMER_STOP';
+export const ACTION_CLOCK_START = 'ACTION_CLOCK_START';
+export const ACTION_CLOCK_STOP = 'ACTION_CLOCK_STOP';
+export const ACTION_CLOCK_TEST = 'ACTION_CLOCK_TEST';
 export const ACTION_DOPPLER_HANDLE = 'ACTION_DOPPLER_HANDLE';
+export const ACTION_THERMOSTAT_HANDLE = 'ACTION_THERMOSTAT_HANDLE';
 export const ACTION_TOGGLE = 'ACTION_TOGGLE';
 export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
@@ -95,6 +99,7 @@ export const DIM_TYPE_RELAY = 0x4;
 
 export const DIM_TYPES = ['Unplugged', 'Rising edge', 'Falling edge', 'PWM', 'Relay'];
 
+export const ID = 'id';
 export const ROOT = 'root';
 export const BIND = 'bind';
 export const DAEMON = 'daemon';
@@ -108,16 +113,27 @@ export const SITE = 'site';
 export const SCENE = 'scene';
 export const SCRIPT = 'script';
 export const TIMER = 'timer';
+export const CLOCK = 'clock';
 export const CODE = 'code';
 export const TITLE = 'title';
 export const IMAGE = 'image';
 export const CAMERA_URL = 'camera_URL';
 export const PREVIEW_URL = 'preview_URL';
 export const MAIN_URL = 'main_URL';
+export const THERMOSTAT = 'thermostat';
+export const SETPOINT = 'setpoint';
 
 export const QUIET = 'QUIET';
 export const LOW_THRESHOLD = 'LOW_THRESHOLD';
 export const HIGH_THRESHOLD = 'HIGH_THRESHOLD';
+
+export const STOP = 'STOP';
+export const COOL = 'COOL';
+export const HEAT = 'HEAT';
+export const COOL_THRESHOLD = 'cool_threshold';
+export const COOL_HYSTERESIS = 'cool_hysteresis';
+export const HEAT_THRESHOLD = 'heat_threshold';
+export const HEAT_HYSTERESIS = 'heat_hysteresis';
 
 export const LIGHT = 'light';
 export const LIGHT_220 = 'light_220';
@@ -171,21 +187,26 @@ export const MODEL_TYPE = [
   ACCESS_POINT,
   CAMERA,
   INTERCOM,
-  TOUCH
+  TOUCH,
+  THERMOSTAT
 ];
 
 export const ACTION_TYPE = [
-  ACTION_LIGHT_OFF,
-  ACTION_LIGHT_ON,
-  ACTION_LIGHT_SET,
-  ACTION_LIGHT_SET_RELATIVE,
-  ACTION_SITE_LIGHT_SET_RELATIVE,
+  ACTION_OFF,
+  ACTION_ON,
+  ACTION_DIM,
+  ACTION_DIM_RELATIVE,
+  ACTION_SITE_LIGHT_DIM_RELATIVE,
   ACTION_SITE_LIGHT_OFF,
-  ACTION_RGB_SET,
+  ACTION_RGB_DIM,
   ACTION_SETPOINT,
   ACTION_TIMER_START,
   ACTION_TIMER_STOP,
+  ACTION_CLOCK_START,
+  ACTION_CLOCK_TEST,
+  ACTION_CLOCK_STOP,
   ACTION_DOPPLER_HANDLE,
+  ACTION_THERMOSTAT_HANDLE,
   ACTION_TOGGLE,
   ACTION_SCRIPT_RUN
 ];
@@ -205,17 +226,38 @@ export const onTemperature = 'onTemperature';
 export const onTemperatureExt = 'onTemperatureExt';
 export const onHumidity = 'onHumidity';
 export const onIllumination = 'onIllumination';
+export const onCool = 'onCool';
+export const onHeat = 'onHeat';
+export const onStop = 'onStop';
+export const onTrue = 'onTrue';
+export const onFalse = 'onFalse';
 
 export const OPERATOR_PLUS = 'OPERATOR_PLUS';
 export const OPERATOR_MINUS = 'OPERATOR_MINUS';
 export const OPERATOR_MUL = 'OPERATOR_MUL';
 export const OPERATOR_DIV = 'OPERATOR_DIV';
 
+export const OPERATOR_LT = 'OPERATOR_LT';
+export const OPERATOR_LE = 'OPERATOR_LE';
+export const OPERATOR_EQ = 'OPERATOR_EQ';
+export const OPERATOR_NE = 'OPERATOR_NE';
+export const OPERATOR_GE = 'OPERATOR_GE';
+export const OPERATOR_GT = 'OPERATOR_GT';
+
 export const OPERATORS = [
   OPERATOR_PLUS,
   OPERATOR_MINUS,
   OPERATOR_MUL,
   OPERATOR_DIV
+];
+
+export const COMPARATORS = [
+  OPERATOR_LT,
+  OPERATOR_LE,
+  OPERATOR_EQ,
+  OPERATOR_NE,
+  OPERATOR_GE,
+  OPERATOR_GT
 ];
 
 export const DEVICE_TYPES = {

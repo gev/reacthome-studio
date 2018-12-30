@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Slider } from '@rmwc/slider';
 import { request } from '../actions';
-import { ACTION_RGB_SET } from '../constants';
+import { ACTION_RGB_DIM } from '../constants';
 
 type Props = {
   rgb: ?number,
@@ -42,6 +42,6 @@ class Container extends Component<Props> {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { daemon, id }) => bindActionCreators({
-    set: (value) => request(daemon, { type: ACTION_RGB_SET, value, id })
+    set: (value) => request(daemon, { type: ACTION_RGB_DIM, value, id })
   }, dispatch)
 )(Container);

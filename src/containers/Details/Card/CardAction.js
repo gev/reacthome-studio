@@ -35,19 +35,19 @@ class Container extends Component<Props> {
   }
 
   setType = (type) => {
-    this.props.change({ type, payload: {} });
+    this.props.change({ ...this.props.payload, type });
   }
 
   run = () => {
     const {
       daemon, type, payload, run
     } = this.props;
-    if (daemon) run(daemon, { type, ...payload });
+    if (daemon) run(daemon, { ...payload, type });
   }
 
   render() {
     const {
-      id, code, type, site, project, removeField, daemon
+      id, code, type, site, project, removeField, daemon, change
     } = this.props;
     return (
       <Card>
@@ -61,7 +61,7 @@ class Container extends Component<Props> {
             onSelect={this.setType}
           />
         </div>
-        <ActionPayload id={id} site={site} project={project} daemon={daemon} />
+        <ActionPayload id={id} site={site} project={project} root={project} daemon={daemon} change={change} />
         <CardActions>
           <CardActionIcons>
             <CardAction icon="play_arrow" onClick={this.run} />

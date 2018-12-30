@@ -13,7 +13,7 @@ import {
   ToolbarFixedAdjust
 } from '@rmwc/toolbar';
 import { Button, ButtonIcon } from '@rmwc/button';
-import { MODEL, PROJECT, SCRIPT, TIMER } from '../constants';
+import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK } from '../constants';
 import { sendProject, exportProject } from '../actions';
 
 type Props = {
@@ -25,6 +25,7 @@ type Props = {
   model: () => void,
   script: () => void,
   timer: () => void,
+  clock: () => void,
   sendProject: () => void,
   exportProject: (folder: string) => void
 };
@@ -41,7 +42,7 @@ class MyToolbar extends Component<Props> {
 
   render() {
     const {
-      project, title, back, openMenu, details, model, script, timer
+      project, title, back, openMenu, details, model, script, timer, clock
     } = this.props;
     return [
       <Toolbar key="toolbar" fixed style={{ backgroundColor: 'white' }}>
@@ -57,6 +58,7 @@ class MyToolbar extends Component<Props> {
           <Button onClick={model}><ButtonIcon icon="apps" />{MODEL}</Button>
           <Button onClick={script}><ButtonIcon icon="web" />{SCRIPT}</Button>
           <Button onClick={timer}><ButtonIcon icon="timer" />{TIMER}</Button>
+          <Button onClick={clock}><ButtonIcon icon="access_time" />{CLOCK}</Button>
         </ToolbarRow>
       </Toolbar>,
       <ToolbarFixedAdjust key="adjust" />
@@ -72,6 +74,7 @@ export default connect(
     model: () => push(`/${PROJECT}/${project}/${MODEL}`),
     script: () => push(`/${PROJECT}/${project}/${SCRIPT}`),
     timer: () => push(`/${PROJECT}/${project}/${TIMER}`),
+    clock: () => push(`/${PROJECT}/${project}/${CLOCK}`),
     sendProject: () => sendProject(project),
     exportProject: (folder) => exportProject(project, folder)
   }, dispatch)
