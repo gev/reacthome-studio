@@ -38,6 +38,8 @@ export const ACTION_TIMER_STOP = 'ACTION_TIMER_STOP';
 export const ACTION_CLOCK_START = 'ACTION_CLOCK_START';
 export const ACTION_CLOCK_STOP = 'ACTION_CLOCK_STOP';
 export const ACTION_CLOCK_TEST = 'ACTION_CLOCK_TEST';
+export const ACTION_NIGHT_TEST = 'ACTION_NIGHT_TEST';
+export const ACTION_DAY_TEST = 'ACTION_DAY_TEST';
 export const ACTION_DOPPLER_HANDLE = 'ACTION_DOPPLER_HANDLE';
 export const ACTION_THERMOSTAT_HANDLE = 'ACTION_THERMOSTAT_HANDLE';
 export const ACTION_TOGGLE = 'ACTION_TOGGLE';
@@ -122,6 +124,10 @@ export const PREVIEW_URL = 'preview_URL';
 export const MAIN_URL = 'main_URL';
 export const THERMOSTAT = 'thermostat';
 export const SETPOINT = 'setpoint';
+export const LOCATION = 'location';
+export const WEATHER = 'weather';
+export const SUNRISE = 'sunrise';
+export const SUNSET = 'sunset';
 
 export const QUIET = 'QUIET';
 export const LOW_THRESHOLD = 'LOW_THRESHOLD';
@@ -203,8 +209,10 @@ export const ACTION_TYPE = [
   ACTION_TIMER_START,
   ACTION_TIMER_STOP,
   ACTION_CLOCK_START,
-  ACTION_CLOCK_TEST,
   ACTION_CLOCK_STOP,
+  ACTION_CLOCK_TEST,
+  ACTION_NIGHT_TEST,
+  ACTION_DAY_TEST,
   ACTION_DOPPLER_HANDLE,
   ACTION_THERMOSTAT_HANDLE,
   ACTION_TOGGLE,
@@ -231,6 +239,8 @@ export const onHeat = 'onHeat';
 export const onStop = 'onStop';
 export const onTrue = 'onTrue';
 export const onFalse = 'onFalse';
+export const onSunrise = 'onSunrise';
+export const onSunset = 'onSunset';
 
 export const OPERATOR_PLUS = 'OPERATOR_PLUS';
 export const OPERATOR_MINUS = 'OPERATOR_MINUS';

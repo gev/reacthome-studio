@@ -13,7 +13,7 @@ import {
   ToolbarFixedAdjust
 } from '@rmwc/toolbar';
 import { Button, ButtonIcon } from '@rmwc/button';
-import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK } from '../constants';
+import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER } from '../constants';
 import { sendProject, exportProject } from '../actions';
 
 type Props = {
@@ -26,6 +26,8 @@ type Props = {
   script: () => void,
   timer: () => void,
   clock: () => void,
+  location: () => void,
+  weather: () => void,
   sendProject: () => void,
   exportProject: (folder: string) => void
 };
@@ -42,7 +44,7 @@ class MyToolbar extends Component<Props> {
 
   render() {
     const {
-      project, title, back, openMenu, details, model, script, timer, clock
+      project, title, back, openMenu, details, model, script, timer, clock, location, weather
     } = this.props;
     return [
       <Toolbar key="toolbar" fixed style={{ backgroundColor: 'white' }}>
@@ -59,6 +61,8 @@ class MyToolbar extends Component<Props> {
           <Button onClick={script}><ButtonIcon icon="web" />{SCRIPT}</Button>
           <Button onClick={timer}><ButtonIcon icon="timer" />{TIMER}</Button>
           <Button onClick={clock}><ButtonIcon icon="access_time" />{CLOCK}</Button>
+          <Button onClick={location}><ButtonIcon icon="location_on" />{LOCATION}</Button>
+          <Button onClick={weather}><ButtonIcon icon="filter_drama" />{WEATHER}</Button>
         </ToolbarRow>
       </Toolbar>,
       <ToolbarFixedAdjust key="adjust" />
@@ -75,6 +79,8 @@ export default connect(
     script: () => push(`/${PROJECT}/${project}/${SCRIPT}`),
     timer: () => push(`/${PROJECT}/${project}/${TIMER}`),
     clock: () => push(`/${PROJECT}/${project}/${CLOCK}`),
+    location: () => push(`/${PROJECT}/${project}/${LOCATION}`),
+    weather: () => push(`/${PROJECT}/${project}/${WEATHER}`),
     sendProject: () => sendProject(project),
     exportProject: (folder) => exportProject(project, folder)
   }, dispatch)

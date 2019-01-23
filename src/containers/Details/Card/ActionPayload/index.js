@@ -17,7 +17,9 @@ import {
   ACTION_THERMOSTAT_HANDLE,
   ACTION_CLOCK_START,
   ACTION_CLOCK_STOP,
-  ACTION_CLOCK_TEST
+  ACTION_CLOCK_TEST,
+  ACTION_DAY_TEST,
+  ACTION_NIGHT_TEST
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -33,6 +35,7 @@ import ActionPayloadScriptRun from './ActionPayloadScriptRun';
 import ActionPayloadRGBDim from './ActionPayloadRGBDim';
 import ActionPayloadClockStartStop from './ActionPayloadClockStartStop';
 import ActionPayloadClockTest from './ActionPayloadClockTest';
+import ActionPayloadDayNightTest from './ActionPayloadDayNightTest';
 
 type Props = {
   type: ?string
@@ -62,6 +65,9 @@ const Container = (props: Props) => {
       return <ActionPayloadClockStartStop {...props} />;
     case ACTION_CLOCK_TEST:
       return <ActionPayloadClockTest {...props} />;
+    case ACTION_DAY_TEST:
+    case ACTION_NIGHT_TEST:
+      return <ActionPayloadDayNightTest {...props} />;
     case ACTION_DOPPLER_HANDLE:
       return <ActionPayloadDoppler {...props} />;
     case ACTION_THERMOSTAT_HANDLE:
