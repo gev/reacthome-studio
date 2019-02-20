@@ -24,6 +24,7 @@ import {
   TOUCH,
   THERMOSTAT,
   CLOCK,
+  DAEMON,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -38,6 +39,7 @@ import CardTouch from './CardTouch';
 import CardIntercom from './CardIntercom';
 import CardThermostat from './CardThermostat';
 import CardClock from './CardClock';
+import CardDaemon from './CardDaemon';
 
 type Props = {
   type: ?string
@@ -45,6 +47,8 @@ type Props = {
 
 const Container = (props: Props) => {
   switch (props.type) {
+    case DAEMON:
+      return <CardDaemon {...props} />;
     case SITE:
       return <CardSite {...props} />;
     case CAMERA:

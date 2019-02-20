@@ -26,8 +26,8 @@ class Container extends Component<Props> {
     const {
       id, weather: { sys = {} } = {}
     } = this.props;
-    const sunrise = new Date(sys.sunrise * 1000);
-    const sunset = new Date(sys.sunset * 1000);
+    const sunrise = new Date(sys.sunrise);
+    const sunset = new Date(sys.sunset);
     return (
       <div>
         <div className="paper">
