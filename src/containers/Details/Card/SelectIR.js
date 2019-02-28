@@ -7,6 +7,7 @@ import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
 import {
   IR,
+  DEVICE_TYPE_IR1,
   DEVICE_TYPE_IR6,
 } from '../../../constants';
 
@@ -34,6 +35,9 @@ const Ir = c(({
   };
   let n;
   switch (type) {
+    case DEVICE_TYPE_IR1:
+      n = 1;
+      break;
     case DEVICE_TYPE_IR6:
       n = 6;
       break;

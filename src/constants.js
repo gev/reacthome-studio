@@ -48,6 +48,7 @@ export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 export const ACTION_DO = 0x00;
 export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
+export const ACTION_ARTNET = 0xd1;
 export const ACTION_DISCOVERY = 0xf0;
 export const ACTION_READY = 0xf1;
 export const ACTION_FIND_ME = 0xfa;
@@ -63,6 +64,7 @@ export const DEVICE_TYPE_THI = 0x03;
 export const DEVICE_TYPE_DOPPLER = 0x04;
 export const DEVICE_TYPE_DMX = 0x05;
 export const DEVICE_TYPE_RS485 = 0x06;
+export const DEVICE_TYPE_IR1 = 0x14;
 export const DEVICE_TYPE_IR6 = 0x07;
 export const DEVICE_TYPE_IR_RECEIVER = 0x10;
 export const DEVICE_TYPE_DI16 = 0x08;
@@ -75,6 +77,7 @@ export const DEVICE_TYPE_DI16_DO8 = 0x0c;
 export const DEVICE_TYPE_DO8_DI16 = 0x0d;
 export const DEVICE_TYPE_DIM4 = 0x0e;
 export const DEVICE_TYPE_DIM8 = 0x0f;
+export const DEVICE_TYPE_ARTNET = 0x13;
 export const DEVICE_TYPE_PNP = 0xe0;
 export const DEVICE_TYPE_PLC = 0xfe;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
@@ -99,7 +102,19 @@ export const DIM_TYPE_FALLING_EDGE = 0x2;
 export const DIM_TYPE_PWM = 0x3;
 export const DIM_TYPE_RELAY = 0x4;
 
+export const ARTNET_OFF = 0x0;
+export const ARTNET_ON = 0x1;
+export const ARTNET_SET = 0x2;
+export const ARTNET_FADE = 0x3;
+export const ARTNET_TYPE = 0x4;
+export const ARTNET_CONFIG = 0x5;
+
+export const ARTNET_TYPE_UNPLUGGED = 0x0;
+export const ARTNET_TYPE_DIMMER = 0x1;
+export const ARTNET_TYPE_RELAY = 0x2;
+
 export const DIM_TYPES = ['Unplugged', 'Rising edge', 'Falling edge', 'PWM', 'Relay'];
+export const ARTNET_TYPES = ['Unplugged', 'Dimmer', 'Relay'];
 
 export const ID = 'id';
 export const ROOT = 'root';
@@ -170,6 +185,7 @@ export const IR = 'ir';
 export const DO = 'do';
 export const DI = 'di';
 export const DIM = 'dim';
+export const ARTNET = 'artnet';
 
 export const MODEL_TYPE = [
   SCENE,
@@ -302,6 +318,10 @@ export const DEVICE_TYPES = {
     firmware: 'rs485',
     hasFindMeAction: true
   },
+  [DEVICE_TYPE_IR1]: {
+    title: 'IR-1',
+    firmware: 'ir1'
+  },
   [DEVICE_TYPE_IR6]: {
     title: 'IR-6',
     firmware: 'ir6',
@@ -360,6 +380,9 @@ export const DEVICE_TYPES = {
     title: 'Dimmer-8',
     firmware: 'dim8',
     hasFindMeAction: true
+  },
+  [DEVICE_TYPE_ARTNET]: {
+    title: 'Artnet'
   },
   [DEVICE_TYPE_PNP]: {
     title: 'PNP',

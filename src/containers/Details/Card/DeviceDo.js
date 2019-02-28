@@ -2,7 +2,8 @@
 import React from 'react';
 import Do from '../../Device/DeviceDoChannel';
 import Dimmer from '../../Device/DeviceDimmerChannel';
-import { DO, DIM } from '../../../constants';
+import Artnet from '../../Device/DeviceArtnetChannel';
+import { DO, DIM, ARTNET } from '../../../constants';
 
 type Props = {
   id: string;
@@ -23,6 +24,15 @@ export default ({ id, daemon }: Props) => {
           <table>
             <tbody>
               <Dimmer id={dev} index={index} daemon={daemon} />
+            </tbody>
+          </table>
+        )
+      }
+      {
+        (type === ARTNET) && (
+          <table>
+            <tbody>
+              <Artnet id={dev} index={index} daemon={daemon} />
             </tbody>
           </table>
         )

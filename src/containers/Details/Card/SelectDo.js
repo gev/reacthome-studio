@@ -12,7 +12,9 @@ import {
   DEVICE_TYPE_DO12,
   DEVICE_TYPE_DIM4,
   DEVICE_TYPE_DIM8,
-  DIM
+  DIM,
+  DEVICE_TYPE_ARTNET,
+  ARTNET
 } from '../../../constants';
 
 type Props = {
@@ -25,13 +27,14 @@ type DiProps = {
   id: string;
   type: string,
   index: ?number,
+  size: ?number,
   onSelect: (i: number) => void
 };
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
-  id, type, index, onSelect
+  id, type, index, onSelect, size = 0
 }: DiProps) => {
   const a = [];
   const select = (i, t) => () => {
@@ -59,6 +62,10 @@ const Do = c(({
     case DEVICE_TYPE_DO12:
       n = 12;
       t = DO;
+      break;
+    case DEVICE_TYPE_ARTNET:
+      n = size;
+      t = ARTNET;
       break;
     default: n = 0;
   }

@@ -6,12 +6,12 @@ import { Slider } from '@rmwc/slider';
 import { Button } from '@rmwc/button';
 import { SimpleMenu, MenuItem } from '@rmwc/menu';
 import {
-  DIM,
-  ACTION_DIMMER,
-  DIM_TYPES,
-  DIM_FADE,
-  DIM_TYPE,
-  DIM_ON, DIM_OFF
+  ARTNET,
+  ACTION_ARTNET,
+  ARTNET_TYPES,
+  ARTNET_FADE,
+  ARTNET_TYPE,
+  ARTNET_ON, ARTNET_OFF
 } from '../../constants';
 import connect from './connect';
 
@@ -24,26 +24,26 @@ type Props = {
   request: (action: {}) => void;
 };
 
-export default connect(DIM)((props: Props) => {
+export default connect(ARTNET)((props: Props) => {
   const {
     id, index, value, type, request
   } = props;
 
   const setType = (t) => () => {
     request({
-      type: ACTION_DIMMER, action: DIM_TYPE, id, index, value: t
+      type: ACTION_ARTNET, action: ARTNET_TYPE, id, index, value: t
     });
   };
 
   const setValue = (event) => {
     request({
-      type: ACTION_DIMMER, action: DIM_FADE, id, index, value: event.detail.value
+      type: ACTION_ARTNET, action: ARTNET_FADE, id, index, value: event.detail.value
     });
   };
 
   const onoff = (event) => {
     request({
-      type: ACTION_DIMMER, action: event.target.checked ? DIM_ON : DIM_OFF, id, index
+      type: ACTION_ARTNET, action: event.target.checked ? ARTNET_ON : ARTNET_OFF, id, index
     });
   };
 
@@ -53,9 +53,9 @@ export default connect(DIM)((props: Props) => {
         <Typography use="caption">{index}</Typography>
       </td>
       <td className="paper">
-        <SimpleMenu handle={<Button>{DIM_TYPES[type] || 'Type'}</Button>}>
+        <SimpleMenu handle={<Button>{ARTNET_TYPES[type] || 'Type'}</Button>}>
           {
-            DIM_TYPES.map((v, i) => (
+            ARTNET_TYPES.map((v, i) => (
               <MenuItem key={v} onClick={setType(i)}>{v}</MenuItem>
             ))
           }
