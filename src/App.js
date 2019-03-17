@@ -12,7 +12,7 @@ import { RMWCProvider } from '@rmwc/provider';
 import 'material-components-web/dist/material-components-web.min.css';
 import { Main, Project, ServiceManager } from './containers';
 import { FILE, ACTION, ACTION_TYPE, STATE, ASSETS, ASSETS_DIR, CLIENT_PORT } from './constants';
-import { modify, offline } from './actions';
+import { modify, offline, init } from './actions';
 import createStore from './store';
 import reducer from './reducer';
 import state from './state';
@@ -38,6 +38,8 @@ koa.use(mount(`/${STATE}`, async (ctx, next) => {
   ctx.body = JSON.stringify(getState(id));
 }));
 koa.listen(CLIENT_PORT);
+
+// store.dispatch(init('192.168.0.2'));
 
 export default class extends Component {
   render() {

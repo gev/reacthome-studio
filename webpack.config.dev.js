@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const port = process.env.PORT || '8080';
+const port = process.env.PORT || '8888';
 
 const config = {
   context: __dirname,

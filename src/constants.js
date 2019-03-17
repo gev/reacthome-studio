@@ -96,18 +96,18 @@ export const DIM_SET = 0x2;
 export const DIM_FADE = 0x3;
 export const DIM_TYPE = 0x4;
 
-export const DIM_TYPE_UNPLUGGED = 0x0;
-export const DIM_TYPE_RISING_EDGE = 0x1;
-export const DIM_TYPE_FALLING_EDGE = 0x2;
-export const DIM_TYPE_PWM = 0x3;
-export const DIM_TYPE_RELAY = 0x4;
-
 export const ARTNET_OFF = 0x0;
 export const ARTNET_ON = 0x1;
 export const ARTNET_SET = 0x2;
 export const ARTNET_FADE = 0x3;
 export const ARTNET_TYPE = 0x4;
 export const ARTNET_CONFIG = 0x5;
+
+export const DIM_TYPE_UNPLUGGED = 0x0;
+export const DIM_TYPE_RISING_EDGE = 0x1;
+export const DIM_TYPE_FALLING_EDGE = 0x2;
+export const DIM_TYPE_PWM = 0x3;
+export const DIM_TYPE_RELAY = 0x4;
 
 export const ARTNET_TYPE_UNPLUGGED = 0x0;
 export const ARTNET_TYPE_DIMMER = 0x1;
