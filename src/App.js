@@ -39,8 +39,6 @@ koa.use(mount(`/${STATE}`, async (ctx, next) => {
 }));
 koa.listen(CLIENT_PORT);
 
-// store.dispatch(init('192.168.0.2'));
-
 export default class extends Component {
   render() {
     return (

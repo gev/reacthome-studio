@@ -6,9 +6,19 @@ import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import { modify } from '../../../../actions';
 import SelectScript from '../../SelectScript';
-import SelectSite from './SelectSite';
-import SelectSensor from './SelectSensor';
-import { COOL_HYSTERESIS, COOL_THRESHOLD, HEAT_HYSTERESIS, HEAT_THRESHOLD, COOL, onCool, STOP, onStop, HEAT, onHeat, SITE, SENSOR } from '../../../../constants';
+import {
+  COOL_HYSTERESIS,
+  COOL_THRESHOLD,
+  HEAT_HYSTERESIS,
+  HEAT_THRESHOLD,
+  START_COOL,
+  STOP_COOL,
+  START_HEAT,
+  STOP_HEAT,
+  onStartCool,
+  onStopCool,
+  onStartHeat,
+  onStopHeat } from '../../../../constants';
 import SelectThermostat from './SelectThermostat';
 
 type Props = {
@@ -59,35 +69,49 @@ class Container extends Component<Props> {
           <tbody>
             <tr>
               <td>
-                <Typography use="caption">{COOL}</Typography>
+                <Typography use="caption">{START_COOL}</Typography>
               </td>
               <td>
-                <Typography use="caption">{STOP}</Typography>
-              </td>
-              <td>
-                <Typography use="caption">{HEAT}</Typography>
+                <SelectScript
+                  id={payload.onStartCool}
+                  project={project}
+                  onSelect={this.on(onStartCool)}
+                />
               </td>
             </tr>
             <tr>
               <td>
-                <SelectScript
-                  id={payload.onCool}
-                  project={project}
-                  onSelect={this.on(onCool)}
-                />
+                <Typography use="caption">{STOP_COOL}</Typography>
               </td>
               <td>
                 <SelectScript
-                  id={payload.onStop}
+                  id={payload.onStopCool}
                   project={project}
-                  onSelect={this.on(onStop)}
+                  onSelect={this.on(onStopCool)}
                 />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Typography use="caption">{START_HEAT}</Typography>
               </td>
               <td>
                 <SelectScript
-                  id={payload.onHeat}
+                  id={payload.onStartHeat}
                   project={project}
-                  onSelect={this.on(onHeat)}
+                  onSelect={this.on(onStartHeat)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Typography use="caption">{STOP_HEAT}</Typography>
+              </td>
+              <td>
+                <SelectScript
+                  id={payload.onStopHeat}
+                  project={project}
+                  onSelect={this.on(onStopHeat)}
                 />
               </td>
             </tr>
