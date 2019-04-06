@@ -409,3 +409,11 @@ export const DEVICE_TYPES = {
     title: 'Outdated'
   }
 };
+
+export const SERVICE_TYPE_RS21 = 'RS21';
+
+export const SERVICE_TYPES = {
+  [SERVICE_TYPE_RS21]: {
+    title: 'Wi-Fi Temperature Sensor'
+  }
+};
