@@ -29,15 +29,14 @@ const filter = (pool, root, test, a = [], f = []) => {
   return a;
 };
 
-export default connect(({ pool }, { root, text }) =>
-  ({
-    list: text ? filter(pool, root, ({ code, title, type }) => {
-      const t = text.toLowerCase();
-      return (
-        // (id && String(id).toLowerCase().includes(t)) ||
-        (code && String(code).toLowerCase().includes(t)) ||
-        (type && String(type).toLowerCase().includes(t)) ||
-        (title && String(title).toLowerCase().includes(t))
-      );
-    }) : []
-  }))(Container);
+export default connect(({ pool }, { root, text }) => {
+  const t = text && text.toLowerCase();
+  return {
+    list: text ? filter(pool, root, ({ code, title, type }) => (
+      // (id && String(id).toLowerCase().includes(t)) ||
+      (code && String(code).toLowerCase().includes(t)) ||
+      (type && String(type).toLowerCase().includes(t)) ||
+      (title && String(title).toLowerCase().includes(t))
+    )).concat(Object.keys(pool).filter(i => i && i.toLowerCase().includes(t)).map(i => [i, pool[i]])) : []
+  };
+})(Container);

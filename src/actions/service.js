@@ -73,7 +73,7 @@ export const discovery = (id) => (dispatch, getState) => {
 };
 
 export const dispatchAction = (action, ip) => (dispatch, getState) => {
-  ip = '192.168.0.2';
+  // ip = '192.168.0.2';
   const { id, payload } = action;
   switch (action.type) {
     case ACTION_DISCOVERY: {

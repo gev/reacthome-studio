@@ -1,41 +1,46 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
 import { SENSOR } from '../../../constants';
 import SelectMenu from '../SelectMenu';
+import { set } from '../../../actions';
 
 type Props = {
   title: ?string,
   code: ?string,
   options: [],
-  onSelect: (id: string) => void;
+  select: (id: string) => void;
 };
 
 class Container extends Component<Props> {
   render() {
     const {
-      title, code, options, onSelect
+      title, code, options, select
     } = this.props;
     return (
       <SelectMenu
         handle={<Button>{code || title || SENSOR}</Button>}
-        onSelect={onSelect}
+        onSelect={select}
         options={options}
       />
     );
   }
 }
 
-const filter = (pool, root, a = []) => {
+const filter = (pool, root, a = [null]) => {
   const o = pool[root];
   if (o) {
-    if (o.sensor) o.sensor.forEach(i => a.push(i));
-    if (o.RS21) o.RS21.forEach(i => a.push(i));
+    if (o.thermostat) o.thermostat.forEach(i => a.push(i));
     if (o.site) o.site.forEach(i => filter(pool, i, a));
   }
   return a;
 };
 
-export default connect(({ pool }, { root, id }) =>
-  ({ ...pool[id], options: filter(pool, root) }))(Container);
+export default connect(
+  ({ pool }, { root, id }) => ({ ...pool[pool[id].thermostat], options: filter(pool, root) }),
+  (dispatch, { id }) => bindActionCreators({
+    select: (thermostat) => set(id, { thermostat })
+  }, dispatch)
+)(Container);

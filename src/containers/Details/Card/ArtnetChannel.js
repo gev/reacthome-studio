@@ -12,8 +12,8 @@ import {
   ARTNET_FADE,
   ARTNET_TYPE,
   ARTNET_ON, ARTNET_OFF
-} from '../../constants';
-import connect from './connect';
+} from '../../../constants';
+import connect from '../../Device/connect';
 
 type Props = {
   id: string;

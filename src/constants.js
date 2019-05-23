@@ -77,10 +77,14 @@ export const DEVICE_TYPE_DI16_DO8 = 0x0c;
 export const DEVICE_TYPE_DO8_DI16 = 0x0d;
 export const DEVICE_TYPE_DIM4 = 0x0e;
 export const DEVICE_TYPE_DIM8 = 0x0f;
-export const DEVICE_TYPE_ARTNET = 0x13;
 export const DEVICE_TYPE_PNP = 0xe0;
 export const DEVICE_TYPE_PLC = 0xfe;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
+
+export const DRIVER_TYPE_ARTNET = 'ARTNET';
+export const DRIVER_TYPE_RS21 = 'RS21';
+export const DRIVER_TYPE_BB_PLC1 = 'BB_PLC1';
+export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
 
 export const DI_OFF = 0x0;
 export const DI_ON = 0x1;
@@ -96,25 +100,7 @@ export const DIM_SET = 0x2;
 export const DIM_FADE = 0x3;
 export const DIM_TYPE = 0x4;
 
-export const ARTNET_OFF = 0x0;
-export const ARTNET_ON = 0x1;
-export const ARTNET_SET = 0x2;
-export const ARTNET_FADE = 0x3;
-export const ARTNET_TYPE = 0x4;
-export const ARTNET_CONFIG = 0x5;
-
-export const DIM_TYPE_UNPLUGGED = 0x0;
-export const DIM_TYPE_RISING_EDGE = 0x1;
-export const DIM_TYPE_FALLING_EDGE = 0x2;
-export const DIM_TYPE_PWM = 0x3;
-export const DIM_TYPE_RELAY = 0x4;
-
-export const ARTNET_TYPE_UNPLUGGED = 0x0;
-export const ARTNET_TYPE_DIMMER = 0x1;
-export const ARTNET_TYPE_RELAY = 0x2;
-
 export const DIM_TYPES = ['Unplugged', 'Rising edge', 'Falling edge', 'PWM', 'Relay'];
-export const ARTNET_TYPES = ['Unplugged', 'Dimmer', 'Relay'];
 
 export const ID = 'id';
 export const ROOT = 'root';
@@ -143,6 +129,8 @@ export const LOCATION = 'location';
 export const WEATHER = 'weather';
 export const SUNRISE = 'sunrise';
 export const SUNSET = 'sunset';
+export const DRIVER = 'driver';
+export const IP = 'ip';
 
 export const QUIET = 'QUIET';
 export const LOW_THRESHOLD = 'LOW_THRESHOLD';
@@ -166,7 +154,9 @@ export const DOPPLER = 'doppler';
 export const SMOCK_SENSOR = 'smock_sensor';
 export const MOTION_SENSOR = 'motion_sensor';
 export const LEAKAGE_SENSOR = 'leakage_sensor';
+export const REED = 'reed';
 export const VALVE_HEATING = 'valve_heating';
+export const WARM_FLOOR = 'warm_floor';
 export const VALVE_WATER = 'valve_water';
 export const SOCKET_220 = 'socket_220';
 export const BOILER = 'boiler';
@@ -188,18 +178,40 @@ export const DI = 'di';
 export const DIM = 'dim';
 export const ARTNET = 'artnet';
 
+export const ARTNET_OFF = 0x0;
+export const ARTNET_ON = 0x1;
+export const ARTNET_SET = 0x2;
+export const ARTNET_FADE = 0x3;
+export const ARTNET_TYPE = 0x4;
+export const ARTNET_CONFIG = 0x5;
+
+export const DIM_TYPE_UNPLUGGED = 0x0;
+export const DIM_TYPE_RISING_EDGE = 0x1;
+export const DIM_TYPE_FALLING_EDGE = 0x2;
+export const DIM_TYPE_PWM = 0x3;
+export const DIM_TYPE_RELAY = 0x4;
+
+export const ARTNET_TYPE_UNPLUGGED = 0x0;
+export const ARTNET_TYPE_DIMMER = 0x1;
+export const ARTNET_TYPE_RELAY = 0x2;
+
+export const ARTNET_TYPES = ['Unplugged', 'Dimmer', 'Relay'];
+
 export const MODEL_TYPE = [
   SCENE,
   LIGHT_220,
   LIGHT_LED,
   BUTTON,
   SENSOR,
+  DRIVER_TYPE_RS21,
   DOPPLER,
+  REED,
   MOTION_SENSOR,
   SMOCK_SENSOR,
   LEAKAGE_SENSOR,
   VALVE_WATER,
   VALVE_HEATING,
+  WARM_FLOOR,
   TV,
   AC,
   FAN,
@@ -383,9 +395,6 @@ export const DEVICE_TYPES = {
     firmware: 'dim8',
     hasFindMeAction: true
   },
-  [DEVICE_TYPE_ARTNET]: {
-    title: 'Artnet'
-  },
   [DEVICE_TYPE_PNP]: {
     title: 'PNP',
     firmware: 'pnp',
@@ -410,10 +419,17 @@ export const DEVICE_TYPES = {
   }
 };
 
-export const SERVICE_TYPE_RS21 = 'RS21';
-
-export const SERVICE_TYPES = {
-  [SERVICE_TYPE_RS21]: {
-    title: 'Wi-Fi Temperature Sensor'
+export const DRIVER_TYPES = {
+  [DRIVER_TYPE_ARTNET]: {
+    title: 'Artnet'
+  },
+  [DRIVER_TYPE_RS21]: {
+    title: 'Wi-Fi Temperature Sensor RS21'
+  },
+  [DRIVER_TYPE_BB_PLC1]: {
+    title: 'BB_PLC1'
+  },
+  [DRIVER_TYPE_BB_PLC2]: {
+    title: 'BB_PLC2'
   }
 };

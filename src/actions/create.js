@@ -7,8 +7,8 @@ import debounce from 'debounce';
 import Vibrant from 'node-vibrant';
 import { asset, tmp, FILE, ACTION_SET, BIND } from '../constants';
 
-// const store = debounce((state) => {
-const store = (state) => {
+const store = debounce((state) => {
+// const store = (state) => {
   const file = tmp(uuid());
   writeFile(file, Buffer.from(JSON.stringify(state.pool, null, 2)), e1 => {
     if (e1) console.error(e1);
@@ -16,8 +16,8 @@ const store = (state) => {
       if (e2) console.error('error', e2);
     });
   });
-};
-// }, 1000, true);
+// };
+}, 1000, true);
 
 const apply = (action) => (dispatch, getState) => {
   dispatch(action);

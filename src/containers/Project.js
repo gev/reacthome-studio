@@ -5,7 +5,7 @@ import Toolbar from './Toolbar';
 import Menu from './Menu';
 import Details from './Details';
 import Grid from './Grid';
-import { MODEL, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER } from '../constants';
+import { MODEL, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER } from '../constants';
 import Location from './Location';
 import Weather from './Weather';
 
@@ -40,6 +40,7 @@ class Project extends Component<Props> {
     const isClock = id === CLOCK;
     const isLocation = id === LOCATION;
     const isWeather = id === WEATHER;
+    const isDriver = id === DRIVER;
     return (
       <div className="container">
         <Menu project={project} open={this.state.menuOpen} onClose={this.closeMenu} />
@@ -69,7 +70,11 @@ class Project extends Component<Props> {
             <Weather daemon={daemon} id={project} />
         }
         {
-          !(isModel || isScript || isTimer || isClock || isLocation || isWeather) &&
+          isDriver &&
+            <Details project={project} daemon={daemon} id={project} field={DRIVER} />
+        }
+        {
+          !(isModel || isScript || isTimer || isClock || isLocation || isWeather || isDriver) &&
             <Details project={project} daemon={daemon} id={id || project} field={field} />
         }
       </div>

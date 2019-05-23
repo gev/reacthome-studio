@@ -14,7 +14,7 @@ import {
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
 import { CODE, TITLE, TV } from '../../../constants';
-import SelectIR from './SelectIR';
+import SelectChannel from './SelectChannel';
 import IR from './CardIRBind';
 import { SelectMenu } from '../../../components';
 
@@ -43,7 +43,7 @@ class Container extends Component<Props> {
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  selectIR = (bind) => {
+  selectChannel = (bind) => {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
@@ -80,7 +80,7 @@ class Container extends Component<Props> {
           />
         </div>
         <div className="paper">
-          <SelectIR id={bind} root={project} onSelect={this.selectIR} />
+          <SelectChannel id={bind} root={project} onSelect={this.selectChannel} />
         </div>
         {
           bind && (

@@ -13,7 +13,7 @@ import {
   ToolbarFixedAdjust
 } from '@rmwc/toolbar';
 import { Button, ButtonIcon } from '@rmwc/button';
-import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER } from '../constants';
+import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER } from '../constants';
 import { sendProject, exportProject } from '../actions';
 
 type Props = {
@@ -28,6 +28,7 @@ type Props = {
   clock: () => void,
   location: () => void,
   weather: () => void,
+  driver: () => void,
   sendProject: () => void,
   exportProject: (folder: string) => void
 };
@@ -44,7 +45,9 @@ class MyToolbar extends Component<Props> {
 
   render() {
     const {
-      project, title, back, openMenu, details, model, script, timer, clock, location, weather
+      project, title, back,
+      openMenu, details,
+      model, script, timer, clock, location, weather, driver
     } = this.props;
     return [
       <Toolbar key="toolbar" fixed style={{ backgroundColor: 'white' }}>
@@ -63,6 +66,7 @@ class MyToolbar extends Component<Props> {
           <Button onClick={clock}><ButtonIcon icon="access_time" />{CLOCK}</Button>
           <Button onClick={location}><ButtonIcon icon="location_on" />{LOCATION}</Button>
           <Button onClick={weather}><ButtonIcon icon="filter_drama" />{WEATHER}</Button>
+          <Button onClick={driver}><ButtonIcon icon="extension" />{DRIVER}</Button>
         </ToolbarRow>
       </Toolbar>,
       <ToolbarFixedAdjust key="adjust" />
@@ -81,6 +85,7 @@ export default connect(
     clock: () => push(`/${PROJECT}/${project}/${CLOCK}`),
     location: () => push(`/${PROJECT}/${project}/${LOCATION}`),
     weather: () => push(`/${PROJECT}/${project}/${WEATHER}`),
+    driver: () => push(`/${PROJECT}/${project}/${DRIVER}`),
     sendProject: () => sendProject(project),
     exportProject: (folder) => exportProject(project, folder)
   }, dispatch)

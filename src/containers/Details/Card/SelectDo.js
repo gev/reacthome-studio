@@ -13,8 +13,10 @@ import {
   DEVICE_TYPE_DIM4,
   DEVICE_TYPE_DIM8,
   DIM,
-  DEVICE_TYPE_ARTNET,
-  ARTNET
+  ARTNET,
+  DRIVER_TYPE_ARTNET,
+  DRIVER_TYPE_BB_PLC1,
+  DRIVER_TYPE_BB_PLC2
 } from '../../../constants';
 
 type Props = {
@@ -23,7 +25,7 @@ type Props = {
   onSelect: (id: string) => void
 };
 
-type DiProps = {
+type DoProps = {
   id: string;
   type: string,
   index: ?number,
@@ -35,7 +37,7 @@ const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
   id, type, index, onSelect, size = 0
-}: DiProps) => {
+}: DoProps) => {
   const a = [];
   const select = (i, t) => () => {
     onSelect(i, t);
@@ -45,6 +47,14 @@ const Do = c(({
   switch (type) {
     case DEVICE_TYPE_PLC:
       n = 24;
+      t = DO;
+      break;
+    case DRIVER_TYPE_BB_PLC1:
+      n = 7;
+      t = DO;
+      break;
+    case DRIVER_TYPE_BB_PLC2:
+      n = 15;
       t = DO;
       break;
     case DEVICE_TYPE_DIM4:
@@ -63,7 +73,7 @@ const Do = c(({
       n = 12;
       t = DO;
       break;
-    case DEVICE_TYPE_ARTNET:
+    case DRIVER_TYPE_ARTNET:
       n = size;
       t = ARTNET;
       break;

@@ -20,11 +20,17 @@ import {
   PUMP,
   FAN,
   TV,
+  AC,
   INTERCOM,
   TOUCH,
   THERMOSTAT,
   CLOCK,
   DAEMON,
+  DRIVER_TYPE_RS21,
+  DRIVER_TYPE_ARTNET,
+  DRIVER_TYPE_BB_PLC1,
+  DRIVER_TYPE_BB_PLC2,
+  WARM_FLOOR,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -35,11 +41,16 @@ import CardDoppler from './CardDoppler';
 import CardDi from './CardDi';
 import CardDo from './CardDo';
 import CardTV from './CardTV';
+import CardAC from './CardAC';
 import CardTouch from './CardTouch';
 import CardIntercom from './CardIntercom';
 import CardThermostat from './CardThermostat';
 import CardClock from './CardClock';
 import CardDaemon from './CardDaemon';
+import CardRS21 from './CardRS21';
+import CardArtnet from './CardArtnet';
+import CardBBPLC1 from './CardBBPLC1';
+import CardBBPLC2 from './CardBBPLC2';
 
 type Props = {
   type: ?string
@@ -62,6 +73,7 @@ const Container = (props: Props) => {
     case MOTION_SENSOR:
     case LEAKAGE_SENSOR:
       return <CardDi {...props} />;
+    case WARM_FLOOR:
     case VALVE_HEATING:
     case VALVE_WATER:
     case SOCKET_220:
@@ -77,12 +89,22 @@ const Container = (props: Props) => {
       return <CardClock {...props} />;
     case TV:
       return <CardTV {...props} />;
+    case AC:
+      return <CardAC {...props} />;
     case INTERCOM:
       return <CardIntercom {...props} />;
     case TOUCH:
       return <CardTouch {...props} />;
     case THERMOSTAT:
       return <CardThermostat {...props} />;
+    case DRIVER_TYPE_RS21:
+      return <CardRS21 {...props} />;
+    case DRIVER_TYPE_ARTNET:
+      return <CardArtnet {...props} />;
+    case DRIVER_TYPE_BB_PLC1:
+      return <CardBBPLC1 {...props} />;
+    case DRIVER_TYPE_BB_PLC2:
+      return <CardBBPLC2 {...props} />;
     default:
       return <CardDefault {...props} />;
   }

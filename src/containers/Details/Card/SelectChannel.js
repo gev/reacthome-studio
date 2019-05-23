@@ -5,7 +5,22 @@ import { SimpleMenu } from '@rmwc/menu';
 import { Button } from '@rmwc/button';
 import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
-import { DI, DEVICE_TYPE_PLC, DEVICE_TYPE_DI24, DEVICE_TYPE_DI16, DRIVER_TYPE_BB_PLC1 } from '../../../constants';
+import {
+  IR,
+  DO,
+  DEVICE_TYPE_PLC,
+  DEVICE_TYPE_DO8,
+  DEVICE_TYPE_DO12,
+  DEVICE_TYPE_DIM4,
+  DEVICE_TYPE_DIM8,
+  DIM,
+  ARTNET,
+  DRIVER_TYPE_ARTNET,
+  DRIVER_TYPE_BB_PLC1,
+  DRIVER_TYPE_BB_PLC2,
+  DEVICE_TYPE_IR1,
+  DEVICE_TYPE_IR6,
+} from '../../../constants';
 
 type Props = {
   id: string,
@@ -13,7 +28,7 @@ type Props = {
   onSelect: (id: string) => void
 };
 
-type DiProps = {
+type ChannelProps = {
   id: string;
   type: string,
   index: ?number,
@@ -22,36 +37,65 @@ type DiProps = {
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
-const Di = c(({
-  id, type, index, onSelect
-}: DiProps) => {
+const Channel = c(({
+  id, type, index, onSelect, size = 0
+}: ChannelProps) => {
   const a = [];
-  const select = (i) => () => {
-    onSelect(i);
+  const select = (i, t) => () => {
+    onSelect(i, t);
   };
   let n;
+  let t;
   switch (type) {
-    case DEVICE_TYPE_DI16:
-      n = 16;
-      break;
-    case DEVICE_TYPE_DI24:
-      n = 25;
-      break;
     case DEVICE_TYPE_PLC:
-      n = 36;
+      n = 24;
+      t = DO;
       break;
     case DRIVER_TYPE_BB_PLC1:
-      n = 85;
+      n = 7;
+      t = DO;
+      break;
+    case DRIVER_TYPE_BB_PLC2:
+      n = 15;
+      t = DO;
+      break;
+    case DEVICE_TYPE_DIM4:
+      n = 4;
+      t = DIM;
+      break;
+    case DEVICE_TYPE_DIM8:
+      n = 8;
+      t = DIM;
+      break;
+    case DEVICE_TYPE_DO8:
+      n = 8;
+      t = DO;
+      break;
+    case DEVICE_TYPE_DO12:
+      n = 12;
+      t = DO;
+      break;
+    case DRIVER_TYPE_ARTNET:
+      n = size;
+      t = ARTNET;
+      break;
+    case DEVICE_TYPE_IR1:
+      n = 1;
+      t = IR;
+      break;
+    case DEVICE_TYPE_IR6:
+      n = 6;
+      t = IR;
       break;
     default: n = 0;
   }
   for (let i = 1; i <= n; i += 1) {
     a.push((
-      <MenuItem key={`o${i}`} index={i} onClick={select(i)} id={`${id}/${DI}/${i}`} />
+      <MenuItem key={`o${i}`} index={i} onClick={select(i, t)} id={`${id}/${t}/${i}`} />
     ));
   }
   return (
-    <SimpleMenu handle={<Button>{DI} {index}</Button>}>
+    <SimpleMenu handle={<Button>{t} {index}</Button>}>
       {a}
     </SimpleMenu>
   );
@@ -72,9 +116,9 @@ class Container extends Component<Props> {
   selectDev = (dev) => {
     this.setState({ dev, index: null });
   }
-  selectDi = (index) => {
+  selectChannel = (index, type) => {
     this.setState({ index });
-    this.props.onSelect(`${this.state.dev}/${DI}/${index}`);
+    this.props.onSelect(`${this.state.dev}/${type}/${index}`);
   }
   render() {
     const { dev, index } = this.state;
@@ -87,7 +131,7 @@ class Container extends Component<Props> {
               <Autocomplete id={dev} root={root} onSelect={this.selectDev} />
             </td>
             <td className="paper">
-              <Di id={dev} index={index} onSelect={this.selectDi} />
+              <Channel id={dev} index={index} onSelect={this.selectChannel} />
             </td>
           </tr>
         </tbody>

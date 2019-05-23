@@ -2,7 +2,7 @@
 import React from 'react';
 import Do from '../../Device/DeviceDoChannel';
 import Dimmer from '../../Device/DeviceDimmerChannel';
-import Artnet from '../../Device/DeviceArtnetChannel';
+import Artnet from './ArtnetChannel';
 import { DO, DIM, ARTNET } from '../../../constants';
 
 type Props = {

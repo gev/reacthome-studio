@@ -22,7 +22,7 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      id, site, payload, setOperator
+      id, site, payload = {}, setOperator
     } = this.props;
     return (
       <div className="paper">
@@ -51,4 +51,3 @@ export default connect(
     setValue: (value) => modify(id, { payload: { ...payload, value } })
   }, dispatch)
 )(Container);
-
