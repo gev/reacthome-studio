@@ -6,13 +6,12 @@ import {
   DAEMON,
   SENSOR,
   DOPPLER,
-  TV,
   SCENE,
   SCRIPT,
   TOUCH,
   DRIVER,
   DRIVER_TYPE_RS21,
-  ARTNET
+  ELECTRICITY_METER,
 } from '../../constants';
 import SiteDetails from './DetailsSite';
 import ProjectDetails from './DetailsProject';
@@ -21,11 +20,11 @@ import FieldDetails from './DetailsField';
 import SensorDetails from './DetailsSensor';
 import TouchDetails from './DetailsTouch';
 import DopplerDetails from './DetailsDoppler';
-import TVDetails from './DetailsTV';
 import SceneDetails from './DetailsScene';
 import ScriptDetails from './DetailsScript';
 import DriverDetails from './DetailsDriver';
 import RS21Details from './DetailsRS21';
+import ElectricityMeterDetails from './DetailsElectricityMeter';
 
 type Props = {
   type: ?string,
@@ -43,6 +42,7 @@ export default (props: Props) => {
   if (field === TOUCH) return <TouchDetails {...props} />;
   if (field === DRIVER_TYPE_RS21) return <RS21Details {...props} />;
   if (field === DOPPLER) return <DopplerDetails {...props} />;
+  if (field === ELECTRICITY_METER) return <ElectricityMeterDetails {...props} />;
   // if (field === TV) return <TVDetails {...props} />;
   if (field === SCENE) return <SceneDetails {...props} />;
   if (field) return <FieldDetails {...props} />;

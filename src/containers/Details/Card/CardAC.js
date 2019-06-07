@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getBrands, getModels } from 'reacthome-ircodes';
-import { Button } from '@rmwc/button';
 import {
   Card,
   CardAction,
@@ -13,10 +11,10 @@ import {
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE, TITLE, TV } from '../../../constants';
+import { CODE, TITLE } from '../../../constants';
 import SelectChannel from './SelectChannel';
+import SelectThermostat from './SelectThermostat';
 import IR from './CardIRBind';
-import { SelectMenu } from '../../../components';
 
 type Props = {
   id: string;
@@ -24,20 +22,12 @@ type Props = {
   code: ?string,
   title: ?string;
   project: string,
-  brand: ?string,
-  model: ?string,
   change: (payload: {}) => void,
   removeField: () => void,
   makeBind: (id: string, bind: string) => void
 };
 
 class Container extends Component<Props> {
-  state = {
-    brands: [], models: []
-  };
-  async componentWillMount() {
-    this.setState({ brands: await getBrands(TV) });
-  }
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -47,17 +37,12 @@ class Container extends Component<Props> {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
-  selectBrand = async (brand) => {
-    this.setState({ models: await getModels(TV, brand) });
-    this.props.change({ brand, model: null });
-  }
-  selectModel = (model) => {
-    this.props.change({ model });
+  selectThermostat = (thermostat) => {
+    this.props.change({ thermostat });
   }
   render() {
-    const { brands, models } = this.state;
     const {
-      code, project, bind, title, brand, model, removeField
+      code, project, bind, title, removeField, id
     } = this.props;
     return (
       <Card>
@@ -68,16 +53,7 @@ class Container extends Component<Props> {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <SelectMenu
-            handle={<Button theme={brand ? 'primary' : 'text-hint-on-background'}>{brand || 'brand'}</Button>}
-            onSelect={this.selectBrand}
-            options={brands}
-          />
-          <SelectMenu
-            handle={<Button theme={model ? 'primary' : 'text-hint-on-background'}>{model || 'model'}</Button>}
-            onSelect={this.selectModel}
-            options={models}
-          />
+          <SelectThermostat id={id} root={project} />
         </div>
         <div className="paper">
           <SelectChannel id={bind} root={project} onSelect={this.selectChannel} />

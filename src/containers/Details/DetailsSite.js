@@ -41,6 +41,9 @@ const Details = (props: Props) => {
 };
 
 export default class extends AbstractDetails {
+  create = (field, type) => () => {
+    this.props.create(field, type, PARENT);
+  }
   render() {
     return (
       <div>

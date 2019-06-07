@@ -15,14 +15,18 @@ import { TITLE, CODE } from '../../../constants';
 import { remove, modify } from '../../../actions';
 import Di from '../../Device/DeviceDiChannel';
 import Do from '../../Device/DeviceDoChannel';
+import SelectLeakage from './SelectLeakage';
 
 type Props = {
   id: string;
-  daemon: String;
-  title: ?String;
-  code: ?String;
+  daemon: string;
+  project: string;
+  title: ?string;
+  code: ?string;
   host: ?string;
   port: ?number;
+  leakage1: ?string;
+  leakage2: ?string;
   change: (payload: {}) => void,
   removeField: () => void,
   details: () => void
@@ -74,7 +78,7 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      id, daemon,
+      id, daemon, project,
       title, code, host, port = 502,
       details, removeField
     } = this.props;
@@ -122,6 +126,18 @@ class Container extends Component<Props> {
               <RowDi id={id} daemon={daemon} index={85} />
             </tbody>
           </table>
+        </div>
+        <div className="paper">
+          <SelectLeakage
+            root={project}
+            id={this.props.leakage1}
+            onSelect={leakage1 => { this.props.change({ leakage1 }); }}
+          />
+          <SelectLeakage
+            root={project}
+            id={this.props.leakage2}
+            onSelect={leakage2 => { this.props.change({ leakage2 }); }}
+          />
         </div>
         <CardActions>
           <CardActionButtons>

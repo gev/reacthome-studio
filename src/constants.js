@@ -42,6 +42,7 @@ export const ACTION_NIGHT_TEST = 'ACTION_NIGHT_TEST';
 export const ACTION_DAY_TEST = 'ACTION_DAY_TEST';
 export const ACTION_DOPPLER_HANDLE = 'ACTION_DOPPLER_HANDLE';
 export const ACTION_THERMOSTAT_HANDLE = 'ACTION_THERMOSTAT_HANDLE';
+export const ACTION_LEAKAGE_HANDLE = 'ACTION_LEAKAGE_HANDLE';
 export const ACTION_TOGGLE = 'ACTION_TOGGLE';
 export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
@@ -85,6 +86,7 @@ export const DRIVER_TYPE_ARTNET = 'ARTNET';
 export const DRIVER_TYPE_RS21 = 'RS21';
 export const DRIVER_TYPE_BB_PLC1 = 'BB_PLC1';
 export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
+export const DRIVER_TYPE_M230 = 'M230';
 
 export const DI_OFF = 0x0;
 export const DI_ON = 0x1;
@@ -113,6 +115,7 @@ export const DEVICE = 'device';
 export const CHANNEL = 'channel';
 export const PROJECT = 'project';
 export const SITE = 'site';
+export const PARENT = 'parent';
 export const SCENE = 'scene';
 export const SCRIPT = 'script';
 export const TIMER = 'timer';
@@ -124,6 +127,9 @@ export const CAMERA_URL = 'camera_URL';
 export const PREVIEW_URL = 'preview_URL';
 export const MAIN_URL = 'main_URL';
 export const THERMOSTAT = 'thermostat';
+export const LEAKAGE = 'leakage';
+export const WATER_COUNTER = 'water_counter';
+export const ELECTRICITY_METER = 'electricity_meter';
 export const SETPOINT = 'setpoint';
 export const LOCATION = 'location';
 export const WEATHER = 'weather';
@@ -223,7 +229,10 @@ export const MODEL_TYPE = [
   CAMERA,
   INTERCOM,
   TOUCH,
-  THERMOSTAT
+  THERMOSTAT,
+  LEAKAGE,
+  WATER_COUNTER,
+  ELECTRICITY_METER
 ];
 
 export const ACTION_TYPE = [
@@ -244,6 +253,7 @@ export const ACTION_TYPE = [
   ACTION_DAY_TEST,
   ACTION_DOPPLER_HANDLE,
   ACTION_THERMOSTAT_HANDLE,
+  ACTION_LEAKAGE_HANDLE,
   ACTION_TOGGLE,
   ACTION_SCRIPT_RUN
 ];
@@ -431,5 +441,8 @@ export const DRIVER_TYPES = {
   },
   [DRIVER_TYPE_BB_PLC2]: {
     title: 'BB_PLC2'
+  },
+  [DRIVER_TYPE_M230]: {
+    title: 'Mercury M230'
   }
 };

@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
-import { THERMOSTAT } from '../../../constants';
+import { WATER_COUNTER } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 import { set } from '../../../actions';
 
@@ -21,7 +22,7 @@ class Container extends Component<Props> {
     } = this.props;
     return (
       <SelectMenu
-        handle={<Button>{code || title || THERMOSTAT}</Button>}
+        handle={<Button>{code || title || WATER_COUNTER}</Button>}
         onSelect={select}
         options={options}
       />
@@ -32,15 +33,15 @@ class Container extends Component<Props> {
 const filter = (pool, root, a = [null]) => {
   const o = pool[root];
   if (o) {
-    if (o.thermostat) o.thermostat.forEach(i => a.push(i));
+    if (o.water_counter) o.water_counter.forEach(i => a.push(i));
     if (o.site) o.site.forEach(i => filter(pool, i, a));
   }
   return a;
 };
 
 export default connect(
-  ({ pool }, { root, id }) => ({ ...pool[pool[id].thermostat], options: filter(pool, root) }),
+  ({ pool }, { root, id }) => ({ ...pool[pool[id].water_counter], options: filter(pool, root) }),
   (dispatch, { id }) => bindActionCreators({
-    select: (thermostat) => set(id, { thermostat })
+    select: (water_counter) => set(id, { water_counter })
   }, dispatch)
 )(Container);

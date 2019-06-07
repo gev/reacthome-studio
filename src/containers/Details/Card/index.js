@@ -31,6 +31,7 @@ import {
   DRIVER_TYPE_BB_PLC1,
   DRIVER_TYPE_BB_PLC2,
   WARM_FLOOR,
+  LEAKAGE,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -51,6 +52,7 @@ import CardRS21 from './CardRS21';
 import CardArtnet from './CardArtnet';
 import CardBBPLC1 from './CardBBPLC1';
 import CardBBPLC2 from './CardBBPLC2';
+import CardLeakage from './CardLeakage';
 
 type Props = {
   type: ?string
@@ -97,6 +99,8 @@ const Container = (props: Props) => {
       return <CardTouch {...props} />;
     case THERMOSTAT:
       return <CardThermostat {...props} />;
+    case LEAKAGE:
+      return <CardLeakage {...props} />;
     case DRIVER_TYPE_RS21:
       return <CardRS21 {...props} />;
     case DRIVER_TYPE_ARTNET:

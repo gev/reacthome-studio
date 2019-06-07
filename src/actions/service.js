@@ -81,7 +81,7 @@ export const dispatchAction = (action, ip) => (dispatch, getState) => {
       if (type !== DAEMON) return;
       const service = getState().pool[id];
       if (!service || !service.online) {
-        dispatch(init(ip));
+        // dispatch(init(ip));
       }
       dispatch(online(id, type, version, ip, multicast || (service && service.multicast)));
       break;

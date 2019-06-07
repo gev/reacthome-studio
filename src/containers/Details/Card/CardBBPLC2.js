@@ -18,6 +18,7 @@ import { remove, modify } from '../../../actions';
 import DeviceValueChannel from '../../Device/DeviceValueChannel';
 import Do from '../../Device/DeviceDoChannel';
 import SelectThermostat from './SelectThermostat';
+import SelectWaterCounter from './SelectWaterCounter';
 
 type Props = {
   id: string;
@@ -107,10 +108,22 @@ class Container extends Component<Props> {
         <div className="paper">
           <table>
             <tbody>
-              <RowValue label="water_counter_1"><DeviceValueChannel id={this.channel('water_counter_1')} /></RowValue>
-              <RowValue label="water_counter_2"><DeviceValueChannel id={this.channel('water_counter_2')} /></RowValue>
-              <RowValue label="water_counter_3"><DeviceValueChannel id={this.channel('water_counter_3')} /></RowValue>
-              <RowValue label="water_counter_4"><DeviceValueChannel id={this.channel('water_counter_4')} /></RowValue>
+              <RowValue label="water_counter_1">
+                <DeviceValueChannel id={this.channel('water_counter_1')} />
+                <SelectWaterCounter root={project} id={this.channel('water_counter_1')} />
+              </RowValue>
+              <RowValue label="water_counter_2">
+                <DeviceValueChannel id={this.channel('water_counter_2')} />
+                <SelectWaterCounter root={project} id={this.channel('water_counter_2')} />
+              </RowValue>
+              <RowValue label="water_counter_3">
+                <DeviceValueChannel id={this.channel('water_counter_3')} />
+                <SelectWaterCounter root={project} id={this.channel('water_counter_3')} />
+              </RowValue>
+              <RowValue label="water_counter_4">
+                <DeviceValueChannel id={this.channel('water_counter_4')} />
+                <SelectWaterCounter root={project} id={this.channel('water_counter_4')} />
+              </RowValue>
             </tbody>
           </table>
         </div>

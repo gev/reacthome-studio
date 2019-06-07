@@ -2,7 +2,7 @@
 import { Component } from 'react';
 
 type Props = {
-  change: (field: string, value: string) => void,
+  change: (payload: {}) => void,
   create: (field: string, type: ?string, ref: ?string) => void,
   add: (field: string, subj: string) => void,
   addBind: (field: string, subj: string, bind: ?string) => void,
