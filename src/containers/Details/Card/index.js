@@ -10,7 +10,7 @@ import {
   MOTION_SENSOR,
   LEAKAGE_SENSOR,
   DEVICE_TYPE_SENSOR4,
-  DEVICE_TYPE_DOPPLER,
+  DEVICE_TYPE_DOPPLER_LEGACY,
   VALVE_HEATING,
   VALVE_WATER,
   SOCKET_220,
@@ -68,7 +68,7 @@ const Container = (props: Props) => {
       return <CardCamera {...props} />;
     case DEVICE_TYPE_SENSOR4:
       return <CardSensor {...props} />;
-    case DEVICE_TYPE_DOPPLER:
+    case DEVICE_TYPE_DOPPLER_LEGACY:
       return <CardDoppler {...props} />;
     case BUTTON:
     case SMOCK_SENSOR:

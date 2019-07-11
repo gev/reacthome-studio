@@ -37,6 +37,7 @@ export default connect(({ pool }, { root, text }) => {
       (code && String(code).toLowerCase().includes(t)) ||
       (type && String(type).toLowerCase().includes(t)) ||
       (title && String(title).toLowerCase().includes(t))
-    )).concat(Object.keys(pool).filter(i => i && i.toLowerCase().includes(t)).map(i => [i, pool[i]])) : []
+    )) : []
+    // )).concat(Object.keys(pool).filter(i => i && i.toLowerCase().includes(t)).map(i => [i, pool[i]])) : []
   };
 })(Container);

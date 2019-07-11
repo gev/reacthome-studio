@@ -59,10 +59,11 @@ export const ACTION_ERROR = 0xff;
 export const APP_TYPE_DAEMON = 0x00;
 
 export const DEVICE_TYPE_UNKNOWN = 0x00;
+
 export const DEVICE_TYPE_SENSOR4 = 0x01;
 export const DEVICE_TYPE_SENSOR6 = 0x02;
 export const DEVICE_TYPE_THI = 0x03;
-export const DEVICE_TYPE_DOPPLER = 0x04;
+export const DEVICE_TYPE_DOPPLER_LEGACY = 0x04;
 export const DEVICE_TYPE_DMX = 0x05;
 export const DEVICE_TYPE_RS485 = 0x06;
 export const DEVICE_TYPE_IR1 = 0x14;
@@ -77,8 +78,24 @@ export const DEVICE_TYPE_DO16 = 0x0b;
 export const DEVICE_TYPE_DI16_DO8 = 0x0c;
 export const DEVICE_TYPE_DO8_DI16 = 0x0d;
 export const DEVICE_TYPE_DIM4 = 0x0e;
-export const DEVICE_TYPE_DIM8 = 0x0f;
+export const DEVICE_TYPE_DIM8_LEGACY = 0x0f;
+
+export const DEVICE_TYPE_DI_4 = 0x20;
+export const DEVICE_TYPE_CLIMATE = 0x21;
+export const DEVICE_TYPE_DOPPLER = 0x22;
+export const DEVICE_TYPE_IR_2 = 0x23;
+export const DEVICE_TYPE_IR_4 = 0x24;
+export const DEVICE_TYPE_SMART_4 = 0x25;
+
+export const DEVICE_TYPE_RELAY_6 = 0xa0;
+export const DEVICE_TYPE_RELAY_12 = 0xa1;
+export const DEVICE_TYPE_RELAY_24 = 0xa2;
+export const DEVICE_TYPE_DIM_4 = 0xa3;
+export const DEVICE_TYPE_DIM_8 = 0xa4;
+export const DEVICE_TYPE_LAN_AMP = 0xa5;
+
 export const DEVICE_TYPE_PNP = 0xe0;
+
 export const DEVICE_TYPE_PLC = 0xfe;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
 
@@ -328,7 +345,7 @@ export const DEVICE_TYPES = {
     title: 'THI',
     firmware: 'thi'
   },
-  [DEVICE_TYPE_DOPPLER]: {
+  [DEVICE_TYPE_DOPPLER_LEGACY]: {
     title: 'Doppler',
     firmware: 'doppler'
   },
@@ -391,17 +408,17 @@ export const DEVICE_TYPES = {
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DO8_DI16]: {
-    title: 'DO-8 / DI-16',
+    title: 'DO-8 / DI-  16',
     firmware: 'do8_di16',
     hasFindMeAction: true,
   },
   [DEVICE_TYPE_DIM4]: {
-    title: 'Dimmer-4',
+    title: 'Dimmer 4',
     firmware: 'dim4',
     hasFindMeAction: true
   },
-  [DEVICE_TYPE_DIM8]: {
-    title: 'Dimmer-8',
+  [DEVICE_TYPE_DIM8_LEGACY]: {
+    title: 'Dimmer 8',
     firmware: 'dim8',
     hasFindMeAction: true
   },
@@ -414,6 +431,34 @@ export const DEVICE_TYPES = {
     title: 'PLC',
     firmware: 'plc',
     hasFindMeAction: false,
+  },
+  [TOUCH]: {
+    title: 'Touch',
+    hasFindMeAction: false,
+  },
+  [DEVICE_TYPE_CLIMATE]: {
+    title: 'Climate Sensor',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_RELAY_6]: {
+    title: 'Relay 6',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_RELAY_12]: {
+    title: 'Relay 12',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_RELAY_24]: {
+    title: 'Relay 24',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_DIM_8]: {
+    title: 'Dimmer 8',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_SMART_4]: {
+    title: 'Smart 4',
+    hasFindMeAction: true
   },
   [TOUCH]: {
     title: 'Touch',

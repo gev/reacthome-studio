@@ -39,7 +39,7 @@ const filter = (pool, root, a = [null]) => {
 };
 
 export default connect(
-  ({ pool }, { root, id }) => ({ ...pool[pool[id].thermostat], options: filter(pool, root) }),
+  ({ pool }, { root, id }) => ({ ...pool[(pool[id] || {}).thermostat], options: filter(pool, root) }),
   (dispatch, { id }) => bindActionCreators({
     select: (thermostat) => set(id, { thermostat })
   }, dispatch)

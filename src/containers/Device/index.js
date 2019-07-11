@@ -74,7 +74,7 @@ class Devices extends Component<Props> {
       pending = false,
       updating = false
     } = this.props;
-    const { title, hasFindMeAction = false } = DEVICE_TYPES[type];
+    const { title, hasFindMeAction = false } = DEVICE_TYPES[type] || {};
     return (
       <Card className={!online && 'offline'}>
         <div className="paper">
@@ -123,8 +123,8 @@ class Devices extends Component<Props> {
                   }
                 </SimpleMenu>
               ) : (
-                DEVICE_TYPES[type].firmware && (
-                  <CardAction onClick={this.updateFirmware(DEVICE_TYPES[type].firmware)}>
+                (DEVICE_TYPES[type] || {}).firmware && (
+                  <CardAction onClick={this.updateFirmware((DEVICE_TYPES[type] || {}).firmware)}>
                     Update
                   </CardAction>
                 )

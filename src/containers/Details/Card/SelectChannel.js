@@ -12,7 +12,7 @@ import {
   DEVICE_TYPE_DO8,
   DEVICE_TYPE_DO12,
   DEVICE_TYPE_DIM4,
-  DEVICE_TYPE_DIM8,
+  DEVICE_TYPE_DIM8_LEGACY,
   DIM,
   ARTNET,
   DRIVER_TYPE_ARTNET,
@@ -63,7 +63,7 @@ const Channel = c(({
       n = 4;
       t = DIM;
       break;
-    case DEVICE_TYPE_DIM8:
+    case DEVICE_TYPE_DIM8_LEGACY:
       n = 8;
       t = DIM;
       break;

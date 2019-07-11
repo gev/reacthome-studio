@@ -40,7 +40,7 @@ const filter = (pool, root, a = [null]) => {
 };
 
 export default connect(
-  ({ pool }, { root, id }) => ({ ...pool[pool[id].water_counter], options: filter(pool, root) }),
+  ({ pool }, { root, id }) => ({ ...pool[(pool[id] || {}).water_counter], options: filter(pool, root) }),
   (dispatch, { id }) => bindActionCreators({
     select: (water_counter) => set(id, { water_counter })
   }, dispatch)

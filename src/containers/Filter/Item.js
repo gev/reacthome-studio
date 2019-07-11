@@ -28,7 +28,7 @@ export default class extends Component<Props> {
     return (
       <ListItem onMouseDown={this.select}>
         <ListItemText>
-          <ListItemPrimaryText>{code || title || id}</ListItemPrimaryText>
+          <ListItemPrimaryText>{code || title}</ListItemPrimaryText>
           <ListItemSecondaryText>{type}</ListItemSecondaryText>
         </ListItemText>
       </ListItem>
