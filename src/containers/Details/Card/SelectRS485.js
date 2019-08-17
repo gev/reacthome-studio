@@ -5,12 +5,7 @@ import { SimpleMenu } from '@rmwc/menu';
 import { Button } from '@rmwc/button';
 import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
-import {
-  IR,
-  DEVICE_TYPE_IR1,
-  DEVICE_TYPE_IR6,
-  DEVICE_TYPE_IR_4,
-} from '../../../constants';
+import { DEVICE_TYPE_RSHUB, RS485, DEVICE_TYPE_RELAY_24 } from '../../../constants';
 
 type Props = {
   id: string,
@@ -27,7 +22,7 @@ type DiProps = {
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
-const Ir = c(({
+const Channel = c(({
   id, type, index, onSelect
 }: DiProps) => {
   const a = [];
@@ -36,24 +31,19 @@ const Ir = c(({
   };
   let n;
   switch (type) {
-    case DEVICE_TYPE_IR1:
+    case DEVICE_TYPE_RELAY_24:
+    case DEVICE_TYPE_RSHUB:
       n = 1;
-      break;
-    case DEVICE_TYPE_IR_4:
-      n = 4;
-      break;
-    case DEVICE_TYPE_IR6:
-      n = 6;
       break;
     default: n = 0;
   }
   for (let i = 1; i <= n; i += 1) {
     a.push((
-      <MenuItem key={`o${i}`} index={i} onClick={select(i)} id={`${id}/${IR}/${i}`} />
+      <MenuItem key={`o${i}`} index={i} onClick={select(i)} id={`${id}/${RS485}/${i}`} />
     ));
   }
   return (
-    <SimpleMenu handle={<Button>{IR} {index}</Button>}>
+    <SimpleMenu handle={<Button>{RS485} {index}</Button>}>
       {a}
     </SimpleMenu>
   );
@@ -74,9 +64,9 @@ class Container extends Component<Props> {
   selectDev = (dev) => {
     this.setState({ dev, index: null });
   }
-  selectIR = (index) => {
+  selectDi = (index) => {
     this.setState({ index });
-    this.props.onSelect(`${this.state.dev}/${IR}/${index}`);
+    this.props.onSelect(`${this.state.dev}/${RS485}/${index}`);
   }
   render() {
     const { dev, index } = this.state;
@@ -89,7 +79,7 @@ class Container extends Component<Props> {
               <Autocomplete id={dev} root={root} onSelect={this.selectDev} />
             </td>
             <td className="paper">
-              <Ir id={dev} index={index} onSelect={this.selectIR} />
+              <Channel id={dev} index={index} onSelect={this.selectDi} />
             </td>
           </tr>
         </tbody>

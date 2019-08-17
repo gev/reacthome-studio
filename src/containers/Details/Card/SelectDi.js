@@ -5,7 +5,7 @@ import { SimpleMenu } from '@rmwc/menu';
 import { Button } from '@rmwc/button';
 import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
-import { DI, DEVICE_TYPE_PLC, DEVICE_TYPE_DI24, DEVICE_TYPE_DI16, DRIVER_TYPE_BB_PLC1, DEVICE_TYPE_CLIMATE } from '../../../constants';
+import { DI, DEVICE_TYPE_PLC, DEVICE_TYPE_DI24, DEVICE_TYPE_DI16, DRIVER_TYPE_BB_PLC1, DEVICE_TYPE_CLIMATE, DEVICE_TYPE_RELAY_2, DEVICE_TYPE_DI_4 } from '../../../constants';
 
 type Props = {
   id: string,
@@ -31,6 +31,12 @@ const Di = c(({
   };
   let n;
   switch (type) {
+    case DEVICE_TYPE_DI_4:
+      n = 4;
+      break;
+    case DEVICE_TYPE_RELAY_2:
+      n = 4;
+      break;
     case DEVICE_TYPE_CLIMATE:
       n = 4;
       break;

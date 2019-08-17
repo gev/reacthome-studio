@@ -32,6 +32,8 @@ import {
   DRIVER_TYPE_BB_PLC2,
   WARM_FLOOR,
   LEAKAGE,
+  DRIVER_TYPE_M206,
+  DRIVER_TYPE_M230,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -53,6 +55,7 @@ import CardArtnet from './CardArtnet';
 import CardBBPLC1 from './CardBBPLC1';
 import CardBBPLC2 from './CardBBPLC2';
 import CardLeakage from './CardLeakage';
+import CardElectricityMeter from './CardElectricityMeter';
 
 type Props = {
   type: ?string
@@ -109,6 +112,9 @@ const Container = (props: Props) => {
       return <CardBBPLC1 {...props} />;
     case DRIVER_TYPE_BB_PLC2:
       return <CardBBPLC2 {...props} />;
+    case DRIVER_TYPE_M206:
+    case DRIVER_TYPE_M230:
+      return <CardElectricityMeter {...props} />;
     default:
       return <CardDefault {...props} />;
   }

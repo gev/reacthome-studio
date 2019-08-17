@@ -17,7 +17,8 @@ import {
   DRIVER_TYPE_ARTNET,
   DRIVER_TYPE_BB_PLC1,
   DRIVER_TYPE_BB_PLC2,
-  DEVICE_TYPE_DIM_8
+  DEVICE_TYPE_DIM_8,
+  DEVICE_TYPE_RELAY_2
 } from '../../../constants';
 
 type Props = {
@@ -46,6 +47,10 @@ const Do = c(({
   let n;
   let t;
   switch (type) {
+    case DEVICE_TYPE_RELAY_2:
+      n = 2;
+      t = DO;
+      break;
     case DEVICE_TYPE_PLC:
       n = 24;
       t = DO;

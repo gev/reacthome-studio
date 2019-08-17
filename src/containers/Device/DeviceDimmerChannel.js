@@ -9,7 +9,7 @@ import {
   DIM,
   ACTION_DIMMER,
   DIM_TYPES,
-  DIM_FADE,
+  DIM_SET,
   DIM_TYPE,
   DIM_ON, DIM_OFF
 } from '../../constants';
@@ -37,7 +37,7 @@ export default connect(DIM)((props: Props) => {
 
   const setValue = (event) => {
     request({
-      type: ACTION_DIMMER, action: DIM_FADE, id, index, value: event.detail.value
+      type: ACTION_DIMMER, action: DIM_SET, id, index, value: event.detail.value
     });
   };
 

@@ -47,6 +47,7 @@ export const ACTION_TOGGLE = 'ACTION_TOGGLE';
 export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
 export const ACTION_DO = 0x00;
+export const ACTION_RS485_MODE = 0xa0;
 export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
 export const ACTION_ARTNET = 0xd1;
@@ -83,7 +84,7 @@ export const DEVICE_TYPE_DIM8_LEGACY = 0x0f;
 export const DEVICE_TYPE_DI_4 = 0x20;
 export const DEVICE_TYPE_CLIMATE = 0x21;
 export const DEVICE_TYPE_DOPPLER = 0x22;
-export const DEVICE_TYPE_IR_2 = 0x23;
+export const DEVICE_TYPE_RELAY_2 = 0x23;
 export const DEVICE_TYPE_IR_4 = 0x24;
 export const DEVICE_TYPE_SMART_4 = 0x25;
 
@@ -93,6 +94,7 @@ export const DEVICE_TYPE_RELAY_24 = 0xa2;
 export const DEVICE_TYPE_DIM_4 = 0xa3;
 export const DEVICE_TYPE_DIM_8 = 0xa4;
 export const DEVICE_TYPE_LAN_AMP = 0xa5;
+export const DEVICE_TYPE_RSHUB = 0xa6;
 
 export const DEVICE_TYPE_PNP = 0xe0;
 
@@ -103,6 +105,7 @@ export const DRIVER_TYPE_ARTNET = 'ARTNET';
 export const DRIVER_TYPE_RS21 = 'RS21';
 export const DRIVER_TYPE_BB_PLC1 = 'BB_PLC1';
 export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
+export const DRIVER_TYPE_M206 = 'M206';
 export const DRIVER_TYPE_M230 = 'M230';
 
 export const DI_OFF = 0x0;
@@ -120,6 +123,7 @@ export const DIM_FADE = 0x3;
 export const DIM_TYPE = 0x4;
 
 export const DIM_TYPES = ['Unplugged', 'Rising edge', 'Falling edge', 'PWM', 'Relay'];
+export const RS485_LINE_CONTROLS = ['8n1', '8e1', '8o1', '9n1', '8n2', '8e2', '8o2', '9n2'];
 
 export const ID = 'id';
 export const ROOT = 'root';
@@ -200,6 +204,7 @@ export const DO = 'do';
 export const DI = 'di';
 export const DIM = 'dim';
 export const ARTNET = 'artnet';
+export const RS485 = 'rs485';
 
 export const ARTNET_OFF = 0x0;
 export const ARTNET_ON = 0x1;
@@ -346,6 +351,10 @@ export const DEVICE_TYPES = {
     firmware: 'thi'
   },
   [DEVICE_TYPE_DOPPLER_LEGACY]: {
+    title: 'Doppler (legacy)',
+    firmware: 'doppler'
+  },
+  [DEVICE_TYPE_DOPPLER]: {
     title: 'Doppler',
     firmware: 'doppler'
   },
@@ -412,6 +421,10 @@ export const DEVICE_TYPES = {
     firmware: 'do8_di16',
     hasFindMeAction: true,
   },
+  [DEVICE_TYPE_DI_4]: {
+    title: 'DI 4',
+    hasFindMeAction: true
+  },
   [DEVICE_TYPE_DIM4]: {
     title: 'Dimmer 4',
     firmware: 'dim4',
@@ -440,6 +453,14 @@ export const DEVICE_TYPES = {
     title: 'Climate Sensor',
     hasFindMeAction: true,
   },
+  [DEVICE_TYPE_IR_4]: {
+    title: 'IR 4',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_RELAY_2]: {
+    title: 'Relay 2',
+    hasFindMeAction: true,
+  },
   [DEVICE_TYPE_RELAY_6]: {
     title: 'Relay 6',
     hasFindMeAction: true,
@@ -454,6 +475,10 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_DIM_8]: {
     title: 'Dimmer 8',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_RSHUB]: {
+    title: 'RS Hub',
     hasFindMeAction: true,
   },
   [DEVICE_TYPE_SMART_4]: {
@@ -486,6 +511,9 @@ export const DRIVER_TYPES = {
   },
   [DRIVER_TYPE_BB_PLC2]: {
     title: 'BB_PLC2'
+  },
+  [DRIVER_TYPE_M206]: {
+    title: 'Mercury M206'
   },
   [DRIVER_TYPE_M230]: {
     title: 'Mercury M230'
