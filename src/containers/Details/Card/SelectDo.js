@@ -11,6 +11,7 @@ import {
   DEVICE_TYPE_DO8,
   DEVICE_TYPE_DO12,
   DEVICE_TYPE_DIM4,
+  DEVICE_TYPE_DIM_4,
   DEVICE_TYPE_DIM8_LEGACY,
   DIM,
   ARTNET,
@@ -64,6 +65,7 @@ const Do = c(({
       t = DO;
       break;
     case DEVICE_TYPE_DIM4:
+    case DEVICE_TYPE_DIM_4:
       n = 4;
       t = DIM;
       break;

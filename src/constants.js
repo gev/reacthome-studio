@@ -477,6 +477,14 @@ export const DEVICE_TYPES = {
     title: 'Dimmer 8',
     hasFindMeAction: true,
   },
+  [DEVICE_TYPE_DIM_4]: {
+    title: 'Dimmer 4',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_LAN_AMP]: {
+    title: 'Lan Amp',
+    hasFindMeAction: true,
+  },
   [DEVICE_TYPE_RSHUB]: {
     title: 'RS Hub',
     hasFindMeAction: true,
