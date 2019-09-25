@@ -21,7 +21,7 @@ const build = (id, pool, state, assets, l = 0) => {
   });
 };
 
-module.exports = (getState) => (id) => {
+export default (getState) => (id) => {
   const { pool } = getState();
   const state = {};
   const assets = [];

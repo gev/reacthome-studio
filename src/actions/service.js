@@ -2,34 +2,18 @@
 import path from 'path';
 import { existsSync, exists, createWriteStream } from 'fs';
 import fetch from 'node-fetch';
-import { createSocket } from 'dgram';
-import { online } from './status';
 import {
-  VERSION,
-  STUDIO,
-  ACTION_INIT,
   ACTION_SET,
-  ACTION_DISCOVERY,
-  ACTION_DOWNLOAD,
   CLIENT_SERVER_PORT,
   STATE,
   ASSETS,
   asset,
-  DAEMON
 } from '../constants';
 import { copyFile, writeFile, rmdir, mkdir } from '../fs';
 import { set, compare } from './create';
 import get from '../state';
+import { sendAction } from '../webrtc';
 
-
-const socket = createSocket('udp4');
-
-const send = (action, ip) => {
-  const buff = Buffer.from(JSON.stringify(action));
-  socket.send(buff, 0, buff.length, CLIENT_SERVER_PORT, ip, (err) => {
-    if (err) console.log(err);
-  });
-};
 
 export const download = (ip, name) => (dispatch) => {
   const file = asset(name);
@@ -62,37 +46,11 @@ export const init = (ip) => (dispatch) => {
     .catch(console.error);
 };
 
-export const discovery = (id) => (dispatch, getState) => {
-  const { ip, multicast } = getState().pool[id] || {};
-  if (ip) {
-    send({
-      type: ACTION_DISCOVERY,
-      payload: { type: STUDIO, VERSION, multicast }
-    }, ip);
-  }
-};
-
-export const dispatchAction = (action, ip) => (dispatch, getState) => {
-  // ip = '192.168.0.2';
+export const dispatchAction = (action) => (dispatch) => {
   const { id, payload } = action;
   switch (action.type) {
-    case ACTION_DISCOVERY: {
-      const { type, version, multicast } = payload;
-      if (type !== DAEMON) return;
-      const service = getState().pool[id];
-      if (!service || !service.online) {
-        dispatch(init(ip));
-      }
-      dispatch(online(id, type, version, ip, multicast || (service && service.multicast)));
-      break;
-    }
     case ACTION_SET: {
       dispatch(compare(id, payload));
-      break;
-    }
-    case ACTION_DOWNLOAD: {
-      const { name } = action;
-      dispatch(download(ip, name));
       break;
     }
     default:
@@ -100,15 +58,17 @@ export const dispatchAction = (action, ip) => (dispatch, getState) => {
   }
 };
 
-export const request = (id, action) => (dispatch, getState) => {
-  const { ip } = getState().pool[id];
-  send(action, ip);
+export const request = (id, action) => () => {
+  sendAction(id, action);
 };
 
-export const sendProject = (id) => (dispatch, getState) => {
-  const project = getState().pool[id];
+export const sendProject = (pid) => (dispatch, getState) => {
+  const project = getState().pool[pid];
   if (!project || !project.daemon) return;
-  dispatch(request(project.daemon, { type: ACTION_INIT }));
+  const { state } = get(getState)(pid);
+  Object.entries(state).forEach(([id, payload]) => {
+    dispatch(request(project.daemon, { type: ACTION_SET, id, payload }));
+  });
 };
 
 export const exportProject = (id, folder) => async (dispatch, getState) => {
