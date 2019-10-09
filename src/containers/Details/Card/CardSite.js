@@ -15,7 +15,8 @@ import {
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, attach } from '../../../actions';
-import { asset, TITLE, CODE, IMAGE } from '../../../constants';
+import { TITLE, CODE, IMAGE } from '../../../constants';
+import { asset } from '../../../assets/util';
 
 type Props = {
   code: ?string,

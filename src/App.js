@@ -1,5 +1,4 @@
 
-import fs from 'fs';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
@@ -8,25 +7,34 @@ import { ConnectedRouter } from 'react-router-redux';
 import { RMWCProvider } from '@rmwc/provider';
 import 'material-components-web/dist/material-components-web.min.css';
 import { Main, Project, ServiceManager } from './containers';
-import { FILE, ACTION, ACTION_TYPE } from './constants';
+import { ACTION, ACTION_TYPE } from './constants';
 import { modify, offline } from './actions';
 import createStore from './store';
 import reducer from './reducer';
+import { init } from './assets';
+import { STATE_JSON } from './assets/constants';
+import { readFile } from './assets/util';
 
 const history = createHashHistory();
-const pool = JSON.parse(fs.readFileSync(FILE));
-
-const store = createStore(reducer, { pool }, history);
-const { root } = store.getState().pool;
-if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
-
-ACTION_TYPE.forEach((a) => {
-  store.dispatch(modify(a, { type: ACTION, code: a }));
-});
 
 export default class extends Component {
+  state = {};
+
+  async componentWillMount() {
+    await init();
+    const pool = JSON.parse(await readFile(STATE_JSON));
+    const store = createStore(reducer, { pool }, history);
+    const { root } = store.getState().pool;
+    if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
+    ACTION_TYPE.forEach((a) => {
+      store.dispatch(modify(a, { type: ACTION, code: a }));
+    });
+    this.setState({ store });
+  }
+
   render() {
-    return (
+    const { store } = this.state;
+    return store ? (
       <Provider store={store}>
         <ServiceManager>
           <RMWCProvider>
@@ -41,6 +49,8 @@ export default class extends Component {
           </RMWCProvider>
         </ServiceManager>
       </Provider>
+    ) : (
+      <div />
     );
   }
 }

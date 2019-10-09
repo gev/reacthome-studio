@@ -1,16 +1,5 @@
 
-import path from 'path';
-import { remote } from 'electron';
-
 export const VERSION = '1.0';
-
-export const STATE = 'state';
-export const ASSETS = 'assets';
-export const ASSETS_DIR = path.join('tmp', 'assets');
-
-export const asset = (a = '') => path.join(remote.app.getAppPath(), 'tmp', 'assets', a);
-export const tmp = (a) => path.join(remote.app.getAppPath(), 'tmp', a);
-export const FILE = tmp('state.json');
 
 export const CLIENT_PORT = 2021;
 export const CLIENT_SERVER_PORT = 2020;

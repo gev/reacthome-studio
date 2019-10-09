@@ -23,8 +23,6 @@ const RowDi = ({ id, index } : RowDiProps) => (
   <tr>
     <td className="paper"><Di id={id} index={index + 0} /></td>
     <td className="paper"><Di id={id} index={index + 1} /></td>
-    <td className="paper"><Di id={id} index={index + 2} /></td>
-    <td className="paper"><Di id={id} index={index + 3} /></td>
   </tr>
 );
 

@@ -19,7 +19,10 @@ import {
   DRIVER_TYPE_BB_PLC1,
   DRIVER_TYPE_BB_PLC2,
   DEVICE_TYPE_DIM_8,
-  DEVICE_TYPE_RELAY_2
+  DEVICE_TYPE_RELAY_2,
+  DEVICE_TYPE_RELAY_6,
+  DEVICE_TYPE_RELAY_12,
+  DEVICE_TYPE_RELAY_24,
 } from '../../../constants';
 
 type Props = {
@@ -50,6 +53,18 @@ const Do = c(({
   switch (type) {
     case DEVICE_TYPE_RELAY_2:
       n = 2;
+      t = DO;
+      break;
+    case DEVICE_TYPE_RELAY_6:
+      n = 6;
+      t = DO;
+      break;
+    case DEVICE_TYPE_RELAY_12:
+      n = 12;
+      t = DO;
+      break;
+    case DEVICE_TYPE_RELAY_24:
+      n = 24;
       t = DO;
       break;
     case DEVICE_TYPE_PLC:

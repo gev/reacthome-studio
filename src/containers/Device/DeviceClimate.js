@@ -4,6 +4,7 @@ import { Typography } from '@rmwc/typography';
 import Di from './DeviceDiChannel';
 
 type Props = {
+  illumination: ?number;
   temperature: ?number;
   humidity: ?number;
   id: string;
@@ -21,7 +22,7 @@ const Row = ({ title, value, magnitude }: RowProps) => (
       <Typography use="body">{title}</Typography>
     </td>
     <td className="paper">
-      <Typography use="body">{value}{magnitude}</Typography>
+      <Typography use="body">{`${value} ${magnitude}`}</Typography>
     </td>
   </tr>
 );
@@ -29,13 +30,14 @@ const Row = ({ title, value, magnitude }: RowProps) => (
 export default class extends Component<Props> {
   render() {
     const {
-      id, temperature, humidity
+      id, temperature, humidity, illumination
     } = this.props;
     return [
       <table key="climate" style={{ textAlign: 'left' }}>
         <tbody>
           <Row title="Temperature" value={temperature} magnitude="°C" />
           <Row title="Humidity" value={humidity} magnitude="%" />
+          <Row title="Illumination" value={illumination} magnitude="lux" />
         </tbody>
       </table>,
       <table key="buttons">

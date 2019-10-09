@@ -1,8 +1,8 @@
 
 import { existsSync } from 'fs';
-import { asset } from './constants';
+import { asset } from './assets/util';
 
-const build = (id, pool, state, assets, l = 0) => {
+const build = (id, pool, state, assets) => {
   if (state[id]) return;
   const subject = pool[id];
   if (!subject) return;
@@ -11,11 +11,11 @@ const build = (id, pool, state, assets, l = 0) => {
   Object.values(subject).forEach(v => {
     if (!v) return;
     if (typeof v === 'string') {
-      build(v, pool, state, assets, l + 1);
-      if (existsSync(asset(v)) && !assets.includes(v)) assets.push(v);
+      build(v, pool, state, assets);
+      if (!assets.includes(v) && existsSync(asset(v))) assets.push(v);
     } else if (Array.isArray(v)) {
       v.forEach(i => {
-        build(i, pool, state, assets, l + 1);
+        build(i, pool, state, assets);
       });
     }
   });

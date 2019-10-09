@@ -1,22 +1,22 @@
 
 import path from 'path';
-import { writeFile, createReadStream, createWriteStream, rename } from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
 import { v4 as uuid } from 'uuid';
 import { contains } from 'fast-deep-equal';
 import debounce from 'debounce';
 import Vibrant from 'node-vibrant';
-import { asset, tmp, FILE, ACTION_SET, BIND } from '../constants';
+import { writeFile, rename, asset, tmp } from '../assets/util';
+import { ACTION_SET, BIND } from '../constants';
+import { STATE_JSON } from '../assets/constants';
 
-const store = debounce((state) => {
-// const store = (state) => {
-  const file = tmp(uuid());
-  writeFile(file, Buffer.from(JSON.stringify(state.pool, null, 2)), e1 => {
-    if (e1) console.error(e1);
-    rename(file, FILE, e2 => {
-      if (e2) console.error('error', e2);
-    });
-  });
-// };
+const store = debounce(async (state) => {
+  try {
+    const file = tmp(uuid());
+    await writeFile(file, Buffer.from(JSON.stringify(state.pool, null, 2)));
+    rename(file, STATE_JSON);
+  } catch (e) {
+    console.error(e);
+  }
 }, 1000, true);
 
 const apply = (action) => (dispatch, getState) => {

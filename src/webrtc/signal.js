@@ -6,12 +6,12 @@ const PROTOCOL = 'connect';
 
 export const socket = new Map();
 
-export default (id, localURI, remoteURI, peer) => new Promise((resolve, reject) => {
+export default (id, localURI, remoteURI) => new Promise((resolve, reject) => {
   if (socket.has(id)) {
     resolve(socket.get(id));
     return;
   }
-  const handle = onSignal(peer);
+  const handle = onSignal(id);
   const connect = (uri) => {
     const ws = new WebSocket(uri, PROTOCOL);
     ws.onopen = () => {
@@ -30,5 +30,5 @@ export default (id, localURI, remoteURI, peer) => new Promise((resolve, reject) 
     ws.onerror = reject;
   };
   connect(localURI);
-  connect(remoteURI);
+  // connect(remoteURI);
 });
