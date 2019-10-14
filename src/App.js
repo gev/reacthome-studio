@@ -13,7 +13,7 @@ import createStore from './store';
 import reducer from './reducer';
 import { init } from './assets';
 import { STATE_JSON } from './assets/constants';
-import { readFile } from './assets/util';
+import { readFile } from './fs';
 
 const history = createHashHistory();
 

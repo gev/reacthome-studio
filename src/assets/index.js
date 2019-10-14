@@ -1,5 +1,5 @@
 
-import { mkdir, readdir, stat, exists, asset } from './util';
+import { mkdir, readdir, stat, exists, asset } from '../fs';
 import { ASSETS, STATE, TMP, VAR } from './constants';
 
 const create = (...path) => path.map(async (p) => (await exists(p)) || mkdir(p));

@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { contains } from 'fast-deep-equal';
 import debounce from 'debounce';
 import Vibrant from 'node-vibrant';
-import { writeFile, rename, asset, tmp } from '../assets/util';
+import { writeFile, rename, asset, tmp } from '../fs';
 import { ACTION_SET, BIND } from '../constants';
 import { STATE_JSON } from '../assets/constants';
 

@@ -1,6 +1,6 @@
 
 import diffAssets from '../assets/diff';
-import { request } from '../actions';
+import { sendAction } from '../webrtc/peer';
 import { GET } from './constants';
 
 const filter = (o, timestamp) => !o || o.timestamp < timestamp;
@@ -9,10 +9,17 @@ const reducer = ({ pool }) =>
   (a, [id, timestamp]) =>
     (filter(pool[id], timestamp) ? [...a, id] : a);
 
-export default (id, action) => async (dispatch, getState) => {
-  const state = action.state.reduce(reducer(getState()), []);
-  const assets = await diffAssets(action.assets);
-  if (state.length > 0 || assets.length > 0) {
-    dispatch(request(id, { type: GET, state, assets }));
+export default (id, { state, assets }) => async (dispatch, getState) => {
+  if (state) {
+    const list = state.reduce(reducer(getState()), []);
+    if (list.length > 0) {
+      sendAction(id, { type: GET, state: list });
+    }
+  }
+  if (assets) {
+    const list = await diffAssets(assets);
+    if (list.length > 0) {
+      sendAction(id, { type: GET, assets: list });
+    }
   }
 };

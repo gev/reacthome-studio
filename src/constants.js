@@ -33,6 +33,7 @@ export const ACTION_DOPPLER_HANDLE = 'ACTION_DOPPLER_HANDLE';
 export const ACTION_THERMOSTAT_HANDLE = 'ACTION_THERMOSTAT_HANDLE';
 export const ACTION_LEAKAGE_HANDLE = 'ACTION_LEAKAGE_HANDLE';
 export const ACTION_TOGGLE = 'ACTION_TOGGLE';
+export const ACTION_TV = 'ACTION_TV';
 export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
 export const ACTION_DO = 0x00;
@@ -131,6 +132,7 @@ export const SCRIPT = 'script';
 export const TIMER = 'timer';
 export const CLOCK = 'clock';
 export const CODE = 'code';
+export const DELAY = 'delay';
 export const TITLE = 'title';
 export const IMAGE = 'image';
 export const CAMERA_URL = 'camera_URL';
@@ -266,6 +268,7 @@ export const ACTION_TYPE = [
   ACTION_THERMOSTAT_HANDLE,
   ACTION_LEAKAGE_HANDLE,
   ACTION_TOGGLE,
+  ACTION_TV,
   ACTION_SCRIPT_RUN
 ];
 

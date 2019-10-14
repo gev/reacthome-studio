@@ -36,7 +36,10 @@ class Container extends Component<Props> {
     brands: [], models: []
   };
   async componentWillMount() {
-    this.setState({ brands: await getBrands(TV) });
+    this.setState({
+      brands: await getBrands(TV),
+      models: await getModels(TV, this.props.brand)
+    });
   }
   change = (event) => {
     const { change } = this.props;

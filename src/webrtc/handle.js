@@ -2,14 +2,14 @@
 
 import { compare } from '../actions';
 import { ANSWER, CANDIDATE } from './constants';
-import { tmp, appendFile, asset, exists, unlink, rename } from '../assets/util';
+import { tmp, appendFile, asset, exists, unlink, rename } from '../fs';
 import { online } from './online';
 import { peers } from './peer';
 import { ACTION_SET } from '../constants';
 import { LIST } from '../init/constants';
 import onList from '../init/onlist';
 
-export const onAction = (data, id) => (dispatch) => {
+export const onAction = (id) => (dispatch) => ({ data }) => {
   try {
     const action = JSON.parse(data);
     dispatch(online(id));
@@ -28,14 +28,14 @@ export const onAction = (data, id) => (dispatch) => {
   }
 };
 
-export const onAsset = (data, id) => async () => {
+export const onAsset = (id) => () => async ({ data }) => {
   const buff = Buffer.from(data);
-  const transaction = buff.readBigUInt64LE(0);
-  const total = buff.readUInt16LE(8);
-  const current = buff.readUInt16LE(10);
-  const length = buff.readUInt16LE(12);
-  const name = buff.slice(14, 14 + length).toString();
-  const chunk = buff.slice(14 + length);
+  const transaction = buff.readUInt16LE(0);
+  const total = buff.readUInt16LE(2);
+  const current = buff.readUInt16LE(4);
+  const length = buff.readUInt16LE(6);
+  const name = buff.slice(8, 8 + length).toString();
+  const chunk = buff.slice(8 + length);
   const temp = tmp(`${id}-${transaction}-${name}`);
   try {
     await appendFile(temp, chunk);
@@ -45,6 +45,7 @@ export const onAsset = (data, id) => async () => {
         await unlink(file);
       }
       rename(temp, file);
+      console.log(file);
     }
   } catch (e) {
     console.error(e);

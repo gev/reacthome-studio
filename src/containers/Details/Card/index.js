@@ -34,6 +34,7 @@ import {
   LEAKAGE,
   DRIVER_TYPE_M206,
   DRIVER_TYPE_M230,
+  DEVICE_TYPE_SMART_4,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -70,6 +71,7 @@ const Container = (props: Props) => {
     case CAMERA:
       return <CardCamera {...props} />;
     case DEVICE_TYPE_SENSOR4:
+    case DEVICE_TYPE_SMART_4:
       return <CardSensor {...props} />;
     case DEVICE_TYPE_DOPPLER_LEGACY:
       return <CardDoppler {...props} />;

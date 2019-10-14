@@ -19,7 +19,8 @@ import {
   ACTION_CLOCK_STOP,
   ACTION_CLOCK_TEST,
   ACTION_DAY_TEST,
-  ACTION_NIGHT_TEST
+  ACTION_NIGHT_TEST,
+  ACTION_TV
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -36,6 +37,7 @@ import ActionPayloadRGBDim from './ActionPayloadRGBDim';
 import ActionPayloadClockStartStop from './ActionPayloadClockStartStop';
 import ActionPayloadClockTest from './ActionPayloadClockTest';
 import ActionPayloadDayNightTest from './ActionPayloadDayNightTest';
+import ActionPayloadTV from './ActionPayloadTV';
 
 type Props = {
   type: ?string
@@ -74,6 +76,8 @@ const Container = (props: Props) => {
       return <ActionPayloadThermostat {...props} />;
     case ACTION_TOGGLE:
       return <ActionPayloadToggle {...props} />;
+    case ACTION_TV:
+      return <ActionPayloadTV {...props} />;
     case ACTION_SCRIPT_RUN:
       return <ActionPayloadScriptRun {...props} />;
     default: return null;
@@ -81,4 +85,3 @@ const Container = (props: Props) => {
 };
 
 export default connect(({ pool }, { id }) => pool[id] || {})(Container);
-

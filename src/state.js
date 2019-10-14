@@ -1,6 +1,5 @@
 
-import { existsSync } from 'fs';
-import { asset } from './assets/util';
+import { asset, exists } from './fs';
 
 const build = (id, pool, state, assets) => {
   if (state[id]) return;
@@ -8,11 +7,11 @@ const build = (id, pool, state, assets) => {
   if (!subject) return;
   const s = state;
   s[id] = subject;
-  Object.values(subject).forEach(v => {
+  Object.values(subject).forEach(async (v) => {
     if (!v) return;
     if (typeof v === 'string') {
       build(v, pool, state, assets);
-      if (!assets.includes(v) && existsSync(asset(v))) assets.push(v);
+      if (!assets.includes(v) && await exists(asset(v))) assets.push(v);
     } else if (Array.isArray(v)) {
       v.forEach(i => {
         build(i, pool, state, assets);

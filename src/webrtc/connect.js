@@ -18,14 +18,14 @@ export default (id) => (dispatch, getState) => {
     peers.set(id, peer);
 
     const action = peer.createDataChannel(ACTION, { ordered: true });
-    action.onmessage = ({ data }) => dispatch(onAction(data, id));
+    action.onmessage = dispatch(onAction(id));
     action.onerror = connect;
     action.onopen = () => {
       console.log('Open action channel');
     };
 
     const asset = peer.createDataChannel(ASSET, { ordered: true });
-    asset.onmessage = ({ data }) => dispatch(onAsset(data, id));
+    asset.onmessage = dispatch(onAsset(id));
     asset.onerror = connect;
     asset.onopen = () => {
       console.log('Open asset channel');
