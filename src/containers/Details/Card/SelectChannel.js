@@ -20,6 +20,7 @@ import {
   DRIVER_TYPE_BB_PLC2,
   DEVICE_TYPE_IR1,
   DEVICE_TYPE_IR6,
+  DEVICE_TYPE_IR_4,
 } from '../../../constants';
 
 type Props = {
@@ -78,6 +79,10 @@ const Channel = c(({
     case DRIVER_TYPE_ARTNET:
       n = size;
       t = ARTNET;
+      break;
+    case DEVICE_TYPE_IR_4:
+      n = 4;
+      t = IR;
       break;
     case DEVICE_TYPE_IR1:
       n = 1;

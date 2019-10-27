@@ -20,7 +20,10 @@ import {
   ACTION_CLOCK_TEST,
   ACTION_DAY_TEST,
   ACTION_NIGHT_TEST,
-  ACTION_TV
+  ACTION_TV,
+  NOTIFY,
+  ACTION_DISABLE,
+  ACTION_ENABLE
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -38,6 +41,7 @@ import ActionPayloadClockStartStop from './ActionPayloadClockStartStop';
 import ActionPayloadClockTest from './ActionPayloadClockTest';
 import ActionPayloadDayNightTest from './ActionPayloadDayNightTest';
 import ActionPayloadTV from './ActionPayloadTV';
+import ActionPayloadNotification from './ActionPayloadNotification';
 
 type Props = {
   type: ?string
@@ -45,6 +49,8 @@ type Props = {
 
 const Container = (props: Props) => {
   switch (props.type) {
+    case ACTION_DISABLE:
+    case ACTION_ENABLE:
     case ACTION_OFF:
     case ACTION_ON:
       return <ActionPayloadOnOff {...props} />;
@@ -78,6 +84,8 @@ const Container = (props: Props) => {
       return <ActionPayloadToggle {...props} />;
     case ACTION_TV:
       return <ActionPayloadTV {...props} />;
+    case NOTIFY:
+      return <ActionPayloadNotification {...props} />;
     case ACTION_SCRIPT_RUN:
       return <ActionPayloadScriptRun {...props} />;
     default: return null;

@@ -1,6 +1,6 @@
-/* eslint-disable camelcase */
 
 import React, { Component } from 'react';
+import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -9,26 +9,17 @@ import {
   CardActions,
   CardActionIcons
 } from '@rmwc/card';
-import { List, ListItem, ListItemGraphic } from '@rmwc/list';
-import { IconButton } from '@rmwc/icon-button';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
-import { remove, modify, add, makeBind } from '../../../actions';
-import { CODE, TITLE, LEAKAGE_SENSOR, VALVE_WATER, onOff, onOn, DO_OFF, DO_ON } from '../../../constants';
-import SelectLeakageSensor from './SelectLeakageSensor';
-import SelectValveWater from './SelectValveWater';
+import { remove, modify, makeBind } from '../../../actions';
+import { CODE, TITLE, DO_OFF, DO_ON, onOff, onOn } from '../../../constants';
 import SelectScript from '../SelectScript';
 
 type Props = {
-  project: ?string,
   code: ?string,
-  title: ?string,
-  leakage_sensor: ?[],
-  valve_water: ?[],
+  title: ?string;
   change: (payload: {}) => void,
   removeField: () => void,
-  add: (id: string) => void,
-  remove: (id: string) => void
 };
 
 type ActionProps = {
@@ -69,31 +60,15 @@ const Action = (props: ActionProps) => {
   );
 };
 
-const Item = connect(({ pool }, { id }) => pool[id] || {})((props) => (
-  <ListItem>
-    <ListItemGraphic icon={<IconButton icon="remove" onClick={props.remove} />} />
-    {props.code || props.title}
-  </ListItem>
-));
-
 class Container extends Component<Props> {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  add = (field) => (sensor) => {
-    this.props.add(field, sensor);
-  }
-  remove = (field, sensor) => () => {
-    this.props.remove(field, sensor);
-  }
-  select = (onLeakageReset) => {
-    this.props.change({ onLeakageReset });
-  }
   render() {
     const {
-      code, title, removeField, project, leakage_sensor, valve_water, change
+      code, title, removeField, change
     } = this.props;
     return (
       <Card>
@@ -102,24 +77,6 @@ class Container extends Component<Props> {
         </div>
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
-        </div>
-        <div className="paper">
-          <SelectLeakageSensor root={project} onSelect={this.add(LEAKAGE_SENSOR)} />
-          <List>
-            {
-              leakage_sensor && leakage_sensor.map(i =>
-                <Item key={i} id={i} remove={this.remove(LEAKAGE_SENSOR, i)} />)
-            }
-          </List>
-        </div>
-        <div className="paper">
-          <SelectValveWater root={project} onSelect={this.add(VALVE_WATER)} />
-          <List>
-            {
-              valve_water && valve_water.map(i =>
-                <Item key={i} id={i} remove={this.remove(VALVE_WATER, i)} />)
-            }
-          </List>
         </div>
         <table className="paper">
           <tbody>
@@ -138,14 +95,13 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id }) => pool[id] || {},
+  ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
   (dispatch, {
-    parent, id, field, multiple
+    project, parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    makeBind: (bind) => makeBind(id, bind),
-    remove: (type, sensor) => remove(id, type, sensor),
-    add: (type, sensor) => add(id, type, sensor),
-    change: (payload) => modify(id, payload)
+    details: () => push(`/project/${project}/${id}`),
+    change: (payload) => modify(id, payload),
+    makeBind
   }, dispatch)
 )(Container);

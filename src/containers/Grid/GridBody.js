@@ -6,7 +6,8 @@ import GridCell from './GridCell';
 import styles from './grid.css';
 
 type Props = {
-  site: [],
+  id: string,
+  site: ?[],
   project: string,
   level: ?number,
   onSelect: (site: string, field: string) => void
@@ -15,22 +16,20 @@ type Props = {
 class GridBody extends Component<Props> {
   render() {
     const {
-      site = [], project, level = 0, onSelect
+      id, site = [], project, level = 0, onSelect
     } = this.props;
-    return (
-      site.map(l => [
-        <tr key={l} className={level === 0 ? styles.level0 : ''}>
-          {
-            MODEL_TYPE.map(p => (
-              <td key={p} onMouseEnter={onSelect(l, p)} onMouseLeave={onSelect()}>
-                <GridCell id={l} field={p} project={project} />
-              </td>
-            ))
-          }
-        </tr>,
-        <Row key={`sub-${l}`} id={l} project={project} onSelect={onSelect} level={level + 1} />
-      ])
-    );
+    return [
+      <tr key={id} className={level === 0 ? styles.level0 : ''}>
+        {
+          MODEL_TYPE.map(p => (
+            <td key={p} onMouseEnter={onSelect(id, p)} onMouseLeave={onSelect()}>
+              <GridCell id={id} field={p} project={project} />
+            </td>
+          ))
+        }
+      </tr>,
+      site.map(l => <Row key={`sub-${l}`} id={l} project={project} onSelect={onSelect} level={level + 1} />)
+    ];
   }
 }
 

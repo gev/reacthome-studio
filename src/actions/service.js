@@ -30,11 +30,11 @@ export const sendProject = (pid) => (dispatch, getState) => {
       sendAction(project.daemon, { type: ACTION_SET, id, payload });
     });
   }, 1000);
-  setTimeout(() => {
-    assets.forEach(asset => {
-      sendAsset(project.daemon, asset);
-    });
-  }, 1000);
+  // setTimeout(() => {
+  //   assets.forEach(asset => {
+  //     sendAsset(project.daemon, asset);
+  //   });
+  // }, 1000);
 };
 
 // export const exportProject = (id, folder) => async (dispatch, getState) => {

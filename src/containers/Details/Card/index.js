@@ -35,6 +35,11 @@ import {
   DRIVER_TYPE_M206,
   DRIVER_TYPE_M230,
   DEVICE_TYPE_SMART_4,
+  LIGHT_RGB,
+  DEVICE_TYPE_CLIMATE,
+  DEVICE_TYPE_DOPPLER,
+  DEVICE_TYPE_TEMPERATURE_EXT,
+  SECURITY,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -57,6 +62,10 @@ import CardBBPLC1 from './CardBBPLC1';
 import CardBBPLC2 from './CardBBPLC2';
 import CardLeakage from './CardLeakage';
 import CardElectricityMeter from './CardElectricityMeter';
+import CardRGB from './CardRGB';
+import CardClimate from './CardClimate';
+import CardTempExt from './CardTempExt';
+import CardOnOff from './CardOnOff';
 
 type Props = {
   type: ?string
@@ -73,6 +82,11 @@ const Container = (props: Props) => {
     case DEVICE_TYPE_SENSOR4:
     case DEVICE_TYPE_SMART_4:
       return <CardSensor {...props} />;
+    case DEVICE_TYPE_CLIMATE:
+      return <CardClimate {...props} />;
+    case DEVICE_TYPE_TEMPERATURE_EXT:
+      return <CardTempExt {...props} />;
+    case DEVICE_TYPE_DOPPLER:
     case DEVICE_TYPE_DOPPLER_LEGACY:
       return <CardDoppler {...props} />;
     case BUTTON:
@@ -90,6 +104,8 @@ const Container = (props: Props) => {
     case PUMP:
     case FAN:
       return <CardDo {...props} />;
+    case LIGHT_RGB:
+      return <CardRGB {...props} />;
     case TIMER:
       return <CardTimer {...props} />;
     case CLOCK:
@@ -106,6 +122,8 @@ const Container = (props: Props) => {
       return <CardThermostat {...props} />;
     case LEAKAGE:
       return <CardLeakage {...props} />;
+    case SECURITY:
+      return <CardOnOff {...props} />;
     case DRIVER_TYPE_RS21:
       return <CardRS21 {...props} />;
     case DRIVER_TYPE_ARTNET:

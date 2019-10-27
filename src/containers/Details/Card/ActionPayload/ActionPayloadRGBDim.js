@@ -1,21 +1,31 @@
 
 
-import React from 'react';
+import React, { Component } from 'react';
 import RGB from './RGB';
-import SelectSensor from './SelectSensor';
+import Autocomplete from '../../../Filter';
 
 type Props = {
   id: string;
-  site: string;
-  payload: ?{}
+  root: string;
+  payload: ?{};
+  change: (id: string) => void;
 };
 
-export default ({ id, site, payload }: Props) => [
-  <div key="id" className="paper">
-    <SelectSensor root={site} action={id} payload={payload} />
-  </div>,
-  <div key="value" className="paper">
-    <RGB action={id} payload={payload} />
-  </div>
-];
+export default class extends Component<Props> {
+  select = (id) => {
+    const { change, payload } = this.props;
+    change({ payload: { ...payload, id } });
+  }
 
+  render() {
+    const { id, root, payload = {} } = this.props;
+    return [
+      <div key="id" className="paper">
+        <Autocomplete id={payload.id} root={root} onSelect={this.select} />
+      </div>,
+      <div key="value" className="paper">
+        <RGB action={id} payload={payload} />
+      </div>
+    ];
+  }
+}

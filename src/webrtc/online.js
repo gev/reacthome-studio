@@ -3,7 +3,7 @@ import { set } from '../actions/create';
 import { peers, actions, assets } from './peer';
 import connect from './connect';
 
-const TIMEOUT = 3000;
+const TIMEOUT = 10000;
 
 let t;
 let i;
@@ -21,7 +21,7 @@ export const online = (id) => (dispatch) => {
     }
     dispatch(offline(id));
     dispatch(connect(id));
-  }, 3000);
+  }, TIMEOUT);
 };
 
 export const offline = (id) => (dispatch) => {
