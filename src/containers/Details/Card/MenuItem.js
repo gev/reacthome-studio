@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { MenuItem } from '@rmwc/menu';
+import { BIND } from '../../../constants';
 
 type Props = {
   code: ?string;
@@ -23,7 +24,7 @@ class Container extends Component<Props> {
   }
 }
 
-export default connect(({ pool }, { id }) => {
+export default connect(({ pool }, { id, bind = BIND }) => {
   const channel = pool[id] || {};
-  return pool[channel.bind] || {};
+  return pool[channel[bind]] || {};
 })(Container);

@@ -35,7 +35,7 @@ const Di = c(({
       n = 4;
       break;
     case DEVICE_TYPE_RELAY_2:
-      n = 4;
+      n = 2;
       break;
     case DEVICE_TYPE_CLIMATE:
       n = 4;

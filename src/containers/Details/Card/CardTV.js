@@ -36,7 +36,10 @@ class Container extends Component<Props> {
     brands: [], models: []
   };
   async componentWillMount() {
-    this.setState({ brands: await getBrands(TV) });
+    this.setState({
+      brands: await getBrands(TV) || [],
+      models: await getModels(TV, this.props.brand) || []
+    });
   }
   change = (event) => {
     const { change } = this.props;
@@ -48,7 +51,7 @@ class Container extends Component<Props> {
     this.props.makeBind(id, bind);
   }
   selectBrand = async (brand) => {
-    this.setState({ models: await getModels(TV, brand) });
+    this.setState({ models: await getModels(TV, brand) || [] });
     this.props.change({ brand, model: null });
   }
   selectModel = (model) => {

@@ -12,7 +12,7 @@ import {
 import { Button } from '@rmwc/button';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, request } from '../../../actions';
-import { CODE, ACTION_TYPE } from '../../../constants';
+import { CODE, ACTION_TYPE, DELAY } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 import ActionPayload from './ActionPayload';
 
@@ -22,6 +22,7 @@ type Props = {
   project: string,
   code: ?string,
   type: ?string,
+  delay: ?Number,
   daemon: ?string,
   payload: ?{},
   change: (payload: {}) => void,
@@ -30,8 +31,8 @@ type Props = {
 };
 
 class Container extends Component<Props> {
-  change = ({ target: { id, value } }) => {
-    this.props.change({ [id]: value });
+  change = ({ target: { id, value, type } }) => {
+    this.props.change({ [id]: type === 'number' ? Number(value) : value });
   }
 
   setType = (type) => {
@@ -47,7 +48,7 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      id, code, type, site, project, removeField, daemon, change
+      id, code, delay, type, site, project, removeField, daemon, change
     } = this.props;
     return (
       <Card>
@@ -63,6 +64,7 @@ class Container extends Component<Props> {
         </div>
         <ActionPayload id={id} site={site} project={project} root={project} daemon={daemon} change={change} />
         <CardActions>
+          <TextField id={DELAY} value={delay || ''} onChange={this.change} label={DELAY} type="number" />
           <CardActionIcons>
             <CardAction icon="play_arrow" onClick={this.run} />
             <CardAction icon="remove" onClick={removeField} />

@@ -100,12 +100,13 @@ export const attach = (id, field, file) => (dispatch) => {
   rs.pipe(ws);
 };
 
-export const makeBind = (id, payload, bind = BIND) => (dispatch, getState) => {
+export const makeBind = (id, payload, bind = BIND, ref) => (dispatch, getState) => {
+  const back = ref || bind;
   const { pool } = getState();
   if (pool[id]) dispatch(modify(pool[id][bind], { [bind]: null }));
-  if (pool[payload]) dispatch(modify(pool[payload][bind], { [bind]: null }));
+  if (pool[payload]) dispatch(modify(pool[payload][back], { [back]: null }));
   dispatch(modify(id, { [bind]: payload }));
-  dispatch(modify(payload, { [bind]: id }));
+  dispatch(modify(payload, { [back]: id }));
 };
 
 export const addBind = (id, field, subject, bind = BIND) => (dispatch, getState) => {
