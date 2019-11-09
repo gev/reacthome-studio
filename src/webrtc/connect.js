@@ -13,34 +13,33 @@ export default (id) => (dispatch, getState) => {
   if (peers.has(id)) return;
   dispatch(offline(id));
   const connect = () => {
-    const peer = new RTCPeerConnection(ICE);
-    peer.onerror = console.warn;
-    peers.set(id, peer);
-
-    const action = peer.createDataChannel(ACTION, { ordered: true });
-    action.onmessage = dispatch(onAction(id));
-    action.onerror = connect;
-    action.onopen = () => {
-      console.log('Open action channel');
-    };
-
-    const asset = peer.createDataChannel(ASSET, { ordered: true });
-    asset.onmessage = dispatch(onAsset(id));
-    asset.onerror = connect;
-    asset.onopen = () => {
-      console.log('Open asset channel');
-    };
-
-    actions.set(id, action);
-    assets.set(id, asset);
-
     const { ip } = getState().pool[id];
-    const localURI = 'ws://192.168.88.116:3000';
-    // const localURI = `ws://${ip}:${LOCAL_PORT}`;
+    const localURI = `ws://${ip}:${LOCAL_PORT}`;
     const remoteURI = `wss://${REMOTE_URI}/${id}`;
 
-    signal(id, localURI, remoteURI, peer)
+    signal(id, localURI, remoteURI)
       .then((ws) => {
+        const peer = new RTCPeerConnection(ICE);
+        peer.onerror = console.warn;
+        peers.set(id, peer);
+
+        const action = peer.createDataChannel(ACTION, { ordered: true, maxPacketLifeTime: 3000 });
+        action.onmessage = dispatch(onAction(id));
+        // action.onerror = connect;
+        action.onopen = () => {
+          console.log('Open action channel');
+        };
+
+        const asset = peer.createDataChannel(ASSET, { ordered: true, maxPacketLifeTime: 3000 });
+        asset.onmessage = dispatch(onAsset(id));
+        // asset.onerror = connect;
+        asset.onopen = () => {
+          console.log('Open asset channel');
+        };
+
+        actions.set(id, action);
+        assets.set(id, asset);
+
         peer.onicecandidate = ({ candidate }) => {
           if (!candidate) return;
           ws.send(JSON.stringify({ type: CANDIDATE, candidate }));

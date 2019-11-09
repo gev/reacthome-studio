@@ -14,6 +14,7 @@ import reducer from './reducer';
 import { init } from './assets';
 import { STATE_JSON } from './assets/constants';
 import { readFile } from './fs';
+import discovery from './discovery';
 
 const history = createHashHistory();
 
@@ -26,9 +27,10 @@ export default class extends Component {
     const store = createStore(reducer, { pool }, history);
     const { root } = store.getState().pool;
     if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
-    ACTION_TYPE.forEach((a) => {
-      store.dispatch(modify(a, { type: ACTION, code: a }));
-    });
+    // ACTION_TYPE.forEach((a) => {
+    //   store.dispatch(modify(a, { type: ACTION, code: a }));
+    // });
+    store.dispatch(discovery());
     this.setState({ store });
   }
 
