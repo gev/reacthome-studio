@@ -7,33 +7,34 @@ import { request } from '../actions';
 import { ACTION_RGB_DIM } from '../constants';
 
 type Props = {
-  rgb: ?number,
-  set: (value: number) => void
+  set: (value: {}) => void
 }
 
 class Container extends Component<Props> {
+  state = {};
+
   red = (event) => {
-    const { rgb = 0x7f7f7f, set } = this.props;
-    set(((event.detail.value & 0xff) << 16) | (rgb & 0x00ffff));
+    this.props.set({ ...this.state, r: event.detail.value });
+    this.setState({ ...this.state, r: event.detail.value });
   };
 
   green = (event) => {
-    const { rgb = 0x7f7f7f, set } = this.props;
-    set(((event.detail.value & 0xff) << 8) | (rgb & 0xff00ff));
+    this.props.set({ ...this.state, g: event.detail.value });
+    this.setState({ ...this.state, g: event.detail.value });
   };
 
   blue = (event) => {
-    const { rgb = 0x7f7f7f, set } = this.props;
-    set((event.detail.value & 0xff) | (rgb & 0xffff00));
+    this.props.set({ ...this.state, b: event.detail.value });
+    this.setState({ ...this.state, b: event.detail.value });
   };
 
   render() {
-    const { rgb = 0x7f7f7f } = this.props;
+    const { r = 0, g = 0, b = 0 } = this.state;
     return (
       <div className="paper">
-        <Slider value={(rgb >> 16) & 0xff} min={0} max={255} step={1} onInput={this.red} />
-        <Slider value={(rgb >> 8) & 0xff} min={0} max={255} step={1} onInput={this.green} />
-        <Slider value={rgb & 0xff} min={0} max={255} step={1} onInput={this.blue} />
+        <Slider value={r} min={0} max={255} step={1} onInput={this.red} />
+        <Slider value={g} min={0} max={255} step={1} onInput={this.green} />
+        <Slider value={b} min={0} max={255} step={1} onInput={this.blue} />
       </div>
     );
   }

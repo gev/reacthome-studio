@@ -8,10 +8,10 @@ export const offline = (id) => (dispatch) => {
   dispatch(set(id, { online: false, multicast: false }));
 };
 
-export const online = (id, type, version, ip, multicast) => (dispatch) => {
+export const online = (id, type, version, ip) => (dispatch) => {
   clearTimeout(timeout[id]);
   dispatch(set(id, {
-    type, version, ip, multicast, online: true
+    type, version, ip, online: true
   }));
   timeout[id] = setTimeout(() => {
     dispatch(offline(id));

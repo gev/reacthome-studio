@@ -21,7 +21,8 @@ import {
   DEVICE_TYPE_PLC,
   DEVICE_TYPE_IR_RECEIVER,
   DEVICE_TYPE_CLIMATE,
-  DEVICE_TYPE_RSHUB
+  DEVICE_TYPE_RSHUB,
+  DEVICE_TYPE_TEMPERATURE_EXT
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -37,6 +38,7 @@ import Di16 from './DeviceDi16';
 import Di24 from './DeviceDi24';
 import Sensor from './DeviceSensor';
 import Climate from './DeviceClimate';
+import TempExt from './DeviceTempExt';
 import IrReceiver from './DeviceIRReceiver';
 import RSHub from './DeviceRSHub';
 
@@ -64,6 +66,7 @@ export default (props: Props) => {
     case DEVICE_TYPE_PLC: return <Plc {...props} />;
     case DEVICE_TYPE_SENSOR4: return <Sensor {...props} />;
     case DEVICE_TYPE_CLIMATE: return <Climate {...props} />;
+    case DEVICE_TYPE_TEMPERATURE_EXT: return <TempExt {...props} />;
     case DEVICE_TYPE_SMART_4: return <Sensor {...props} />;
     case DEVICE_TYPE_IR_RECEIVER: return <IrReceiver {...props} />;
     case DEVICE_TYPE_RSHUB: return <RSHub {...props} />;

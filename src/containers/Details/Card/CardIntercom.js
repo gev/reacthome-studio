@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 
 import React, { Component } from 'react';
 import { push } from 'react-router-redux';
@@ -11,13 +12,15 @@ import {
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE, TITLE, CAMERA_URL, SIP_USER } from '../../../constants';
+import { CODE, TITLE, SIP_USER } from '../../../constants';
+import SelectCamera from './SelectCamera';
 
 type Props = {
+  project: String,
   code: ?string,
   title: ?string,
   SIP_user: ?string,
-  camera_URL: ?string,
+  camera: ?string,
   change: (payload: {}) => void,
   removeField: () => void,
 };
@@ -28,9 +31,12 @@ class Container extends Component<Props> {
     const { id, value } = event.target;
     change({ [id]: value });
   }
+  selectCamera = (camera) => {
+    this.props.change({ camera });
+  }
   render() {
     const {
-      code, title, removeField, SIP_user, camera_URL
+      code, title, removeField, SIP_user, camera, project
     } = this.props;
     return (
       <Card>
@@ -44,7 +50,7 @@ class Container extends Component<Props> {
           <TextField id={SIP_USER} value={SIP_user || ''} onChange={this.change} label={SIP_USER} />
         </div>
         <div className="paper">
-          <TextField id={CAMERA_URL} value={camera_URL || ''} onChange={this.change} label={CAMERA_URL} />
+          <SelectCamera id={camera} root={project} onSelect={this.selectCamera} />
         </div>
         <CardActions>
           <CardActionIcons>

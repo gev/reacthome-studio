@@ -15,6 +15,8 @@ export const ACTION_INIT = 'ACTION_INIT';
 export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 
 export const ACTION_RGB_DIM = 'ACTION_RGB_DIM';
+export const ACTION_ENABLE = 'ACTION_ENABLE';
+export const ACTION_DISABLE = 'ACTION_DISABLE';
 export const ACTION_ON = 'ACTION_ON';
 export const ACTION_OFF = 'ACTION_OFF';
 export const ACTION_DIM = 'ACTION_DIM';
@@ -88,6 +90,8 @@ export const DEVICE_TYPE_RSHUB = 0xa6;
 
 export const DEVICE_TYPE_PNP = 0xe0;
 
+export const DEVICE_TYPE_TEMPERATURE_EXT = 0xf0;
+
 export const DEVICE_TYPE_PLC = 0xfe;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
 
@@ -134,6 +138,7 @@ export const CLOCK = 'clock';
 export const CODE = 'code';
 export const DELAY = 'delay';
 export const TITLE = 'title';
+export const MESSAGE = 'message';
 export const IMAGE = 'image';
 export const CAMERA_URL = 'camera_URL';
 export const PREVIEW_URL = 'preview_URL';
@@ -142,6 +147,7 @@ export const THERMOSTAT = 'thermostat';
 export const LEAKAGE = 'leakage';
 export const WATER_COUNTER = 'water_counter';
 export const ELECTRICITY_METER = 'electricity_meter';
+export const SECURITY = 'security';
 export const SETPOINT = 'setpoint';
 export const LOCATION = 'location';
 export const WEATHER = 'weather';
@@ -166,6 +172,7 @@ export const HEAT_HYSTERESIS = 'heat_hysteresis';
 export const LIGHT = 'light';
 export const LIGHT_220 = 'light_220';
 export const LIGHT_LED = 'light_LED';
+export const LIGHT_RGB = 'light_RGB';
 export const BUTTON = 'button';
 export const SENSOR = 'sensor';
 export const DOPPLER = 'doppler';
@@ -189,6 +196,8 @@ export const INTERCOM = 'intercom';
 export const SIP_USER = 'SIP_user';
 
 export const MODEL = 'model';
+
+export const NOTIFY = 'notify';
 
 export const IR = 'ir';
 export const DO = 'do';
@@ -220,6 +229,7 @@ export const MODEL_TYPE = [
   SCENE,
   LIGHT_220,
   LIGHT_LED,
+  LIGHT_RGB,
   BUTTON,
   SENSOR,
   DRIVER_TYPE_RS21,
@@ -245,10 +255,13 @@ export const MODEL_TYPE = [
   THERMOSTAT,
   LEAKAGE,
   WATER_COUNTER,
-  ELECTRICITY_METER
+  ELECTRICITY_METER,
+  SECURITY
 ];
 
 export const ACTION_TYPE = [
+  ACTION_ENABLE,
+  ACTION_DISABLE,
   ACTION_OFF,
   ACTION_ON,
   ACTION_DIM,
@@ -269,7 +282,8 @@ export const ACTION_TYPE = [
   ACTION_LEAKAGE_HANDLE,
   ACTION_TOGGLE,
   ACTION_TV,
-  ACTION_SCRIPT_RUN
+  ACTION_SCRIPT_RUN,
+  NOTIFY
 ];
 
 export const INTERFACE = 'interface';
@@ -288,7 +302,7 @@ export const onTemperatureExt = 'onTemperatureExt';
 export const onHumidity = 'onHumidity';
 export const onIllumination = 'onIllumination';
 export const onStartCool = 'onStartCool';
-export const onSartHeat = 'onStartHeat';
+export const onStartHeat = 'onStartHeat';
 export const onStopHeat = 'onStopHeat';
 export const onStopCool = 'onStopCool';
 export const onTrue = 'onTrue';
@@ -493,6 +507,9 @@ export const DEVICE_TYPES = {
     title: 'Bootloader',
     firmware: 'bootloader',
     hasFindMeAction: true
+  },
+  [DEVICE_TYPE_TEMPERATURE_EXT]: {
+    title: 'External temperature'
   },
   undefined: {
     title: 'Outdated'

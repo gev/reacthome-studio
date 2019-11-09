@@ -35,7 +35,8 @@ export default (id) => (dispatch, getState) => {
     assets.set(id, asset);
 
     const { ip } = getState().pool[id];
-    const localURI = `ws://${ip}:${LOCAL_PORT}`;
+    const localURI = 'ws://192.168.88.116:3000';
+    // const localURI = `ws://${ip}:${LOCAL_PORT}`;
     const remoteURI = `wss://${REMOTE_URI}/${id}`;
 
     signal(id, localURI, remoteURI, peer)
@@ -49,7 +50,7 @@ export default (id) => (dispatch, getState) => {
           .then(() => {
             ws.send(JSON.stringify({ type: OFFER, jsep: peer.localDescription }));
           })
-          .catch(connect);
+          .catch(console.error);
       })
       .catch(() => {
         setTimeout(connect, TIMEOUT);

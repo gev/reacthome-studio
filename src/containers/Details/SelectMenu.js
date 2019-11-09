@@ -12,7 +12,7 @@ type Props = {
 export default ({ handle, options, onSelect }: Props) => (
   <SimpleMenu handle={handle} style={{ minWidth: 200 }}>
     {
-      options && options.map(i => (
+      Array.isArray(options) && options.map(i => (
         <SelectMenuItem key={i} id={i} onSelect={onSelect} />
       ))
     }
