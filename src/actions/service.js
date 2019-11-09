@@ -5,58 +5,7 @@ import { ACTION_SET } from '../constants';
 import { sendAction } from '../webrtc/peer';
 import { compare } from './create';
 
-const socket = createSocket('udp4');
-
-const send = (action, ip) => {
-  const buff = Buffer.from(JSON.stringify(action));
-  socket.send(buff, 0, buff.length, CLIENT_SERVER_PORT, ip, (err) => {
-    if (err) console.log(err);
-  });
-};
-
-export const download = (ip, name) => (dispatch) => {
-  const file = asset(name);
-  exists(file, (ex) => {
-    if (ex) return;
-    fetch(`http://${ip}:${CLIENT_SERVER_PORT}/${ASSETS}/${name}`)
-      .then(res => {
-        if (res.status !== 200) return;
-        const ws = createWriteStream(file);
-        ws.on('end', () => {
-          dispatch(set(ASSETS, { [name]: file }));
-        });
-        res.body.pipe(ws);
-      })
-      .catch(console.log);
-  });
-};
-
-export const init = (ip) => (dispatch) => {
-  fetch(`http://${ip}:${CLIENT_SERVER_PORT}/${STATE}`)
-    .then(response => response.json())
-    .then(({ assets = [], state = {} }) => {
-      assets.forEach((name) => {
-        dispatch(download(ip, name));
-      });
-      Object.entries(state).forEach(([k, v]) => {
-        dispatch(compare(k, v));
-      });
-    })
-    .catch(console.error);
-};
-
-export const discovery = (id) => (dispatch, getState) => {
-  const { ip, multicast } = getState().pool[id] || {};
-  if (ip) {
-    send({
-      type: ACTION_DISCOVERY,
-      payload: { type: STUDIO, VERSION, multicast }
-    }, ip);
-  }
-};
-
-export const dispatchAction = (action, ip) => (dispatch, getState) => {
-  ip = '192.168.0.2';
+export const dispatchAction = (action) => (dispatch) => {
   const { id, payload } = action;
   switch (action.type) {
     case ACTION_SET: {
