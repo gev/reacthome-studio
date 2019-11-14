@@ -21,7 +21,7 @@ const store = debounce(async (state) => {
 
 const apply = (action) => (dispatch, getState) => {
   dispatch(action);
-  // store(getState());
+  store(getState());
 };
 
 export const add = (id, field, subject) => (dispatch, getState) => {

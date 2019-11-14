@@ -26,6 +26,8 @@ export const ACTION_SITE_LIGHT_OFF = 'ACTION_SITE_LIGHT_OFF';
 export const ACTION_SETPOINT = 'ACTION_SETPOINT';
 export const ACTION_TIMER_START = 'ACTION_TIMER_START';
 export const ACTION_TIMER_STOP = 'ACTION_TIMER_STOP';
+export const ACTION_SCHEDULE_START = 'ACTION_SCHEDULE_START';
+export const ACTION_SCHEDULE_STOP = 'ACTION_SCHEDULE_STOP';
 export const ACTION_CLOCK_START = 'ACTION_CLOCK_START';
 export const ACTION_CLOCK_STOP = 'ACTION_CLOCK_STOP';
 export const ACTION_CLOCK_TEST = 'ACTION_CLOCK_TEST';
@@ -134,6 +136,7 @@ export const PARENT = 'parent';
 export const SCENE = 'scene';
 export const SCRIPT = 'script';
 export const TIMER = 'timer';
+export const SCHEDULE = 'schedule';
 export const CLOCK = 'clock';
 export const CODE = 'code';
 export const DELAY = 'delay';
@@ -272,6 +275,8 @@ export const ACTION_TYPE = [
   ACTION_SETPOINT,
   ACTION_TIMER_START,
   ACTION_TIMER_STOP,
+  ACTION_SCHEDULE_START,
+  ACTION_SCHEDULE_STOP,
   ACTION_CLOCK_START,
   ACTION_CLOCK_STOP,
   ACTION_CLOCK_TEST,
