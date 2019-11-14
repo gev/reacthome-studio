@@ -5,7 +5,6 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const config = {
   context: __dirname,
   entry: [
-    'babel-polyfill',
     path.resolve(__dirname, './renderer.js'),
   ],
   target: 'electron-renderer',

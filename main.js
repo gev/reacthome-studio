@@ -8,6 +8,9 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true
+    },
     fullscreen: true,
     show: false
   });
