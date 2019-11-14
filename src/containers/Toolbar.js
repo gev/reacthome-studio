@@ -13,7 +13,7 @@ import {
   ToolbarFixedAdjust
 } from '@rmwc/toolbar';
 import { Button, ButtonIcon } from '@rmwc/button';
-import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER } from '../constants';
+import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER, SCHEDULE } from '../constants';
 import { sendProject, exportProject } from '../actions';
 
 type Props = {
@@ -25,6 +25,7 @@ type Props = {
   model: () => void,
   script: () => void,
   timer: () => void,
+  schedule: () => void,
   clock: () => void,
   location: () => void,
   weather: () => void,
@@ -47,7 +48,7 @@ class MyToolbar extends Component<Props> {
     const {
       project, title, back,
       openMenu, details,
-      model, script, timer, clock, location, weather, driver
+      model, script, timer, schedule, clock, location, weather, driver
     } = this.props;
     return [
       <Toolbar key="toolbar" fixed style={{ backgroundColor: 'white' }}>
@@ -63,6 +64,7 @@ class MyToolbar extends Component<Props> {
           <Button onClick={model}><ButtonIcon icon="apps" />{MODEL}</Button>
           <Button onClick={script}><ButtonIcon icon="web" />{SCRIPT}</Button>
           <Button onClick={timer}><ButtonIcon icon="timer" />{TIMER}</Button>
+          <Button onClick={schedule}><ButtonIcon icon="event" />{SCHEDULE}</Button>
           <Button onClick={clock}><ButtonIcon icon="access_time" />{CLOCK}</Button>
           <Button onClick={location}><ButtonIcon icon="location_on" />{LOCATION}</Button>
           <Button onClick={weather}><ButtonIcon icon="filter_drama" />{WEATHER}</Button>
@@ -82,6 +84,7 @@ export default connect(
     model: () => push(`/${PROJECT}/${project}/${MODEL}`),
     script: () => push(`/${PROJECT}/${project}/${SCRIPT}`),
     timer: () => push(`/${PROJECT}/${project}/${TIMER}`),
+    schedule: () => push(`/${PROJECT}/${project}/${SCHEDULE}`),
     clock: () => push(`/${PROJECT}/${project}/${CLOCK}`),
     location: () => push(`/${PROJECT}/${project}/${LOCATION}`),
     weather: () => push(`/${PROJECT}/${project}/${WEATHER}`),

@@ -23,7 +23,9 @@ import {
   ACTION_TV,
   NOTIFY,
   ACTION_DISABLE,
-  ACTION_ENABLE
+  ACTION_ENABLE,
+  ACTION_SCHEDULE_START,
+  ACTION_SCHEDULE_STOP
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -37,7 +39,9 @@ import ActionPayloadThermostat from './ActionPayloadThermostat';
 import ActionPayloadToggle from './ActionPayloadToggle';
 import ActionPayloadScriptRun from './ActionPayloadScriptRun';
 import ActionPayloadRGBDim from './ActionPayloadRGBDim';
-import ActionPayloadClockStartStop from './ActionPayloadClockStartStop';
+import ActionPayloadClock from './ActionPayloadClock';
+import ActionPayloadScheduleStart from './ActionPayloadScheduleStart';
+import ActionPayloadScheduleStop from './ActionPayloadScheduleStop';
 import ActionPayloadClockTest from './ActionPayloadClockTest';
 import ActionPayloadDayNightTest from './ActionPayloadDayNightTest';
 import ActionPayloadTV from './ActionPayloadTV';
@@ -68,9 +72,13 @@ const Container = (props: Props) => {
       return <ActionPayloadTimerStart {...props} />;
     case ACTION_TIMER_STOP:
       return <ActionPayloadTimerStop {...props} />;
+    case ACTION_SCHEDULE_START:
+      return <ActionPayloadScheduleStart {...props} />;
+    case ACTION_SCHEDULE_STOP:
+      return <ActionPayloadScheduleStop {...props} />;
     case ACTION_CLOCK_START:
     case ACTION_CLOCK_STOP:
-      return <ActionPayloadClockStartStop {...props} />;
+      return <ActionPayloadClock {...props} />;
     case ACTION_CLOCK_TEST:
       return <ActionPayloadClockTest {...props} />;
     case ACTION_DAY_TEST:

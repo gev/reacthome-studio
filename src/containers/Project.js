@@ -5,7 +5,7 @@ import Toolbar from './Toolbar';
 import Menu from './Menu';
 import Details from './Details';
 import Grid from './Grid';
-import { MODEL, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER } from '../constants';
+import { MODEL, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER, SCHEDULE } from '../constants';
 import Location from './Location';
 import Weather from './Weather';
 
@@ -37,6 +37,7 @@ class Project extends Component<Props> {
     const isModel = id === MODEL;
     const isScript = id === SCRIPT;
     const isTimer = id === TIMER;
+    const isSchedule = id === SCHEDULE;
     const isClock = id === CLOCK;
     const isLocation = id === LOCATION;
     const isWeather = id === WEATHER;
@@ -58,8 +59,12 @@ class Project extends Component<Props> {
             <Details project={project} daemon={daemon} id={project} field={TIMER} />
         }
         {
+          isSchedule &&
+          <Details project={project} daemon={daemon} id={project} field={SCHEDULE} />
+        }
+        {
           isClock &&
-            <Details project={project} daemon={daemon} id={project} field={CLOCK} />
+              <Details project={project} daemon={daemon} id={project} field={CLOCK} />
         }
         {
           isLocation &&
@@ -74,7 +79,7 @@ class Project extends Component<Props> {
             <Details project={project} daemon={daemon} id={project} field={DRIVER} />
         }
         {
-          !(isModel || isScript || isTimer || isClock || isLocation || isWeather || isDriver) &&
+          !(isModel || isScript || isTimer || isSchedule || isClock || isLocation || isWeather || isDriver) &&
             <Details project={project} daemon={daemon} id={id || project} field={field} />
         }
       </div>

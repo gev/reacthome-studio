@@ -40,6 +40,7 @@ import {
   DEVICE_TYPE_DOPPLER,
   DEVICE_TYPE_TEMPERATURE_EXT,
   SECURITY,
+  SCHEDULE,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -66,6 +67,7 @@ import CardRGB from './CardRGB';
 import CardClimate from './CardClimate';
 import CardTempExt from './CardTempExt';
 import CardOnOff from './CardOnOff';
+import CardSchedule from './CardSchedule';
 
 type Props = {
   type: ?string
@@ -108,6 +110,8 @@ const Container = (props: Props) => {
       return <CardRGB {...props} />;
     case TIMER:
       return <CardTimer {...props} />;
+    case SCHEDULE:
+      return <CardSchedule {...props} />;
     case CLOCK:
       return <CardClock {...props} />;
     case TV:
