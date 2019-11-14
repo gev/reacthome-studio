@@ -17,7 +17,7 @@ const store = debounce(async (state) => {
   } catch (e) {
     console.error(e);
   }
-}, 1000, true);
+}, 100, true);
 
 const apply = (action) => (dispatch, getState) => {
   dispatch(action);

@@ -54,7 +54,7 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      code, title, schedule, removeField, details, script, project, state, select
+      code, title, schedule, removeField, details, state
     } = this.props;
     return (
       <Card>
@@ -65,10 +65,7 @@ class Container extends Component<Props> {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <TextField id={SCHEDULE} value={schedule || ''} onChange={this.change} label={SCHEDULE} />
-        </div>
-        <div className="paper">
-          <SelectScript id={script} project={project} onSelect={select} />
+          <Typography use="headline4">{schedule}</Typography>
         </div>
         <CardActions>
           <CardActionButtons>
@@ -90,7 +87,6 @@ export default connect(
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
-    select: (script) => modify(id, { script }),
     change: (payload) => modify(id, payload)
   }, dispatch)
 )(Container);

@@ -40,7 +40,8 @@ import ActionPayloadToggle from './ActionPayloadToggle';
 import ActionPayloadScriptRun from './ActionPayloadScriptRun';
 import ActionPayloadRGBDim from './ActionPayloadRGBDim';
 import ActionPayloadClock from './ActionPayloadClock';
-import ActionPayloadSchedule from './ActionPayloadSchedule';
+import ActionPayloadScheduleStart from './ActionPayloadScheduleStart';
+import ActionPayloadScheduleStop from './ActionPayloadScheduleStop';
 import ActionPayloadClockTest from './ActionPayloadClockTest';
 import ActionPayloadDayNightTest from './ActionPayloadDayNightTest';
 import ActionPayloadTV from './ActionPayloadTV';
@@ -72,8 +73,9 @@ const Container = (props: Props) => {
     case ACTION_TIMER_STOP:
       return <ActionPayloadTimerStop {...props} />;
     case ACTION_SCHEDULE_START:
+      return <ActionPayloadScheduleStart {...props} />;
     case ACTION_SCHEDULE_STOP:
-      return <ActionPayloadSchedule {...props} />;
+      return <ActionPayloadScheduleStop {...props} />;
     case ACTION_CLOCK_START:
     case ACTION_CLOCK_STOP:
       return <ActionPayloadClock {...props} />;
