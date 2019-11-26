@@ -4,12 +4,15 @@ const build = require('electron-packager');
 build({
   dir: '.',
   out: 'build',
+  arch: 'all',
+  platform: 'win32',
   ignore: [
     '.vscode',
     'build',
     'node_modules',
     'src',
     'tmp',
+    'var',
     '.eslintrc',
     '.gitignore',
     'README.md',

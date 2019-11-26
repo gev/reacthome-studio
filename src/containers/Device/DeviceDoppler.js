@@ -63,39 +63,39 @@ class Doppler extends Component<PropsType> {
     max: 0
   }
 
-  // componentDidMount() {
-  //   this.t = setInterval(this.tick, 100);
-  // }
+  componentDidMount() {
+    this.t = setInterval(this.tick, 100);
+  }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.t);
-  // }
+  componentWillReceiveProps() {
+    this.tick();
+  }
 
-  // componentWillReceiveProps() {
-  //   this.tick();
-  // }
+  shouldComponentUpdate({ value }) {
+    return value !== this.props.value;
+  }
 
-  // shouldComponentUpdate({ value }) {
-  //   return value !== this.props.value;
-  // }
+  componentWillUnmount() {
+    clearInterval(this.t);
+  }
 
-  // tick = () => {
-  //   const { value } = this.props;
-  //   const { max, data } = this.state;
-  //   const a = [...data.datasets[0].data.slice(1), value];
-  //   this.setState({
-  //     max: Math.max(...a),
-  //     data: {
-  //       ...data,
-  //       datasets: [
-  //         {
-  //           ...art(`Value ${value} / ${max}`),
-  //           data: a
-  //         }
-  //       ]
-  //     }
-  //   });
-  // }
+  tick = () => {
+    const { value } = this.props;
+    const { max, data } = this.state;
+    const a = [...data.datasets[0].data.slice(1), value];
+    this.setState({
+      max: Math.max(...a),
+      data: {
+        ...data,
+        datasets: [
+          {
+            ...art(`Value ${value} / ${max}`),
+            data: a
+          }
+        ]
+      }
+    });
+  }
 
   setGain = (event) => {
     this.props.setGain(event.detail.value);
@@ -103,16 +103,16 @@ class Doppler extends Component<PropsType> {
 
   render() {
     const { raw = [], gain = 0 } = this.props;
-    // const { data } = this.state;
-    const data = {
-      labels: new Array(raw.length).fill(''),
-      datasets: [
-        {
-          ...art('raw'),
-          data: raw
-        }
-      ]
-    };
+    const { data } = this.state;
+    // const data = {
+    //   labels: new Array(raw.length).fill(''),
+    //   datasets: [
+    //     {
+    //       ...art('raw'),
+    //       data: raw
+    //     }
+    //   ]
+    // };
     return (
       <div className="paper">
         <div>
