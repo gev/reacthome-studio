@@ -4,8 +4,6 @@ const build = require('electron-packager');
 build({
   dir: '.',
   out: 'build',
-  arch: 'all',
-  platform: 'win32',
   ignore: [
     '.vscode',
     'build',
