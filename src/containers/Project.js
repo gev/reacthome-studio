@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Toolbar from './Toolbar';
-import Menu from './Menu';
 import Details from './Details';
 import Grid from './Grid';
 import { MODEL, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER, SCHEDULE } from '../constants';
@@ -16,20 +15,6 @@ type Props = {
 };
 
 class Project extends Component<Props> {
-  state = { menuOpen: false };
-
-  componentWillReceiveProps() {
-    this.closeMenu();
-  }
-
-  openMenu = () => {
-    this.setState({ menuOpen: true });
-  }
-
-  closeMenu = () => {
-    this.setState({ menuOpen: false });
-  }
-
   render() {
     const {
       title, match: { params: { project, id, field } }, daemon
@@ -44,7 +29,6 @@ class Project extends Component<Props> {
     const isDriver = id === DRIVER;
     return (
       <div className="container">
-        <Menu project={project} open={this.state.menuOpen} onClose={this.closeMenu} />
         <Toolbar project={project} id={id} title={title} openMenu={this.openMenu} />
         {
           isModel &&

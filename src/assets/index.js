@@ -6,7 +6,7 @@ const create = (...path) => path.map(async (p) => (await exists(p)) || mkdir(p))
 
 export const init = async () => {
   await create(VAR);
-  Promise.all(create(ASSETS, STATE, TMP));
+  return Promise.all(create(ASSETS, STATE, TMP));
 };
 
 export const list = async () =>

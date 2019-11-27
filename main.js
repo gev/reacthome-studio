@@ -12,7 +12,7 @@ function createWindow() {
       nodeIntegration: true
     },
     autoHideMenuBar: true,
-    fullscreen: true,
+    // fullscreen: true,
     show: false
   });
 
@@ -29,6 +29,7 @@ function createWindow() {
   });
 
   mainWindow.once('ready-to-show', () => {
+    mainWindow.maximize();
     mainWindow.show();
   });
 }

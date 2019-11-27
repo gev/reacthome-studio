@@ -9,6 +9,7 @@ import {
   ListItemText
 } from '@rmwc/list';
 import { Button } from '@rmwc/button';
+import { Typography } from '@rmwc/typography';
 import { create } from '../actions';
 import { ROOT, PROJECT, MODEL } from '../constants';
 
@@ -27,6 +28,7 @@ class Projects extends Component<Props> {
     const { project } = this.props;
     return (
       <div>
+        <Typography use="headline4">Projects</Typography>
         <List>
           {
             project.map(p => (

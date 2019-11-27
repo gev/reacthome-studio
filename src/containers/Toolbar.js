@@ -19,7 +19,6 @@ import { sendProject, exportProject } from '../actions';
 type Props = {
   project: string,
   title: ?string,
-  openMenu: () => {},
   back: () => void,
   details: () => void,
   model: () => void,
@@ -30,6 +29,7 @@ type Props = {
   location: () => void,
   weather: () => void,
   driver: () => void,
+  welcome: () => void,
   sendProject: () => void,
   exportProject: (folder: string) => void
 };
@@ -46,16 +46,15 @@ class MyToolbar extends Component<Props> {
 
   render() {
     const {
-      project, title, back,
-      openMenu, details,
+      project, title, back, details,
       model, script, timer, schedule, clock, location, weather, driver
     } = this.props;
     return [
       <Toolbar key="toolbar" fixed style={{ backgroundColor: 'white' }}>
         <ToolbarRow>
           <ToolbarSection alignStart>
-            <ToolbarIcon icon="menu" theme="text-primary-on-background" onClick={openMenu} />
             <ToolbarIcon icon="arrow_back" theme="text-primary-on-background" onClick={back} />
+            <ToolbarIcon icon="home" theme="text-primary-on-background" onClick={this.props.welcome} />
             <ToolbarTitle theme="text-primary-on-background" >{title || project}</ToolbarTitle>
             <ToolbarIcon icon="play_arrow" theme="text-primary-on-background" onClick={this.props.sendProject} />
             <ToolbarIcon icon="file_upload" theme="text-primary-on-background" onClick={this.exportProject} />
@@ -89,6 +88,7 @@ export default connect(
     location: () => push(`/${PROJECT}/${project}/${LOCATION}`),
     weather: () => push(`/${PROJECT}/${project}/${WEATHER}`),
     driver: () => push(`/${PROJECT}/${project}/${DRIVER}`),
+    welcome: () => push('/'),
     sendProject: () => sendProject(project),
     exportProject: (folder) => exportProject(project, folder)
   }, dispatch)

@@ -67,13 +67,13 @@ class Doppler extends Component<PropsType> {
     this.t = setInterval(this.tick, 100);
   }
 
-  componentWillReceiveProps() {
-    this.tick();
-  }
+  // componentWillReceiveProps() {
+  //   this.tick();
+  // }
 
-  shouldComponentUpdate({ value }) {
-    return value !== this.props.value;
-  }
+  // shouldComponentUpdate({ value }) {
+  //   return value !== this.props.value;
+  // }
 
   componentWillUnmount() {
     clearInterval(this.t);

@@ -3,7 +3,7 @@ import { Component } from 'react';
 import type { Children } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import webrtc from '../webrtc';
+import connectTo from '../webrtc';
 
 type Props = {
   daemon: [],
@@ -26,5 +26,5 @@ class ServiceManager extends Component<Props> {
 
 export default connect(
   ({ pool }) => pool.root || {},
-  dispatch => bindActionCreators({ webrtc }, dispatch)
+  dispatch => bindActionCreators({ webrtc: connectTo }, dispatch)
 )(ServiceManager);

@@ -13,7 +13,7 @@ import createStore from './store';
 import reducer from './reducer';
 import { init } from './assets';
 import { STATE_JSON } from './assets/constants';
-import { readFile } from './fs';
+import { readFile, exists } from './fs';
 import discovery from './discovery';
 
 const history = createHashHistory();
@@ -23,7 +23,7 @@ export default class extends Component {
 
   async componentWillMount() {
     await init();
-    const pool = JSON.parse(await readFile(STATE_JSON));
+    const pool = ((await exists(STATE_JSON)) ? JSON.parse(await readFile(STATE_JSON)) : {});
     const store = createStore(reducer, { pool }, history);
     const { root } = store.getState().pool;
     if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));

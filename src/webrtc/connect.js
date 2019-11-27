@@ -23,14 +23,14 @@ export default (id) => (dispatch, getState) => {
         peer.onerror = console.warn;
         peers.set(id, peer);
 
-        const action = peer.createDataChannel(ACTION, { ordered: true, maxPacketLifeTime: 3000 });
+        const action = peer.createDataChannel(ACTION, { ordered: true, maxPacketLifeTime: 10000 });
         action.onmessage = dispatch(onAction(id));
         // action.onerror = connect;
         action.onopen = () => {
           console.log('Open action channel');
         };
 
-        const asset = peer.createDataChannel(ASSET, { ordered: true, maxPacketLifeTime: 3000 });
+        const asset = peer.createDataChannel(ASSET, { ordered: true, maxPacketLifeTime: 10000 });
         asset.onmessage = dispatch(onAsset(id));
         // asset.onerror = connect;
         asset.onopen = () => {

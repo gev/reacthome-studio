@@ -17,8 +17,8 @@ export default () => (dispatch) => {
       const { id, type, payload } = JSON.parse(Buffer.from(message));
       if (type === DISCOVERY) {
         payload.ip = address;
-        dispatch(set(id, payload, true));
-        dispatch(add(ROOT, DAEMON, id, true));
+        dispatch(set(id, payload));
+        dispatch(add(ROOT, DAEMON, id));
       }
     } catch (e) {
       console.error(e);
