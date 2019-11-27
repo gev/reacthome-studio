@@ -63,7 +63,7 @@ class Container extends Component<Props> {
         darkMuted, darkVibrant, lightMuted, lightVibrant, muted, vibrant
       } = {}
     } = this.props;
-    const url = asset(image);
+    const url = asset(image).replace(/\\/g, '/');
     console.log(image, url);
     return (
       <Card>
