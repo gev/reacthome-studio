@@ -67,7 +67,7 @@ class Container extends Component<Props> {
     const url = asset(image);
     return (
       <Card>
-        <CardMedia square style={{ backgroundImage: `url(${url})` }}>
+        <CardMedia square style={{ backgroundImage: `url("${url}")` }}>
           <div className="dropzone-container">
             <Dropzone className="dropzone" accept="image/jpeg, image/png, image/svg+xml" onDrop={this.attachImage} multiple={false} />
           </div>
