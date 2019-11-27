@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import type { Children } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -64,10 +63,10 @@ class Container extends Component<Props> {
         darkMuted, darkVibrant, lightMuted, lightVibrant, muted, vibrant
       } = {}
     } = this.props;
-    const url = asset(image);
+    const url = asset(image).replace('\\', '/');
     return (
       <Card>
-        <CardMedia square style={{ backgroundImage: `url("${url}")` }}>
+        <CardMedia square style={{ backgroundImage: `url(${url})` }}>
           <div className="dropzone-container">
             <Dropzone className="dropzone" accept="image/jpeg, image/png, image/svg+xml" onDrop={this.attachImage} multiple={false} />
           </div>
