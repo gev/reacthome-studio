@@ -4,9 +4,9 @@ const build = require('electron-packager');
 
 const icon = () => {
   switch (os.platform()) {
-    case 'darwin': return 'icon-512.icns';
-    case 'win32': return 'icon-256.ico';
-    default: return 'icon-512.png';
+    case 'darwin': return './assets/icon-512.icns';
+    case 'win32': return '.\\assets\\icon-256.ico';
+    default: return './assets/icon-512.png';
   }
 };
 
@@ -31,5 +31,5 @@ build({
     'yarn.*'
   ],
   overwrite: true,
-  icon: `./assets/${icon()}`
+  icon: icon()
 });
