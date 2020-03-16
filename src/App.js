@@ -7,8 +7,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import { RMWCProvider } from '@rmwc/provider';
 import 'material-components-web/dist/material-components-web.min.css';
 import { Main, Project, ServiceManager } from './containers';
-import { ACTION, ACTION_TYPE } from './constants';
-import { modify, offline } from './actions';
+// import { ACTION, ACTION_TYPE } from './constants';
+// import { modify, offline } from './actions';
 import createStore from './store';
 import reducer from './reducer';
 import { init } from './assets';
@@ -25,8 +25,8 @@ export default class extends Component {
     await init();
     const pool = ((await exists(STATE_JSON)) ? JSON.parse(await readFile(STATE_JSON)) : {});
     const store = createStore(reducer, { pool }, history);
-    const { root } = store.getState().pool;
-    if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
+    // const { root } = store.getState().pool;
+    // if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
     // ACTION_TYPE.forEach((a) => {
     //   store.dispatch(modify(a, { type: ACTION, code: a }));
     // });

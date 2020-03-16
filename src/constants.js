@@ -41,6 +41,7 @@ export const ACTION_TV = 'ACTION_TV';
 export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
 export const ACTION_DO = 0x00;
+export const ACTION_GROUP = 0x02;
 export const ACTION_RS485_MODE = 0xa0;
 export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
@@ -206,8 +207,10 @@ export const IR = 'ir';
 export const DO = 'do';
 export const DI = 'di';
 export const DIM = 'dim';
+export const GROUP = 'group';
 export const ARTNET = 'artnet';
 export const RS485 = 'rs485';
+export const ZIGBEE = 'zigbee';
 
 export const ARTNET_OFF = 0x0;
 export const ARTNET_ON = 0x1;
@@ -517,7 +520,7 @@ export const DEVICE_TYPES = {
     title: 'External temperature'
   },
   undefined: {
-    title: 'Outdated'
+    title: 'Unknown'
   }
 };
 

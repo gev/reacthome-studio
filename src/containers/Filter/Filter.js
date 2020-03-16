@@ -1,4 +1,5 @@
 
+import debounce from 'debounce';
 import React from 'react';
 import { connect } from 'react-redux';
 import Item from './Item';
@@ -8,15 +9,12 @@ type Props = {
   onSelect: ?(id: string) => void
 };
 
-const Container = ({ list, onSelect }: Props) =>
-  list.map(i => <Item key={i[0]} id={i[0]} {...i[1]} onSelect={onSelect} />);
-
-const filter = (pool, root, test, a = [], f = []) => {
-  if (root && !f.includes(root)) {
-    f.push(root);
-    const o = pool[root];
+const filter = (pool, id, test, a = [], f = []) => {
+  if (id && !f.includes(id)) {
+    f.push(id);
+    const o = pool[id];
     if (o) {
-      if (test(o)) a.push([root, o]);
+      if (test(o)) a.push([id, o]);
       Object.values(o).forEach(i => {
         if (Array.isArray(i)) {
           i.forEach(j => filter(pool, j, test, a, f));
@@ -29,15 +27,18 @@ const filter = (pool, root, test, a = [], f = []) => {
   return a;
 };
 
-export default connect(({ pool }, { root, text }) => {
-  const t = text && text.toLowerCase();
-  return {
-    list: text ? filter(pool, root, ({ code, title, type }) => (
-      // (id && String(id).toLowerCase().includes(t)) ||
+const deboncedFilter = debounce(filter, 250);
+
+const Container = (props) => {
+  if (props.text && props.text.length > 1) {
+    const t = props.text.toLowerCase();
+    const list = deboncedFilter(props, props.id, ({ code, title }) => (
       (code && String(code).toLowerCase().includes(t)) ||
-      (type && String(type).toLowerCase().includes(t)) ||
       (title && String(title).toLowerCase().includes(t))
-    )) : []
-    // )).concat(Object.keys(pool).filter(i => i && i.toLowerCase().includes(t)).map(i => [i, pool[i]])) : []
-  };
-})(Container);
+    )) || [];
+    return list.map(i => <Item key={i[0]} id={i[0]} {...i[1]} onSelect={props.onSelect} />);
+  } 
+  return [];
+};
+
+export default connect (({ pool }) => pool)(Container);

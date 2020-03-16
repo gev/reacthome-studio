@@ -3,7 +3,6 @@
 import { compare } from '../actions';
 import { ANSWER, CANDIDATE } from './constants';
 import { tmp, appendFile, asset, exists, unlink, rename } from '../fs';
-import { online } from './online';
 import { peers } from './peer';
 import { ACTION_SET } from '../constants';
 import { LIST } from '../init/constants';
@@ -12,7 +11,6 @@ import onList from '../init/onlist';
 export const onAction = (id) => (dispatch) => ({ data }) => {
   try {
     const action = JSON.parse(data);
-    dispatch(online(id));
     switch (action.type) {
       case LIST: {
         dispatch(onList(id, action));

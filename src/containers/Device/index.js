@@ -66,7 +66,7 @@ class Devices extends Component<Props> {
 
   render() {
     const {
-      id, code, ip, type, version,
+      id, code, ip, address, type, version,
       removeDevice, pendingFirmware,
       ready = false,
       online = false,
@@ -82,7 +82,7 @@ class Devices extends Component<Props> {
             <Typography use="title">{title}</Typography>
           </div>
           <div>
-            <Typography use="caption">{`${id} / ${ip} / v${version}`}</Typography>
+            <Typography use="caption">{`${id} / ${ip || address} / v${version || '?'}`}</Typography>
           </div>
           {
             updating && (

@@ -57,7 +57,7 @@ class MyToolbar extends Component<Props> {
             <ToolbarIcon icon="home" theme="text-primary-on-background" onClick={this.props.welcome} />
             <ToolbarTitle theme="text-primary-on-background" >{title || project}</ToolbarTitle>
             <ToolbarIcon icon="play_arrow" theme="text-primary-on-background" onClick={this.props.sendProject} />
-            <ToolbarIcon icon="file_upload" theme="text-primary-on-background" onClick={this.exportProject} />
+            {/* <ToolbarIcon icon="file_upload" theme="text-primary-on-background" onClick={this.exportProject} /> */}
           </ToolbarSection>
           <Button onClick={details}><ButtonIcon icon="star" />{PROJECT}</Button>
           <Button onClick={model}><ButtonIcon icon="apps" />{MODEL}</Button>

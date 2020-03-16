@@ -1,59 +1,66 @@
 /* eslint-disable default-case */
 
-import { LOCAL_PORT, REMOTE_URI, OFFER, CANDIDATE, ACTION, ASSET } from './constants';
-import { actions, assets, peers } from './peer';
+import {
+  LOCAL_PORT, REMOTE_URI, OFFER, CANDIDATE, ACTION, ASSET, CONNECTED, DISCONNECTED,
+} from './constants';
 import { onAction, onAsset } from './handle';
+import { actions, assets, peers } from './peer';
 import { ICE, options } from './config';
-import { offline } from './online';
+import { online, offline } from './online';
 import signal from './signal';
 
-const TIMEOUT = 10000;
+const TIMEOUT = 5000;
 
 export default (id) => (dispatch, getState) => {
-  if (peers.has(id)) return;
-  dispatch(offline(id));
-  const connect = () => {
-    const { ip } = getState().pool[id];
-    const localURI = `ws://${ip}:${LOCAL_PORT}`;
-    const remoteURI = `wss://${REMOTE_URI}/${id}`;
+  const connect = async () => {
+    try {
+      const { ip } = getState().pool[id] || {};
+      const localURI = `ws://${ip}:${LOCAL_PORT}`;
+      const remoteURI = `wss://${REMOTE_URI}/${id}`;
 
-    signal(id, localURI, remoteURI)
-      .then((ws) => {
-        const peer = new RTCPeerConnection(ICE);
-        peer.onerror = console.warn;
-        peers.set(id, peer);
+      dispatch(offline(id));
 
-        const action = peer.createDataChannel(ACTION, { ordered: true, maxPacketLifeTime: 10000 });
-        action.onmessage = dispatch(onAction(id));
-        // action.onerror = connect;
-        action.onopen = () => {
-          console.log('Open action channel');
-        };
+      const ws = await signal(id, localURI, remoteURI);
+      const peer = new RTCPeerConnection(ICE);
+      peers.set(id, peer);
 
-        const asset = peer.createDataChannel(ASSET, { ordered: true, maxPacketLifeTime: 10000 });
-        asset.onmessage = dispatch(onAsset(id));
-        // asset.onerror = connect;
-        asset.onopen = () => {
-          console.log('Open asset channel');
-        };
+      peer.onconnectionstatechange = () => {
+        console.warn(peer.connectionState);
+        switch (peer.connectionState) {
+          case CONNECTED:
+            dispatch(online(id));
+            break;
+          case DISCONNECTED:
+            connect();
+            break;
+        }
+      };
 
-        actions.set(id, action);
-        assets.set(id, asset);
-
-        peer.onicecandidate = ({ candidate }) => {
-          if (!candidate) return;
-          ws.send(JSON.stringify({ type: CANDIDATE, candidate }));
-        };
-        peer.createOffer(options)
-          .then(offer => peer.setLocalDescription(offer))
-          .then(() => {
-            ws.send(JSON.stringify({ type: OFFER, jsep: peer.localDescription }));
-          })
-          .catch(console.error);
-      })
-      .catch(() => {
-        setTimeout(connect, TIMEOUT);
+      const action = peer.createDataChannel(ACTION, {
+        id: 1, ordered: true, maxPacketLifeTime: 10000,
       });
+      action.onmessage = dispatch(onAction(id));
+
+      actions.set(id, action);
+
+      const asset = peer.createDataChannel(ASSET, {
+        id: 3, ordered: true, maxPacketLifeTime: 10000,
+      });
+      asset.onmessage = dispatch(onAsset(id));
+
+      assets.set(id, asset);
+
+      peer.onicecandidate = ({ candidate }) => {
+        if (!candidate) return;
+        ws.send(JSON.stringify({ type: CANDIDATE, candidate }));
+      };
+
+      const offer = await peer.createOffer(options);
+      await peer.setLocalDescription(offer);
+      ws.send(JSON.stringify({ type: OFFER, jsep: peer.localDescription }));
+    } catch (e) {
+      setTimeout(connect, TIMEOUT);
+    }
   };
 
   connect();

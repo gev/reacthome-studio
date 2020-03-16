@@ -45,7 +45,7 @@ export default class extends Component<Props> {
         {
           open && (
             <List twoLine>
-              <Filter root={root} text={text} onSelect={this.select} />
+              <Filter id={root} text={text} onSelect={this.select} />
             </List>
           )
         }

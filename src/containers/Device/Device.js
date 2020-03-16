@@ -22,7 +22,8 @@ import {
   DEVICE_TYPE_IR_RECEIVER,
   DEVICE_TYPE_CLIMATE,
   DEVICE_TYPE_RSHUB,
-  DEVICE_TYPE_TEMPERATURE_EXT
+  DEVICE_TYPE_TEMPERATURE_EXT,
+  ZIGBEE
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -32,6 +33,7 @@ import Do12 from './DeviceDo12';
 import Relay2 from './DeviceRelay2';
 import Relay6 from './DeviceRelay6';
 import Relay12 from './DeviceRelay12';
+import Relay12v2 from './DeviceRelay12_2';
 import Relay24 from './DeviceRelay24';
 import Di4 from './DeviceDi4';
 import Di16 from './DeviceDi16';
@@ -41,6 +43,7 @@ import Climate from './DeviceClimate';
 import TempExt from './DeviceTempExt';
 import IrReceiver from './DeviceIRReceiver';
 import RSHub from './DeviceRSHub';
+import Zigbee from './DeviceZigbee';
 
 type Props = {
   type: ?string
@@ -61,7 +64,13 @@ export default (props: Props) => {
     case DEVICE_TYPE_DO12: return <Do12 {...props} />;
     case DEVICE_TYPE_RELAY_2: return <Relay2 {...props} />;
     case DEVICE_TYPE_RELAY_6: return <Relay6 {...props} />;
-    case DEVICE_TYPE_RELAY_12: return <Relay12 {...props} />;
+    case DEVICE_TYPE_RELAY_12: {
+      const [major] = (props.version || '').split('.');
+      switch (major) {
+        case '2': return <Relay12 {...props} />;
+        default: return <Relay12v2 {...props} />;
+      }
+    }
     case DEVICE_TYPE_RELAY_24: return <Relay24 {...props} />;
     case DEVICE_TYPE_PLC: return <Plc {...props} />;
     case DEVICE_TYPE_SENSOR4: return <Sensor {...props} />;
@@ -70,6 +79,11 @@ export default (props: Props) => {
     case DEVICE_TYPE_SMART_4: return <Sensor {...props} />;
     case DEVICE_TYPE_IR_RECEIVER: return <IrReceiver {...props} />;
     case DEVICE_TYPE_RSHUB: return <RSHub {...props} />;
-    default: return null;
+    default: {
+      switch (props.protocol) {
+        case ZIGBEE: return <Zigbee {...props} />;
+        default: return null;
+      }
+    }
   }
 };

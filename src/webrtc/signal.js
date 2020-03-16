@@ -29,6 +29,6 @@ export default (id, localURI, remoteURI) => new Promise((resolve, reject) => {
     };
     ws.onerror = reject;
   };
-  connect(localURI);
+  // connect(localURI);
   connect(remoteURI);
 });

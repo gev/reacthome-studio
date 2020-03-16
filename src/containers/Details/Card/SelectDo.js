@@ -23,6 +23,7 @@ import {
   DEVICE_TYPE_RELAY_6,
   DEVICE_TYPE_RELAY_12,
   DEVICE_TYPE_RELAY_24,
+  ZIGBEE,
 } from '../../../constants';
 
 type Props = {
@@ -42,7 +43,7 @@ type DoProps = {
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
-  id, type, index, onSelect, size = 0
+  id, type, protocol, config, index, onSelect, size = 0
 }: DoProps) => {
   const a = [];
   const select = (i, t) => () => {
@@ -101,12 +102,23 @@ const Do = c(({
       n = size;
       t = ARTNET;
       break;
-    default: n = 0;
+    default:
+      n = 0;
   }
-  for (let i = 1; i <= n; i += 1) {
-    a.push((
-      <MenuItem key={`o${i}`} index={i} onClick={select(i, t)} id={`${id}/${t}/${i}`} />
-    ));
+  if (n === 0) {
+    if (Array.isArray(config.do)) {
+      config.do.forEach(i => {
+        a.push((
+          <MenuItem key={`o${i}`} index={i} onClick={select(i, DO)} id={`${id}/${DO}/${i}`} />
+        ));
+      });
+    }
+  } else {
+    for (let i = 1; i <= n; i += 1) {
+      a.push((
+        <MenuItem key={`o${i}`} index={i} onClick={select(i, t)} id={`${id}/${t}/${i}`} />
+      ));
+    }
   }
   return (
     <SimpleMenu handle={<Button>{t} {index}</Button>}>
