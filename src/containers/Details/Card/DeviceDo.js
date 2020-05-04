@@ -1,9 +1,10 @@
 
 import React from 'react';
-import Do from '../../Device/DeviceDoChannel';
+import DoChannel from '../../Device/DeviceDoChannel';
+import DoEndpoint from '../../Device/DeviceDoEndpoint';
 import Dimmer from '../../Device/DeviceDimmerChannel';
 import Artnet from './ArtnetChannel';
-import { DO, DIM, ARTNET } from '../../../constants';
+import { DO, DIM, ARTNET, ENDPOINT } from '../../../constants';
 
 type Props = {
   id: string;
@@ -16,7 +17,12 @@ export default ({ id, daemon }: Props) => {
     <div className="paper">
       {
         (type === DO) && (
-          <Do id={dev} index={index} daemon={daemon} />
+          <DoChannel id={dev} index={index} daemon={daemon} />
+        )
+      }
+      {
+        (type === ENDPOINT) && (
+          <DoEndpoint id={dev} index={index} daemon={daemon} />
         )
       }
       {

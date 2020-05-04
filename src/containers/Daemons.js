@@ -48,7 +48,7 @@ class Daemons extends Component<Props> {
 
 export default connect(
   ({ pool }) => ({
-    daemon: ((pool.root || {}).daemon || []).map(id => ({ id, ...pool[id] })).filter(d => d.project)
+    daemon: ((pool.root || {}).daemon || []).map(id => ({ id, ...pool[id] })) // .filter(d => d.project)
   }),
   (dispatch) => bindActionCreators({
     navigate: (id) => push(`/project/${id}`),

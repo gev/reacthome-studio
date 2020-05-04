@@ -1,7 +1,7 @@
 
 export const options = {
-  offerToReceiveAudio: true,
-  offerToReceiveVideo: true
+  offerToReceiveAudio: false,
+  offerToReceiveVideo: false
 };
 
 export const ICE = {

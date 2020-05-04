@@ -36,16 +36,12 @@ export default (id) => (dispatch, getState) => {
         }
       };
 
-      const action = peer.createDataChannel(ACTION, {
-        id: 1, ordered: true, maxPacketLifeTime: 10000,
-      });
+      const action = peer.createDataChannel(ACTION, { id: 1, ordered: true });
       action.onmessage = dispatch(onAction(id));
 
       actions.set(id, action);
 
-      const asset = peer.createDataChannel(ASSET, {
-        id: 3, ordered: true, maxPacketLifeTime: 10000,
-      });
+      const asset = peer.createDataChannel(ASSET, { id: 3, ordered: true });
       asset.onmessage = dispatch(onAsset(id));
 
       assets.set(id, asset);

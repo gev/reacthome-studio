@@ -1,10 +1,10 @@
 
 import React from 'react';
 import { Typography } from '@rmwc/typography';
+import { TextField } from '@rmwc/textfield';
 import { Switch } from '@rmwc/switch';
 import { DO, ACTION_DO } from '../../constants';
 import connect from './connect';
-import { TextField } from 'rmwc';
 
 type Props = {
   id: string;

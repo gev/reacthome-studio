@@ -40,6 +40,11 @@ export const ACTION_TOGGLE = 'ACTION_TOGGLE';
 export const ACTION_TV = 'ACTION_TV';
 export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
+export const ACTION_MOVE_TO_HUE = 'ACTION_MOVE_TO_HUE';
+export const ACTION_MOVE_TO_SATURATION = 'ACTION_MOVE_TO_SATURATION';
+export const ACTION_MOVE_TO_HUE_SATURATION = 'ACTION_MOVE_TO_HUE_SATURATION';
+export const ACTION_MOVE_TO_LEVEL = 'ACTION_MOVE_TO_LEVEL';
+
 export const ACTION_DO = 0x00;
 export const ACTION_GROUP = 0x02;
 export const ACTION_RS485_MODE = 0xa0;
@@ -198,6 +203,11 @@ export const ACCESS_POINT = 'access_point';
 export const CAMERA = 'camera';
 export const INTERCOM = 'intercom';
 export const SIP_USER = 'SIP_user';
+export const ALARM = 'alarm';
+export const ENDPOINT = 'endpoint';
+export const LEVEL = 'level';
+export const COLOR = 'color';
+
 
 export const MODEL = 'model';
 
@@ -211,6 +221,10 @@ export const GROUP = 'group';
 export const ARTNET = 'artnet';
 export const RS485 = 'rs485';
 export const ZIGBEE = 'zigbee';
+
+export const TEMPERATURE = 'temperature';
+export const HUMIDITY = 'humidity';
+export const ILLUMINATION = 'illumination';
 
 export const ARTNET_OFF = 0x0;
 export const ARTNET_ON = 0x1;

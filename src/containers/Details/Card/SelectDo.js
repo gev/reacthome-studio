@@ -23,7 +23,7 @@ import {
   DEVICE_TYPE_RELAY_6,
   DEVICE_TYPE_RELAY_12,
   DEVICE_TYPE_RELAY_24,
-  ZIGBEE,
+  ENDPOINT,
 } from '../../../constants';
 
 type Props = {
@@ -43,7 +43,7 @@ type DoProps = {
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
-  id, type, protocol, config, index, onSelect, size = 0
+  id, type, config, index, onSelect, size = 0
 }: DoProps) => {
   const a = [];
   const select = (i, t) => () => {
@@ -106,10 +106,10 @@ const Do = c(({
       n = 0;
   }
   if (n === 0) {
-    if (Array.isArray(config.do)) {
+    if (config && Array.isArray(config.do)) {
       config.do.forEach(i => {
         a.push((
-          <MenuItem key={`o${i}`} index={i} onClick={select(i, DO)} id={`${id}/${DO}/${i}`} />
+          <MenuItem key={`o${i}`} index={i} onClick={select(i, ENDPOINT)} id={`${id}/${ENDPOINT}/${i}`} />
         ));
       });
     }

@@ -41,6 +41,7 @@ import {
   DEVICE_TYPE_TEMPERATURE_EXT,
   SECURITY,
   SCHEDULE,
+  REED,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -91,6 +92,7 @@ const Container = (props: Props) => {
     case DEVICE_TYPE_DOPPLER:
     case DEVICE_TYPE_DOPPLER_LEGACY:
       return <CardDoppler {...props} />;
+    case REED:
     case BUTTON:
     case SMOCK_SENSOR:
     case MOTION_SENSOR:
