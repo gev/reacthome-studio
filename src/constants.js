@@ -11,6 +11,7 @@ export const ACTION = 'action';
 export const OPERATOR = 'operator';
 
 export const ACTION_SET = 'ACTION_SET';
+export const ACTION_ASSET = 'ACTION_ASSET';
 export const ACTION_INIT = 'ACTION_INIT';
 export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 

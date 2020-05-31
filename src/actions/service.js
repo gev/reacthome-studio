@@ -1,9 +1,9 @@
 
 import get from '../state';
-import sendAsset from '../assets/send';
-import { ACTION_SET } from '../constants';
-import { sendAction } from '../webrtc/peer';
+import { ACTION_SET, ACTION_ASSET } from '../constants';
+import { send } from '../websocket/peer';
 import { compare } from './create';
+import { asset, readFile } from '../fs';
 
 export const dispatchAction = (action) => (dispatch) => {
   const { id, payload } = action;
@@ -18,26 +18,28 @@ export const dispatchAction = (action) => (dispatch) => {
 };
 
 export const request = (id, action) => () => {
-  sendAction(id, action);
+  send(id, action);
 };
 
 export const sendProject = (pid) => (dispatch, getState) => {
   const project = getState().pool[pid];
   if (!project || !project.daemon) return;
   const { state, assets } = get(getState)(pid);
-  setTimeout(() => {
-    Object.entries(state).forEach(([id, payload]) => {
-      sendAction(project.daemon, { type: ACTION_SET, id, payload });
-    });
-  }, 1000);
-  setTimeout(() => {
-    assets.forEach(asset => {
-      sendAsset(project.daemon, asset);
-    });
-  }, 1000);
+  Object.entries(state).forEach(([id, payload]) => {
+    send(project.daemon, { type: ACTION_SET, id, payload });
+  });
+  assets.forEach(async (name) => {
+    try {
+      const data = await readFile(asset(name));
+      const payload = data.toString('base64');
+      send(project.daemon, { type: ACTION_ASSET, name, payload });
+    } catch (e) {
+      console.error(e);
+    }
+  });
 };
 
-// export const exportProject = (id, folder) => async (dispatch, getState) => {
+// export const exportProject = (id, fold er) => async (dispatch, getState) => {
 //   const { state, assets } = get(getState)(id);
 //   if (!state[id]) return;
 //   const { title, code } = state[id];

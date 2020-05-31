@@ -10,7 +10,7 @@ import {
 } from '@rmwc/list';
 import { Typography } from '@rmwc/typography';
 import { add } from '../actions';
-import connectTo from '../webrtc';
+import connectTo from '../websocket';
 import { ROOT, PROJECT } from '../constants';
 
 type Props = {

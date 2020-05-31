@@ -32,6 +32,7 @@ import Do8 from './DeviceDo8';
 import Do12 from './DeviceDo12';
 import Relay2 from './DeviceRelay2';
 import Relay6 from './DeviceRelay6';
+import Relay6v2 from './DeviceRelay6_2';
 import Relay12 from './DeviceRelay12';
 import Relay12v2 from './DeviceRelay12_2';
 import Relay24 from './DeviceRelay24';
@@ -63,12 +64,18 @@ export default (props: Props) => {
     case DEVICE_TYPE_DO8: return <Do8 {...props} />;
     case DEVICE_TYPE_DO12: return <Do12 {...props} />;
     case DEVICE_TYPE_RELAY_2: return <Relay2 {...props} />;
-    case DEVICE_TYPE_RELAY_6: return <Relay6 {...props} />;
+    case DEVICE_TYPE_RELAY_6: {
+      const [major] = (props.version || '').split('.');
+      switch (major) {
+        case '2': return <Relay6v2 {...props} />;
+        default: return <Relay6 {...props} />;
+      }
+    }
     case DEVICE_TYPE_RELAY_12: {
       const [major] = (props.version || '').split('.');
       switch (major) {
-        case '2': return <Relay12 {...props} />;
-        default: return <Relay12v2 {...props} />;
+        case '2': return <Relay12v2 {...props} />;
+        default: return <Relay12 {...props} />;
       }
     }
     case DEVICE_TYPE_RELAY_24: return <Relay24 {...props} />;

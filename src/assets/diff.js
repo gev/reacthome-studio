@@ -1,11 +1,10 @@
 
-import { stat, exists, asset } from '../fs';
+import { exists, asset } from '../fs';
 
-const filter = async (file, timestamp) =>
-  !(await exists(file)) || ((await stat(file)).mtimeMs < timestamp);
+const filter = async (file) => !(await exists(file));
 
-const reducer = async ([name, timestamp]) =>
-  (await filter(asset(name), timestamp)) && name;
+const reducer = async ([name]) =>
+  (await filter(asset(name))) && name;
 
 export default async (assets) =>
   (await Promise.all(assets.map(reducer))).filter(i => i);

@@ -3,19 +3,19 @@ import { Component } from 'react';
 import type { Children } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import connectTo from '../webrtc';
+import connectTo from '../websocket';
 
 type Props = {
   daemon: [],
   children: Children,
-  webrtc: (id: string) => void,
+  websocket: (id: string) => void,
 };
 
 class ServiceManager extends Component<Props> {
   componentWillMount() {
     const { daemon = [] } = this.props;
     daemon.forEach(id => {
-      this.props.webrtc(id);
+      this.props.websocket(id);
     });
   }
 
@@ -26,5 +26,5 @@ class ServiceManager extends Component<Props> {
 
 export default connect(
   ({ pool }) => pool.root || {},
-  dispatch => bindActionCreators({ webrtc: connectTo }, dispatch)
+  dispatch => bindActionCreators({ websocket: connectTo }, dispatch)
 )(ServiceManager);

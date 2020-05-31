@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import Group from './DeviceDoGroup_2';
+import Do from './DeviceDoChannel';
 import RS485Channel from './DeviceRS485Channel';
 
 type Props = {
@@ -16,12 +16,10 @@ type RowProps = {
 
 const Row = ({ id, daemon, index } : RowProps) => (
   <tr>
-    <td>
-      <Group id={id} daemon={daemon} index={index + 0} />
-    </td>
-    <td>
-      <Group id={id} daemon={daemon} index={index + 1} />
-    </td>
+    <td className="paper"><Do id={id} daemon={daemon} index={index + 0} /></td>
+    <td className="paper"><Do id={id} daemon={daemon} index={index + 1} /></td>
+    <td className="paper"><Do id={id} daemon={daemon} index={index + 2} /></td>
+    <td className="paper"><Do id={id} daemon={daemon} index={index + 3} /></td>
   </tr>
 );
 
@@ -29,11 +27,12 @@ export default class extends Component<Props> {
   render() {
     const { id, daemon } = this.props;
     return ([
+      
       <table key="relay">
         <tbody>
           <Row id={id} daemon={daemon} index={1} />
-          <Row id={id} daemon={daemon} index={3} />
           <Row id={id} daemon={daemon} index={5} />
+          <Row id={id} daemon={daemon} index={9} />
         </tbody>
       </table>,
       <table key="rs485">

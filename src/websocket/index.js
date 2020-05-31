@@ -1,4 +1,4 @@
 
 export { default } from './connect';
 
-export { sendAction } from './peer';
+export { send } from './peer';

@@ -7,11 +7,13 @@ const build = (id, pool, state, assets) => {
   if (!subject) return;
   const s = state;
   s[id] = subject;
-  Object.values(subject).forEach(async (v) => {
+  if (subject.image && !assets.includes(subject.image)) {
+    assets.push(subject.image);
+  }
+  Object.values(subject).forEach((v) => {
     if (!v) return;
     if (typeof v === 'string') {
       build(v, pool, state, assets);
-      if (!assets.includes(v) && await exists(asset(v))) assets.push(v);
     } else if (Array.isArray(v)) {
       v.forEach(i => {
         build(i, pool, state, assets);
