@@ -26,8 +26,8 @@ const Di = c(({
   id, type, config, index, onSelect
 }: DiProps) => {
   const a = [];
-  const select = (i) => () => {
-    onSelect(i);
+  const select = (i, type) => () => {
+    onSelect(i, type);
   };
   let n;
   switch (type) {
@@ -65,7 +65,7 @@ const Di = c(({
   } else {
     for (let i = 1; i <= n; i += 1) {
       a.push((
-        <MenuItem key={`o${i}`} index={i} onClick={select(i)} id={`${id}/${DI}/${i}`} />
+        <MenuItem key={`o${i}`} index={i} onClick={select(i, DI)} id={`${id}/${DI}/${i}`} />
       ));
     }
   }
@@ -91,9 +91,10 @@ class Container extends Component<Props> {
   selectDev = (dev) => {
     this.setState({ dev, index: null });
   }
-  selectDi = (index) => {
+  selectDi = (index, type) => {
+    console.log(type);
     this.setState({ index });
-    this.props.onSelect(`${this.state.dev}/${DI}/${index}`);
+    this.props.onSelect(`${this.state.dev}/${type}/${index}`);
   }
   render() {
     const { dev, index } = this.state;

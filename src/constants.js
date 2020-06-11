@@ -46,6 +46,16 @@ export const ACTION_MOVE_TO_SATURATION = 'ACTION_MOVE_TO_SATURATION';
 export const ACTION_MOVE_TO_HUE_SATURATION = 'ACTION_MOVE_TO_HUE_SATURATION';
 export const ACTION_MOVE_TO_LEVEL = 'ACTION_MOVE_TO_LEVEL';
 
+export const ACTION_STOP = 'ACTION_STOP';
+export const ACTION_OPEN = 'ACTION_OPEN';
+export const ACTION_CLOSE = 'ACTION_CLOSE';
+
+export const CLOSURE = 'closure';
+export const STOP = 'stop';
+export const OPEN = 'open';
+export const CLOSE = 'close';
+
+
 export const ACTION_DO = 0x00;
 export const ACTION_GROUP = 0x02;
 export const ACTION_RS485_MODE = 0xa0;
@@ -208,7 +218,7 @@ export const ALARM = 'alarm';
 export const ENDPOINT = 'endpoint';
 export const LEVEL = 'level';
 export const COLOR = 'color';
-
+export const CURTAINS = 'curtais';
 
 export const MODEL = 'model';
 
@@ -251,6 +261,7 @@ export const MODEL_TYPE = [
   LIGHT_220,
   LIGHT_LED,
   LIGHT_RGB,
+  CURTAINS,
   BUTTON,
   SENSOR,
   DRIVER_TYPE_RS21,
@@ -316,6 +327,9 @@ export const onOff = 'onOff';
 export const onOn = 'onOn';
 export const onHold = 'onHold';
 export const onClick = 'onClick';
+export const onOpen = 'onOpen';
+export const onClose = 'onClose';
+export const onStop = 'onStop';
 export const onDoppler = 'onDoppler';
 export const onHighThreshold = 'onHighThreshold';
 export const onLowThreshold = 'onLowThreshold';

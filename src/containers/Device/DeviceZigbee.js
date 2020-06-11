@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { Typography } from '@rmwc/typography';
 import { Icon } from '@rmwc/icon';
 import Do from './DeviceDoEndpoint';
+import Closure from './DeviceClosureEndpoint';
 import Slider from './DeviceSliderEndpoint';
-import { DO, TEMPERATURE, HUMIDITY, ILLUMINATION, ALARM, LEVEL, COLOR, ACTION_MOVE_TO_HUE, ACTION_MOVE_TO_SATURATION, ACTION_MOVE_TO_LEVEL } from '../../constants';
+import { DO, TEMPERATURE, HUMIDITY, ILLUMINATION, ALARM, LEVEL, COLOR, ACTION_MOVE_TO_HUE, ACTION_MOVE_TO_SATURATION, ACTION_MOVE_TO_LEVEL, CLOSURE } from '../../constants';
 
 type Props = {
   id: string;
@@ -37,7 +38,10 @@ export default class extends Component<Props> {
           e.cluster.map(key => {
             switch (key) {
               case DO: return (
-                <Do id={id} daemon={daemon} index={e.id} />
+                <Do key={key} id={id} daemon={daemon} index={e.id} />
+              );
+              case CLOSURE: return (
+                <Closure key={key} id={id} daemon={daemon} index={e.id} />
               );
               case TEMPERATURE: return (
                 <Row key={key} title="Temperature" value={this.props.temperature} magnitude="°C" />

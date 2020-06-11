@@ -42,6 +42,7 @@ import {
   SECURITY,
   SCHEDULE,
   REED,
+  CURTAINS,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -69,6 +70,7 @@ import CardClimate from './CardClimate';
 import CardTempExt from './CardTempExt';
 import CardOnOff from './CardOnOff';
 import CardSchedule from './CardSchedule';
+import CardClosure from './CardClosure';
 
 type Props = {
   type: ?string
@@ -108,6 +110,8 @@ const Container = (props: Props) => {
     case PUMP:
     case FAN:
       return <CardDo {...props} />;
+    case CURTAINS:
+      return <CardClosure {...props} />;
     case LIGHT_RGB:
       return <CardRGB {...props} />;
     case TIMER:
