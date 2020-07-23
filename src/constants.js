@@ -163,6 +163,7 @@ export const IMAGE = 'image';
 export const CAMERA_URL = 'camera_URL';
 export const PREVIEW_URL = 'preview_URL';
 export const MAIN_URL = 'main_URL';
+export const ACTIVE = 'active';
 export const THERMOSTAT = 'thermostat';
 export const LEAKAGE = 'leakage';
 export const WATER_COUNTER = 'water_counter';
@@ -174,6 +175,7 @@ export const WEATHER = 'weather';
 export const SUNRISE = 'sunrise';
 export const SUNSET = 'sunset';
 export const DRIVER = 'driver';
+export const TERMINAL = 'terminal';
 export const IP = 'ip';
 
 export const QUIET = 'QUIET';
@@ -218,7 +220,7 @@ export const ALARM = 'alarm';
 export const ENDPOINT = 'endpoint';
 export const LEVEL = 'level';
 export const COLOR = 'color';
-export const CURTAINS = 'curtais';
+export const CURTAINS = 'curtains';
 
 export const MODEL = 'model';
 

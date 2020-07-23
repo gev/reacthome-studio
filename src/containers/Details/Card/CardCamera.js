@@ -10,9 +10,10 @@ import {
   CardActionIcons,
   CardActionButtons
 } from '@rmwc/card';
+import { Checkbox } from '@rmwc/checkbox';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify } from '../../../actions';
-import { TITLE, CODE, MAIN_URL, PREVIEW_URL } from '../../../constants';
+import { TITLE, CODE, MAIN_URL, PREVIEW_URL, ACTIVE } from '../../../constants';
 
 type Props = {
   code: ?string,
@@ -31,9 +32,13 @@ class Container extends Component<Props> {
     change({ [id]: value });
   }
 
+  checkActive = (event) => {
+    this.props.change({ active: event.target.checked });
+  };
+
   render() {
     const {
-      code, title, removeField, details, main_URL, preview_URL
+      code, title, removeField, details, main_URL, preview_URL, active
     } = this.props;
     return (
       <Card>
@@ -48,6 +53,9 @@ class Container extends Component<Props> {
         </div>
         <div className="paper">
           <TextField id={PREVIEW_URL} value={preview_URL || ''} onChange={this.change} label={PREVIEW_URL} />
+        </div>
+        <div className="paper">
+          <Checkbox id={ACTIVE} checked={active || false} onChange={this.checkActive} label={ACTIVE} />
         </div>
         <CardActions>
           <CardActionButtons>

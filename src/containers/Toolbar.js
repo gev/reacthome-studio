@@ -10,7 +10,6 @@ import {
   ToolbarTitle,
   ToolbarIcon,
   ToolbarSection,
-  ToolbarFixedAdjust
 } from '@rmwc/toolbar';
 import { Button, ButtonIcon } from '@rmwc/button';
 import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER, SCHEDULE } from '../constants';
@@ -49,8 +48,8 @@ class MyToolbar extends Component<Props> {
       project, title, back, details,
       model, script, timer, schedule, clock, location, weather, driver
     } = this.props;
-    return [
-      <Toolbar key="toolbar" fixed style={{ backgroundColor: 'white' }}>
+    return (
+      <Toolbar fixed style={{ backgroundColor: 'white' }}>
         <ToolbarRow>
           <ToolbarSection alignStart>
             <ToolbarIcon icon="arrow_back" theme="text-primary-on-background" onClick={back} />
@@ -69,9 +68,8 @@ class MyToolbar extends Component<Props> {
           <Button onClick={weather}><ButtonIcon icon="filter_drama" />{WEATHER}</Button>
           <Button onClick={driver}><ButtonIcon icon="extension" />{DRIVER}</Button>
         </ToolbarRow>
-      </Toolbar>,
-      <ToolbarFixedAdjust key="adjust" />
-    ];
+      </Toolbar>
+    );
   }
 }
 

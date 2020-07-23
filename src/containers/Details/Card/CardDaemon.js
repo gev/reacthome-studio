@@ -12,7 +12,7 @@ import {
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify } from '../../../actions';
-import { TITLE, CODE } from '../../../constants';
+import { TITLE, CODE, TERMINAL } from '../../../constants';
 import OnStart from './CardDaemonOnStart';
 
 type Props = {
@@ -33,7 +33,7 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      code, title, removeField, details, project
+      code, title, removeField, details, terminal, project
     } = this.props;
     return (
       <Card>
@@ -49,6 +49,7 @@ class Container extends Component<Props> {
         <CardActions>
           <CardActionButtons>
             <CardAction onClick={details}>Details</CardAction>
+            <CardAction onClick={terminal}>Terminal</CardAction>
           </CardActionButtons>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />
@@ -66,6 +67,7 @@ export default connect(
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
+    terminal: () => push(`/project/${project}/${TERMINAL}`),
     change: (payload) => modify(id, payload),
   }, dispatch)
 )(Container);

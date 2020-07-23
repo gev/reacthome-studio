@@ -5,6 +5,8 @@ import { ACTION_SET, ACTION_ASSET } from '../constants';
 import { LIST } from '../init/constants';
 import onList from '../init/onlist';
 import { writeFile, asset } from '../fs';
+import { PTY } from '../terminal/constants';
+import onPTY from '../terminal';
 
 export default (id) => (dispatch) => ({ data }) => {
   try {
@@ -22,6 +24,9 @@ export default (id) => (dispatch) => ({ data }) => {
         writeFile(asset(action.name), Buffer.from(action.payload, 'base64'))
           .catch(console.error);
         break;
+      }
+      case PTY: {
+        onPTY(id, action.chunk);
       }
     }
   } catch (e) {
