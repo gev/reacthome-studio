@@ -14,11 +14,11 @@ type Props = {
 class Container extends Component<Props> {
   render() {
     const {
-      onClick, index, title, code
+      onClick, index, title, code, label,
     } = this.props;
     return (
       <MenuItem onClick={onClick}>
-        {`${index} ${code || title || ''}`}
+        <div style={{ whiteSpace: 'nowrap' }}>{[[label, index].join(' '), code || title].join(': ')}</div>
       </MenuItem>
     );
   }

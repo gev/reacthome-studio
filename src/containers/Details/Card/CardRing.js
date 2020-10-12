@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 
 import React, { Component } from 'react';
 import { push } from 'react-router-redux';
@@ -10,36 +11,18 @@ import {
   CardActionIcons
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
-import { Button } from '@rmwc/button';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE, TITLE, OPEN_CLOSE, LEFT_RIGTH, RIGTH_LEFT, UP_DOWN } from '../../../constants';
-import DeviceClosure from './DeviceClosure';
-import SelectClosure from './SelectClosure';
-import Closure from './CardClosureBind';
+import { CODE, TITLE } from '../../../constants';
+import SelectCamera from './SelectCamera';
 
 type Props = {
-  id: string;
-  bind: ?string;
+  project: String,
   code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
+  title: ?string,
+  camera: ?string,
   change: (payload: {}) => void,
   removeField: () => void,
-  makeBind: (id: string, bind: string) => void
 };
-
-const Radio = ({
-  label, option, value, onSelect
-}) => (
-  <Button
-    onClick={() => {
-        onSelect(option);
-      }}
-    outlined={option === value}
-  >{label}
-  </Button>
-);
 
 class Container extends Component<Props> {
   change = (event) => {
@@ -47,16 +30,12 @@ class Container extends Component<Props> {
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  setKind = (kind) => {
-    this.props.change({ kind });
-  }
-  select = (bind) => {
-    const { id } = this.props;
-    this.props.makeBind(id, bind);
+  selectCamera = (camera) => {
+    this.props.change({ camera });
   }
   render() {
     const {
-      code, project, daemon, bind, title, kind = OPEN_CLOSE, removeField
+      code, title, removeField, camera, project
     } = this.props;
     return (
       <Card>
@@ -67,28 +46,8 @@ class Container extends Component<Props> {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <div>
-            <Radio value={kind} onSelect={this.setKind} label={OPEN_CLOSE} option={OPEN_CLOSE} />
-            <Radio value={kind} onSelect={this.setKind} label={UP_DOWN} option={UP_DOWN} />
-          </div>
-          <div>
-            <Radio value={kind} onSelect={this.setKind} label={LEFT_RIGTH} option={LEFT_RIGTH} />
-            <Radio value={kind} onSelect={this.setKind} label={RIGTH_LEFT} option={RIGTH_LEFT} />
-          </div>
+          <SelectCamera id={camera} root={project} onSelect={this.selectCamera} />
         </div>
-        <div className="paper">
-          <SelectClosure id={bind} root={project} onSelect={this.select} />
-        </div>
-        {
-          bind && [
-            <table key="bind">
-              <tbody>
-                <Closure id={bind} project={project} />
-              </tbody>
-            </table>,
-            <DeviceClosure id={bind} daemon={daemon} />
-          ]
-        }
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />

@@ -106,6 +106,8 @@ export const DEVICE_TYPE_DIM_4 = 0xa3;
 export const DEVICE_TYPE_DIM_8 = 0xa4;
 export const DEVICE_TYPE_LAN_AMP = 0xa5;
 export const DEVICE_TYPE_RSHUB = 0xa6;
+export const DEVICE_TYPE_RELAY_2_DIN = 0xa7;
+export const DEVICE_TYPE_DI_8_DIN = 0xa8;
 
 export const DEVICE_TYPE_PNP = 0xe0;
 
@@ -221,6 +223,7 @@ export const ENDPOINT = 'endpoint';
 export const LEVEL = 'level';
 export const COLOR = 'color';
 export const CURTAINS = 'curtains';
+export const RING = 'ring';
 
 export const MODEL = 'model';
 
@@ -285,6 +288,7 @@ export const MODEL_TYPE = [
   ACCESS_POINT,
   CAMERA,
   INTERCOM,
+  RING,
   TOUCH,
   THERMOSTAT,
   LEAKAGE,
@@ -319,7 +323,8 @@ export const ACTION_TYPE = [
   ACTION_TOGGLE,
   ACTION_TV,
   ACTION_SCRIPT_RUN,
-  NOTIFY
+  NOTIFY,
+  RING,
 ];
 
 export const INTERFACE = 'interface';
@@ -376,6 +381,12 @@ export const COMPARATORS = [
   OPERATOR_GE,
   OPERATOR_GT
 ];
+
+export const OPEN_CLOSE = 'open_close';
+export const CLOSE_OPEN = 'close_open';
+export const LEFT_RIGTH = 'left_right';
+export const RIGTH_LEFT = 'right_left';
+export const UP_DOWN = 'up_down';
 
 export const DEVICE_TYPES = {
   [DEVICE_TYPE_UNKNOWN]: {
@@ -468,6 +479,10 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_DI_4]: {
     title: 'DI 4',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_DI_8_DIN]: {
+    title: 'DI 8',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_DIM4]: {

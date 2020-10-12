@@ -43,6 +43,7 @@ import {
   SCHEDULE,
   REED,
   CURTAINS,
+  RING,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -71,6 +72,7 @@ import CardTempExt from './CardTempExt';
 import CardOnOff from './CardOnOff';
 import CardSchedule from './CardSchedule';
 import CardClosure from './CardClosure';
+import CardRing from './CardRing';
 
 type Props = {
   type: ?string
@@ -126,6 +128,8 @@ const Container = (props: Props) => {
       return <CardAC {...props} />;
     case INTERCOM:
       return <CardIntercom {...props} />;
+    case RING:
+      return <CardRing {...props} />;
     case TOUCH:
       return <CardTouch {...props} />;
     case THERMOSTAT:

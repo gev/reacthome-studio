@@ -25,7 +25,8 @@ import {
   ACTION_DISABLE,
   ACTION_ENABLE,
   ACTION_SCHEDULE_START,
-  ACTION_SCHEDULE_STOP
+  ACTION_SCHEDULE_STOP,
+  RING
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -46,6 +47,7 @@ import ActionPayloadClockTest from './ActionPayloadClockTest';
 import ActionPayloadDayNightTest from './ActionPayloadDayNightTest';
 import ActionPayloadTV from './ActionPayloadTV';
 import ActionPayloadNotification from './ActionPayloadNotification';
+import ActionPayloadRing from './ActionPayloadRing';
 
 type Props = {
   type: ?string
@@ -94,6 +96,8 @@ const Container = (props: Props) => {
       return <ActionPayloadTV {...props} />;
     case NOTIFY:
       return <ActionPayloadNotification {...props} />;
+    case RING:
+      return <ActionPayloadRing {...props} />;
     case ACTION_SCRIPT_RUN:
       return <ActionPayloadScriptRun {...props} />;
     default: return null;

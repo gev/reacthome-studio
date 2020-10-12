@@ -23,7 +23,8 @@ import {
   DEVICE_TYPE_CLIMATE,
   DEVICE_TYPE_RSHUB,
   DEVICE_TYPE_TEMPERATURE_EXT,
-  ZIGBEE
+  ZIGBEE,
+  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -31,12 +32,14 @@ import Plc from './DevicePlc';
 import Do8 from './DeviceDo8';
 import Do12 from './DeviceDo12';
 import Relay2 from './DeviceRelay2';
+import Relay2DIN from './DeviceRelay2DIN';
 import Relay6 from './DeviceRelay6';
 import Relay6v2 from './DeviceRelay6_2';
 import Relay12 from './DeviceRelay12';
 import Relay12v2 from './DeviceRelay12_2';
 import Relay24 from './DeviceRelay24';
 import Di4 from './DeviceDi4';
+import Di8 from './DeviceDi8';
 import Di16 from './DeviceDi16';
 import Di24 from './DeviceDi24';
 import Sensor from './DeviceSensor';
@@ -59,11 +62,13 @@ export default (props: Props) => {
     case DEVICE_TYPE_DIM_8: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DIM8_LEGACY: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DI_4: return <Di4 {...props} />;
+    case DEVICE_TYPE_DI_8_DIN: return <Di8 {...props} />;
     case DEVICE_TYPE_DI16: return <Di16 {...props} />;
     case DEVICE_TYPE_DI24: return <Di24 {...props} />;
     case DEVICE_TYPE_DO8: return <Do8 {...props} />;
     case DEVICE_TYPE_DO12: return <Do12 {...props} />;
     case DEVICE_TYPE_RELAY_2: return <Relay2 {...props} />;
+    case DEVICE_TYPE_RELAY_2_DIN: return <Relay2DIN {...props} />;
     case DEVICE_TYPE_RELAY_6: {
       const [major] = (props.version || '').split('.');
       switch (major) {

@@ -24,6 +24,7 @@ import {
   DEVICE_TYPE_RELAY_12,
   DEVICE_TYPE_RELAY_24,
   ENDPOINT,
+  GROUP,
 } from '../../../constants';
 
 type Props = {
@@ -43,7 +44,7 @@ type DoProps = {
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
-  id, type, config, index, onSelect, size = 0
+  id, type, type_, version = '', config, index, onSelect, size = 0
 }: DoProps) => {
   const a = [];
   const select = (i, t) => () => {
@@ -51,18 +52,23 @@ const Do = c(({
   };
   let n;
   let t;
+  let hasGroups = false;
+  const major = parseInt(version.split('.')[0], 10);
   switch (type) {
     case DEVICE_TYPE_RELAY_2:
       n = 2;
       t = DO;
+      hasGroups = major >= 2;
       break;
     case DEVICE_TYPE_RELAY_6:
       n = 6;
       t = DO;
+      hasGroups = major >= 2;
       break;
     case DEVICE_TYPE_RELAY_12:
       n = 12;
       t = DO;
+      hasGroups = major >= 2;
       break;
     case DEVICE_TYPE_RELAY_24:
       n = 24;
@@ -109,19 +115,26 @@ const Do = c(({
     if (config && Array.isArray(config.do)) {
       config.do.forEach(i => {
         a.push((
-          <MenuItem key={`o${i}`} index={i} onClick={select(i, ENDPOINT)} id={`${id}/${ENDPOINT}/${i}`} />
+          <MenuItem label={ENDPOINT} key={`o${i}`} index={i} onClick={select(i, ENDPOINT)} id={`${id}/${ENDPOINT}/${i}`} />
         ));
       });
     }
   } else {
+    if (hasGroups) {
+      for (let i = 1; i <= n / 2; i += 1) {
+        a.push((
+          <MenuItem label={GROUP} key={`g${i}`} index={i} onClick={select(i, GROUP)} id={`${id}/${GROUP}/${i}`} />
+        ));
+      }
+    }
     for (let i = 1; i <= n; i += 1) {
       a.push((
-        <MenuItem key={`o${i}`} index={i} onClick={select(i, t)} id={`${id}/${t}/${i}`} />
+        <MenuItem label={t} key={`o${i}`} index={i} onClick={select(i, t)} id={`${id}/${t}/${i}`} />
       ));
     }
   }
   return (
-    <SimpleMenu handle={<Button>{t} {index}</Button>}>
+    <SimpleMenu handle={<Button>{type_} {index}</Button>}>
       {a}
     </SimpleMenu>
   );
@@ -136,18 +149,18 @@ class Container extends Component<Props> {
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;
-    const [dev,, index] = (id || '').split('/');
-    this.setState({ dev, index });
+    const [dev, type, index] = (id || '').split('/');
+    this.setState({ dev, index, type });
   }
   selectDev = (dev) => {
-    this.setState({ dev, index: null });
+    this.setState({ dev, index: null, type: null });
   }
   selectDo = (index, type) => {
-    this.setState({ index });
+    this.setState({ index, type });
     this.props.onSelect(`${this.state.dev}/${type}/${index}`);
   }
   render() {
-    const { dev, index } = this.state;
+    const { dev, index, type } = this.state;
     const { root } = this.props;
     return (
       <table>
@@ -157,7 +170,7 @@ class Container extends Component<Props> {
               <Autocomplete id={dev} root={root} onSelect={this.selectDev} />
             </td>
             <td className="paper">
-              <Do id={dev} index={index} onSelect={this.selectDo} />
+              <Do id={dev} type_={type} index={index} onSelect={this.selectDo} />
             </td>
           </tr>
         </tbody>
