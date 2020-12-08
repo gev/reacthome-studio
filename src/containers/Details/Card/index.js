@@ -44,6 +44,9 @@ import {
   REED,
   CURTAINS,
   RING,
+  DRIVER_TYPE_MODBUS,
+  DRIVER_TYPE_VARMANN,
+  DRIVER_TYPE_INTESIS_BOX,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -73,6 +76,9 @@ import CardOnOff from './CardOnOff';
 import CardSchedule from './CardSchedule';
 import CardClosure from './CardClosure';
 import CardRing from './CardRing';
+import CardModbus from './CardModbus';
+import CardVarmann from './CardVarmann';
+import CardIntesisBox from './CardIntesisBox';
 
 type Props = {
   type: ?string
@@ -149,6 +155,12 @@ const Container = (props: Props) => {
     case DRIVER_TYPE_M206:
     case DRIVER_TYPE_M230:
       return <CardElectricityMeter {...props} />;
+    case DRIVER_TYPE_MODBUS:
+      return <CardModbus {...props} />;
+    case DRIVER_TYPE_VARMANN:
+      return <CardVarmann {...props} />;
+    case DRIVER_TYPE_INTESIS_BOX:
+      return <CardIntesisBox {...props} />;
     default:
       return <CardDefault {...props} />;
   }

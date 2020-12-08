@@ -50,6 +50,11 @@ export const ACTION_STOP = 'ACTION_STOP';
 export const ACTION_OPEN = 'ACTION_OPEN';
 export const ACTION_CLOSE = 'ACTION_CLOSE';
 
+export const ACTION_SET_ADDRESS = 'ACTION_SET_ADDRESS';
+export const ACTION_SET_FAN_SPEED = 'ACTION_SET_FAN_SPEED';
+export const ACTION_SET_MODE = 'ACTION_SET_MODE';
+export const ACTION_SET_DIRECTION = 'ACTION_SET_DIRECTION';
+
 export const CLOSURE = 'closure';
 export const STOP = 'stop';
 export const OPEN = 'open';
@@ -122,6 +127,9 @@ export const DRIVER_TYPE_BB_PLC1 = 'BB_PLC1';
 export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
 export const DRIVER_TYPE_M206 = 'M206';
 export const DRIVER_TYPE_M230 = 'M230';
+export const DRIVER_TYPE_MODBUS = 'MODBUS';
+export const DRIVER_TYPE_VARMANN = 'VARMANN';
+export const DRIVER_TYPE_INTESIS_BOX = 'INTESIS_BOX';
 
 export const DI_OFF = 0x0;
 export const DI_ON = 0x1;
@@ -157,6 +165,8 @@ export const SCRIPT = 'script';
 export const TIMER = 'timer';
 export const SCHEDULE = 'schedule';
 export const CLOCK = 'clock';
+export const ADDRESS = 'address';
+export const MODBUS = 'modbus';
 export const CODE = 'code';
 export const DELAY = 'delay';
 export const TITLE = 'title';
@@ -588,5 +598,14 @@ export const DRIVER_TYPES = {
   },
   [DRIVER_TYPE_M230]: {
     title: 'Mercury M230'
-  }
+  },
+  [DRIVER_TYPE_MODBUS]: {
+    title: 'Modbus'
+  },
+  [DRIVER_TYPE_VARMANN]: {
+    title: 'Varmann'
+  },
+  [DRIVER_TYPE_INTESIS_BOX]: {
+    title: 'Imtesis Box'
+  },
 };
