@@ -19,7 +19,7 @@ build({
     'node_modules',
     'src',
     'tmp',
-    // 'var',
+    'var',
     '.eslintrc',
     '.gitignore',
     'README.md',
