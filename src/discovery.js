@@ -3,6 +3,8 @@ import { Buffer } from 'buffer';
 import { createSocket } from 'dgram';
 import { ROOT, DAEMON } from './constants';
 import { add, set } from './actions';
+import { peers } from './websocket/peer';
+import connect from './websocket/connect';
 
 const DISCOVERY = 'discovery';
 
@@ -16,6 +18,9 @@ export default () => (dispatch) => {
   socket.on('message', (message, { address }) => {
     try {
       const { id, type, payload } = JSON.parse(Buffer.from(message));
+      if (!peers.has(id)) {
+        dispatch(connect(id));
+      }
       if (type === DISCOVERY) {
         payload.ip = address;
         delete payload.online;
