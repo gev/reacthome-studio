@@ -8,6 +8,7 @@ const DISCOVERY = 'discovery';
 
 const CLIENT_PORT = 2021;
 const CLIENT_GROUP = '224.0.0.2';
+const TIMEOUT = 1000;
 
 export default () => (dispatch) => {
   const socket = createSocket('udp4');
@@ -25,8 +26,9 @@ export default () => (dispatch) => {
       console.error(e);
     }
   });
-  socket.once('listening', () => {
-    socket.addMembership(CLIENT_GROUP);
-  });
-  socket.bind(CLIENT_PORT);
+  setInterval(() => {
+    socket.send(JSON.stringify({
+      type: DISCOVERY,
+    }), CLIENT_PORT, CLIENT_GROUP);
+  }, TIMEOUT);
 };
