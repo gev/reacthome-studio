@@ -14,7 +14,7 @@ type Props = {
   request: (action: {}) => void;
 };
 
-export default connect(ENDPOINT)((props: Props) => {
+export default connect()((props: Props) => {
   const {
     id, index, val, request, type, caption, min = 0, max = 255
   } = props;

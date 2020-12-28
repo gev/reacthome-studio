@@ -18,10 +18,10 @@ export default () => (dispatch) => {
   socket.on('message', (message, { address }) => {
     try {
       const { id, type, payload } = JSON.parse(Buffer.from(message));
-      if (!peers.has(id)) {
-        dispatch(connect(id));
-      }
       if (type === DISCOVERY) {
+        if (!peers.has(id)) {
+          dispatch(connect(id));
+        }
         payload.ip = address;
         delete payload.online;
         dispatch(set(id, payload));

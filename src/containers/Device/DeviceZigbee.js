@@ -2,10 +2,12 @@
 import React, { Component } from 'react';
 import { Typography } from '@rmwc/typography';
 import { Icon } from '@rmwc/icon';
-import Do from './DeviceDoEndpoint';
+import DoEndpoint from './DeviceDoEndpoint';
+import Do from './DeviceDo';
 import Closure from './DeviceClosureEndpoint';
-import Slider from './DeviceSliderEndpoint';
-import { DO, TEMPERATURE, HUMIDITY, ILLUMINATION, ALARM, LEVEL, COLOR, ACTION_MOVE_TO_HUE, ACTION_MOVE_TO_SATURATION, ACTION_MOVE_TO_LEVEL, CLOSURE } from '../../constants';
+import SliderEndpoint from './DeviceSliderEndpoint';
+import Slider from './DeviceSlider';
+import { DO, TEMPERATURE, HUMIDITY, ILLUMINATION, ALARM, LEVEL, COLOR, ACTION_MOVE_TO_HUE, ACTION_MOVE_TO_SATURATION, ACTION_MOVE_TO_LEVEL, CLOSURE, THERMOSTAT, ACTION_SETPOINT } from '../../constants';
 
 type Props = {
   id: string;
@@ -38,7 +40,7 @@ export default class extends Component<Props> {
           e.cluster.map(key => {
             switch (key) {
               case DO: return (
-                <Do key={key} id={id} daemon={daemon} index={e.id} />
+                <DoEndpoint key={key} id={id} daemon={daemon} index={e.id} />
               );
               case CLOSURE: return (
                 <Closure key={key} id={id} daemon={daemon} index={e.id} />
@@ -60,12 +62,18 @@ export default class extends Component<Props> {
                 );
               }
               case LEVEL: return (
-                <Slider key={key} id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_LEVEL} val="level" caption="Level" />
+                <SliderEndpoint key={key} id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_LEVEL} val="level" caption="Level" />
               );
               case COLOR: return (
                 <div key={key}>
-                  <Slider key={key} id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_HUE} val="hue" caption="Hue" />
-                  <Slider key={key} id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_SATURATION} val="saturation" caption="Saturation" />
+                  <SliderEndpoint id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_HUE} val="hue" caption="Hue" />
+                  <SliderEndpoint id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_SATURATION} val="saturation" caption="Saturation" />
+                </div>
+              );
+              case THERMOSTAT: return (
+                <div key={key}>
+                  <Slider id={id} daemon={daemon} index={e.id} min={5} max={30} type={ACTION_SETPOINT} val="setpoint" caption="Setpoint" />
+                  <Do id={id} daemon={daemon} index={e.id} />
                 </div>
               );
               default: return null;
