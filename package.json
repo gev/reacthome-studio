@@ -17,7 +17,7 @@
     "name": "Evgeny Gazdovsky",
     "email": "gazdovsky@gmail.com",
     "url": "https://github.com/gev"
-  },  
+  },
   "license": "",
   "devDependencies": {
     "babel-core": "^6.26.0",
