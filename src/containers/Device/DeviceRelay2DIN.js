@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
 import Di from './DeviceDiChannel';
-import Do from './DeviceDoChannel';
+import Group from './DeviceDoGroup_2';
+import DiRelaySync from './DeviceDiRelaySync';
 
 type Props = {
   id: string;
@@ -30,8 +31,7 @@ const RowDi = ({ id, index } : RowDiProps) => (
 
 const RowDo = ({ id, daemon, index } : RowDoProps) => (
   <tr>
-    <td className="paper"><Do id={id} daemon={daemon} index={index + 0} /></td>
-    <td className="paper"><Do id={id} daemon={daemon} index={index + 1} /></td>
+    <td className="paper"><Group id={id} daemon={daemon} index={index} /></td>
   </tr>
 );
 
@@ -48,7 +48,8 @@ export default class extends Component<Props> {
         <tbody>
           <RowDo id={id} daemon={daemon} index={1} />
         </tbody>
-      </table>
+      </table>,
+      <DiRelaySync key="sync" id={id} daemon={daemon} />
     ];
   }
 }

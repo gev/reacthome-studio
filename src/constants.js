@@ -63,6 +63,7 @@ export const CLOSE = 'close';
 
 export const ACTION_DO = 0x00;
 export const ACTION_GROUP = 0x02;
+export const ACTION_DI_RELAY_SYNC = 0x03;
 export const ACTION_RS485_MODE = 0xa0;
 export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
