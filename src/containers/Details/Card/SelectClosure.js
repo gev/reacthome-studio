@@ -24,6 +24,7 @@ import {
   DEVICE_TYPE_RELAY_12,
   DEVICE_TYPE_RELAY_24,
   ENDPOINT,
+  GROUP,
 } from '../../../constants';
 
 type Props = {
@@ -43,27 +44,25 @@ type DoProps = {
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
-  id, type, endpoint, index, onSelect, size = 0
+  id, type, endpoint, index, onSelect, version, size = 0
 }: DoProps) => {
   const a = [];
   const select = (i, t) => () => {
     onSelect(i, t);
   };
   let n;
-  let t;
+  //const major = parseInt(version.split('.')[0], 10);
   switch (type) {
     // case DEVICE_TYPE_RELAY_2:
     //   n = 2;
     //   t = DO;
     //   break;
-    // case DEVICE_TYPE_RELAY_6:
-    //   n = 6;
-    //   t = DO;
-    //   break;
-    // case DEVICE_TYPE_RELAY_12:
-    //   n = 12;
-    //   t = DO;
-    //   break;
+        // case DEVICE_TYPE_RELAY_6:
+        //   n = major >= 2 ? 3 : 0;
+        //   break;
+        // case DEVICE_TYPE_RELAY_12:
+        //   n = major >= 2 ? 6 : 0;
+        //   break;
     // case DEVICE_TYPE_RELAY_24:
     //   n = 24;
     //   t = DO;
@@ -112,14 +111,14 @@ const Do = c(({
       });
     }
   } else {
-    // for (let i = 1; i <= n; i += 1) {
-    //   a.push((
-    //     <MenuItem key={`o${i}`} index={i} onClick={select(i, t)} id={`${id}/${t}/${i}`} />
-    //   ));
-    // }
+    for (let i = 1; i <= n; i += 1) {
+      a.push((
+        <MenuItem key={`o${i}`} index={i} onClick={select(i, GROUP)} id={`${id}/${GROUP}/${i}`} />
+      ));
+    }
   }
   return (
-    <SimpleMenu handle={<Button>{t} {index}</Button>}>
+    <SimpleMenu handle={<Button>{ENDPOINT} {index}</Button>}>
       {a}
     </SimpleMenu>
   );
