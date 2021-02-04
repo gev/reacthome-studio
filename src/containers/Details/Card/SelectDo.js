@@ -44,7 +44,7 @@ type DoProps = {
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
-  id, type, type_, version = '', config, index, onSelect, size = 0
+  id, type, type_, version = '', endpoint, index, onSelect, size = 0
 }: DoProps) => {
   const a = [];
   const select = (i, t) => () => {
@@ -112,12 +112,14 @@ const Do = c(({
       n = 0;
   }
   if (n === 0) {
-    if (config && Array.isArray(config.do)) {
-      config.do.forEach(i => {
-        a.push((
-          <MenuItem label={ENDPOINT} key={`o${i}`} index={i} onClick={select(i, ENDPOINT)} id={`${id}/${ENDPOINT}/${i}`} />
-        ));
-      });
+    if (endpoint && Array.isArray(endpoint)) {
+      endpoint
+        .filter(({ cluster }) => cluster.includes(DO))
+        .forEach(i => {
+          a.push((
+            <MenuItem label={ENDPOINT} key={`o${i.id}`} index={i.id} onClick={select(i.id, ENDPOINT)} id={`${id}/${ENDPOINT}/${i.id}`} />
+          ));
+        });
     }
   } else {
     if (hasGroups) {
@@ -134,7 +136,7 @@ const Do = c(({
     }
   }
   return (
-    <SimpleMenu handle={<Button>{type_} {index}</Button>}>
+    <SimpleMenu handle={<Button>{type_ || 'select'} {index}</Button>}>
       {a}
     </SimpleMenu>
   );
