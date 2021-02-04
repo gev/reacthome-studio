@@ -2,7 +2,7 @@
   "name": "reacthome-studio",
   "productName": "reacthome-studio",
   "version": "1.0.0",
-  "description": "Reacthome Studio",
+  "description": "Hommyn Studio",
   "main": "main.js",
   "scripts": {
     "start": "NODE_ENV=DEV concurrently \"babel-node server.js\" \"sleep 2 && electron .\"",

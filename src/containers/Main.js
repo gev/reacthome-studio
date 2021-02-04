@@ -11,7 +11,7 @@ export default () => (
         <img src="./assets/logo.svg" alt="logo" width={200} />
       </div>
       <div>
-        <Typography use="headline2">Reacthome<br />Studio</Typography>
+        <Typography use="headline2">Hommyn<br />Studio</Typography>
       </div>
     </GridCell>
     <GridCell span={3}>
