@@ -37,6 +37,7 @@ export default connect(ENDPOINT)((props: Props) => {
           max={max}
           value={props[val] || 0}
           onInput={setValue}
+          discrete
         />
       </div>
     </div>

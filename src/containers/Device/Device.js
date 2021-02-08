@@ -24,7 +24,7 @@ import {
   DEVICE_TYPE_RSHUB,
   DEVICE_TYPE_TEMPERATURE_EXT,
   ZIGBEE,
-  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN
+  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -48,6 +48,7 @@ import TempExt from './DeviceTempExt';
 import IrReceiver from './DeviceIRReceiver';
 import RSHub from './DeviceRSHub';
 import Zigbee from './DeviceZigbee';
+import Mix2 from './DeviceMix2';
 
 type Props = {
   type: ?string
@@ -69,6 +70,7 @@ export default (props: Props) => {
     case DEVICE_TYPE_DO12: return <Do12 {...props} />;
     case DEVICE_TYPE_RELAY_2: return <Relay2 {...props} />;
     case DEVICE_TYPE_RELAY_2_DIN: return <Relay2DIN {...props} />;
+    case DEVICE_TYPE_MIX_2: return <Mix2 {...props} />;
     case DEVICE_TYPE_RELAY_6: {
       const [major] = (props.version || '').split('.');
       switch (major) {

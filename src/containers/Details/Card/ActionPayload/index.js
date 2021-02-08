@@ -26,7 +26,8 @@ import {
   ACTION_ENABLE,
   ACTION_SCHEDULE_START,
   ACTION_SCHEDULE_STOP,
-  RING
+  RING,
+  ACTION_SETPOINT
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -48,6 +49,7 @@ import ActionPayloadDayNightTest from './ActionPayloadDayNightTest';
 import ActionPayloadTV from './ActionPayloadTV';
 import ActionPayloadNotification from './ActionPayloadNotification';
 import ActionPayloadRing from './ActionPayloadRing';
+import ActionPayloadSetpoint from './ActionPayloadSetpoint';
 
 type Props = {
   type: ?string
@@ -90,6 +92,8 @@ const Container = (props: Props) => {
       return <ActionPayloadDoppler {...props} />;
     case ACTION_THERMOSTAT_HANDLE:
       return <ActionPayloadThermostat {...props} />;
+    case ACTION_SETPOINT:
+      return <ActionPayloadSetpoint {...props} />;
     case ACTION_TOGGLE:
       return <ActionPayloadToggle {...props} />;
     case ACTION_TV:

@@ -47,6 +47,7 @@ import {
   DRIVER_TYPE_MODBUS,
   DRIVER_TYPE_VARMANN,
   DRIVER_TYPE_INTESIS_BOX,
+  ZIGBEE,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -79,12 +80,16 @@ import CardRing from './CardRing';
 import CardModbus from './CardModbus';
 import CardVarmann from './CardVarmann';
 import CardIntesisBox from './CardIntesisBox';
+import CardZigbee from './CardZigbee';
 
 type Props = {
   type: ?string
 };
 
 const Container = (props: Props) => {
+  if (props.protocol === ZIGBEE) {
+    return <CardZigbee {...props} />;
+  }
   switch (props.type) {
     case DAEMON:
       return <CardDaemon {...props} />;

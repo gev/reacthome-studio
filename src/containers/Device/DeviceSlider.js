@@ -2,7 +2,6 @@
 import React from 'react';
 import { Typography } from '@rmwc/typography';
 import { Slider } from '@rmwc/slider';
-import { ENDPOINT } from '../../constants';
 import connect from './connect';
 
 type Props = {
@@ -37,6 +36,7 @@ export default connect()((props: Props) => {
           max={max}
           value={props[val] || 0}
           onInput={setValue}
+          discrete
         />
       </div>
     </div>

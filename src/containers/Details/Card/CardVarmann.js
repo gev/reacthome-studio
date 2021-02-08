@@ -72,6 +72,7 @@ class Container extends Component<Props> {
             max={100}
             value={fan_speed || 0}
             onInput={(event) => this.setFanSpeed(event.detail.value)}
+            discrete
           />
         </div>
         <CardActions>

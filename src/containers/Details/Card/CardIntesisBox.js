@@ -108,6 +108,7 @@ class Container extends Component<Props> {
             max={4}
             value={fan_speed || 0}
             onInput={this.setFanSpeed}
+            discrete
           />
         </div>
         <div className="paper">
@@ -133,6 +134,7 @@ class Container extends Component<Props> {
             max={31}
             value={setpoint || 0}
             onInput={this.setPoint}
+            discrete
           />
         </div>
         <CardActions>
