@@ -578,9 +578,6 @@ export const DEVICE_TYPES = {
   [DEVICE_TYPE_TEMPERATURE_EXT]: {
     title: 'External temperature'
   },
-  undefined: {
-    title: 'Unknown'
-  }
 };
 
 export const DRIVER_TYPES = {

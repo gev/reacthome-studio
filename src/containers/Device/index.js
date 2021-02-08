@@ -66,7 +66,7 @@ class Devices extends Component<Props> {
 
   render() {
     const {
-      timestamp,
+      timestamp, protocol,
       id, code, ip, address, type, version,
       removeDevice, pendingFirmware,
       ready = false,
@@ -81,7 +81,7 @@ class Devices extends Component<Props> {
       <Card className={!online && 'offline'}>
         <div className="paper">
           <div>
-            <Typography use="title">{title}</Typography>
+            <Typography use="title">{title || protocol || 'Unknoen'}</Typography>
           </div>
           <div>
             <Typography use="caption">{`${id} / ${ip || address} / v${version || '?'}`}</Typography>
