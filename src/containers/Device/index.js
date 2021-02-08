@@ -66,6 +66,7 @@ class Devices extends Component<Props> {
 
   render() {
     const {
+      timestamp,
       id, code, ip, address, type, version,
       removeDevice, pendingFirmware,
       ready = false,
@@ -74,6 +75,7 @@ class Devices extends Component<Props> {
       pending = false,
       updating = false
     } = this.props;
+    const date = new Date(timestamp);
     const { title, hasFindMeAction = false } = DEVICE_TYPES[type] || {};
     return (
       <Card className={!online && 'offline'}>
@@ -83,6 +85,9 @@ class Devices extends Component<Props> {
           </div>
           <div>
             <Typography use="caption">{`${id} / ${ip || address} / v${version || '?'}`}</Typography>
+          </div>
+          <div>
+            <Typography use="caption">{timestamp && `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</Typography>
           </div>
           {
             updating && (

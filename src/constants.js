@@ -114,6 +114,8 @@ export const DEVICE_TYPE_LAN_AMP = 0xa5;
 export const DEVICE_TYPE_RSHUB = 0xa6;
 export const DEVICE_TYPE_RELAY_2_DIN = 0xa7;
 export const DEVICE_TYPE_DI_8_DIN = 0xa8;
+export const DEVICE_TYPE_AO_4_DIN = 0xa9;
+export const DEVICE_TYPE_MIX_2 = 0xaa;
 
 export const DEVICE_TYPE_PNP = 0xe0;
 

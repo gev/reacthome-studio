@@ -36,7 +36,9 @@ const Row = ({ index, onChange, sync = [] }) => {
 
 class Container extends Component {
   change = (onAction, index, action) => {
-    const { sync = [[0xff, 0xff], [0xff, 0xff]], set } = this.props;
+    const { relay } = this.props;
+    const state = Array(relay).fill(0xff);
+    const { sync = [state, state], set } = this.props;
     const value = [[...sync[0]], [...sync[1]]];
     value[onAction][index - 1] = action;
     console.log(index, value);
@@ -44,7 +46,7 @@ class Container extends Component {
   };
 
   render() {
-    const { sync } = this.props;
+    const { sync, relay } = this.props;
     return (
       <div className="paper">
         <table>
@@ -65,8 +67,11 @@ class Container extends Component {
             </tr>
           </thead>
           <tbody>
-            <Row index={1} onChange={this.change} sync={sync} />
-            <Row index={2} onChange={this.change} sync={sync} />
+            {
+              Array(relay).fill(0).map((_, i) => (
+                <Row index={i + 1} onChange={this.change} sync={sync} />
+              ))
+            }
           </tbody>
         </table>
       </div>

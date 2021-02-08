@@ -11,7 +11,7 @@ export default class extends Component {
   };
 
   render() {
-    const { id, daemon } = this.props;
+    const { id, daemon, di, relay } = this.props;
     const { index } = this.state;
     return (
       <div className="paper">
@@ -19,12 +19,11 @@ export default class extends Component {
           activeTabIndex={index}
           onActivate={this.select}
         >
-          <Tab>1</Tab>
-          <Tab>2</Tab>
-          <Tab>3</Tab>
-          <Tab>4</Tab>
+          {
+            Array(di).fill(0).map((_, i) => <Tab>{i + 1}</Tab>)
+          }
         </TabBar>
-        <DeviceDiChannelRelaySync id={id} daemon={daemon} index={index + 1} />
+        <DeviceDiChannelRelaySync id={id} daemon={daemon} index={index + 1} relay={relay} />
       </div>
     );
   }

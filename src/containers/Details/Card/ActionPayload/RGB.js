@@ -31,9 +31,9 @@ class Container extends Component<Props> {
     const { value: { r = 0, g = 0, b = 0 } = {} } = this.props;
     return (
       <div className="paper">
-        <Slider value={r} min={0} max={255} step={1} onInput={this.red} />
-        <Slider value={g} min={0} max={255} step={1} onInput={this.green} />
-        <Slider value={b} min={0} max={255} step={1} onInput={this.blue} />
+        <Slider value={r} min={0} max={255} step={1} onInput={this.red} discrete />
+        <Slider value={g} min={0} max={255} step={1} onInput={this.green} discrete />
+        <Slider value={b} min={0} max={255} step={1} onInput={this.blue} discrete />
       </div>
     );
   }

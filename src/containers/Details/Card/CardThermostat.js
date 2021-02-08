@@ -50,7 +50,7 @@ class Container extends Component<Props> {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <Slider value={setpoint || 25} min={15} max={35} step={1} onInput={this.setpoint} />
+          <Slider value={setpoint || 25} min={15} max={35} step={1} onInput={this.setpoint} discrete />
         </div>
         <div className="paper">
           <SelectSensor id={sensor} root={project} onSelect={this.setSensor} />
