@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button } from '@rmwc/button';
 import { SCRIPT } from '../../constants';
 import SelectMenu from './SelectMenu';
-import { Link } from 'react-router-dom';
 
 type Props = {
   id: ?string,
