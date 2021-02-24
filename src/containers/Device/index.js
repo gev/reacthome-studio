@@ -81,7 +81,7 @@ class Devices extends Component<Props> {
       <Card className={!online && 'offline'}>
         <div className="paper">
           <div>
-            <Typography use="title">{title || protocol || 'Unknoen'}</Typography>
+            <Typography use="title">{title || protocol || 'Unknown'}</Typography>
           </div>
           <div>
             <Typography use="caption">{`${id} / ${ip || address} / v${version || '?'}`}</Typography>

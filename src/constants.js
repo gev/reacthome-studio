@@ -228,6 +228,7 @@ export const TV = 'TV';
 export const AC = 'AC';
 export const SOCKET_RJ45 = 'socket_RJ45';
 export const ACCESS_POINT = 'access_point';
+export const MULTIROOM = 'multiroom';
 export const CAMERA = 'camera';
 export const INTERCOM = 'intercom';
 export const SIP_USER = 'SIP_user';
@@ -299,6 +300,7 @@ export const MODEL_TYPE = [
   BOILER,
   PUMP,
   ACCESS_POINT,
+  MULTIROOM,
   CAMERA,
   INTERCOM,
   RING,
