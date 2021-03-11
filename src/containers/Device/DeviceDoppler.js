@@ -79,6 +79,12 @@ class Doppler extends Component<PropsType> {
     clearInterval(this.t);
   }
 
+  componentDidUpdate({ value }) {
+    if (value !== this.props.value) {
+      this.tick();
+    }
+  }
+
   tick = () => {
     const { value } = this.props;
     const { max, data } = this.state;
@@ -102,7 +108,7 @@ class Doppler extends Component<PropsType> {
   };
 
   render() {
-    const { raw = [], gain = 0 } = this.props;
+    // const { raw = [], gain = 0 } = this.props;
     const { data } = this.state;
     // const data = {
     //   labels: new Array(raw.length).fill(''),
