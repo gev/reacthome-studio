@@ -25,6 +25,7 @@ import {
   DEVICE_TYPE_RELAY_24,
   ENDPOINT,
   GROUP,
+  DEVICE_TYPE_RELAY_2_DIN,
 } from '../../../constants';
 
 type Props = {
@@ -56,6 +57,7 @@ const Do = c(({
   const major = parseInt(version.split('.')[0], 10);
   switch (type) {
     case DEVICE_TYPE_RELAY_2:
+    case DEVICE_TYPE_RELAY_2_DIN:
       n = 2;
       t = DO;
       hasGroups = major >= 2;

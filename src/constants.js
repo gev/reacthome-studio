@@ -536,6 +536,10 @@ export const DEVICE_TYPES = {
     title: 'Relay 2',
     hasFindMeAction: true,
   },
+  [DEVICE_TYPE_RELAY_2_DIN]: {
+    title: 'Relay 2 DIN',
+    hasFindMeAction: true,
+  },
   [DEVICE_TYPE_RELAY_6]: {
     title: 'Relay 6',
     hasFindMeAction: true,
