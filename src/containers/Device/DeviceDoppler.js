@@ -14,7 +14,7 @@ const optDoppler = {
   scales: {
     yAxes: [{
       display: true,
-      // type: 'logarithmic',
+      type: 'logarithmic',
       ticks: {
         min: 0,
         max: 300
@@ -63,9 +63,9 @@ class Doppler extends Component<PropsType> {
     max: 0
   }
 
-  componentDidMount() {
-    this.t = setInterval(this.tick, 100);
-  }
+  // componentDidMount() {
+  //   this.t = setInterval(this.tick, 100);
+  // }
 
   // componentWillReceiveProps() {
   //   this.tick();
@@ -75,15 +75,15 @@ class Doppler extends Component<PropsType> {
   //   return value !== this.props.value;
   // }
 
-  componentWillUnmount() {
-    clearInterval(this.t);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.t);
+  // }
 
-  componentDidUpdate({ value }) {
-    if (value !== this.props.value) {
-      this.tick();
-    }
-  }
+  // componentDidUpdate({ value }) {
+  //   if (value !== this.props.value) {
+  //     this.tick();
+  //   }
+  // }
 
   tick = () => {
     const { value } = this.props;
