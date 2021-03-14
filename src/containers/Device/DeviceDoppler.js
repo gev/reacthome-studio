@@ -14,7 +14,7 @@ const optDoppler = {
   scales: {
     yAxes: [{
       display: true,
-      type: 'logarithmic',
+      // type: 'logarithmic',
       ticks: {
         min: 0,
         max: 300
