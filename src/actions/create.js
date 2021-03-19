@@ -75,6 +75,7 @@ export const remove = (id, field, subject) => (dispatch, getState) => {
   const prev = getState().pool[id];
   if (!prev || !prev[field] || !prev[field].includes(subject)) return;
   dispatch(modify(id, { [field]: prev[field].filter(i => i !== subject) }));
+  dispatch(modify(subject, { [prev.type || BIND]: null }));
 };
 
 export const attach = (id, field, file) => (dispatch) => {
