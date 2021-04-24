@@ -13,20 +13,23 @@ export default (id) => (dispatch, getState) => {
 
   const connect = () => {
     const { ip } = getState().pool[id] || {};
-    connectTo(`ws://${ip}:${LOCAL_PORT}`);
-    connectTo(`wss://${REMOTE_URI}/${id}`);
+    connectTo(`ws://${ip}:${LOCAL_PORT}`, true);
+    connectTo(`wss://${REMOTE_URI}/${id}`, false);
   };
 
-  const connectTo = (uri) => {
+  const connectTo = (uri, local) => {
     const ws = new WebSocket(uri, PROTOCOL);
     ws.onopen = () => {
       if (peers.has(id)) {
-        ws.close();
-        return;
+        if (local) {
+          peers.get(id).close();
+        } else {
+          ws.close();
+          return;
+        }
       }
       ws.onmessage = dispatch(handle(id));
       ws.onclose = () => {
-        console.log('close', id);
         if (peers.get(id) === ws) {
           peers.delete(id);
         }
@@ -34,11 +37,7 @@ export default (id) => (dispatch, getState) => {
       peers.set(id, ws);
       ws.send(JSON.stringify({ type: LIST }));
     };
-    ws.onerror = () => {
-      if (peers.get(id) === ws) {
-        peers.delete(id);
-      }
-    };
+    // ws.onerror = console.error;
   };
 
   setInterval(() => {

@@ -31,6 +31,7 @@
     "concurrently": "^3.5.1",
     "css-loader": "^0.28.11",
     "electron": "^7.0.0",
+    "electron-notarize": "^1.0.0",
     "electron-rebuild": "^1.8.6",
     "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",

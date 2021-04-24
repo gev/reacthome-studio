@@ -161,7 +161,7 @@ class Devices extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id }) => pool[id] || {},
+  ({ pool }, { id, daemon }) => ({ ...pool[id], daemon }),
   (dispatch, { id, daemon }) => bindActionCreators({
     findMe: (finding) => request(daemon, { type: ACTION_FIND_ME, id, finding }),
     updateFirmware: (newFirmware) =>

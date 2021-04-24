@@ -27,7 +27,8 @@ import {
   ACTION_SCHEDULE_START,
   ACTION_SCHEDULE_STOP,
   RING,
-  ACTION_SETPOINT
+  ACTION_SETPOINT,
+  ACTION_LIMIT_HEATING_HANDLE
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -38,6 +39,7 @@ import ActionPayloadTimerStart from './ActionPayloadTimerStart';
 import ActionPayloadTimerStop from './ActionPayloadTimerStop';
 import ActionPayloadDoppler from './ActionPayloadDoppler';
 import ActionPayloadThermostat from './ActionPayloadThermostat';
+import ActionPayloadHeatLimit from './ActionPayloadHeatLimt';
 import ActionPayloadToggle from './ActionPayloadToggle';
 import ActionPayloadScriptRun from './ActionPayloadScriptRun';
 import ActionPayloadRGBDim from './ActionPayloadRGBDim';
@@ -92,6 +94,8 @@ const Container = (props: Props) => {
       return <ActionPayloadDoppler {...props} />;
     case ACTION_THERMOSTAT_HANDLE:
       return <ActionPayloadThermostat {...props} />;
+    case ACTION_LIMIT_HEATING_HANDLE:
+      return <ActionPayloadHeatLimit {...props} />;
     case ACTION_SETPOINT:
       return <ActionPayloadSetpoint {...props} />;
     case ACTION_TOGGLE:

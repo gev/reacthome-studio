@@ -81,6 +81,7 @@ import CardModbus from './CardModbus';
 import CardVarmann from './CardVarmann';
 import CardIntesisBox from './CardIntesisBox';
 import CardZigbee from './CardZigbee';
+import CardHeater from './CardHeater';
 
 type Props = {
   type: ?string
@@ -113,8 +114,6 @@ const Container = (props: Props) => {
     case MOTION_SENSOR:
     case LEAKAGE_SENSOR:
       return <CardDi {...props} />;
-    case WARM_FLOOR:
-    case VALVE_HEATING:
     case VALVE_WATER:
     case SOCKET_220:
     case LIGHT_220:
@@ -123,6 +122,9 @@ const Container = (props: Props) => {
     case PUMP:
     case FAN:
       return <CardDo {...props} />;
+    case VALVE_HEATING:
+    case WARM_FLOOR:
+      return <CardHeater {...props} />;
     case CURTAINS:
       return <CardClosure {...props} />;
     case LIGHT_RGB:

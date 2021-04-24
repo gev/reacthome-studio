@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
-import { getCommands } from 'reacthome-ircodes';
+import { codes } from 'reacthome-ircodes';
 import { TV } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
@@ -18,14 +18,14 @@ class Container extends Component<Props> {
 
   async componentWillMount() {
     const { brand, model } = this.props;
-    const commands = await getCommands(TV, brand, model);
-    this.setState({ commands: commands.map(i => i.split('.')[0]) });
+    const { command = {} } = ((codes[TV] || {})[brand] || {})[model] || {};
+    this.setState({ commands: Object.keys(command) });
   }
 
   async componentWillReceiveProps(props) {
     const { brand, model } = props;
-    const commands = await getCommands(TV, brand, model);
-    this.setState({ commands: commands.map(i => i.split('.')[0]) });
+    const { command = {} } = ((codes[TV] || {})[brand] || {})[model] || {};
+    this.setState({ commands: Object.keys(command) });
   }
 
   render() {

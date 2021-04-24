@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getBrands, getModels } from 'reacthome-ircodes';
+import { codes } from 'reacthome-ircodes';
 import { Button } from '@rmwc/button';
 import {
   Card,
@@ -31,15 +31,13 @@ type Props = {
   makeBind: (id: string, bind: string) => void
 };
 
+const brands = codes[TV] || {};
+
 class Container extends Component<Props> {
-  state = {
-    brands: [], models: []
-  };
-  async componentWillMount() {
-    this.setState({
-      brands: await getBrands(TV) || [],
-      models: await getModels(TV, this.props.brand) || []
-    });
+  state = { models: [] };
+  componentWillMount() {
+    const models = brands[this.props.brand] || {};
+    this.setState({ models: Object.keys(models) });
   }
   change = (event) => {
     const { change } = this.props;
@@ -50,15 +48,16 @@ class Container extends Component<Props> {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
-  selectBrand = async (brand) => {
-    this.setState({ models: await getModels(TV, brand) || [] });
+  selectBrand = (brand) => {
+    const models = brands[brand] || {};
+    this.setState({ models: Object.keys(models) });
     this.props.change({ brand, model: null });
   }
   selectModel = (model) => {
     this.props.change({ model });
   }
   render() {
-    const { brands, models } = this.state;
+    const { models } = this.state;
     const {
       code, project, bind, title, brand, model, removeField
     } = this.props;
@@ -74,7 +73,7 @@ class Container extends Component<Props> {
           <SelectMenu
             handle={<Button theme={brand ? 'primary' : 'text-hint-on-background'}>{brand || 'brand'}</Button>}
             onSelect={this.selectBrand}
-            options={brands}
+            options={Object.keys(brands)}
           />
           <SelectMenu
             handle={<Button theme={model ? 'primary' : 'text-hint-on-background'}>{model || 'model'}</Button>}
@@ -105,7 +104,7 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
+  ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
     project, parent, id, field, multiple
   }) => bindActionCreators({

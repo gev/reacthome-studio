@@ -12,6 +12,7 @@ import {
   DRIVER,
   DRIVER_TYPE_RS21,
   ELECTRICITY_METER,
+  THERMOSTAT,
 } from '../../constants';
 import SiteDetails from './DetailsSite';
 import ProjectDetails from './DetailsProject';
@@ -25,6 +26,7 @@ import ScriptDetails from './DetailsScript';
 import DriverDetails from './DetailsDriver';
 import RS21Details from './DetailsRS21';
 import ElectricityMeterDetails from './DetailsElectricityMeter';
+import DetailsThermostat from './DetailsThermostat';
 
 type Props = {
   type: ?string,
@@ -43,6 +45,7 @@ export default (props: Props) => {
   if (field === DRIVER_TYPE_RS21) return <RS21Details {...props} />;
   if (field === DOPPLER) return <DopplerDetails {...props} />;
   if (field === ELECTRICITY_METER) return <ElectricityMeterDetails {...props} />;
+  if (field === THERMOSTAT) return <DetailsThermostat {...props} />;
   // if (field === TV) return <TVDetails {...props} />;
   if (field === SCENE) return <SceneDetails {...props} />;
   if (field) return <FieldDetails {...props} />;

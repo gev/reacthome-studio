@@ -1,8 +1,10 @@
 
+import { codes } from 'reacthome-ircodes';
 import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Button } from '@rmwc/button';
 import {
   Card,
   CardAction,
@@ -11,10 +13,11 @@ import {
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE, TITLE } from '../../../constants';
+import { AC, CODE, TITLE } from '../../../constants';
 import SelectChannel from './SelectChannel';
 import SelectThermostat from './SelectThermostat';
 import IR from './CardIRBind';
+import { SelectMenu } from '../../../components';
 
 type Props = {
   id: string;
@@ -27,7 +30,14 @@ type Props = {
   makeBind: (id: string, bind: string) => void
 };
 
+const brands = codes[AC] || {};
+
 class Container extends Component<Props> {
+  state = { models: [] };
+  componentWillMount() {
+    const models = brands[this.props.brand] || {};
+    this.setState({ models: Object.keys(models) });
+  }
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -40,9 +50,18 @@ class Container extends Component<Props> {
   selectThermostat = (thermostat) => {
     this.props.change({ thermostat });
   }
+  selectBrand = (brand) => {
+    const models = brands[brand] || {};
+    this.setState({ models: Object.keys(models) });
+    this.props.change({ brand, model: null });
+  }
+  selectModel = (model) => {
+    this.props.change({ model });
+  }
   render() {
+    const { models } = this.state;
     const {
-      code, project, bind, title, removeField, id
+      code, project, bind, title, removeField, id, brand, model
     } = this.props;
     return (
       <Card>
@@ -51,6 +70,18 @@ class Container extends Component<Props> {
         </div>
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
+        </div>
+        <div className="paper">
+          <SelectMenu
+            handle={<Button theme={brand ? 'primary' : 'text-hint-on-background'}>{brand || 'brand'}</Button>}
+            onSelect={this.selectBrand}
+            options={Object.keys(brands)}
+          />
+          <SelectMenu
+            handle={<Button theme={model ? 'primary' : 'text-hint-on-background'}>{model || 'model'}</Button>}
+            onSelect={this.selectModel}
+            options={models}
+          />
         </div>
         <div className="paper">
           <SelectThermostat id={id} root={project} />

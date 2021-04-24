@@ -11,6 +11,7 @@ import {
   DEVICE_TYPE_IR6,
   DEVICE_TYPE_IR_4,
 } from '../../../constants';
+import { send } from '../../../websocket/peer';
 
 type Props = {
   id: string,
