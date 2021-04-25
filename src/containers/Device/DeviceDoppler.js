@@ -63,30 +63,30 @@ class Doppler extends Component<PropsType> {
     max: 0
   }
 
-  // componentDidMount() {
-  //   this.t = setInterval(this.tick, 100);
-  // }
+  componentDidMount() {
+    this.t = setInterval(this.tick, 100);
+  }
 
-  // componentWillReceiveProps() {
-  //   this.tick();
-  // }
+  componentWillReceiveProps() {
+    this.tick();
+  }
 
-  // shouldComponentUpdate({ value }) {
-  //   return value !== this.props.value;
-  // }
+  shouldComponentUpdate({ value }) {
+    return value !== this.props.value;
+  }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.t);
-  // }
+  componentWillUnmount() {
+    clearInterval(this.t);
+  }
 
-  // componentDidUpdate({ value }) {
-  //   if (value !== this.props.value) {
-  //     this.tick();
-  //   }
-  // }
+  componentDidUpdate({ value }) {
+    if (value !== this.props.value) {
+      this.tick();
+    }
+  }
 
   tick = () => {
-    const { value } = this.props;
+    const {value} = this.props;
     const { max, data } = this.state;
     const a = [...data.datasets[0].data.slice(1), value];
     this.setState({
@@ -108,17 +108,17 @@ class Doppler extends Component<PropsType> {
   };
 
   render() {
-    const { raw = [] } = this.props;
-    // const { data } = this.state;
-    const data = {
-      labels: new Array(raw.length).fill(''),
-      datasets: [
-        {
-          ...art('raw'),
-          data: raw
-        }
-      ]
-    };
+    // const { raw = [] } = this.props;
+    const { data } = this.state;
+    // const data = {
+    //   labels: new Array(raw.length).fill(''),
+    //   datasets: [
+    //     {
+    //       ...art('raw'),
+    //       data: raw
+    //     }
+    //   ]
+    // };
     return (
       <div className="paper">
         <div>
