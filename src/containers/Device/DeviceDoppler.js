@@ -60,11 +60,11 @@ type PropsType = {
 class Doppler extends Component<PropsType> {
   state = {
     data: initialData,
-    max: 0
+    raw: [],
   }
 
   componentDidMount() {
-    this.t = setInterval(this.tick, 64, 0);
+    this.t = setInterval(this.tick, 200, 0);
   }
 
   componentWillReceiveProps() {
@@ -74,7 +74,7 @@ class Doppler extends Component<PropsType> {
   componentWillUnmount() {
     clearInterval(this.t);
   }
-
+  
   tick = () => {
     const {value} = this.props;
     const { max, data } = this.state;
@@ -98,17 +98,17 @@ class Doppler extends Component<PropsType> {
   };
 
   render() {
-    const { raw = [] } = this.props;
-    // const { data } = this.state;
-    const data = {
-      labels: new Array(raw.length).fill(''),
-      datasets: [
-        {
-          ...art('raw'),
-          data: raw
-        }
-      ]
-    };
+    // const { raw = [] } = this.props;
+    const { data } = this.state;
+    // const data = {
+    //   labels: new Array(raw.length).fill(''),
+    //   datasets: [
+    //     {
+    //       ...art('raw'),
+    //       data: raw
+    //     }
+    //   ]
+    // };
     return (
       <div className="paper">
         <div>
