@@ -50,7 +50,7 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "debounce": "^1.1.0",
     "electron-packager": "^13.1.1",
     "fast-deep-equal": "gev/fast-deep-equal",
