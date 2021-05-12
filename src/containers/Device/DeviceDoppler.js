@@ -64,7 +64,7 @@ class Doppler extends Component<PropsType> {
   }
 
   componentDidMount() {
-    this.t = setInterval(this.tick, 200, 0);
+    // this.t = setInterval(this.tick, 200, 0);
   }
 
   componentWillReceiveProps() {
@@ -74,9 +74,9 @@ class Doppler extends Component<PropsType> {
   componentWillUnmount() {
     clearInterval(this.t);
   }
-  
+
   tick = () => {
-    const {value} = this.props;
+    const { value } = this.props;
     const { max, data } = this.state;
     const a = [...data.datasets[0].data.slice(1), value];
     this.setState({
