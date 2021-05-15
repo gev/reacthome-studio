@@ -67,6 +67,7 @@ export const ACTION_GROUP = 0x02;
 export const ACTION_DI_RELAY_SYNC = 0x03;
 export const ACTION_IR = 0x10;
 export const ACTION_IR_CONFIG = 0x11;
+export const ACTION_LANAMP = 0x20;
 export const ACTION_RS485_MODE = 0xa0;
 export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
@@ -258,6 +259,7 @@ export const GROUP = 'group';
 export const ARTNET = 'artnet';
 export const RS485 = 'rs485';
 export const ZIGBEE = 'zigbee';
+export const LANAMP = 'lanamp';
 
 export const TEMPERATURE = 'temperature';
 export const HUMIDITY = 'humidity';
