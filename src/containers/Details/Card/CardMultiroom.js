@@ -11,7 +11,7 @@ import {
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE } from '../../../constants';
+import { CODE, TITLE } from '../../../constants';
 import Multiroom from './CardMultiroomBind';
 import SelectMutiroomZone from './SelectMutiroomZone';
 
@@ -37,10 +37,13 @@ class Container extends Component<Props> {
   }
   render() {
     const {
-      code, project, bind, removeField, daemon,
+      title, code, project, bind, removeField, daemon,
     } = this.props;
     return (
       <Card>
+        <div className="paper">
+          <TextField id={TITLE} value={title || ''} onChange={this.change} placeholder="Untitled" fullwidth />
+        </div>
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
