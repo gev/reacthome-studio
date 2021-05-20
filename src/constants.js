@@ -128,6 +128,8 @@ export const DEVICE_TYPE_TEMPERATURE_EXT = 0xf0;
 export const DEVICE_TYPE_PLC = 0xfe;
 export const DEVICE_TYPE_BOOTLOADER = 0xff;
 
+export const ACTION_MULTIROOM_ZONE = 'ACTION_MULTIROOM_ZONE';
+
 export const DRIVER_TYPE_ARTNET = 'ARTNET';
 export const DRIVER_TYPE_RS21 = 'RS21';
 export const DRIVER_TYPE_BB_PLC1 = 'BB_PLC1';
@@ -260,6 +262,8 @@ export const ARTNET = 'artnet';
 export const RS485 = 'rs485';
 export const ZIGBEE = 'zigbee';
 export const LANAMP = 'lanamp';
+export const MONO = 'mono';
+export const STEREO = 'stereo';
 
 export const TEMPERATURE = 'temperature';
 export const HUMIDITY = 'humidity';

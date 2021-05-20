@@ -48,6 +48,7 @@ import {
   DRIVER_TYPE_VARMANN,
   DRIVER_TYPE_INTESIS_BOX,
   ZIGBEE,
+  MULTIROOM,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -82,6 +83,7 @@ import CardVarmann from './CardVarmann';
 import CardIntesisBox from './CardIntesisBox';
 import CardZigbee from './CardZigbee';
 import CardHeater from './CardHeater';
+import CardMultiroom from './CardMultiroom';
 
 type Props = {
   type: ?string
@@ -168,6 +170,8 @@ const Container = (props: Props) => {
       return <CardVarmann {...props} />;
     case DRIVER_TYPE_INTESIS_BOX:
       return <CardIntesisBox {...props} />;
+    case MULTIROOM:
+      return <CardMultiroom {...props} />;
     default:
       return <CardDefault {...props} />;
   }
