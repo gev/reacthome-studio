@@ -12,8 +12,8 @@ import {
   CardActionIcons
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
-import { remove, modify, makeBind } from '../../../actions';
-import { CODE, TITLE, TV } from '../../../constants';
+import { remove, modify, makeBind, request } from '../../../actions';
+import { ACTION_IR_CONFIG, CODE, TITLE, TV } from '../../../constants';
 import SelectIR from './SelectIR';
 import IR from './CardIRBind';
 import { SelectMenu } from '../../../components';
@@ -44,9 +44,9 @@ class Container extends Component<Props> {
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  selectIR = (bind) => {
-    const { id } = this.props;
-    this.props.makeBind(id, bind);
+  selectIR = (dev, index) => {
+    const { brand, model } = this.props;
+    this.props.config(dev, index, brand, model);
   }
   selectBrand = (brand) => {
     const models = brands[brand] || {};
@@ -54,7 +54,9 @@ class Container extends Component<Props> {
     this.props.change({ brand, model: null });
   }
   selectModel = (model) => {
-    this.props.change({ model });
+    const { bind = '', brand } = this.props;
+    const [dev, , index] = bind.split('/');
+    this.props.config(dev, index, brand, model);
   }
   render() {
     const { models } = this.state;
@@ -106,11 +108,14 @@ class Container extends Component<Props> {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
-    project, parent, id, field, multiple
+    project, parent, id, field, multiple, daemon,
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
     change: (payload) => modify(id, payload),
+    config: (dev, index, brand, model) => request(daemon, {
+      type: ACTION_IR_CONFIG, id, dev, index, brand, model
+    }),
     makeBind
   }, dispatch)
 )(Container);

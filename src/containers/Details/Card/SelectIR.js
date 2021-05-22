@@ -77,7 +77,7 @@ class Container extends Component<Props> {
   }
   selectIR = (index) => {
     this.setState({ index });
-    this.props.onSelect(`${this.state.dev}/${IR}/${index}`);
+    this.props.onSelect(this.state.dev, index);
   }
   render() {
     const { dev, index } = this.state;
