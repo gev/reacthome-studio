@@ -28,7 +28,10 @@ import {
   ACTION_SCHEDULE_STOP,
   RING,
   ACTION_SETPOINT,
-  ACTION_LIMIT_HEATING_HANDLE
+  ACTION_LIMIT_HEATING_HANDLE,
+  ACTION_OPEN,
+  ACTION_CLOSE,
+  ACTION_STOP
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -63,6 +66,9 @@ const Container = (props: Props) => {
     case ACTION_ENABLE:
     case ACTION_OFF:
     case ACTION_ON:
+    case ACTION_OPEN:
+    case ACTION_CLOSE:
+    case ACTION_STOP:
       return <ActionPayloadOnOff {...props} />;
     case ACTION_DIM:
       return <ActionPayloadDim {...props} />;

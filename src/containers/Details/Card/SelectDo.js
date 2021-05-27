@@ -76,6 +76,18 @@ const Do = c(({
       n = 24;
       t = DO;
       break;
+    case DEVICE_TYPE_RELAY_6:
+      n = 6;
+      t = DO;
+      break;
+    case DEVICE_TYPE_RELAY_12:
+      n = 12;
+      t = DO;
+      break;
+    case DEVICE_TYPE_RELAY_24:
+      n = 24;
+      t = DO;
+      break;
     case DEVICE_TYPE_PLC:
       n = 24;
       t = DO;

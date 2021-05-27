@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button } from '@rmwc/button';
 import { SCRIPT } from '../../constants';
 import SelectMenu from './SelectMenu';
@@ -16,11 +17,16 @@ type Props = {
 class Container extends Component<Props> {
   render() {
     const {
-      id, title, code, options, onSelect
+      id, project, title, code, options, onSelect
     } = this.props;
     return (
       <SelectMenu
-        handle={<Button theme={id ? 'primary' : 'text-hint-on-background'}>{code || title || SCRIPT}</Button>}
+        handle={
+          <div>
+            <Button theme={id ? 'primary' : 'text-hint-on-background'}>{code || title || SCRIPT}</Button>
+            <Link to={`/project/${project}/${id}`}>.</Link>
+          </div>
+          }
         onSelect={onSelect}
         options={options}
       />
