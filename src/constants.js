@@ -137,6 +137,7 @@ export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
 export const DRIVER_TYPE_M206 = 'M206';
 export const DRIVER_TYPE_M230 = 'M230';
 export const DRIVER_TYPE_MODBUS = 'MODBUS';
+export const DRIVER_TYPE_NOVA = 'NOVA';
 export const DRIVER_TYPE_VARMANN = 'VARMANN';
 export const DRIVER_TYPE_INTESIS_BOX = 'INTESIS_BOX';
 
@@ -630,5 +631,8 @@ export const DRIVER_TYPES = {
   },
   [DRIVER_TYPE_INTESIS_BOX]: {
     title: 'Imtesis Box'
+  },
+  [DRIVER_TYPE_NOVA]: {
+    title: 'Nova'
   },
 };
