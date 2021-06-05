@@ -68,6 +68,7 @@ export default connect(ARTNET)((props: Props) => {
           max={255}
           value={value || 0}
           onInput={setValue}
+          discrete
         />
       </td>
       <td className="paper">

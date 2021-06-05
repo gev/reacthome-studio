@@ -111,7 +111,7 @@ class Doppler extends Component<PropsType> {
           <Line style={{ height: '200 px' }} data={data} options={optDoppler} />
         </div>
         <div>
-          <Slider value={gain} min={0} max={255} step={1} onInput={this.setGain} />
+          <Slider value={gain} min={0} max={255} step={1} onInput={this.setGain} discrete />
         </div>
         <div style={{ textAlign: 'center' }}>
           <Typography use="content">Gain {gain + 1}</Typography>

@@ -24,6 +24,7 @@ class Container extends Component<Props> {
         step={1}
         value={value}
         onInput={this.input}
+        discrete
       />
     );
   }
