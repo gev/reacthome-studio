@@ -26,6 +26,7 @@ import {
   ENDPOINT,
   GROUP,
   DEVICE_TYPE_RELAY_2_DIN,
+  DEVICE_TYPE_MIX_2,
 } from '../../../constants';
 
 type Props = {
@@ -63,6 +64,7 @@ const Do = c(({
       hasGroups = major >= 2;
       break;
     case DEVICE_TYPE_RELAY_6:
+    case DEVICE_TYPE_MIX_2:
       n = 6;
       t = DO;
       hasGroups = major >= 2;
@@ -71,18 +73,6 @@ const Do = c(({
       n = 12;
       t = DO;
       hasGroups = major >= 2;
-      break;
-    case DEVICE_TYPE_RELAY_24:
-      n = 24;
-      t = DO;
-      break;
-    case DEVICE_TYPE_RELAY_6:
-      n = 6;
-      t = DO;
-      break;
-    case DEVICE_TYPE_RELAY_12:
-      n = 12;
-      t = DO;
       break;
     case DEVICE_TYPE_RELAY_24:
       n = 24;
