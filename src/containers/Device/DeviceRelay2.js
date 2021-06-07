@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import Di from './DeviceDiChannel';
+import DeviceDiRelaySync from './DeviceDiRelaySync';
 import Do from './DeviceDoChannel';
 
 type Props = {
@@ -46,7 +47,8 @@ export default class extends Component<Props> {
         <tbody>
           <RowDo id={id} daemon={daemon} index={1} />
         </tbody>
-      </table>
+      </table>,
+      <DeviceDiRelaySync key="sync" id={id} daemon={daemon} di={2} relay={2} />
     ];
   }
 }
