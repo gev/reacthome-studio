@@ -51,7 +51,18 @@ export const ACTION_TOGGLE = 'ACTION_TOGGLE';
 export const ACTION_TV = 'ACTION_TV';
 export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
+export const ACTION_STOP = 'ACTION_STOP';
+export const ACTION_OPEN = 'ACTION_OPEN';
+export const ACTION_CLOSE = 'ACTION_CLOSE';
+
+export const CLOSURE = 'closure';
+export const STOP = 'stop';
+export const OPEN = 'open';
+export const CLOSE = 'close';
+
 export const ACTION_DO = 0x00;
+export const ACTION_GROUP = 0x02;
+export const ACTION_DI_RELAY_SYNC = 0x03;
 export const ACTION_RS485_MODE = 0xa0;
 export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
@@ -100,6 +111,10 @@ export const DEVICE_TYPE_DIM_4 = 0xa3;
 export const DEVICE_TYPE_DIM_8 = 0xa4;
 export const DEVICE_TYPE_LAN_AMP = 0xa5;
 export const DEVICE_TYPE_RSHUB = 0xa6;
+export const DEVICE_TYPE_RELAY_2_DIN = 0xa7;
+export const DEVICE_TYPE_DI_8_DIN = 0xa8;
+export const DEVICE_TYPE_AO_4_DIN = 0xa9;
+export const DEVICE_TYPE_MIX_2 = 0xaa;
 
 export const DEVICE_TYPE_PNP = 0xe0;
 
@@ -208,6 +223,12 @@ export const ACCESS_POINT = 'access_point';
 export const CAMERA = 'camera';
 export const INTERCOM = 'intercom';
 export const SIP_USER = 'SIP_user';
+export const ALARM = 'alarm';
+export const ENDPOINT = 'endpoint';
+export const LEVEL = 'level';
+export const COLOR = 'color';
+export const CURTAINS = 'curtains';
+export const RING = 'ring';
 
 export const MODEL = 'model';
 
@@ -217,8 +238,12 @@ export const IR = 'ir';
 export const DO = 'do';
 export const DI = 'di';
 export const DIM = 'dim';
+export const GROUP = 'group';
 export const ARTNET = 'artnet';
 export const RS485 = 'rs485';
+export const TEMPERATURE = 'temperature';
+export const HUMIDITY = 'humidity';
+export const ILLUMINATION = 'illumination';
 
 export const ARTNET_OFF = 0x0;
 export const ARTNET_ON = 0x1;
@@ -283,6 +308,10 @@ export const ACTION_TYPE = [
   ACTION_SITE_LIGHT_DIM_RELATIVE,
   ACTION_SITE_LIGHT_OFF,
   ACTION_RGB_DIM,
+  ACTION_OPEN,
+  ACTION_CLOSE,
+  ACTION_STOP,
+
   ACTION_SETPOINT,
   ACTION_TIMER_START,
   ACTION_TIMER_STOP,
@@ -309,6 +338,9 @@ export const onOff = 'onOff';
 export const onOn = 'onOn';
 export const onHold = 'onHold';
 export const onClick = 'onClick';
+export const onOpen = 'onOpen';
+export const onClose = 'onClose';
+export const onStop = 'onStop';
 export const onDoppler = 'onDoppler';
 export const onHighThreshold = 'onHighThreshold';
 export const onLowThreshold = 'onLowThreshold';
@@ -353,6 +385,12 @@ export const COMPARATORS = [
   OPERATOR_GE,
   OPERATOR_GT
 ];
+
+export const OPEN_CLOSE = 'open_close';
+export const CLOSE_OPEN = 'close_open';
+export const LEFT_RIGTH = 'left_right';
+export const RIGTH_LEFT = 'right_left';
+export const UP_DOWN = 'up_down';
 
 export const DEVICE_TYPES = {
   [DEVICE_TYPE_UNKNOWN]: {
@@ -447,7 +485,11 @@ export const DEVICE_TYPES = {
     title: 'DI 4',
     hasFindMeAction: true
   },
-  [DEVICE_TYPE_DIM4]: {
+  [DEVICE_TYPE_DI_8_DIN]: {
+    title: 'DI 8',
+    hasFindMeAction: true
+  },
+[DEVICE_TYPE_DIM4]: {
     title: 'Dimmer 4',
     firmware: 'dim4',
     hasFindMeAction: true
@@ -481,6 +523,10 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_RELAY_2]: {
     title: 'Relay 2',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_RELAY_2_DIN]: {
+    title: 'Relay 2 DIN',
     hasFindMeAction: true,
   },
   [DEVICE_TYPE_RELAY_6]: {

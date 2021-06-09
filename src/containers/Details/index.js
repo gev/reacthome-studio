@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { TextField } from '@rmwc/textfield';
 import { modify, create, add, addBind, remove } from '../../actions';
-import { TITLE, CODE } from '../../constants';
+import { CODE, TITLE } from '../../constants';
 import AbstractDetails from './DetailsAbstract';
 import Details from './Details';
 

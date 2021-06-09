@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Typography } from '@rmwc/typography';
 import { modify } from '../../../actions';
-import { onOff, onOn, DO_OFF, DO_ON } from '../../../constants';
+import { onOff, onOn, DO_OFF, DO_ON, GROUP, onOpen, onStop, onClose, OPEN, CLOSE, STOP } from '../../../constants';
 import SelectScript from '../SelectScript';
 
 type Props = {
@@ -50,12 +50,21 @@ const Action = (props: ActionProps) => {
   );
 };
 
-const Container = (props : Props) => (
-  <tr>
-    <Action {...props} action={onOff} test={DO_OFF} title="OFF" />
-    <Action {...props} action={onOn} test={DO_ON} title="ON" />
-  </tr>
-);
+const Container = (props : Props) => {
+  const type = props.id.split('/')[1];
+  return (type === GROUP) ? (
+    <tr>
+      <Action {...props} action={onOpen} test={OPEN} title="Open" />
+      <Action {...props} action={onStop} test={STOP} title="Stop" />
+      <Action {...props} action={onClose} test={CLOSE} title="Close" />
+    </tr>
+  ) : (
+    <tr>
+      <Action {...props} action={onOff} test={DO_OFF} title="OFF" />
+      <Action {...props} action={onOn} test={DO_ON} title="ON" />
+    </tr>
+  );
+};
 
 export default connect(
   ({ pool }, { id }) => pool[id] || {},

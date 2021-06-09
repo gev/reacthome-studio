@@ -27,6 +27,7 @@ export default class extends Component<Props> {
   render() {
     const { id, daemon } = this.props;
     return ([
+      
       <table key="relay">
         <tbody>
           <Row id={id} daemon={daemon} index={1} />

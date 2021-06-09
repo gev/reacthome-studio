@@ -25,7 +25,11 @@ import {
   ACTION_DISABLE,
   ACTION_ENABLE,
   ACTION_SCHEDULE_START,
-  ACTION_SCHEDULE_STOP
+  ACTION_SCHEDULE_STOP,
+  ACTION_OPEN,
+  ACTION_CLOSE,
+  ACTION_STOP
+
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -57,6 +61,9 @@ const Container = (props: Props) => {
     case ACTION_ENABLE:
     case ACTION_OFF:
     case ACTION_ON:
+    case ACTION_OPEN:
+    case ACTION_CLOSE:
+    case ACTION_STOP:
       return <ActionPayloadOnOff {...props} />;
     case ACTION_DIM:
       return <ActionPayloadDim {...props} />;

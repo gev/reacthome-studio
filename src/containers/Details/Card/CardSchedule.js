@@ -13,7 +13,8 @@ import {
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import { remove, modify } from '../../../actions';
-import { TITLE, CODE } from '../../../constants';
+import { TITLE, CODE, SCHEDULE } from '../../../constants';
+import SelectScript from '../SelectScript';
 
 type Props = {
   code: ?string,

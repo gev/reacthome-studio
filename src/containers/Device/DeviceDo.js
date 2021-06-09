@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Switch } from '@rmwc/switch';
-import { ENDPOINT, ACTION_DO } from '../../constants';
+import { ACTION_DO } from '../../constants';
 import connect from './connect';
 
 type Props = {

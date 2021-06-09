@@ -34,7 +34,7 @@ export default class extends Component<Props> {
             <Grid>
               {
                 Array.isArray(children)
-                  ? children.map(i => <GridCell key={i.key} span={3}>{i}</GridCell>)
+                  ? children.map(i => <GridCell key={i.key} span={4}>{i}</GridCell>)
                   : <GridCell span={3}>{children}</GridCell>
               }
             </Grid>

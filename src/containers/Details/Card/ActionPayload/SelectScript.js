@@ -6,7 +6,6 @@ import { Button } from '@rmwc/button';
 import { SCRIPT } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
-import { Link } from 'react-router-dom';
 
 type Props = {
   title: ?string,
@@ -23,16 +22,11 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      script, project, title, code, options, field
+      title, code, options, field
     } = this.props;
     return (
       <SelectMenu
-        handle={(
-          <div>
-            <Button>{code || title || field || SCRIPT}</Button>
-            <Link to={`/project/${project}/${script}`}>.</Link>
-          </div>
-        )}
+        handle={<Button>{code || title || field || SCRIPT}</Button>}
         onSelect={this.select}
         options={options}
       />
@@ -52,7 +46,6 @@ const filter = (pool, root, a = []) => {
 export default connect(
   ({ pool }, { project, payload = {}, field = SCRIPT }) => ({
     ...pool[payload[field]],
-    script: payload[field],
     options: pool[project].script
   }),
   (dispatch, { action, payload, field = SCRIPT }) => bindActionCreators({

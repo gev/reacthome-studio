@@ -23,7 +23,6 @@ import {
   DEVICE_TYPE_RELAY_6,
   DEVICE_TYPE_RELAY_12,
   DEVICE_TYPE_RELAY_24,
-  ENDPOINT,
   GROUP,
 } from '../../../constants';
 
@@ -100,25 +99,13 @@ const Do = c(({
     default:
       n = 0;
   }
-  if (n === 0) {
-    if (Array.isArray(endpoint)) {
-      endpoint.forEach(e => {
-        if (e.cluster.includes('closure')) {
-          a.push((
-            <MenuItem key={`o${e.id}`} index={e.id} onClick={select(e.id, ENDPOINT)} id={`${id}/${ENDPOINT}/${e.id}`} />
-          ));
-        }
-      });
-    }
-  } else {
-    for (let i = 1; i <= n; i += 1) {
-      a.push((
-        <MenuItem key={`o${i}`} index={i} onClick={select(i, GROUP)} id={`${id}/${GROUP}/${i}`} />
-      ));
-    }
+  for (let i = 1; i <= n; i += 1) {
+    a.push((
+      <MenuItem key={`o${i}`} index={i} onClick={select(i, GROUP)} id={`${id}/${GROUP}/${i}`} />
+    ));
   }
   return (
-    <SimpleMenu handle={<Button>{ENDPOINT} {index}</Button>}>
+    <SimpleMenu handle={<Button>select {index}</Button>}>
       {a}
     </SimpleMenu>
   );
