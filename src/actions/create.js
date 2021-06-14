@@ -75,7 +75,10 @@ export const remove = (id, field, subject) => (dispatch, getState) => {
   const prev = getState().pool[id];
   if (!prev || !prev[field] || !prev[field].includes(subject)) return;
   dispatch(modify(id, { [field]: prev[field].filter(i => i !== subject) }));
-  dispatch(modify(subject, { [prev.type || BIND]: null }));
+  const subj = getState().pool[subject];
+  if (subj && subj[prev.type || BIND]) {
+    dispatch(modify(subject, { [prev.type || BIND]: null }));
+  }
 };
 
 export const attach = (id, field, file) => (dispatch) => {
@@ -112,7 +115,7 @@ export const makeBind = (id, payload, bind = BIND, ref) => (dispatch, getState) 
 
 export const addBind = (id, field, subject, bind = BIND) => (dispatch, getState) => {
   const { pool } = getState();
-  if (pool[subject]) dispatch(remove(pool[subject][bind], field, bind));
+  if (pool[subject]) dispatch(remove(pool[subject][bind], field, subject));
   dispatch(add(id, field, subject));
   dispatch(modify(subject, { [bind]: id }));
 };
