@@ -24,8 +24,8 @@ export default () => (dispatch) => {
         }
         payload.ip = address;
         delete payload.online;
-        dispatch(set(id, payload));
-        dispatch(add(ROOT, DAEMON, id));
+        //dispatch(set(id, payload));
+        //dispatch(add(ROOT, DAEMON, id));
       }
     } catch (e) {
       console.error(e);
