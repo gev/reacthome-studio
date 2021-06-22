@@ -15,6 +15,7 @@ import { init } from './assets';
 import { STATE_JSON } from './assets/constants';
 import { readFile, exists } from './fs';
 import discovery from './discovery';
+import { offline } from './websocket/online';
 
 const history = createHashHistory();
 
@@ -25,8 +26,8 @@ export default class extends Component {
     await init();
     const pool = ((await exists(STATE_JSON)) ? JSON.parse(await readFile(STATE_JSON)) : {});
     const store = createStore(reducer, { pool }, history);
-    // const { root } = store.getState().pool;
-    // if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
+    const { root } = store.getState().pool;
+    if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
     // ACTION_TYPE.forEach((a) => {
     //   store.dispatch(modify(a, { type: ACTION, code: a }));
     // });

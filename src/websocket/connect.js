@@ -3,6 +3,7 @@ import handle from './handle';
 import { peers } from './peer';
 import { LOCAL_PORT, REMOTE_URI } from './constants';
 import { LIST } from '../init/constants';
+import { online } from './online';
 
 const PROTOCOL = 'connect';
 
@@ -36,6 +37,7 @@ export default (id) => (dispatch, getState) => {
       };
       peers.set(id, ws);
       ws.send(JSON.stringify({ type: LIST }));
+      dispatch(online(id));
     };
     // ws.onerror = console.error;
   };

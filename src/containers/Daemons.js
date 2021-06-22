@@ -25,7 +25,8 @@ type Props = {
 class Daemons extends Component<Props> {
   navigate = ({ id, project }) => () => {
     this.props.connectTo(id);
-    this.props.navigate(project);
+    this.props.navigate(id);
+    this.props.add(ROOT, DAEMON, id);
     this.props.add(ROOT, PROJECT, project);
   };
 
@@ -62,7 +63,7 @@ class Daemons extends Component<Props> {
 
 export default connect(
   ({ pool }) => ({
-    daemon: ((pool.root || {}).daemon || []).map(id => ({ id, ...pool[id] })) // .filter(d => d.project)
+    daemon: ((pool.root || {}).daemon || []).map(id => ({ id, ...pool[id] })).filter(d => d.online)
   }),
   (dispatch) => bindActionCreators({
     navigate: (id) => push(`/project/${id}`),
