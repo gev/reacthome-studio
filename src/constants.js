@@ -603,6 +603,12 @@ export const DEVICE_TYPES = {
   [DEVICE_TYPE_TEMPERATURE_EXT]: {
     title: 'External temperature'
   },
+  [DEVICE_TYPE_MIX_1]: {
+    title: 'MIX1'
+  },
+  [DEVICE_TYPE_MIX_2]: {
+    title: 'MIX2'
+  },
 };
 
 export const DRIVER_TYPES = {
