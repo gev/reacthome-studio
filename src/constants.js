@@ -120,7 +120,7 @@ export const DEVICE_TYPE_RELAY_2_DIN = 0xa7;
 export const DEVICE_TYPE_DI_8_DIN = 0xa8;
 export const DEVICE_TYPE_AO_4_DIN = 0xa9;
 export const DEVICE_TYPE_MIX_2 = 0xaa;
-
+export const DEVICE_TYPE_MIX_1 = 0xab;
 export const DEVICE_TYPE_PNP = 0xe0;
 
 export const DEVICE_TYPE_TEMPERATURE_EXT = 0xf0;

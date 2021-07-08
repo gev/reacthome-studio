@@ -24,7 +24,7 @@ import {
   DEVICE_TYPE_RSHUB,
   DEVICE_TYPE_TEMPERATURE_EXT,
   ZIGBEE,
-  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP
+  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP, DEVICE_TYPE_MIX_1
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -49,7 +49,8 @@ import IrReceiver from './DeviceIRReceiver';
 import RSHub from './DeviceRSHub';
 import Zigbee from './DeviceZigbee';
 import Mix2 from './DeviceMix2';
-import DeviceLanamp from './DeviceLanamp';
+import Lanamp from './DeviceLanamp';
+import Mix1 from './DeviceMix1';
 
 type Props = {
   type: ?string
@@ -71,6 +72,7 @@ export default (props: Props) => {
     case DEVICE_TYPE_DO12: return <Do12 {...props} />;
     case DEVICE_TYPE_RELAY_2: return <Relay2 {...props} />;
     case DEVICE_TYPE_RELAY_2_DIN: return <Relay2DIN {...props} />;
+    case DEVICE_TYPE_MIX_1: return <Mix1 {...props} />;
     case DEVICE_TYPE_MIX_2: return <Mix2 {...props} />;
     case DEVICE_TYPE_RELAY_6: {
       const [major] = (props.version || '').split('.');
@@ -100,7 +102,7 @@ export default (props: Props) => {
     case DEVICE_TYPE_SMART_4: return <Sensor {...props} />;
     case DEVICE_TYPE_IR_RECEIVER: return <IrReceiver {...props} />;
     case DEVICE_TYPE_RSHUB: return <RSHub {...props} />;
-    case DEVICE_TYPE_LAN_AMP: return <DeviceLanamp {...props} />;
+    case DEVICE_TYPE_LAN_AMP: return <Lanamp {...props} />;
     default: {
       switch (props.protocol) {
         case ZIGBEE: return <Zigbee {...props} />;
