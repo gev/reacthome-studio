@@ -1,9 +1,9 @@
 
-import { codes } from 'reacthome-ircodes';
 import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { codes } from 'reacthome-ircodes';
 import { Button } from '@rmwc/button';
 import {
   Card,
@@ -12,10 +12,10 @@ import {
   CardActionIcons
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
-import { remove, modify, makeBind } from '../../../actions';
-import { AC, CODE, TITLE } from '../../../constants';
-import SelectChannel from './SelectChannel';
+import { remove, modify, makeBind, request } from '../../../actions';
+import { ACTION_IR_CONFIG, CODE, TITLE, AC } from '../../../constants';
 import SelectThermostat from './SelectThermostat';
+import SelectIR from './SelectIR';
 import IR from './CardIRBind';
 import { SelectMenu } from '../../../components';
 
@@ -25,6 +25,8 @@ type Props = {
   code: ?string,
   title: ?string;
   project: string,
+  brand: ?string,
+  model: ?string,
   change: (payload: {}) => void,
   removeField: () => void,
   makeBind: (id: string, bind: string) => void
@@ -43,12 +45,9 @@ class Container extends Component<Props> {
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  selectChannel = (bind) => {
-    const { id } = this.props;
-    this.props.makeBind(id, bind);
-  }
-  selectThermostat = (thermostat) => {
-    this.props.change({ thermostat });
+  selectIR = (dev, index) => {
+    const { brand, model } = this.props;
+    this.props.config(dev, index, brand, model);
   }
   selectBrand = (brand) => {
     const models = brands[brand] || {};
@@ -56,12 +55,14 @@ class Container extends Component<Props> {
     this.props.change({ brand, model: null });
   }
   selectModel = (model) => {
-    this.props.change({ model });
+    const { bind = '', brand } = this.props;
+    const [dev, , index] = bind.split('/');
+    this.props.config(dev, index, brand, model);
   }
   render() {
     const { models } = this.state;
     const {
-      code, project, bind, title, removeField, id, brand, model
+      code, project, bind, title, brand, model, removeField, id
     } = this.props;
     return (
       <Card>
@@ -87,7 +88,7 @@ class Container extends Component<Props> {
           <SelectThermostat id={id} root={project} />
         </div>
         <div className="paper">
-          <SelectChannel id={bind} root={project} onSelect={this.selectChannel} />
+          <SelectIR id={bind} root={project} onSelect={this.selectIR} />
         </div>
         {
           bind && (
@@ -109,13 +110,16 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
+  ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
-    project, parent, id, field, multiple
+    project, parent, id, field, multiple, daemon,
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
     change: (payload) => modify(id, payload),
+    config: (dev, index, brand, model) => request(daemon, {
+      type: ACTION_IR_CONFIG, id, dev, index, brand, model
+    }),
     makeBind
   }, dispatch)
 )(Container);
