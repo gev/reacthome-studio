@@ -16,7 +16,7 @@ type Props = {
 class GridBody extends Component<Props> {
   render() {
     const {
-      id, site = [], project, level = 0, onSelect
+      id, site, project, level = 0, onSelect
     } = this.props;
     return [
       <tr key={id} className={level === 0 ? styles.level0 : ''}>
@@ -28,7 +28,7 @@ class GridBody extends Component<Props> {
           ))
         }
       </tr>,
-      site.map(l => <Row key={`sub-${l}`} id={l} project={project} onSelect={onSelect} level={level + 1} />)
+      (site || []).map(l => <Row key={`sub-${l}`} id={l} project={project} onSelect={onSelect} level={level + 1} />)
     ];
   }
 }

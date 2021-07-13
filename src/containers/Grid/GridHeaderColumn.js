@@ -25,7 +25,7 @@ class GridHeaderColumn extends Component<Props> {
 
   render() {
     const {
-      id, title, code, project, site = [], level = 0, selected
+      id, title, code, project, site, level = 0, selected
     } = this.props;
     return [
       <tr key={id} className={level === 0 ? styles.level0 : ''}>
@@ -39,7 +39,7 @@ class GridHeaderColumn extends Component<Props> {
           </div>
         </td>
       </tr>,
-      site.map(l => <Row key={`sub-${l}`} id={l} level={level + 1} project={project} selected={selected} />)
+      (site || []).map(l => <Row key={`sub-${l}`} id={l} level={level + 1} project={project} selected={selected} />)
     ];
   }
 }
