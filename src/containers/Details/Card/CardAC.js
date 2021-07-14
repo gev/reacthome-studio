@@ -45,6 +45,7 @@ class Container extends Component<Props> {
     const { id, value } = event.target;
     change({ [id]: value });
   }
+
   selectIR = (dev, index) => {
     const { brand, model } = this.props;
     this.props.config(dev, index, brand, model);
