@@ -3,13 +3,9 @@ import React from 'react';
 import { Typography } from '@rmwc/typography';
 import { Switch } from '@rmwc/switch';
 import { Slider } from '@rmwc/slider';
-import { Button } from '@rmwc/button';
-import { SimpleMenu, MenuItem } from '@rmwc/menu';
 import {
   ACTION_DIMMER,
-  DIM_TYPES,
   DIM_SET,
-  DIM_TYPE,
   DIM_ON, DIM_OFF, AO
 } from '../../constants';
 import connect from './connect';
@@ -25,14 +21,8 @@ type Props = {
 
 export default connect(AO)((props: Props) => {
   const {
-    id, index, value, type, request
+    id, index, value, request
   } = props;
-
-  const setType = (t) => () => {
-    request({
-      type: ACTION_DIMMER, action: DIM_TYPE, id, index, value: t
-    });
-  };
 
   const setValue = (event) => {
     request({
@@ -50,15 +40,6 @@ export default connect(AO)((props: Props) => {
     <tr key="control">
       <td className="paper">
         <Typography use="caption">{index}</Typography>
-      </td>
-      <td className="paper">
-        <SimpleMenu handle={<Button>{DIM_TYPES[type] || 'Type'}</Button>}>
-          {
-            DIM_TYPES.map((v, i) => (
-              <MenuItem key={v} onClick={setType(i)}>{v}</MenuItem>
-            ))
-          }
-        </SimpleMenu>
       </td>
       <td className="paper" width="100%">
         <Slider

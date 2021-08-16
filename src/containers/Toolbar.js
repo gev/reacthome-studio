@@ -58,15 +58,19 @@ class MyToolbar extends Component<Props> {
             <ToolbarIcon icon="play_arrow" theme="text-primary-on-background" onClick={this.props.sendProject} />
             {/* <ToolbarIcon icon="file_upload" theme="text-primary-on-background" onClick={this.exportProject} /> */}
           </ToolbarSection>
-          <Button onClick={details}><ButtonIcon icon="star" />{PROJECT}</Button>
-          <Button onClick={model}><ButtonIcon icon="apps" />{MODEL}</Button>
-          <Button onClick={script}><ButtonIcon icon="web" />{SCRIPT}</Button>
-          <Button onClick={timer}><ButtonIcon icon="timer" />{TIMER}</Button>
-          <Button onClick={schedule}><ButtonIcon icon="event" />{SCHEDULE}</Button>
-          <Button onClick={clock}><ButtonIcon icon="access_time" />{CLOCK}</Button>
-          <Button onClick={location}><ButtonIcon icon="location_on" />{LOCATION}</Button>
-          <Button onClick={weather}><ButtonIcon icon="filter_drama" />{WEATHER}</Button>
-          <Button onClick={driver}><ButtonIcon icon="extension" />{DRIVER}</Button>
+          {project && (
+            <div>
+              <Button onClick={details}><ButtonIcon icon="star" />{PROJECT}</Button>
+              <Button onClick={model}><ButtonIcon icon="apps" />{MODEL}</Button>
+              <Button onClick={script}><ButtonIcon icon="web" />{SCRIPT}</Button>
+              <Button onClick={timer}><ButtonIcon icon="timer" />{TIMER}</Button>
+              <Button onClick={schedule}><ButtonIcon icon="event" />{SCHEDULE}</Button>
+              <Button onClick={clock}><ButtonIcon icon="access_time" />{CLOCK}</Button>
+              <Button onClick={location}><ButtonIcon icon="location_on" />{LOCATION}</Button>
+              <Button onClick={weather}><ButtonIcon icon="filter_drama" />{WEATHER}</Button>
+              <Button onClick={driver}><ButtonIcon icon="extension" />{DRIVER}</Button>
+            </div>
+          )}
         </ToolbarRow>
       </Toolbar>
     );

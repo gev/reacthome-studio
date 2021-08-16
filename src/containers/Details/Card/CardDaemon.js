@@ -63,11 +63,11 @@ class Container extends Component<Props> {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
-    project, parent, id, field, multiple
+    parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    details: () => push(`/project/${project}/${id}`),
-    terminal: () => push(`/project/${project}/${TERMINAL}`),
+    details: () => push(`/daemon/${id}`),
+    terminal: () => push(`/daemon/${id}/${TERMINAL}`),
     change: (payload) => modify(id, payload),
   }, dispatch)
 )(Container);

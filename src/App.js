@@ -16,6 +16,7 @@ import { STATE_JSON } from './assets/constants';
 import { readFile, exists } from './fs';
 import discovery from './discovery';
 import { offline } from './websocket/online';
+import Daemon from './containers/Daemon';
 
 const history = createHashHistory();
 
@@ -47,6 +48,8 @@ export default class extends Component {
                 <Route path="/project/:project/:id/:field" component={Project} />
                 <Route path="/project/:project/:id" component={Project} />
                 <Route path="/project/:project" component={Project} />
+                <Route path="/daemon/:daemon/:id" component={Daemon} />
+                <Route path="/daemon/:daemon" component={Daemon} />
               </Switch>
             </ConnectedRouter>
           </RMWCProvider>

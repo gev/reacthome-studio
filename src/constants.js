@@ -257,6 +257,7 @@ export const NOTIFY = 'notify';
 export const IR = 'ir';
 export const DO = 'do';
 export const DI = 'di';
+export const AO = 'ao';
 export const DIM = 'dim';
 export const GROUP = 'group';
 export const ARTNET = 'artnet';
@@ -608,6 +609,9 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_MIX_2]: {
     title: 'MIX2'
+  },
+  [DEVICE_TYPE_AO_4_DIN]: {
+    title: 'AO4 DIN'
   },
 };
 

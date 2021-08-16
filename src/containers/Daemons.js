@@ -66,7 +66,7 @@ export default connect(
     daemon: ((pool.root || {}).daemon || []).map(id => ({ id, ...pool[id] })).filter(d => d.online)
   }),
   (dispatch) => bindActionCreators({
-    navigate: (id) => push(`/project/${id}`),
+    navigate: (id) => push(`/daemon/${id}`),
     connectTo,
     add,
     set,

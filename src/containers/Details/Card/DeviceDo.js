@@ -5,7 +5,8 @@ import DoGroup from '../../Device/DeviceDoGroup_2';
 import DoEndpoint from '../../Device/DeviceDoEndpoint';
 import Dimmer from '../../Device/DeviceDimmerChannel';
 import Artnet from './ArtnetChannel';
-import { DO, DIM, ARTNET, ENDPOINT, GROUP } from '../../../constants';
+import { DO, DIM, ARTNET, ENDPOINT, GROUP, AO } from '../../../constants';
+import DeviceAOChannel from '../../Device/DeviceAOChannel';
 
 type Props = {
   id: string;
@@ -31,6 +32,15 @@ export default ({ id, daemon }: Props) => {
           <table>
             <tbody>
               <Dimmer id={dev} index={index} daemon={daemon} />
+            </tbody>
+          </table>
+        )
+      }
+      {
+        (type === AO) && (
+          <table>
+            <tbody>
+              <DeviceAOChannel id={dev} index={index} daemon={daemon} />
             </tbody>
           </table>
         )

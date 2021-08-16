@@ -28,6 +28,8 @@ import {
   DEVICE_TYPE_RELAY_2_DIN,
   DEVICE_TYPE_MIX_2,
   DEVICE_TYPE_MIX_1,
+  DEVICE_TYPE_AO_4_DIN,
+  AO,
 } from '../../../constants';
 
 type Props = {
@@ -91,6 +93,10 @@ const Do = c(({
     case DRIVER_TYPE_BB_PLC2:
       n = 15;
       t = DO;
+      break;
+    case DEVICE_TYPE_AO_4_DIN:
+      n = 4;
+      t = AO;
       break;
     case DEVICE_TYPE_DIM4:
     case DEVICE_TYPE_DIM_4:

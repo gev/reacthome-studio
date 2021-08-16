@@ -24,7 +24,7 @@ import {
   DEVICE_TYPE_RSHUB,
   DEVICE_TYPE_TEMPERATURE_EXT,
   ZIGBEE,
-  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP, DEVICE_TYPE_MIX_1
+  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP, DEVICE_TYPE_MIX_1, DEVICE_TYPE_AO_4_DIN
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -51,6 +51,7 @@ import Zigbee from './DeviceZigbee';
 import Mix2 from './DeviceMix2';
 import Lanamp from './DeviceLanamp';
 import Mix1 from './DeviceMix1';
+import DeviceAO from './DeviceAO';
 
 type Props = {
   type: ?string
@@ -61,6 +62,7 @@ export default (props: Props) => {
     case DEVICE_TYPE_DOPPLER: return <Doppler {...props} />;
     case DEVICE_TYPE_DOPPLER_LEGACY: return <Doppler {...props} />;
     case DEVICE_TYPE_DIM4_LEGACY: return <Dimmer {...props} n={4} />;
+    case DEVICE_TYPE_AO_4_DIN: return <DeviceAO {...props} n={4} />;
     case DEVICE_TYPE_DIM_4: return <Dimmer {...props} n={4} />;
     case DEVICE_TYPE_DIM_8: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DIM8_LEGACY: return <Dimmer {...props} n={8} />;
