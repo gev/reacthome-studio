@@ -10,7 +10,7 @@ import {
   DIM_TYPES,
   DIM_SET,
   DIM_TYPE,
-  DIM_ON, DIM_OFF, AO
+  DIM_ON, DIM_OFF, DIM
 } from '../../constants';
 import connect from './connect';
 
@@ -23,7 +23,7 @@ type Props = {
   request: (action: {}) => void;
 };
 
-export default connect(AO)((props: Props) => {
+export default connect(DIM)((props: Props) => {
   const {
     id, index, value, type, request
   } = props;
