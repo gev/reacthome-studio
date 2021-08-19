@@ -26,9 +26,11 @@ const Row = ({ index, onChange, sync = [] }) => {
       <td><Typography use="caption">{index}</Typography></td>
       <Cell onAction={1} action={0x01} />
       <Cell onAction={1} action={0x00} />
+      <Cell onAction={1} action={0x10} />
       <Cell onAction={1} action={0xff} />
       <Cell onAction={0} action={0x01} />
       <Cell onAction={0} action={0x00} />
+      <Cell onAction={0} action={0x10} />
       <Cell onAction={0} action={0xff} />
     </tr>
   );
@@ -60,9 +62,11 @@ class Container extends Component {
               <th />
               <th><Typography use="caption">On</Typography></th>
               <th><Typography use="caption">Off</Typography></th>
+              <th><Typography use="caption">Not</Typography></th>
               <th><Typography use="caption">_</Typography></th>
               <th><Typography use="caption">On</Typography></th>
               <th><Typography use="caption">Off</Typography></th>
+              <th><Typography use="caption">Not</Typography></th>
               <th><Typography use="caption">_</Typography></th>
             </tr>
           </thead>
