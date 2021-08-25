@@ -16,12 +16,12 @@ type Props = {
 
 export default connect(ENDPOINT)((props: Props) => {
   const {
-    id, index, val, request, type, caption, min = 0, max = 255
+    id, index, val, request, action, caption, min = 0, max = 255
   } = props;
 
   const setValue = (event) => {
     request({
-      type, id, index, value: event.detail.value
+      type: action, id, index, value: event.detail.value
     });
   };
 

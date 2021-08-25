@@ -62,19 +62,19 @@ export default class extends Component<Props> {
                 );
               }
               case LEVEL: return (
-                <SliderEndpoint key={key} id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_LEVEL} val="level" caption="Level" discrete />
+                <SliderEndpoint key={key} id={id} daemon={daemon} index={e.id} action={ACTION_MOVE_TO_LEVEL} val="level" caption="Level" discrete />
               );
               case COLOR: return (
                 <div key={key}>
-                  <SliderEndpoint id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_HUE} val="hue" caption="Hue" discrete />
-                  <SliderEndpoint id={id} daemon={daemon} index={e.id} type={ACTION_MOVE_TO_SATURATION} val="saturation" caption="Saturation" discrete />
+                  <SliderEndpoint id={id} daemon={daemon} index={e.id} action={ACTION_MOVE_TO_HUE} val="hue" caption="Hue" discrete />
+                  <SliderEndpoint id={id} daemon={daemon} index={e.id} action={ACTION_MOVE_TO_SATURATION} val="saturation" caption="Saturation" discrete />
                 </div>
               );
               case THERMOSTAT: return [
                 <Row key="temp" title="Temperature" value={this.props.temperature} magnitude="°C" />,
                 <div key="setpoint">
-                  <Slider id={id} daemon={daemon} index={e.id} min={5} max={30} type={ACTION_SETPOINT} val="setpoint" caption="Setpoint" discrete />
-                  <Do id={id} daemon={daemon} index={e.id} />
+                  <Slider id={id} daemon={daemon} min={5} max={30} action={ACTION_SETPOINT} val="setpoint" caption="Setpoint" />
+                  <Do id={id} daemon={daemon} />
                 </div>
               ];
               default: return null;
