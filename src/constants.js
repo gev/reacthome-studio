@@ -68,6 +68,7 @@ export const ACTION_DI_RELAY_SYNC = 0x03;
 export const ACTION_IR = 0x10;
 export const ACTION_IR_CONFIG = 0x11;
 export const ACTION_LANAMP = 0x20;
+export const ACTION_RTP = 0x21;
 export const ACTION_RS485_MODE = 0xa0;
 export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
@@ -264,6 +265,7 @@ export const ARTNET = 'artnet';
 export const RS485 = 'rs485';
 export const ZIGBEE = 'zigbee';
 export const LANAMP = 'lanamp';
+export const RTP = 'rtp';
 export const MONO = 'mono';
 export const STEREO = 'stereo';
 
