@@ -50,6 +50,8 @@ import {
   ZIGBEE,
   MULTIROOM,
   DRIVER_TYPE_NOVA,
+  DEVICE_TYPE_SMART_4T,
+  DEVICE_TYPE_SMART_4A,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -104,7 +106,11 @@ const Container = (props: Props) => {
       return <CardCamera {...props} />;
     case DEVICE_TYPE_SENSOR4:
     case DEVICE_TYPE_SMART_4:
-      return <CardSensor {...props} />;
+      return <CardSensor {...props} led={4} />;
+    case DEVICE_TYPE_SMART_4T:
+      return <CardSensor {...props} led={4} />;
+    case DEVICE_TYPE_SMART_4A:
+      return <CardSensor {...props} led={5} />;
     case DEVICE_TYPE_CLIMATE:
       return <CardClimate {...props} />;
     case DEVICE_TYPE_TEMPERATURE_EXT:

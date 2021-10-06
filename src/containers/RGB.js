@@ -11,38 +11,43 @@ type Props = {
 }
 
 class Container extends Component<Props> {
-  state = {};
 
   red = (event) => {
-    this.props.set({ ...this.state, r: event.detail.value });
-    this.setState({ ...this.state, r: event.detail.value });
+    const {g, b} = this.props;
+    this.props.set({ g, b, r: event.detail.value });
   };
 
   green = (event) => {
-    this.props.set({ ...this.state, g: event.detail.value });
-    this.setState({ ...this.state, g: event.detail.value });
+    const {r, b} = this.props;
+    this.props.set({ r, b, g: event.detail.value });
   };
 
   blue = (event) => {
-    this.props.set({ ...this.state, b: event.detail.value });
-    this.setState({ ...this.state, b: event.detail.value });
+    const {r, g} = this.props;
+    this.props.set({ r, g, b: event.detail.value });
   };
 
   render() {
-    const { r = 0, g = 0, b = 0 } = this.state;
+    const { r = 0, g = 0, b = 0 } = this.props;
     return (
-      <div className="paper">
-        <Slider value={r} min={0} max={255} step={1} onInput={this.red} discrete />
-        <Slider value={g} min={0} max={255} step={1} onInput={this.green} discrete />
-        <Slider value={b} min={0} max={255} step={1} onInput={this.blue} discrete />
-      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td><div className="paper"><Slider value={r} min={0} max={255} step={1} onInput={this.red} discrete color="red" /></div></td>
+            <td><div className="paper"><Slider value={g} min={0} max={255} step={1} onInput={this.green} discrete color="green" /></div></td>
+            <td><div className="paper"><Slider value={b} min={0} max={255} step={1} onInput={this.blue} discrete color="blue" /></div></td>
+          </tr>
+        </tbody>
+      </table>
     );
   }
 }
 
 export default connect(
-  ({ pool }, { id }) => pool[id] || {},
-  (dispatch, { daemon, id }) => bindActionCreators({
-    set: (value) => request(daemon, { type: ACTION_RGB_DIM, value, id })
+  ({ pool }, { id, index }) => pool[`${id}/rgb/${index}`] || {},
+  (dispatch, { daemon, id, index }) => bindActionCreators({
+    set: (value) => request(daemon, {
+      type: ACTION_RGB_DIM, value, id, index
+    })
   }, dispatch)
 )(Container);

@@ -109,6 +109,8 @@ export const DEVICE_TYPE_DOPPLER = 0x22;
 export const DEVICE_TYPE_RELAY_2 = 0x23;
 export const DEVICE_TYPE_IR_4 = 0x24;
 export const DEVICE_TYPE_SMART_4 = 0x25;
+export const DEVICE_TYPE_SMART_4T = 0x26;
+export const DEVICE_TYPE_SMART_4A = 0x27;
 
 export const DEVICE_TYPE_RELAY_6 = 0xa0;
 export const DEVICE_TYPE_RELAY_12 = 0xa1;
@@ -592,6 +594,14 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_SMART_4]: {
     title: 'Smart 4',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_SMART_4T]: {
+    title: 'Smart 4t',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_SMART_4A]: {
+    title: 'Smart 4a',
     hasFindMeAction: true
   },
   [TOUCH]: {

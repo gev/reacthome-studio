@@ -64,7 +64,6 @@ const Row = ({
   </tr>
 );
 
-
 class Container extends Component<Props> {
   change = (event) => {
     const { change } = this.props;
@@ -82,14 +81,21 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      id, code, project, daemon, temperature, removeField, humidity
+      id, code, project, daemon, temperature, removeField, humidity, led
     } = this.props;
+    const rgb = (n) => {
+      const a = [];
+      for (let i = 1; i <= n; i++) {
+        a.push(<RGB id={id} index={i} daemon={daemon} key={`${id}/rgb/${i}`} />);
+      }
+      return a;
+    }
     return (
       <Card>
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
-        <RGB id={id} daemon={daemon} />
+        {rgb(led)}
         <table style={{ textAlign: 'left' }}>
           <tbody>
             <Row

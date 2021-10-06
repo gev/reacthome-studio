@@ -32,10 +32,17 @@ const Row = ({ title, value, magnitude }: RowProps) => (
 export default class extends Component<Props> {
   render() {
     const {
-      id, temperature, humidity, daemon
+      id, temperature, humidity, daemon, led
     } = this.props;
+    const rgb = (n) => {
+      const a = [];
+      for (let i = 1; i <= n; i++) {
+        a.push(<RGB id={id} index={i} daemon={daemon} key={`${id}/rgb/${i}`} />);
+      }
+      return a;
+    };
     return [
-      <RGB key="rgb" daemon={daemon} id={id} />,
+      ...rgb(led),
       <table key="climate" style={{ textAlign: 'left' }}>
         <tbody>
           <Row title="Temperature" value={temperature} magnitude="°C" />

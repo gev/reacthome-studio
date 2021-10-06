@@ -24,7 +24,7 @@ import {
   DEVICE_TYPE_RSHUB,
   DEVICE_TYPE_TEMPERATURE_EXT,
   ZIGBEE,
-  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP, DEVICE_TYPE_MIX_1, DEVICE_TYPE_AO_4_DIN
+  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP, DEVICE_TYPE_MIX_1, DEVICE_TYPE_AO_4_DIN, DEVICE_TYPE_SMART_4A, DEVICE_TYPE_SMART_4T
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -98,10 +98,15 @@ export default (props: Props) => {
     }
     case DEVICE_TYPE_RELAY_24: return <Relay24 {...props} />;
     case DEVICE_TYPE_PLC: return <Plc {...props} />;
-    case DEVICE_TYPE_SENSOR4: return <Sensor {...props} />;
+    case DEVICE_TYPE_SENSOR4:
+    case DEVICE_TYPE_SMART_4:
+      return <Sensor {...props} led={4} />;
+    case DEVICE_TYPE_SMART_4T:
+      return <Sensor {...props} led={4} />;
+    case DEVICE_TYPE_SMART_4A:
+      return <Sensor {...props} led={5} />;
     case DEVICE_TYPE_CLIMATE: return <Climate {...props} />;
     case DEVICE_TYPE_TEMPERATURE_EXT: return <TempExt {...props} />;
-    case DEVICE_TYPE_SMART_4: return <Sensor {...props} />;
     case DEVICE_TYPE_IR_RECEIVER: return <IrReceiver {...props} />;
     case DEVICE_TYPE_RSHUB: return <RSHub {...props} />;
     case DEVICE_TYPE_LAN_AMP: return <Lanamp {...props} />;
