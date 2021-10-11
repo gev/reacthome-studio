@@ -82,7 +82,7 @@ class Container extends Component {
                 <Image image={c1} onChange={change1} />
               </div>
             </td>
-            <td>
+            <td>  
               <TextField defaultValue={text} onInput={(event) => setImage(event.target.value, level)} />
             </td>
           </tr>

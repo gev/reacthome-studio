@@ -594,15 +594,15 @@ export const DEVICE_TYPES = {
     hasFindMeAction: true,
   },
   [DEVICE_TYPE_SMART_4G]: {
-    title: 'Smart 4',
+    title: 'Smart 4G',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_SMART_4GD]: {
-    title: 'Smart 4t',
+    title: 'Smart 4GD',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_SMART_4A]: {
-    title: 'Smart 4a',
+    title: 'Smart 4A',
     hasFindMeAction: true
   },
   [TOUCH]: {
