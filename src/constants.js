@@ -5,7 +5,7 @@ export const CLIENT_PORT = 2021;
 export const CLIENT_SERVER_PORT = 2020;
 export const CLIENT_GROUP = '224.0.0.2';
 
-export const DISCOVERY_INTERVAL = 1000;
+export const DISCOVERY_INTERVAL = 10000;
 
 export const ACTION = 'action';
 export const OPERATOR = 'operator';
@@ -73,6 +73,7 @@ export const ACTION_RS485_MODE = 0xa0;
 export const ACTION_DOPPLER = 0xb0;
 export const ACTION_DIMMER = 0xd0;
 export const ACTION_ARTNET = 0xd1;
+export const ACTION_IMAGE = 0xe1;
 export const ACTION_DISCOVERY = 0xf0;
 export const ACTION_READY = 0xf1;
 export const ACTION_FIND_ME = 0xfa;
@@ -108,8 +109,8 @@ export const DEVICE_TYPE_CLIMATE = 0x21;
 export const DEVICE_TYPE_DOPPLER = 0x22;
 export const DEVICE_TYPE_RELAY_2 = 0x23;
 export const DEVICE_TYPE_IR_4 = 0x24;
-export const DEVICE_TYPE_SMART_4 = 0x25;
-export const DEVICE_TYPE_SMART_4T = 0x26;
+export const DEVICE_TYPE_SMART_4G = 0x25;
+export const DEVICE_TYPE_SMART_4GD = 0x26;
 export const DEVICE_TYPE_SMART_4A = 0x27;
 
 export const DEVICE_TYPE_RELAY_6 = 0xa0;
@@ -592,11 +593,11 @@ export const DEVICE_TYPES = {
     title: 'RS Hub',
     hasFindMeAction: true,
   },
-  [DEVICE_TYPE_SMART_4]: {
+  [DEVICE_TYPE_SMART_4G]: {
     title: 'Smart 4',
     hasFindMeAction: true
   },
-  [DEVICE_TYPE_SMART_4T]: {
+  [DEVICE_TYPE_SMART_4GD]: {
     title: 'Smart 4t',
     hasFindMeAction: true
   },

@@ -34,7 +34,7 @@ import {
   LEAKAGE,
   DRIVER_TYPE_M206,
   DRIVER_TYPE_M230,
-  DEVICE_TYPE_SMART_4,
+  DEVICE_TYPE_SMART_4G,
   LIGHT_RGB,
   DEVICE_TYPE_CLIMATE,
   DEVICE_TYPE_DOPPLER,
@@ -50,7 +50,7 @@ import {
   ZIGBEE,
   MULTIROOM,
   DRIVER_TYPE_NOVA,
-  DEVICE_TYPE_SMART_4T,
+  DEVICE_TYPE_SMART_4GD,
   DEVICE_TYPE_SMART_4A,
 } from '../../../constants';
 import CardDefault from './CardDefault';
@@ -105,10 +105,10 @@ const Container = (props: Props) => {
     case CAMERA:
       return <CardCamera {...props} />;
     case DEVICE_TYPE_SENSOR4:
-    case DEVICE_TYPE_SMART_4:
-      return <CardSensor {...props} led={4} />;
-    case DEVICE_TYPE_SMART_4T:
-      return <CardSensor {...props} led={4} />;
+    case DEVICE_TYPE_SMART_4G:
+      return <CardSensor {...props} led={4} hasDoppler />;
+    case DEVICE_TYPE_SMART_4GD:
+      return <CardSensor {...props} led={4} hasDoppler hasDisplay />;
     case DEVICE_TYPE_SMART_4A:
       return <CardSensor {...props} led={5} />;
     case DEVICE_TYPE_CLIMATE:

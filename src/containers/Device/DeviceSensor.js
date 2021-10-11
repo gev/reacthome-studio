@@ -4,6 +4,7 @@ import { Typography } from '@rmwc/typography';
 import DeviceDoppler from './DeviceDoppler';
 import Di from './DeviceDiChannel';
 import RGB from '../RGB';
+import Display from '../Display';
 
 type Props = {
   temperature: ?number;
@@ -32,7 +33,7 @@ const Row = ({ title, value, magnitude }: RowProps) => (
 export default class extends Component<Props> {
   render() {
     const {
-      id, temperature, humidity, daemon, led
+      id, temperature, humidity, daemon, led, hasDoppler, hasDisplay
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -42,6 +43,7 @@ export default class extends Component<Props> {
       return a;
     };
     return [
+      hasDisplay && <Display key="display" id={id} daemon={daemon} />,
       ...rgb(led),
       <table key="climate" style={{ textAlign: 'left' }}>
         <tbody>
@@ -59,7 +61,7 @@ export default class extends Component<Props> {
           </tr>
         </tbody>
       </table>,
-      <DeviceDoppler daemon={daemon} key="doppler" id={id} />
+      hasDoppler && <DeviceDoppler daemon={daemon} key="doppler" id={id} />
     ];
   }
 }

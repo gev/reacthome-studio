@@ -10,7 +10,7 @@ const DISCOVERY = 'discovery';
 
 const CLIENT_PORT = 2021;
 const CLIENT_GROUP = '224.0.0.2';
-const TIMEOUT = 1000;
+const TIMEOUT = 10000;
 
 export default () => (dispatch) => {
   const socket = createSocket('udp4');

@@ -17,6 +17,7 @@ import Button from './CardSensorButton';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
 import RGB from '../../RGB';
+import Display from '../../Display';
 
 type Props = {
   id: string;
@@ -81,7 +82,7 @@ class Container extends Component<Props> {
 
   render() {
     const {
-      id, code, project, daemon, temperature, removeField, humidity, led
+      id, code, project, daemon, temperature, removeField, humidity, led, hasDoppler, hasDisplay
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -89,12 +90,13 @@ class Container extends Component<Props> {
         a.push(<RGB id={id} index={i} daemon={daemon} key={`${id}/rgb/${i}`} />);
       }
       return a;
-    }
+    };
     return (
       <Card>
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
+        {hasDisplay && <Display daemon={daemon} id={id} />}
         {rgb(led)}
         <table style={{ textAlign: 'left' }}>
           <tbody>
@@ -126,28 +128,34 @@ class Container extends Component<Props> {
             <Button id={id} project={project} index={4} />
           </tbody>
         </table>
-        <DeviceDoppler id={id} daemon={daemon} />
-        <div className="paper">
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <SelectScript
-                    id={this.props.onDoppler}
-                    project={project}
-                    onSelect={this.select(onDoppler)}
-                  />
-                </td>
-                <td>
-                  {
-                    this.props.onDoppler &&
-                      <Typography use="caption" onClick={this.remove(onDoppler)}><strong> X </strong></Typography>
-                  }
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {
+          hasDoppler && (
+            <div>
+              <DeviceDoppler id={id} daemon={daemon} />
+              <div className="paper">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <SelectScript
+                          id={this.props.onDoppler}
+                          project={project}
+                          onSelect={this.select(onDoppler)}
+                        />
+                      </td>
+                      <td>
+                        {
+                          this.props.onDoppler &&
+                            <Typography use="caption" onClick={this.remove(onDoppler)}><strong> X </strong></Typography>
+                        }
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )
+        }
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />
