@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ClosureEndpoint from '../../Device/DeviceCLosureEndpoint';
-import { ENDPOINT } from '../../../constants';
+import { ENDPOINT, GROUP } from '../../../constants';
 
 type Props = {
   id: string;
@@ -13,7 +13,7 @@ export default ({ id, daemon }: Props) => {
   return (
     <div className="paper">
       {
-        (type === ENDPOINT) && (
+        (type === ENDPOINT || type === GROUP) && (
           <ClosureEndpoint id={dev} index={index} daemon={daemon} />
         )
       }

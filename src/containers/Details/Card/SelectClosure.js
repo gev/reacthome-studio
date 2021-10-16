@@ -25,6 +25,9 @@ import {
   DEVICE_TYPE_RELAY_24,
   ENDPOINT,
   GROUP,
+  DEVICE_TYPE_MIX_1,
+  DEVICE_TYPE_RELAY_2_DIN,
+  DEVICE_TYPE_MIX_2,
 } from '../../../constants';
 
 type Props = {
@@ -44,59 +47,27 @@ type DoProps = {
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
-  id, type, endpoint, index, onSelect, version, size = 0
+  id, type, endpoint, index, onSelect, version = '', size = 0
 }: DoProps) => {
   const a = [];
   const select = (i, t) => () => {
     onSelect(i, t);
   };
   let n;
-  //const major = parseInt(version.split('.')[0], 10);
+  const major = parseInt(version.split('.')[0], 10);
   switch (type) {
-    // case DEVICE_TYPE_RELAY_2:
-    //   n = 2;
-    //   t = DO;
-    //   break;
-        // case DEVICE_TYPE_RELAY_6:
-        //   n = major >= 2 ? 3 : 0;
-        //   break;
-        // case DEVICE_TYPE_RELAY_12:
-        //   n = major >= 2 ? 6 : 0;
-        //   break;
-    // case DEVICE_TYPE_RELAY_24:
-    //   n = 24;
-    //   t = DO;
-    //   break;
-    // case DEVICE_TYPE_PLC:
-    //   n = 24;
-    //   t = DO;
-    //   break;
-    // case DRIVER_TYPE_BB_PLC1:
-    //   n = 7;
-    //   t = DO;
-    //   break;
-    // case DRIVER_TYPE_BB_PLC2:
-    //   n = 15;
-    //   t = DO;
-    //   break;
-    // case DEVICE_TYPE_DIM4:
-    // case DEVICE_TYPE_DIM_4:
-    //   n = 4;
-    //   t = DIM;
-    //   break;
-    // case DEVICE_TYPE_DIM8_LEGACY:
-    // case DEVICE_TYPE_DIM_8:
-    //   n = 8;
-    //   t = DIM;
-    //   break;
-    // case DEVICE_TYPE_DO8:
-    //   n = 8;
-    //   t = DO;
-    //   break;
-    // case DEVICE_TYPE_DO12:
-    //   n = 12;
-    //   t = DO;
-    //   break;
+    case DEVICE_TYPE_RELAY_2:
+    case DEVICE_TYPE_RELAY_2_DIN:
+      n = 1;
+      break;
+    case DEVICE_TYPE_RELAY_6:
+    case DEVICE_TYPE_MIX_1:
+    case DEVICE_TYPE_MIX_2:
+      n = major >= 2 ? 3 : 0;
+      break;
+    case DEVICE_TYPE_RELAY_12:
+      n = major >= 2 ? 6 : 0;
+      break;
     default:
       n = 0;
   }
@@ -118,7 +89,7 @@ const Do = c(({
     }
   }
   return (
-    <SimpleMenu handle={<Button>{ENDPOINT} {index}</Button>}>
+    <SimpleMenu handle={<Button>{'select'} {index}</Button>}>
       {a}
     </SimpleMenu>
   );
