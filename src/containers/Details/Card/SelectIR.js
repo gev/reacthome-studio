@@ -10,6 +10,10 @@ import {
   DEVICE_TYPE_IR1,
   DEVICE_TYPE_IR6,
   DEVICE_TYPE_IR_4,
+  DEVICE_TYPE_SMART_4A,
+  DEVICE_TYPE_SMART_4G,
+  DEVICE_TYPE_SMART_4GD,
+  DEVICE_TYPE_LAN_AMP,
 } from '../../../constants';
 import { send } from '../../../websocket/peer';
 
@@ -41,6 +45,10 @@ const Ir = c(({
       n = 1;
       break;
     case DEVICE_TYPE_IR_4:
+    case DEVICE_TYPE_SMART_4A:
+    case DEVICE_TYPE_SMART_4G:
+    case DEVICE_TYPE_SMART_4GD:
+    case DEVICE_TYPE_LAN_AMP:
       n = 4;
       break;
     case DEVICE_TYPE_IR6:

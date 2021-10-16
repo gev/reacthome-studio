@@ -33,7 +33,7 @@ const Row = ({ title, value, magnitude }: RowProps) => (
 export default class extends Component<Props> {
   render() {
     const {
-      id, temperature, humidity, daemon, led, hasDoppler, hasDisplay
+      id, temperature, humidity, illumination, daemon, led, hasDoppler, hasDisplay
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -49,6 +49,7 @@ export default class extends Component<Props> {
         <tbody>
           <Row title="Temperature" value={temperature} magnitude="°C" />
           <Row title="Humidity" value={humidity} magnitude="%" />
+          <Row title="Illumination" value={illumination} magnitude="lux" />
         </tbody>
       </table>,
       <table key="buttons">

@@ -25,6 +25,8 @@ export const ACTION_DIM_RELATIVE = 'ACTION_DIM_RELATIVE';
 export const ACTION_SITE_LIGHT_DIM_RELATIVE = 'ACTION_SITE_LIGHT_DIM_RELATIVE';
 export const ACTION_SITE_LIGHT_OFF = 'ACTION_SITE_LIGHT_OFF';
 export const ACTION_SETPOINT = 'ACTION_SETPOINT';
+export const ACTION_INC_SETPOINT = 'ACTION_INC_SETPOINT';
+export const ACTION_DEC_SETPOINT = 'ACTION_DEC_SETPOINT';
 export const ACTION_TIMER_START = 'ACTION_TIMER_START';
 export const ACTION_TIMER_STOP = 'ACTION_TIMER_STOP';
 export const ACTION_SCHEDULE_START = 'ACTION_SCHEDULE_START';
@@ -191,6 +193,7 @@ export const PREVIEW_URL = 'preview_URL';
 export const MAIN_URL = 'main_URL';
 export const ACTIVE = 'active';
 export const THERMOSTAT = 'thermostat';
+export const DISPLAY = 'display';
 export const HEATER = 'heater';
 export const LEAKAGE = 'leakage';
 export const WATER_COUNTER = 'water_counter';
@@ -346,6 +349,8 @@ export const ACTION_TYPE = [
   ACTION_CLOSE,
   ACTION_STOP,
   ACTION_SETPOINT,
+  ACTION_INC_SETPOINT,
+  ACTION_DEC_SETPOINT,
   ACTION_TIMER_START,
   ACTION_TIMER_STOP,
   ACTION_SCHEDULE_START,

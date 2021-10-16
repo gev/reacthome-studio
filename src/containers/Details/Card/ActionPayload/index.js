@@ -32,7 +32,9 @@ import {
   ACTION_OPEN,
   ACTION_CLOSE,
   ACTION_STOP,
-  ACTION_SET
+  ACTION_SET,
+  ACTION_INC_SETPOINT,
+  ACTION_DEC_SETPOINT
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -57,6 +59,7 @@ import ActionPayloadNotification from './ActionPayloadNotification';
 import ActionPayloadRing from './ActionPayloadRing';
 import ActionPayloadSetpoint from './ActionPayloadSetpoint';
 import ActionPayloadSet from './ActionPayloadSet';
+import ActionPayloadIncDecSetpoint from './ActionPayloadIncDecSetpoint';
 
 type Props = {
   type: ?string
@@ -106,6 +109,9 @@ const Container = (props: Props) => {
       return <ActionPayloadHeatLimit {...props} />;
     case ACTION_SETPOINT:
       return <ActionPayloadSetpoint {...props} />;
+    case ACTION_INC_SETPOINT:
+    case ACTION_DEC_SETPOINT:
+      return <ActionPayloadIncDecSetpoint {...props} />;
     case ACTION_TOGGLE:
       return <ActionPayloadToggle {...props} />;
     case ACTION_TV:

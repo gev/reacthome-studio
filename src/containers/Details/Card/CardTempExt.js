@@ -14,6 +14,7 @@ import { TextField } from '@rmwc/textfield';
 import { remove, modify } from '../../../actions';
 import { CODE, onTemperature } from '../../../constants';
 import SelectScript from '../SelectScript';
+import Autocomplete from '../../Filter';
 
 type Props = {
   code: ?string,
@@ -72,9 +73,13 @@ class Container extends Component<Props> {
     this.props.change({ [on]: null });
   }
 
+  setDisplay = (display) => {
+    this.props.change({ display });
+  }
+
   render() {
     const {
-      code, project, temperature, removeField
+      code, project, temperature, removeField, dispaly
     } = this.props;
     return (
       <Card>
@@ -94,6 +99,10 @@ class Container extends Component<Props> {
             />
           </tbody>
         </table>
+        <div className="paper">
+          <Typography>Display</Typography>
+          <Autocomplete id={dispaly} root={project} onSelect={this.setDisplay} />
+        </div>
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />

@@ -12,12 +12,13 @@ import {
 import { Typography } from '@rmwc/typography';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify } from '../../../actions';
-import { CODE, onTemperature, onHumidity, onDoppler } from '../../../constants';
+import { CODE, onTemperature, onHumidity, onDoppler, onIllumination } from '../../../constants';
 import Button from './CardSensorButton';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
 import RGB from '../../RGB';
 import Display from '../../Display';
+import Autocomplete from '../../Filter';
 
 type Props = {
   id: string;
@@ -80,9 +81,14 @@ class Container extends Component<Props> {
     this.props.change({ [on]: null });
   }
 
+  setDisplay = (display) => {
+    this.props.change({ display });
+  }
+
   render() {
     const {
-      id, code, project, daemon, temperature, removeField, humidity, led, hasDoppler, hasDisplay
+      id, code, project, daemon, temperature, removeField, humidity, illumination,
+      led, hasDoppler, hasDisplay, dispaly
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -116,6 +122,15 @@ class Container extends Component<Props> {
               script={this.props.onHumidity}
               onSelect={this.select(onHumidity)}
               onRemove={this.remove(onHumidity)}
+              project={project}
+            />
+            <Row
+              title="Illumination"
+              value={illumination}
+              magnitude="lux"
+              script={this.props.onIllumination}
+              onSelect={this.select(onIllumination)}
+              onRemove={this.remove(onIllumination)}
               project={project}
             />
           </tbody>
@@ -156,6 +171,10 @@ class Container extends Component<Props> {
             </div>
           )
         }
+        <div className="paper">
+          <Typography>Display</Typography>
+          <Autocomplete id={dispaly} root={project} onSelect={this.setDisplay} />
+        </div>
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />

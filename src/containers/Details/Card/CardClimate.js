@@ -15,6 +15,7 @@ import { remove, modify } from '../../../actions';
 import { CODE, onTemperature, onHumidity } from '../../../constants';
 import Button from './CardSensorButton';
 import SelectScript from '../SelectScript';
+import Autocomplete from '../../Filter';
 
 type Props = {
   id: string;
@@ -76,9 +77,13 @@ class Container extends Component<Props> {
     this.props.change({ [on]: null });
   }
 
+  setDisplay = (display) => {
+    this.props.change({ display });
+  }
+
   render() {
     const {
-      id, code, project, temperature, removeField, humidity
+      id, code, project, temperature, removeField, humidity, dispaly
     } = this.props;
     return (
       <Card>
@@ -115,6 +120,10 @@ class Container extends Component<Props> {
             <Button id={id} project={project} index={4} />
           </tbody>
         </table>
+        <div className="paper">
+          <Typography>Display</Typography>
+          <Autocomplete id={dispaly} root={project} onSelect={this.setDisplay} />
+        </div>
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />
