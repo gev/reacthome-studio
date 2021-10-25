@@ -34,7 +34,8 @@ class Container extends Component {
           <Checkbox
             checked={active}
             onChange={() => {
-              this.setState({ active: !active });
+							// this.setState({ active: !active });
+							this.props.set(!active, group, port);
             }}
           />
         </td>
