@@ -32,6 +32,10 @@ export default class extends Component {
                 <DeviceLanAmpRTPChannel id={id} daemon={daemon} index={2} />
                 <DeviceLanAmpRTPChannel id={id} daemon={daemon} index={3} />
                 <DeviceLanAmpRTPChannel id={id} daemon={daemon} index={4} />
+                <DeviceLanAmpRTPChannel id={id} daemon={daemon} index={5} />
+                <DeviceLanAmpRTPChannel id={id} daemon={daemon} index={6} />
+                <DeviceLanAmpRTPChannel id={id} daemon={daemon} index={7} />
+                <DeviceLanAmpRTPChannel id={id} daemon={daemon} index={8} />
               </tbody>
             </table>
           ) : (

@@ -62,11 +62,15 @@ class Container extends Component {
       <div className="paper">
         <table>
           <tbody>
-            <Row index={0} source={source[0]} config={this.config(0)} />
-            <Row index={1} source={source[1]} config={this.config(1)} />
-            <Row index={2} source={source[2]} config={this.config(2)} />
-            <Row index={3} source={source[3]} config={this.config(3)} />
-            <Row index={4} source={source[4]} config={this.config(4)} />
+            <Row index={ 0} source={source[ 0]} config={this.config( 0)} />
+            <Row index={ 1} source={source[ 1]} config={this.config( 1)} />
+            <Row index={ 2} source={source[ 2]} config={this.config( 2)} />
+            <Row index={ 3} source={source[ 3]} config={this.config( 3)} />
+            <Row index={ 4} source={source[ 4]} config={this.config( 4)} />
+            <Row index={ 5} source={source[ 5]} config={this.config( 5)} />
+            <Row index={ 6} source={source[ 6]} config={this.config( 6)} />
+            <Row index={ 7} source={source[ 7]} config={this.config( 7)} />
+            <Row index={ 8} source={source[ 8]} config={this.config( 8)} />
           </tbody>
         </table>
       </div>

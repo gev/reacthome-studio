@@ -108,6 +108,10 @@ export default ({ id, daemon }) => (
         <Row daemon={daemon} id={id} index={2} />
         <Row daemon={daemon} id={id} index={3} />
         <Row daemon={daemon} id={id} index={4} />
+        <Row daemon={daemon} id={id} index={5} />
+        <Row daemon={daemon} id={id} index={6} />
+        <Row daemon={daemon} id={id} index={7} />
+        <Row daemon={daemon} id={id} index={8} />
       </tbody>
     </table>
   </div>
