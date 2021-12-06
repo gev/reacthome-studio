@@ -13,8 +13,10 @@ export default (id) => (dispatch, getState) => {
   }
 
   const connect = () => {
-    const { ip } = getState().pool[id] || {};
+		const { ip } = getState().pool[id] || {};
+		if (ip) {
      connectTo(`ws://${ip}:${LOCAL_PORT}`, true);
+		}
     connectTo(`wss://${REMOTE_URI}/${id}`, false);
   };
 
