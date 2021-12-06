@@ -19,13 +19,13 @@ export default () => (dispatch) => {
     try {
       const { id, type, payload } = JSON.parse(Buffer.from(message));
       if (type === DISCOVERY) {
+        payload.ip = address;
+        delete payload.online;
+        dispatch(set(id, payload));
+        dispatch(add(ROOT, DAEMON, id));
         if (!peers.has(id)) {
           dispatch(connect(id));
         }
-        payload.ip = address;
-        delete payload.online;
-        //dispatch(set(id, payload));
-        //dispatch(add(ROOT, DAEMON, id));
       }
     } catch (e) {
       console.error(e);
