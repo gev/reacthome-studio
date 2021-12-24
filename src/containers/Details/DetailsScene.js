@@ -35,7 +35,7 @@ export default class extends AbstractDetails {
           ]}
         >
           {
-            this.props[field] && (
+            Array.isArray(this.props[field]) && (
               this.props[field].map(i => (
                 <Card
                   key={i}

@@ -5,13 +5,7 @@ import { bindActionCreators } from 'redux';
 import { modify } from '../../../../actions';
 import SelectScript from '../../SelectScript';
 
-type Props = {
-  project: string;
-  payload: ?{};
-  setScript: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
       project, payload = {}, setScript

@@ -32,7 +32,7 @@ export default class extends AbstractDetails {
         </DetailSection>
         <DetailSection title={SITE} action={<ToolbarIcon theme="text-primary-on-light" icon="add" onClick={this.create(SITE, SITE, PARENT)} />}>
           {
-            site && (
+            Array.isArray(site) && (
               site.map(i => (
                 <Card
                   key={i}

@@ -8,7 +8,7 @@ import DetailSection from './DetailSection';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 
-const Container = ({ id, device, terminal }) => (
+const Container = ({ id, device = [], terminal }) => (
   <div>
     <DetailSection
       title={DEVICE}

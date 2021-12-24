@@ -66,7 +66,7 @@ class Container extends Component<Props> {
         <Autocomplete id={this.state.subj} root={project} onSelect={this.select} />
         <List>
           {
-            payload.test && payload.test.map(i => <Item key={i} id={i} remove={this.remove(i)} />)
+            Array.isArray(payload.test) && payload.test.map(i => <Item key={i} id={i} remove={this.remove(i)} />)
           }
         </List>
         <table>

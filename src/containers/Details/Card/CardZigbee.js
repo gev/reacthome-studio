@@ -58,7 +58,7 @@ class Container extends Component {
 
   render() {
     const {
-      id, code, project, daemon, temperature, removeField, humidity, endpoint
+      id, code, project, daemon, temperature, removeField, humidity, endpoint = []
     } = this.props;
     return (
       <Card>

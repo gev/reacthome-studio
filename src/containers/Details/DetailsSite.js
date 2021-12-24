@@ -22,7 +22,7 @@ const Details = (props: Props) => {
   return (
     <DetailSection title={field} action={<ToolbarIcon theme="text-primary-on-light" icon="add" onClick={create(field, field, bind)} />}>
       {
-        props[field] && (
+        Array.isArray(props[field]) && (
           props[field].map(i => (
             <Card
               key={i}

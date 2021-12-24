@@ -15,7 +15,7 @@ export default class extends DetailsAbstract {
       <div>
         <DetailSection title={SITE} action={<ToolbarIcon icon="add" onClick={this.create(SITE, INTERFACE, SITE)} />}>
           {
-            site && (
+            Array.isArray(site) && (
               site.map(i => (
                 <Card
                   key={i}

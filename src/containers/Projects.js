@@ -17,7 +17,7 @@ class Projects extends Component {
   }
 
   render() {
-    const { project, navigate } = this.props;
+    const { project = [], navigate } = this.props;
     return (
       <div>
         <Typography use="headline4">Projects</Typography>

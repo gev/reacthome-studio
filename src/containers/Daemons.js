@@ -34,7 +34,7 @@ class Daemons extends Component<Props> {
   }
 
   render() {
-    const { daemon } = this.props;
+    const { daemon = [] } = this.props;
     return (
       <div>
         <div>

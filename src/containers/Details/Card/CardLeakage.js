@@ -107,7 +107,7 @@ class Container extends Component<Props> {
           <SelectLeakageSensor root={project} onSelect={this.add(LEAKAGE_SENSOR)} />
           <List>
             {
-              leakage_sensor && leakage_sensor.map(i =>
+              Array.isArray(leakage_sensor) && leakage_sensor.map(i =>
                 <Item key={i} id={i} remove={this.remove(LEAKAGE_SENSOR, i)} />)
             }
           </List>
@@ -116,7 +116,7 @@ class Container extends Component<Props> {
           <SelectValveWater root={project} onSelect={this.add(VALVE_WATER)} />
           <List>
             {
-              valve_water && valve_water.map(i =>
+              Array.isArray(valve_water) && valve_water.map(i =>
                 <Item key={i} id={i} remove={this.remove(VALVE_WATER, i)} />)
             }
           </List>

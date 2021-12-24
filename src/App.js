@@ -7,13 +7,9 @@ import { ConnectedRouter } from 'react-router-redux';
 import { RMWCProvider } from '@rmwc/provider';
 import 'material-components-web/dist/material-components-web.min.css';
 import { Main, Project, ServiceManager } from './containers';
-// import { ACTION, ACTION_TYPE } from './constants';
-// import { modify, offline } from './actions';
 import createStore from './store';
 import reducer from './reducer';
 import { init } from './assets';
-import { STATE_JSON } from './assets/constants';
-import { readFile, exists } from './fs';
 import discovery from './discovery';
 import { offline } from './websocket/online';
 import Daemon from './containers/Daemon';
@@ -37,10 +33,9 @@ export default class extends Component {
     }
     const store = createStore(reducer, { pool }, history);
     const { root } = store.getState().pool;
-    if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));
-    // ACTION_TYPE.forEach((a) => {
-    //   store.dispatch(modify(a, { type: ACTION, code: a }));
-    // });
+    if (root && root.daemon) {
+      root.daemon.forEach(id => store.dispatch(offline(id)));
+    }
     store.dispatch(discovery());
     this.setState({ store });
   }

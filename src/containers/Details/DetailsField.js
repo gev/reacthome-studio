@@ -15,7 +15,7 @@ export default class extends AbstractDetails {
       <div>
         <DetailSection title={field} action={<ToolbarIcon key="add" theme="text-primary-on-background" icon="add" onClick={this.create(field, field, SITE)} />}>
           {
-            this.props[field] && (
+            Array.isArray(this.props[field]) && (
               this.props[field].map(i => (
                 <Card
                   key={i}
