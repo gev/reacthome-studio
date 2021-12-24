@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import {
   Card,
   CardAction,
@@ -26,26 +27,7 @@ import {
 import { modify, remove, request } from '../../actions';
 import Device from './Device';
 
-type Props = {
-  id: string,
-  ip: string,
-  type: number,
-  code: ?string,
-  version: ?string,
-  pendingFirmware: ?string,
-  ready: ?boolean,
-  online: ?boolean,
-  finding: ?boolean,
-  pending: ?boolean,
-  updating: ?boolean,
-  removeDevice: () => void,
-  change: (payload: {}) => void,
-  findMe: (finding: boolean) => void,
-  updateFirmware: (firmware: string) => void,
-  setNewFirmware: (id: string, firmware: string) => void,
-};
-
-class Devices extends Component<Props> {
+class Devices extends Component{
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -161,7 +143,11 @@ class Devices extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id, daemon }) => ({ ...pool[id], daemon }),
+  createSelector(
+    ({ pool }, { id }) => pool[id] || {},
+    (_, props) => props,
+    (o, {daemon}) => ({...o, daemon})
+  ),
   (dispatch, { id, daemon }) => bindActionCreators({
     findMe: (finding) => request(daemon, { type: ACTION_FIND_ME, id, finding }),
     updateFirmware: (newFirmware) =>

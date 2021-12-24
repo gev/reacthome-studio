@@ -13,15 +13,7 @@ import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
 import { CODE, TITLE, SIP_USER } from '../../../constants';
 
-type Props = {
-  code: ?string,
-  title: ?string,
-  SIP_user: ?string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -53,7 +45,7 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
+  ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
     project, parent, id, field, multiple
   }) => bindActionCreators({

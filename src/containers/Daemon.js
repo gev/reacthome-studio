@@ -3,19 +3,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Toolbar from './Toolbar';
 import Details from './Details';
-import Grid from './Grid';
-import { MODEL, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER, SCHEDULE, TERMINAL } from '../constants';
-import Location from './Location';
-import Weather from './Weather';
+import { TERMINAL, ROOT, PROJECT } from '../constants';
 import Terminal from './Terminal';
+import { bindActionCreators } from 'redux';
+import { add } from '../actions';
 
-type Props = {
-  match: {},
-  title: ?string,
-  project: ?string
-};
-
-class Daemon extends Component<Props> {
+class Daemon extends Component {
+  componentDidMount() {
+    if (this.props.project)
+      this.props.add(ROOT, PROJECT, this.props.project)
+  }
   render() {
     const {
       title, match: { params: { id, daemon } }, project
@@ -43,5 +40,7 @@ class Daemon extends Component<Props> {
   }
 }
 
-export default connect(({ pool }, { match: { params: { daemon } } }) =>
-  pool[daemon] || {})(Daemon);
+export default connect(
+  ({ pool }, { match: { params: { daemon } } }) => pool[daemon] || {},
+  (dispatch) => bindActionCreators({add}, dispatch)
+)(Daemon);

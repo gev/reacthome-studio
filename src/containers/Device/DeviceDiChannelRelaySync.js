@@ -73,7 +73,7 @@ class Container extends Component {
           <tbody>
             {
               Array(relay).fill(0).map((_, i) => (
-                <Row index={i + 1} onChange={this.change} sync={sync} />
+                <Row key={'k' + i} index={i + 1} onChange={this.change} sync={sync} />
               ))
             }
           </tbody>

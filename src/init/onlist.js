@@ -19,6 +19,7 @@ export default (id, { state, assets }) => (dispatch, getState) => {
   }
   if (assets) {
     assets.forEach(async name => {
+      if (typeof name !== 'string') return;
       if (await exists(asset(name))) return;
       send(id, { type: GET, assets: [name] });
     });

@@ -4,14 +4,7 @@ import { connect } from 'react-redux';
 import { MenuItem } from '@rmwc/menu';
 import { BIND } from '../../../constants';
 
-type Props = {
-  code: ?string;
-  title: ?string;
-  index: number;
-  onClick: () => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
       onClick, index, title, code, label,
@@ -24,7 +17,8 @@ class Container extends Component<Props> {
   }
 }
 
-export default connect(({ pool }, { id, bind = BIND }) => {
+export default connect(
+  ({ pool }, { id, bind = BIND }) => {
   const channel = pool[id] || {};
   return pool[channel[bind]] || {};
 })(Container);

@@ -3,16 +3,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect, } from 'react-redux';
 import { push } from 'react-router-redux';
-import {
-  List,
-  ListItem,
-  ListItemText
-} from '@rmwc/list';
+import { List } from '@rmwc/list';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import { add, set } from '../actions';
 import connectTo from '../websocket';
 import { ROOT, PROJECT, DAEMON } from '../constants';
+import ListItem from './ListItem';
 
 type Props = {
   daemon: [];
@@ -23,11 +20,10 @@ type Props = {
 };
 
 class Daemons extends Component<Props> {
-  navigate = ({ id, project }) => () => {
+  navigate = (id) => () => {
     this.props.connectTo(id);
     this.props.navigate(id);
     this.props.add(ROOT, DAEMON, id);
-    this.props.add(ROOT, PROJECT, project);
   };
 
   change = (event) => {
@@ -46,10 +42,8 @@ class Daemons extends Component<Props> {
         </div>
         <List>
           {
-            daemon.map(d => (
-              <ListItem key={d.id} onClick={this.navigate(d)}>
-                <ListItemText>{d.title || d.code || d.id}</ListItemText>
-              </ListItem>
+            daemon.map(id => (
+              <ListItem key={id} id={id} onClick={this.navigate(id)} />
             ))
           }
         </List>
@@ -62,9 +56,7 @@ class Daemons extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }) => ({
-    daemon: ((pool.root || {}).daemon || []).map(id => ({ id, ...pool[id] })).filter(d => d.online)
-  }),
+  ({ pool }) => pool.root || {},
   (dispatch) => bindActionCreators({
     navigate: (id) => push(`/daemon/${id}`),
     connectTo,

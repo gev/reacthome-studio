@@ -20,18 +20,6 @@ import Do from './CardDoBind';
 import Typography from '@rmwc/typography';
 import SelectScript from '../SelectScript';
 
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
-
 const Sensor = connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id }) => bindActionCreators({
@@ -59,7 +47,7 @@ const Sensor = connect(
   </table>
 ));
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -134,7 +122,7 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
+  ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
     project, parent, id, field, multiple
   }) => bindActionCreators({

@@ -3,25 +3,13 @@ import path from 'path';
 import { createReadStream, createWriteStream } from 'fs';
 import { v4 as uuid } from 'uuid';
 import { contains } from 'fast-deep-equal';
-import debounce from 'debounce';
 import Vibrant from 'node-vibrant';
-import { writeFile, rename, asset, tmp } from '../fs';
+import { asset } from '../fs';
 import { ACTION_SET, BIND } from '../constants';
-import { STATE_JSON } from '../assets/constants';
 
-const store = debounce(async (state) => {
-  try {
-    const file = tmp(uuid());
-    await writeFile(file, Buffer.from(JSON.stringify(state.pool, null, 2)));
-    rename(file, STATE_JSON);
-  } catch (e) {
-    console.error(e);
-  }
-}, 100, true);
-
-const apply = (action) => (dispatch, getState) => {
-  dispatch(action);
-  store(getState());
+const apply = (id, payload) => (dispatch, getState) => {
+  dispatch({ id, payload, type: ACTION_SET });
+  localStorage.setItem(id, JSON.stringify(getState().pool[id]));
 };
 
 export const add = (id, field, subject) => (dispatch, getState) => {
@@ -36,10 +24,8 @@ export const add = (id, field, subject) => (dispatch, getState) => {
 export const set = (id, payload) => (dispatch, getState) => {
   if (!id) return;
   const prev = getState().pool[id];
-  if (prev && contains(prev, payload)) return;
-  dispatch(apply({
-    type: ACTION_SET, id, payload
-  }));
+  // if (prev && contains(prev, payload)) return;
+  dispatch(apply(id, payload));
 };
 
 export const compare = (id, payload) => (dispatch, getState) => {
@@ -52,10 +38,8 @@ export const compare = (id, payload) => (dispatch, getState) => {
       }
     }
   }
-  if (prev && contains(prev, payload)) return;
-  dispatch(apply({
-    type: ACTION_SET, id, payload
-  }));
+  // if (prev && contains(prev, payload)) return;
+  dispatch(apply(id, payload));
 };
 
 export const modify = (id, payload) => (dispatch) => {

@@ -1,20 +1,13 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import { Link } from 'react-router-dom';
 import { Button } from '@rmwc/button';
 import { SCRIPT } from '../../constants';
 import SelectMenu from './SelectMenu';
 
-type Props = {
-  id: ?string,
-  title: ?string,
-  code: ?string,
-  options: [],
-  onSelect: (id: string) => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
       id, project, title, code, options, onSelect
@@ -43,5 +36,11 @@ const filter = (pool, root, a = []) => {
   return a;
 };
 
-export default connect(({ pool }, { project, id }) =>
-  ({ ...pool[id], options: pool[project].script }))(Container);
+export default connect(
+  createSelector(
+    ({ pool }, { id }) => pool[id] || {},
+    ({ pool }, { project }) => pool[project].script,
+    (o, options) => ({...o, options})
+  )
+  
+)(Container);

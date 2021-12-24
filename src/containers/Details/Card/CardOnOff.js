@@ -15,23 +15,7 @@ import { remove, modify, makeBind } from '../../../actions';
 import { CODE, TITLE, DO_OFF, DO_ON, onOff, onOn } from '../../../constants';
 import SelectScript from '../SelectScript';
 
-type Props = {
-  code: ?string,
-  title: ?string;
-  change: (payload: {}) => void,
-  removeField: () => void,
-};
-
-type ActionProps = {
-  project: string;
-  action: number;
-  title: string;
-  value: ?number;
-  test: number;
-  change: (id: string, payload: {}) => void;
-};
-
-const Action = (props: ActionProps) => {
+const Action = (props) => {
   const {
     value, action, test, title, project
   } = props;
@@ -60,7 +44,7 @@ const Action = (props: ActionProps) => {
   );
 };
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -95,7 +79,7 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id }) => ({ ...pool[id], get: (subj) => pool[subj] || {} }),
+  ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
     project, parent, id, field, multiple
   }) => bindActionCreators({

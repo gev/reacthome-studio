@@ -25,7 +25,16 @@ export default class extends Component {
 
   async componentWillMount() {
     await init();
-    const pool = ((await exists(STATE_JSON)) ? JSON.parse(await readFile(STATE_JSON)) : {});
+    const pool = {};
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+        pool[key] = JSON.parse(value);
+      }
+    } catch (e) {
+      console.error(e);
+    }
     const store = createStore(reducer, { pool }, history);
     const { root } = store.getState().pool;
     if (root && root.daemon) root.daemon.forEach(id => store.dispatch(offline(id)));

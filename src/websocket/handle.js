@@ -8,9 +8,11 @@ import { writeFile, asset } from '../fs';
 import { PTY } from '../terminal/constants';
 import onPTY from '../terminal';
 
-export default (id) => (dispatch) => ({ data }) => {
-  try {
-    const action = JSON.parse(data);
+const queue = [];
+
+setInterval(() => {
+  while (queue.length > 0) {
+    const { id, action, dispatch } = queue.shift();    
     switch (action.type) {
       case LIST: {
         dispatch(onList(id, action));
@@ -29,7 +31,16 @@ export default (id) => (dispatch) => ({ data }) => {
         onPTY(id, action.chunk);
       }
     }
-  } catch (e) {
-    console.error(e);
+  }
+}, 100);
+
+export default (id) => (dispatch) => {
+  return ({ data }) => {
+    try {
+      const action = JSON.parse(data);
+      queue.push({ id, action, dispatch });
+    } catch (e) {
+      console.error(e);
+    }
   }
 };

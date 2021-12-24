@@ -4,11 +4,7 @@ import { Typography } from '@rmwc/typography';
 import { MODEL_TYPE } from '../../constants';
 import styles from './grid.css';
 
-type Props = {
-  selected: string
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { selected } = this.props;
     return (

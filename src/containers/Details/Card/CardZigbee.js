@@ -18,33 +18,9 @@ import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
 import RGB from '../../RGB';
 
-type Props = {
-  id: string;
-  code: ?string,
-  project: string,
-  daemon: string,
-  temperature: ?number;
-  humidity: ?number;
-  onTemperature: ?string;
-  onHumidity: ?string;
-  onDoppler: ?string;
-  change: (payload: {}) => void,
-  removeField: () => void
-};
-
-type RowProps = {
-  title: string;
-  value: any;
-  magnitude: ?string;
-  project: string;
-  script: ?string;
-  onSelect: (id: string) => void;
-  onRemove: () => void;
-};
-
 const Row = ({
   title, value, magnitude, project, script, onSelect, onRemove
-}: RowProps) => (
+}) => (
   <tr>
     <td className="paper">
       <Typography use="body">{title}</Typography>
@@ -65,7 +41,7 @@ const Row = ({
 );
 
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -92,10 +68,11 @@ class Container extends Component<Props> {
         <table style={{ textAlign: 'left' }}>
           <tbody>
             {
-              endpoint.map(e => {
+              endpoint.map((e, i) => {
                 if (e.cluster.includes('temperature') || e.cluster.includes('thermostat')) {
                   return (
                     <Row
+                      key={'k' + i}
                       title="Temperature"
                       value={temperature}
                       magnitude="°C"

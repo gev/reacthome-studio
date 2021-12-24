@@ -2,20 +2,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { createSelector } from 'reselect';
 import { Button } from '@rmwc/button';
 import { SCRIPT } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
 
-type Props = {
-  title: ?string,
-  code: ?string,
-  field: ?string,
-  options: [],
-  modify: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   select = (id) => {
     this.props.modify(id);
   }
@@ -44,10 +37,11 @@ const filter = (pool, root, a = []) => {
 };
 
 export default connect(
-  ({ pool }, { project, payload = {}, field = SCRIPT }) => ({
-    ...pool[payload[field]],
-    options: pool[project].script
-  }),
+  createSelector(
+    ({ pool }, { payload = {}, field = SCRIPT }) => pool[payload[field]],
+    ({ pool }, { project }) => pool[project].script,
+    (o, options) => ({ ...o, options })
+  ),
   (dispatch, { action, payload, field = SCRIPT }) => bindActionCreators({
     modify: (script) => modify(action, { payload: { ...payload, [field]: script } }),
   }, dispatch)

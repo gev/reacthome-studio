@@ -8,13 +8,7 @@ import {
   ToolbarSection
 } from '@rmwc/toolbar';
 
-type Props = {
-  title: string,
-  action: Component,
-  children: []
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const {
       title, action, children
@@ -34,8 +28,8 @@ export default class extends Component<Props> {
             <Grid>
               {
                 Array.isArray(children)
-                  ? children.map(i => <GridCell key={i.key} span={4}>{i}</GridCell>)
-                  : <GridCell span={3}>{children}</GridCell>
+                  ? children.map((c, i) => <GridCell key={'k'+i} span={4}>{c}</GridCell>)
+                  : <GridCell span={4}>{children}</GridCell>
               }
             </Grid>
           )

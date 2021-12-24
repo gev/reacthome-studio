@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import {
   Card,
   CardAction,
@@ -16,21 +17,7 @@ import { CODE, ACTION_TYPE, DELAY } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 import ActionPayload from './ActionPayload';
 
-type Props = {
-  id: string,
-  site: string,
-  project: string,
-  code: ?string,
-  type: ?string,
-  delay: ?Number,
-  daemon: ?string,
-  payload: ?{},
-  change: (payload: {}) => void,
-  removeField: () => void,
-  run: () => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = ({ target: { id, value, type } }) => {
     this.props.change({ [id]: type === 'number' ? Number(value) : value });
   }
@@ -76,7 +63,11 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }, { id, project }) => ({ ...pool[id], daemon: pool[project].daemon }),
+  createSelector(
+    ({ pool }, { id }) => pool[id] || {},
+    ({ pool }, { project }) => pool[project].daemon,
+    (o, daemon) => ({...o, daemon})
+  ),
   (dispatch, {
     parent, id, field, multiple
   }) => bindActionCreators({

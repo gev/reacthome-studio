@@ -5,14 +5,7 @@ import { Button } from '@rmwc/button';
 import { CAMERA } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 
-type Props = {
-  title: ?string,
-  code: ?string,
-  options: [],
-  onSelect: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
       title, code, options, onSelect

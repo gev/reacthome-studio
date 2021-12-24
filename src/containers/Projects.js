@@ -1,40 +1,30 @@
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  List,
-  ListItem,
-  ListItemText
-} from '@rmwc/list';
 import { Button } from '@rmwc/button';
 import { Typography } from '@rmwc/typography';
+import { List } from '@rmwc/list';
 import { create } from '../actions';
 import { ROOT, PROJECT, MODEL } from '../constants';
+import ListItem from './ListItem';
+import { push } from 'react-router-redux';
 
-type Props = {
-  project: [],
-  createProject: () => void
-};
-
-class Projects extends Component<Props> {
+class Projects extends Component {
   create = () => {
     const { createProject } = this.props;
     createProject();
   }
 
   render() {
-    const { project } = this.props;
+    const { project, navigate } = this.props;
     return (
       <div>
         <Typography use="headline4">Projects</Typography>
         <List>
           {
-            project.map(p => (
-              <ListItem key={p.id} tag={Link} to={`/project/${p.id}/${MODEL}`}>
-                <ListItemText>{p.title || p.id}</ListItemText>
-              </ListItem>
+            project.map(id => (
+              <ListItem key={id} id={id} onClick={() => navigate(id)} />
             ))
           }
         </List>
@@ -45,8 +35,9 @@ class Projects extends Component<Props> {
 }
 
 export default connect(
-  ({ pool }) => ({ project: ((pool.root || {}).project || []).map(id => ({ id, ...pool[id] })) }),
+  ({ pool }) => pool.root || {},
   (dispatch) => bindActionCreators({
-    createProject: () => create(ROOT, PROJECT, PROJECT)
+    createProject: () => create(ROOT, PROJECT, PROJECT),
+    navigate: (id) => push(`/project/${id}/${MODEL}`)
   }, dispatch)
 )(Projects);
