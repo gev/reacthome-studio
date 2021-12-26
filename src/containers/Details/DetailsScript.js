@@ -6,24 +6,14 @@ import { CardAction } from './Card';
 import AbstractDetails from './DetailsAbstract';
 import DetailSection from './DetailSection';
 
-type Props = {
-  id: string;
-  project: string;
-  daemon: string;
-  site: string;
-  field: string;
-  bind: string;
-  create: (field: string, type: string) => void
-};
-
-const Details = (props: Props) => {
+const Details = (props) => {
   const {
     project, site, id, field, create, bind, daemon
   } = props;
   return (
     <DetailSection title={field} action={<ToolbarIcon theme="text-primary-on-light" icon="add" onClick={create(field, field, bind)} />}>
       {
-        Array.isArray(rops[field]) && (
+        Array.isArray(props[field]) && (
           props[field].map(i => (
             <CardAction
               key={i}
