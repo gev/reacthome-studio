@@ -19,28 +19,7 @@ import SelectLeakageSensor from './SelectLeakageSensor';
 import SelectValveWater from './SelectValveWater';
 import SelectScript from '../SelectScript';
 
-type Props = {
-  project: ?string,
-  code: ?string,
-  title: ?string,
-  leakage_sensor: ?[],
-  valve_water: ?[],
-  change: (payload: {}) => void,
-  removeField: () => void,
-  add: (id: string) => void,
-  remove: (id: string) => void
-};
-
-type ActionProps = {
-  project: string;
-  action: number;
-  title: string;
-  value: ?number;
-  test: number;
-  change: (id: string, payload: {}) => void;
-};
-
-const Action = (props: ActionProps) => {
+const Action = (props) => {
   const {
     value, action, test, title, project
   } = props;
@@ -76,7 +55,7 @@ const Item = connect(({ pool }, { id }) => pool[id] || {})((props) => (
   </ListItem>
 ));
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;

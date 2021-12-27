@@ -17,24 +17,11 @@ import { ACTION_IR_CONFIG, CODE, TITLE, AC } from '../../../constants';
 import SelectThermostat from './SelectThermostat';
 import SelectIR from './SelectIR';
 import IR from './CardIRBind';
-import { SelectMenu } from '../../../components';
-
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  title: ?string;
-  project: string,
-  brand: ?string,
-  model: ?string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
+import SelectMenu from '../SelectMenu';
 
 const brands = codes[AC] || {};
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = { models: [] };
   componentWillMount() {
     const models = brands[this.props.brand] || {};

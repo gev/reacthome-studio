@@ -72,7 +72,7 @@ class Container extends Component {
   }
   render() {
     const {
-      id, code, project, daemon, bind, title, removeField, min, max
+      code, project, daemon, bind, title, removeField, min, max
     } = this.props;
     return (
       <Card>

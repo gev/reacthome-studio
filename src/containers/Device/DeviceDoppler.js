@@ -50,14 +50,7 @@ const initialData = {
   labels: new Array(n).fill(''),
   datasets: [{ ...art(0), data: new Array(n).fill(0) }]
 };
-
-type PropsType = {
-  value: number;
-  gain: number;
-  setGain: (value: number) => void
-};
-
-class Doppler extends Component<PropsType> {
+class Doppler extends Component {
   state = {
     data: initialData,
     raw: [],

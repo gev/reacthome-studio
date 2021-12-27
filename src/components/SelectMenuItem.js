@@ -2,12 +2,7 @@
 import React, { Component } from 'react';
 import { MenuItem } from '@rmwc/menu';
 
-type Props = {
-  value: ?string,
-  onSelect: (id: string) => void
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   select = () => {
     const { value, onSelect } = this.props;
     onSelect(value);

@@ -15,7 +15,7 @@ class Container extends Component {
   render() {
     const { handle, daemon = [] } = this.props;
     return (
-      <SelectMenu handle={handle} options={daemon} onSelect={this.select} />
+      <SelectMenu handle={handle} select={[DAEMON]} onSelect={this.select} />
     );
   }
 }

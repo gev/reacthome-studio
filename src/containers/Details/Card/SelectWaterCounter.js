@@ -8,39 +8,24 @@ import { WATER_COUNTER } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 import { set } from '../../../actions';
 
-type Props = {
-  title: ?string,
-  code: ?string,
-  options: [],
-  select: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
-      title, code, options, select
+      title, code, root, select
     } = this.props;
     return (
       <SelectMenu
         handle={<Button>{code || title || WATER_COUNTER}</Button>}
         onSelect={select}
-        options={options}
+        select={[WATER_COUNTER]}
+        root={root}
       />
     );
   }
 }
 
-const filter = (pool, root, a = [null]) => {
-  const o = pool[root];
-  if (o) {
-    if (o.water_counter) o.water_counter.forEach(i => a.push(i));
-    if (o.site) o.site.forEach(i => filter(pool, i, a));
-  }
-  return a;
-};
-
 export default connect(
-  ({ pool }, { root, id }) => ({ ...pool[(pool[id] || {}).water_counter], options: filter(pool, root) }),
+  ({ pool }, { id }) => pool[(pool[id] || {}).water_counter] || {},
   (dispatch, { id }) => bindActionCreators({
     select: (water_counter) => set(id, { water_counter })
   }, dispatch)

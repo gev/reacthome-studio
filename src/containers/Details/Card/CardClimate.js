@@ -17,31 +17,9 @@ import Button from './CardSensorButton';
 import SelectScript from '../SelectScript';
 import Autocomplete from '../../Filter';
 
-type Props = {
-  id: string;
-  code: ?string,
-  project: string,
-  temperature: ?number;
-  humidity: ?number;
-  onTemperature: ?string;
-  onHumidity: ?string;
-  change: (payload: {}) => void,
-  removeField: () => void
-};
-
-type RowProps = {
-  title: string;
-  value: any;
-  magnitude: ?string;
-  project: string;
-  script: ?string;
-  onSelect: (id: string) => void;
-  onRemove: () => void;
-};
-
 const Row = ({
   title, value, magnitude, project, script, onSelect, onRemove
-}: RowProps) => (
+}) => (
   <tr>
     <td className="paper">
       <Typography use="body">{title}</Typography>
@@ -62,7 +40,7 @@ const Row = ({
 );
 
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;

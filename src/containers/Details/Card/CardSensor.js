@@ -34,19 +34,9 @@ type Props = {
   removeField: () => void
 };
 
-type RowProps = {
-  title: string;
-  value: any;
-  magnitude: ?string;
-  project: string;
-  script: ?string;
-  onSelect: (id: string) => void;
-  onRemove: () => void;
-};
-
 const Row = ({
   title, value, magnitude, project, script, onSelect, onRemove
-}: RowProps) => (
+}) => (
   <tr>
     <td className="paper">
       <Typography use="body">{title}</Typography>

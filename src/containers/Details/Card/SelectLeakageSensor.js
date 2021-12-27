@@ -5,36 +5,22 @@ import { Button } from '@rmwc/button';
 import { LEAKAGE_SENSOR } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 
-type Props = {
-  title: ?string,
-  code: ?string,
-  options: [],
-  onSelect: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
-      title, code, options, onSelect
+      title, code, root, onSelect
     } = this.props;
     return (
       <SelectMenu
         handle={<Button>{code || title || LEAKAGE_SENSOR}</Button>}
         onSelect={onSelect}
-        options={options}
+        select={[LEAKAGE_SENSOR]}
+        root={root}
       />
     );
   }
 }
 
-const filter = (pool, root, a = []) => {
-  const o = pool[root];
-  if (o) {
-    if (o.leakage_sensor) o.leakage_sensor.forEach(i => a.push(i));
-    if (o.site) o.site.forEach(i => filter(pool, i, a));
-  }
-  return a;
-};
-
-export default connect(({ pool }, { root, id }) =>
-  ({ ...pool[id], options: filter(pool, root) }))(Container);
+export default connect(
+  ({ pool }, { id }) => pool[id] || {}
+)(Container);

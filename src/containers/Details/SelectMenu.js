@@ -1,20 +1,25 @@
 
 import React, { Component } from 'react';
-import { SimpleMenu } from '@rmwc/menu';
-import SelectMenuItem from './SelectMenuItem';
+import SimpleMenu from './SimpleMenu';
 
-type Props = {
-  options: [],
-  handle: Component,
-  onSelect: (id: string) => void
+export default class extends Component{
+  state = { }
+  openMenu = () => {
+    this.setState({ isMenuOpen: true });
+  }
+  closeMenu = () => {
+    this.setState({ isMenuOpen: false });
+  }
+  render() {
+    return this.state.isMenuOpen ? (
+      <SimpleMenu
+        {...this.props}
+        onClose={this.closeMenu}
+      />
+    ) : (
+      <div onClick={this.openMenu}>
+        {this.props.handle}
+      </div>
+    );
+  }
 };
-
-export default ({ handle, options, onSelect }: Props) => (
-  <SimpleMenu handle={handle} style={{ minWidth: 200 }}>
-    {
-      Array.isArray(options) && options.map(i => (
-        <SelectMenuItem key={i} id={i} onSelect={onSelect} />
-      ))
-    }
-  </SimpleMenu>
-);

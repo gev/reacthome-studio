@@ -2,15 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { MenuItem } from '@rmwc/menu';
-
-type Props = {
-  id: string,
-  title: ?string,
-  code: ?string,
-  onSelect: (id: string) => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   select = () => {
     const { id, onSelect } = this.props;
     onSelect(id);

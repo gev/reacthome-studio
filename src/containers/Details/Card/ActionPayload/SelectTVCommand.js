@@ -8,12 +8,7 @@ import { TV } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
 
-type Props = {
-  payload: ?{};
-  modify: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   state = {};
 
   async componentWillMount() {

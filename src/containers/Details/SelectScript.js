@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import { Link } from 'react-router-dom';
 import { Button } from '@rmwc/button';
 import { SCRIPT } from '../../constants';
@@ -10,7 +9,7 @@ import SelectMenu from './SelectMenu';
 class Container extends Component {
   render() {
     const {
-      id, project, title, code, options, onSelect
+      id, project, title, code, onSelect
     } = this.props;
     return (
       <SelectMenu
@@ -21,26 +20,13 @@ class Container extends Component {
           </div>
           }
         onSelect={onSelect}
-        options={options}
+        select={[SCRIPT]}
+        root={project}
       />
     );
   }
 }
 
-const filter = (pool, root, a = []) => {
-  const o = pool[root];
-  if (o) {
-    if (o.script) o.script.forEach(i => a.push(i));
-    if (o.script) o.script.forEach(i => filter(pool, i, a));
-  }
-  return a;
-};
-
 export default connect(
-  createSelector(
-    ({ pool }, { id }) => pool[id] || {},
-    ({ pool }, { project }) => pool[project].script,
-    (o, options) => ({...o, options})
-  )
-  
+  ({ pool }, { id }) => pool[id] || {}
 )(Container);

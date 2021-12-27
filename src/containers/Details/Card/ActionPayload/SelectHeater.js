@@ -3,49 +3,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
-import { HEATER } from '../../../../constants';
+import { HEATER, VALVE_HEATING, WARM_FLOOR } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
 
-type Props = {
-  title: ?string,
-  code: ?string,
-  options: [],
-  modify: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   select = (id) => {
     this.props.modify(id);
   }
 
   render() {
-    const { title, code, options } = this.props;
+    const { title, code, root } = this.props;
     return (
       <SelectMenu
         handle={<Button>{code || title || HEATER}</Button>}
         onSelect={this.select}
-        options={options}
+        select={[VALVE_HEATING, WARM_FLOOR]}
+        root={root}
       />
     );
   }
 }
 
-const filter = (pool, root, a = []) => {
-  const o = pool[root];
-  if (o) {
-    if (o.valve_heating) o.valve_heating.forEach(i => a.push(i));
-    if (o.warm_floor) o.warm_floor.forEach(i => a.push(i));
-    if (o.site) o.site.forEach(i => filter(pool, i, a));
-  }
-  return a;
-};
-
 export default connect(
-  ({ pool }, { root, payload: { id } = {} }) => ({
-    ...pool[id],
-    options: filter(pool, root)
-  }),
+  ({ pool }, { payload: { id } = {} }) => pool[id] || {},
   (dispatch, { action, payload }) => bindActionCreators({
     modify: (id) => modify(action, { payload: { ...payload, id } }),
   }, dispatch)

@@ -7,45 +7,26 @@ import { DOPPLER } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
 
-type Props = {
-  title: ?string,
-  code: ?string,
-  options: [],
-  modify: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   select = (id) => {
     this.props.modify(id);
   }
 
   render() {
-    const { title, code, options } = this.props;
+    const { title, code, root } = this.props;
     return (
       <SelectMenu
         handle={<Button>{code || title || DOPPLER}</Button>}
         onSelect={this.select}
-        options={options}
+        select={[DOPPLER]}
+        root={root}
       />
     );
   }
 }
 
-const filter = (pool, root, a = []) => {
-  const o = pool[root];
-  if (o) {
-    if (o.sensor) o.sensor.forEach(i => a.push(i));
-    if (o.doppler) o.doppler.forEach(i => a.push(i));
-    if (o.site) o.site.forEach(i => filter(pool, i, a));
-  }
-  return a;
-};
-
 export default connect(
-  ({ pool }, { root, payload: { id } = {} }) => ({
-    ...pool[id],
-    options: filter(pool, root)
-  }),
+  ({ pool }, { payload: { id } = {} }) => pool[id] || {},
   (dispatch, { action, payload }) => bindActionCreators({
     modify: (id) => modify(action, { payload: { ...payload, id } }),
   }, dispatch)

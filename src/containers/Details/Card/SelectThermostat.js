@@ -7,39 +7,24 @@ import { THERMOSTAT } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 import { set } from '../../../actions';
 
-type Props = {
-  title: ?string,
-  code: ?string,
-  options: [],
-  select: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
-      title, code, options, select
+      title, code, root, select
     } = this.props;
     return (
       <SelectMenu
         handle={<Button>{code || title || THERMOSTAT}</Button>}
         onSelect={select}
-        options={options}
+        select={[THERMOSTAT]}
+        root={root}
       />
     );
   }
 }
 
-const filter = (pool, root, a = [null]) => {
-  const o = pool[root];
-  if (o) {
-    if (o.thermostat) o.thermostat.forEach(i => a.push(i));
-    if (o.site) o.site.forEach(i => filter(pool, i, a));
-  }
-  return a;
-};
-
 export default connect(
-  ({ pool }, { root, id }) => ({ ...pool[(pool[id] || {}).thermostat], options: filter(pool, root) }),
+  ({ pool }, { id }) => pool[(pool[id] || {}).thermostat] || {},
   (dispatch, { id }) => bindActionCreators({
     select: (thermostat) => set(id, { thermostat })
   }, dispatch)

@@ -1,6 +1,4 @@
 
-import { asset, exists } from './fs';
-
 const build = (id, pool, state, assets) => {
   if (state[id]) return;
   const subject = pool[id];
