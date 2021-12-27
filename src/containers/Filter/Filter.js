@@ -1,13 +1,7 @@
 
-import debounce from 'debounce';
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Item from './Item';
-
-type Props = {
-  list: [],
-  onSelect: ?(id: string) => void
-};
 
 const filter = (pool, id, test, a = [], f = []) => {
   if (id && !f.includes(id)) {
@@ -27,18 +21,26 @@ const filter = (pool, id, test, a = [], f = []) => {
   return a;
 };
 
-const deboncedFilter = debounce(filter, 250);
-
-const Container = (props) => {
-  if (props.text && props.text.length > 1) {
-    const t = props.text.toLowerCase();
-    const list = deboncedFilter(props, props.id, ({ code, title }) => (
+class Container extends Component {
+  shouldComponentUpdate(props) {
+    return this.props.text !== props.text
+  }
+  render() {
+    const t = this.props.text.toLowerCase();
+    const list = filter(this.props.pool, this.props.id, ({ code, title }) => (
       (code && String(code).toLowerCase().includes(t)) ||
       (title && String(title).toLowerCase().includes(t))
     )) || [];
-    return list.map(i => <Item key={i[0]} id={i[0]} {...i[1]} onSelect={props.onSelect} />);
-  } 
-  return [];
+    return list.map(
+      i => (
+        <Item
+          key={i[0]}
+          id={i[0]}
+          {...i[1]}
+          onSelect={this.props.onSelect} />
+      )
+    );
+  }
 };
 
-export default connect (({ pool }) => pool)(Container);
+export default connect(({ pool }) => ({ pool }))(Container);

@@ -7,15 +7,7 @@ import {
   ListItemSecondaryText
 } from '@rmwc/list';
 
-type Props = {
-  id: string,
-  code: ?string,
-  type: ?string,
-  title: ?string,
-  onSelect: ?(id: string) => void
-}
-
-export default class extends Component<Props> {
+export default class extends Component {
   select = () => {
     const { id, onSelect } = this.props;
     if (onSelect) onSelect(id);
@@ -23,7 +15,7 @@ export default class extends Component<Props> {
 
   render() {
     const {
-      id, code, type, title
+      code, type, title
     } = this.props;
     return (
       <ListItem onMouseDown={this.select}>
