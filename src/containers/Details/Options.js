@@ -25,7 +25,7 @@ const filter = (pool, root, select) => {
     filter_(root)
     return a;
   }
-  return (pool[root] || {})[select] || []
+  return (pool.root || {})[select] || []
 };
 
 class Container extends Component{

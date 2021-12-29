@@ -47,6 +47,7 @@ export default class extends Component {
               minWidth: '200px',
               backgroundColor: '#f7f7f7',
               overflow: 'auto',
+              zIndex: '99999',
             }}>
               <List twoLine>
                 <Filter id={root} text={debonced} onSelect={this.select} />

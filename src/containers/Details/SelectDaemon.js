@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { modify } from '../../actions';
 import SelectMenu from './SelectMenu';
+import { DAEMON } from '../../constants';
 
 class Container extends Component {
   select = (daemon) => {
