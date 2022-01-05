@@ -7,18 +7,7 @@ import { push } from 'react-router-redux';
 import Typography from '@rmwc/typography';
 import styles from './grid.css';
 
-type Props = {
-  id: string;
-  title: ?string;
-  code: ?string;
-  project: string,
-  site: [],
-  level: ?number,
-  selected: ?string;
-  to: (site: string) => void
-};
-
-class GridHeaderColumn extends Component<Props> {
+class GridHeaderColumn extends Component {
   to = (site) => () => {
     this.props.to(site);
   }
@@ -35,7 +24,7 @@ class GridHeaderColumn extends Component<Props> {
             style={{ textIndent: 24 * level }}
             onClick={this.to(id)}
           >
-            <Typography use="caption">{title || code || id}</Typography>
+            <Typography use="caption">{[code, title].join(' / ') || id}</Typography>
           </div>
         </td>
       </tr>,
@@ -46,10 +35,6 @@ class GridHeaderColumn extends Component<Props> {
 
 const Row = connect(
   ({ pool }, { id }) => pool[id] || {},
-  // ({ pool }, { id }) => ({
-  //   site: ((pool[id] || {}).site || []).map(i =>
-  //     ({ id: i, ...pool[i] }))
-  // }),
   (dispatch, { project }) => bindActionCreators({
     to: (site) => push(`/project/${project}/${site}`)
   }, dispatch)

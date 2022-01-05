@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@rmwc/button';
-import { SENSOR } from '../../../constants';
+import { DRIVER_TYPE_RS21, SENSOR } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 
 class Container extends Component{
@@ -14,7 +14,7 @@ class Container extends Component{
       <SelectMenu
         handle={<Button>{code || title || SENSOR}</Button>}
         onSelect={onSelect}
-        select={[SENSOR, RS21]}
+        select={[SENSOR, DRIVER_TYPE_RS21]}
         root={root}
       />
     );

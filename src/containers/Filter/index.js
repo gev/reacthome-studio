@@ -27,7 +27,7 @@ export default class extends Component {
 
   select = (id) => {
     const { onSelect } = this.props;
-    this.setState({ text: '', open: false });
+    this.setState({ open: false });
     if (onSelect) onSelect(id);
   }
 
@@ -37,7 +37,7 @@ export default class extends Component {
     return (
       <div onFocusCapture={this.open} onBlurCapture={this.close}>
         {
-          <TextField id={id} onInput={this.input} text={text} />
+          <TextField id={id} onInput={this.input} text={open && text} />
         }
         {
           open && debonced.length > 1 && (
