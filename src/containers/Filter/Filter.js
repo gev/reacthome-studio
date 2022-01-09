@@ -3,19 +3,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Item from './Item';
 
+import { DAEMON, PROJECT, SITE } from '../../constants';
+
 const filter = (pool, id, test, a = [], f = []) => {
   if (id && !f.includes(id)) {
     f.push(id);
     const o = pool[id];
     if (o) {
       if (test(o)) a.push([id, o]);
-      Object.values(o).forEach(i => {
-        if (Array.isArray(i)) {
-          i.forEach(j => filter(pool, j, test, a, f));
-        } else if (i) {
-          filter(pool, i, test, a, f);
-        }
-      });
+      if ( o.type === DAEMON
+        || o.type === PROJECT
+        || o.type == SITE) {
+        Object.values(o).forEach(i => {
+          if (Array.isArray(i)) {
+            i.forEach(j => filter(pool, j, test, a, f));
+          } else if (i) {
+            filter(pool, i, test, a, f);
+          }
+        });
+      }
     }
   }
   return a;

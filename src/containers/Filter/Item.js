@@ -20,7 +20,7 @@ export default class extends Component {
     return (
       <ListItem onMouseDown={this.select}>
         <ListItemText>
-          <ListItemPrimaryText>{code || title}</ListItemPrimaryText>
+          <ListItemPrimaryText>{[code, title].filter(Boolean).join(' / ')}</ListItemPrimaryText>
           <ListItemSecondaryText>{type}</ListItemSecondaryText>
         </ListItemText>
       </ListItem>

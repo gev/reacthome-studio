@@ -24,7 +24,7 @@ class GridHeaderColumn extends Component {
             style={{ textIndent: 24 * level }}
             onClick={this.to(id)}
           >
-            <Typography use="caption">{[code, title].join(' / ') || id}</Typography>
+            <Typography use="caption">{[code, title].filter(Boolean).join(' / ') || id}</Typography>
           </div>
         </td>
       </tr>,
