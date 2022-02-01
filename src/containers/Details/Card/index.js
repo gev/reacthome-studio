@@ -133,8 +133,9 @@ const Container = (props: Props) => {
     case FAN:
       return <CardDo {...props} />;
     case VALVE_HEATING:
-    case WARM_FLOOR:
       return <CardHeater {...props} />;
+    case WARM_FLOOR:
+      return <CardHeater {...props}  />;
     case CURTAINS:
       return <CardClosure {...props} />;
     case LIGHT_RGB:

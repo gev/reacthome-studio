@@ -5,21 +5,7 @@ import { DI, onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD } from '../../../consta
 import connect from './connect';
 import SelectScript from '../SelectScript';
 
-type Props = {
-  site: string;
-  index: number;
-};
-
-type ActionProps = {
-  action: number;
-  project: string;
-  title: string;
-  value: ?number;
-  test: number;
-  modify: (payload: {}) => void;
-};
-
-const Action = (props: ActionProps) => {
+const Action = (props) => {
   const {
     value, action, test, project, title, modify
   } = props;
@@ -48,7 +34,7 @@ const Action = (props: ActionProps) => {
   );
 };
 
-export default connect(DI)((props : Props) => (
+export default connect(DI)((props) => (
   <tr>
     <td className="paper"><Typography use="caption">{props.index}</Typography></td>
     <Action {...props} action={onOff} test={DI_OFF} title="OFF" />

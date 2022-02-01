@@ -33,9 +33,11 @@ class Container extends Component {
   }
   render() {
     const t = this.props.text.toLowerCase();
-    const list = filter(this.props.pool, this.props.id, ({ code, title }) => (
-      (code && String(code).toLowerCase().includes(t)) ||
-      (title && String(title).toLowerCase().includes(t))
+    const list = filter(this.props.pool, this.props.id, ({ code, title, type }) => (
+      (this.props.type && type === this.props.type) && (
+        (code && String(code).toLowerCase().includes(t)) ||
+        (title && String(title).toLowerCase().includes(t))
+      )
     )) || [];
     return list.map(
       i => (

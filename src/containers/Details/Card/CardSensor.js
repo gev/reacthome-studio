@@ -20,19 +20,6 @@ import RGB from '../../RGB';
 import Display from '../../Display';
 import Autocomplete from '../../Filter';
 
-type Props = {
-  id: string;
-  code: ?string,
-  project: string,
-  daemon: string,
-  temperature: ?number;
-  humidity: ?number;
-  onTemperature: ?string;
-  onHumidity: ?string;
-  onDoppler: ?string;
-  change: (payload: {}) => void,
-  removeField: () => void
-};
 
 const Row = ({
   title, value, magnitude, project, script, onSelect, onRemove
@@ -56,7 +43,7 @@ const Row = ({
   </tr>
 );
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;

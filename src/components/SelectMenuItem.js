@@ -11,7 +11,9 @@ export default class extends Component {
   render() {
     const { value } = this.props;
     return (
-      <MenuItem onClick={this.select}>{value}</MenuItem>
+      <MenuItem onClick={this.select}>
+        <div style={{whiteSpace: 'nowrap'}}>{value}</div>
+      </MenuItem>
     );
   }
 }

@@ -19,6 +19,7 @@ import SelectDo from './SelectDo';
 import Do from './CardDoBind';
 import Typography from '@rmwc/typography';
 import SelectScript from '../SelectScript';
+import { Checkbox } from '@rmwc/checkbox';
 
 const Sensor = connect(
   ({ pool }, { id }) => pool[id] || {},
@@ -26,13 +27,18 @@ const Sensor = connect(
     onSelect: (onTemperature) => modify(id, { onTemperature })
   }, dispatch)
 )(({
-  code, title, remove, onTemperature, onSelect, project
+  code, title, remove, onTemperature, onSelect, project,  
+  temperature
 }) => (
   <table>
     <tbody>
       <tr>
         <td>
-          <Typography>{code || title}</Typography>
+          <div>
+            <Typography>{code || title}</Typography>
+            <br/>
+            <Typography>{temperature}°C</Typography>
+          </div>
           <Typography use="caption" onClick={remove}><strong> X </strong></Typography>
         </td>
         <td>
@@ -72,7 +78,7 @@ class Container extends Component {
   }
   render() {
     const {
-      code, project, daemon, bind, title, removeField, min, max
+      code, project, daemon, bind, title, removeField, min, max, inverse
     } = this.props;
     return (
       <Card>
@@ -81,6 +87,11 @@ class Container extends Component {
         </div>
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
+        </div>
+        <div className="paper">
+          <Checkbox label="Inverse" checked={inverse} onChange={() => {
+            this.props.change({inverse: !inverse})
+          }}/>
         </div>
         <div className="paper">
           <Slider value={min || 20} min={15} max={35} step={1} onInput={this.setmin} discrete />

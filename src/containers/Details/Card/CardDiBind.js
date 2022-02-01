@@ -2,66 +2,108 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { IconButton } from '@rmwc/icon-button';
+import { List, ListItem, ListItemGraphic } from '@rmwc/list';
 import { Typography } from '@rmwc/typography';
-import { modify } from '../../../actions';
+import { modify, add, remove } from '../../../actions';
 import { onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD, onClick, DI_CLICK } from '../../../constants';
 import SelectScript from '../SelectScript';
+import { TextField } from '@rmwc/textfield';
+import { Checkbox } from '@rmwc/checkbox';
 
-type Props = {
-  site: string;
-  index: number;
-};
+const Item = connect(({ pool }, { id }) => pool[id] || {})((props) => (
+  <ListItem>
+    <ListItemGraphic icon={<IconButton icon="remove" onClick={props.remove} />} />
+    {props.code || props.title}
+  </ListItem>
+));
 
-type ActionProps = {
-  action: string;
-  project: string;
-  title: string;
-  value: ?number;
-  test: number;
-  modify: (id: string, payload: {}) => void;
-};
 
-const Action = (props: ActionProps) => {
+const Action = (props) => {
   const {
-    value, action, test, project, title
+    value, action, test, project, title, timeout, repeat, interval
   } = props;
+  const script =
+    Array.isArray(props[action])
+      ? props[action]
+      : props[action]
+        ? [props[action]]
+        : [];
   const select = (id) => {
-    props.modify({ [action]: id });
+    if (!Array.isArray(props[action])) {
+      props.modify({ [action]: [props[action]] });
+    }
+    props.add(action, id);
   };
-  const clear = () => {
-    props.modify({ [action]: null });
+  const remove = (id) => () => {
+    if (Array.isArray(props[action])) {
+      props.remove(action, id);
+    } else {
+      props.modify({ [action]: [] });      
+    }
   };
-  const script = props[action];
+  const modify = (field) => (event) => {
+    props.modify({[field]: event.target.value})
+  }
   return (
-    <td className="paper">
-      <div>
-        <Typography use="caption" theme={value === test ? 'secondary' : 'text-hint-on-background'}>
-          {title}
-        </Typography>
+    <tr className="paper">
+      <td style={{borderRight: 'solid 1px silver', height: '100%'}}>
+        <div>
+          <Typography use="caption" theme={value === test ? 'secondary' : 'text-hint-on-background'}>
+            {title}
+          </Typography>
+        </div>
+      </td>
+      <td>
         {
-          script &&
-            <Typography use="caption" onClick={clear}><strong> X </strong></Typography>
+          (action === onHold) && (
+            <table>
+              <tbody>
+                <tr>
+                  <td><TextField value={timeout} label="timeout" onChange={modify("timeout")} /></td>
+                  <td><Checkbox checked={repeat} label='repeat' onChange={() => {
+                    props.modify({repeat: !repeat})
+                  }} /></td>
+                  <td><TextField value={interval} label="interval" onChange={modify("interval")} /></td>
+                </tr>
+              </tbody>
+            </table>
+          )
         }
-      </div>
-      <div>
-        <SelectScript id={script} project={project} onSelect={select} />
-      </div>
-    </td>
+        <div>
+          <List>
+            {
+              script.map(i =>
+                <Item key={i} id={i} remove={remove(i)} />
+              )
+            }
+          </List>
+
+        </div>
+        <div>
+          <SelectScript project={project} onSelect={select} />
+        </div>
+      </td>
+    </tr>
   );
 };
 
-const Container = (props : Props) => (
-  <tr>
-    <Action {...props} action={onOn} test={DI_ON} title="ON" />
-    <Action {...props} action={onClick} test={DI_CLICK} title="CLICK" />
-    <Action {...props} action={onHold} test={DI_HOLD} title="HOLD" />
-    <Action {...props} action={onOff} test={DI_OFF} title="OFF" />
-  </tr>
+const Container = (props) => (
+  <table>
+    <tbody>
+      <Action {...props} action={onOn} test={DI_ON} title="ON" />
+      <Action {...props} action={onClick} test={DI_CLICK} title="CLICK" />
+      <Action {...props} action={onHold} test={DI_HOLD} title="HOLD" />
+      <Action {...props} action={onOff} test={DI_OFF} title="OFF" />
+    </tbody>
+  </table>
 );
 
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id }) => bindActionCreators({
-    modify: (payload) => modify(id, payload)
+    modify: (payload) => modify(id, payload),
+    add: (action, payload) => add(id, action, payload),
+    remove: (action, payload) => remove(id, action, payload)
   }, dispatch)
 )(Container);

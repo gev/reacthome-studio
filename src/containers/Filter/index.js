@@ -33,24 +33,24 @@ export default class extends Component {
 
   render() {
     const { text, open, debonced } = this.state;
-    const { id, root } = this.props;
+    const { id, root, type } = this.props;
     return (
       <div onFocusCapture={this.open} onBlurCapture={this.close}>
         {
           <TextField id={id} onInput={this.input} text={open && text} />
         }
         {
-          open && debonced.length > 1 && (
+          open && (
             <div style={{
               position: 'absolute',
               maxHeight: '50vh',
               minWidth: '200px',
               backgroundColor: '#f7f7f7',
               overflow: 'auto',
-              zIndex: '99999',
+              zIndex: '9999',
             }}>
               <List twoLine>
-                <Filter id={root} text={debonced} onSelect={this.select} />
+                <Filter id={root} type={type} text={debonced} onSelect={this.select} />
               </List>
             </div>
           )

@@ -55,7 +55,7 @@ export const create = (id, field, type, bind) => (dispatch, getState) => {
 };
 
 export const remove = (id, field, subject) => (dispatch, getState) => {
-  if (!id || !field || !subject) return;
+  if (!id || !field) return;
   const prev = getState().pool[id];
   if (!prev || !prev[field] || !prev[field].includes(subject)) return;
   dispatch(modify(id, { [field]: prev[field].filter(i => i !== subject) }));

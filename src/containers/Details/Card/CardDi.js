@@ -15,17 +15,7 @@ import { CODE } from '../../../constants';
 import Di from './CardDiBind';
 import SelectDi from './SelectDi';
 
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  project: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -49,11 +39,9 @@ class Container extends Component<Props> {
         </div>
         {
           bind && (
-            <table>
-              <tbody>
-                <Di id={bind} project={project} />
-              </tbody>
-            </table>
+            <div className="paper">
+              <Di id={bind} project={project} />
+            </div>
           )
         }
         <CardActions>

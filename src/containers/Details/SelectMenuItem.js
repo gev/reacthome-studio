@@ -11,7 +11,9 @@ class Container extends Component {
   render() {
     const { id, title, code } = this.props;
     return (
-      <MenuItem onClick={this.select}>{code || title || id}</MenuItem>
+      <MenuItem onClick={this.select}>
+        <div style={{ whiteSpace: 'nowrap' }}>{code || title || id}</div>
+      </MenuItem>
     );
   }
 }
