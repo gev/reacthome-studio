@@ -9,11 +9,12 @@ import {
   CardActions,
   CardActionIcons
 } from '@rmwc/card';
+import { TabBar, Tab } from '@rmwc/tabs';
 import { Typography } from '@rmwc/typography';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify } from '../../../actions';
-import { CODE, onTemperature, onHumidity, onDoppler, onIllumination } from '../../../constants';
-import Button from './CardSensorButton';
+import { CODE, onTemperature, onHumidity, onDoppler, onIllumination, DI } from '../../../constants';
+import Button from '../Card/CardDiBind';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
 import RGB from '../../RGB';
@@ -44,6 +45,11 @@ const Row = ({
 );
 
 class Container extends Component {
+  state = { button: 0 };
+
+  selectButton = ({ detail: { index } }) => {
+    this.setState({ button: index });
+  };
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -112,14 +118,19 @@ class Container extends Component {
             />
           </tbody>
         </table>
-        <table>
-          <tbody>
-            <Button id={id} project={project} index={1} />
-            <Button id={id} project={project} index={2} />
-            <Button id={id} project={project} index={3} />
-            <Button id={id} project={project} index={4} />
-          </tbody>
-        </table>
+        <TabBar
+          activeTabIndex={this.state.button}
+          onActivate={this.selectButton}
+        >
+          <Tab>1</Tab>
+          <Tab>2</Tab>
+          <Tab>3</Tab>
+          <Tab>4</Tab>
+        </TabBar>
+        <div className="paper">
+          <Button id={`${id}/${DI}/${this.state.button + 1}`} project={project} />
+        </div>
+        {/* <Button id={id} project={project} index={this.state.button + 1} /> */}
         {
           hasDoppler && (
             <div>

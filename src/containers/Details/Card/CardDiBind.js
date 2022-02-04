@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import { IconButton } from '@rmwc/icon-button';
 import { List, ListItem, ListItemGraphic } from '@rmwc/list';
 import { Typography } from '@rmwc/typography';
@@ -15,6 +16,9 @@ const Item = connect(({ pool }, { id }) => pool[id] || {})((props) => (
   <ListItem>
     <ListItemGraphic icon={<IconButton icon="remove" onClick={props.remove} />} />
     {props.code || props.title}
+    <div style={{right: 12, position:'absolute'}}>
+      <Link to={`/project/${props.project}/${props.id}`}>...</Link>  
+    </div>
   </ListItem>
 ));
 
@@ -74,7 +78,7 @@ const Action = (props) => {
           <List>
             {
               script.map(i =>
-                <Item key={i} id={i} remove={remove(i)} />
+                <Item key={i} id={i} project={project} remove={remove(i)} />
               )
             }
           </List>

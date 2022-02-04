@@ -3,22 +3,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Item from './Item';
 
-import { DAEMON, PROJECT, SITE } from '../../constants';
+import { DAEMON, DEVICE_TYPES, PROJECT, SITE } from '../../constants';
 
-const filter = (pool, id, test, a = [], f = []) => {
+const list = (pool, id, type, a = [], f = []) => {
   if (id && !f.includes(id)) {
     f.push(id);
     const o = pool[id];
     if (o) {
-      if (test(o)) a.push([id, o]);
+      if (o.title || o.code) {
+        if (type ? o.type === type : true) {
+          a.push([id, DEVICE_TYPES[o.type] ? {...o, type: DEVICE_TYPES[o.type].title} : o]);
+        }
+      }
       if ( o.type === DAEMON
         || o.type === PROJECT
         || o.type == SITE) {
         Object.values(o).forEach(i => {
           if (Array.isArray(i)) {
-            i.forEach(j => filter(pool, j, test, a, f));
+            i.forEach(j => list(pool, j, type, a, f));
           } else if (i) {
-            filter(pool, i, test, a, f);
+            list(pool, i, type, a, f);
           }
         });
       }
@@ -28,18 +32,21 @@ const filter = (pool, id, test, a = [], f = []) => {
 };
 
 class Container extends Component {
+  constructor(props) {
+    super(props);
+    this.list = list(this.props.pool, this.props.id, this.props.type);
+  }
   shouldComponentUpdate(props) {
     return this.props.text !== props.text
   }
   render() {
     const t = this.props.text.toLowerCase();
-    const list = filter(this.props.pool, this.props.id, ({ code, title, type }) => (
-      (this.props.type && type === this.props.type) && (
-        (code && String(code).toLowerCase().includes(t)) ||
-        (title && String(title).toLowerCase().includes(t))
-      )
-    )) || [];
-    return list.map(
+    const items = t ? this.list.filter(([_, { code, title, type }]) => (
+      (type && String(type).toLowerCase().includes(t)) ||
+      (code && String(code).toLowerCase().includes(t)) ||
+      (title && String(title).toLowerCase().includes(t))
+    )) : this.list;
+    return items.map(
       i => (
         <Item
           key={i[0]}

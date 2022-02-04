@@ -8,6 +8,7 @@ import { offline, online } from './online';
 const PROTOCOL = 'connect';
 
 export default (id) => (dispatch, getState) => {
+
   if (peers.has(id)) {
     return;
   }

@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button } from '@rmwc/button';
 import { SCRIPT } from '../../../../constants';
 import { modify } from '../../../../actions';
-import SelectMenu from '../../SelectMenu';
+import SelectScript from '../../SelectScript';
 
 class Container extends Component {
   select = (id) => {
@@ -13,16 +12,9 @@ class Container extends Component {
   }
 
   render() {
-    const {
-      title, code, project, field
-    } = this.props;
+    const { payload, field = SCRIPT, project } = this.props;
     return (
-      <SelectMenu
-        handle={<Button>{code || title || field || SCRIPT}</Button>}
-        onSelect={this.select}
-        select={[SCRIPT]}
-        root={project}
-      />
+      <SelectScript id={payload[field]} project={project} onSelect={this.select} />
     );
   }
 }

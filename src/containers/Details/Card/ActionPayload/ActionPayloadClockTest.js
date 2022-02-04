@@ -9,15 +9,8 @@ import { modify } from '../../../../actions';
 import SelectComparator from './SelectComparator';
 import { onTrue, onFalse } from '../../../../constants';
 
-type Props = {
-  id: string;
-  project: string;
-  payload: ?{};
-  modify: (time: number) => void;
-  setOperator: (operator: string) => void;
-};
 
-class Container extends Component<Props> {
+class Container extends Component {
   onInput = (event) => {
     this.props.modify(Number(parseInt(event.target.value, 10)));
   };

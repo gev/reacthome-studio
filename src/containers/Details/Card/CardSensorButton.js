@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Typography } from '@rmwc/typography';
-import { DI, onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD } from '../../../constants';
+import { DI, onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD, onClick, DI_CLICK } from '../../../constants';
 import connect from './connect';
 import SelectScript from '../SelectScript';
 
@@ -17,28 +17,34 @@ const Action = (props) => {
   };
   const script = props[action];
   return (
-    <td className="paper">
-      <div>
-        <Typography use="caption" theme={value === test ? 'secondary' : 'text-hint-on-background'}>
-          {title}
-        </Typography>
-        {
-          script &&
-            <Typography use="caption" onClick={clear}><strong> X </strong></Typography>
-        }
-      </div>
-      <div>
-        <SelectScript id={script} project={project} onSelect={select} />
-      </div>
-    </td>
+    <tr>
+      <td className="paper">
+        <div>
+          <Typography use="caption" theme={value === test ? 'secondary' : 'text-hint-on-background'}>
+            {title}
+          </Typography>
+          {
+            script &&
+              <Typography use="caption" onClick={clear}><strong> X </strong></Typography>
+          }
+        </div>
+      </td>
+      <td>
+        <div>
+          <SelectScript id={script} project={project} onSelect={select} />
+        </div>
+      </td>
+    </tr>
   );
 };
 
 export default connect(DI)((props) => (
-  <tr>
-    <td className="paper"><Typography use="caption">{props.index}</Typography></td>
-    <Action {...props} action={onOff} test={DI_OFF} title="OFF" />
-    <Action {...props} action={onOn} test={DI_ON} title="ON" />
-    <Action {...props} action={onHold} test={DI_HOLD} title="HOLD" />
-  </tr>
+  <table>
+    <tbody>
+      <Action {...props} action={onOn} test={DI_ON} title="ON" />
+      <Action {...props} action={onHold} test={DI_HOLD} title="HOLD" />
+      <Action {...props} action={onClick} test={DI_CLICK} title="CLICK" />
+      <Action {...props} action={onOff} test={DI_OFF} title="OFF" />
+    </tbody>
+  </table>
 ));

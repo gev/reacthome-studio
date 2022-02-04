@@ -31,18 +31,21 @@ const Action = ({
 }) => {
   const select = () => (script) => on(action, script);
   const remove = () => () => on(action, null);
-  return [
-    <td key="title">
-      <Typography use="caption">{title}</Typography>
-      {
-        payload[action] &&
-          <Typography use="caption" onClick={remove(action)}><strong> X </strong></Typography>
-      }
-    </td>,
-    <td key="script">
-      <SelectScript id={payload[action]} project={project} onSelect={select(action)} />
-    </td>
-  ];
+  return (
+    <tr>
+      <td>
+        <Typography use="caption">{title}</Typography>
+        {
+          payload[action] &&
+            <Typography use="caption" onClick={remove(action)}><strong> X </strong></Typography>
+        }
+      </td>
+      <td>
+        <SelectScript id={payload[action]} project={project} onSelect={select(action)} />
+      </td>
+
+    </tr>
+  );
 };
 
 class Container extends Component<Props> {
@@ -71,10 +74,8 @@ class Container extends Component<Props> {
         </List>
         <table>
           <tbody>
-            <tr>
-              <Action id={id} project={project} on={on} payload={payload} action={onOff} title="OFF" />
-              <Action id={id} project={project} on={on} payload={payload} action={onOn} title="ON" />
-            </tr>
+            <Action id={id} project={project} on={on} payload={payload} action={onOff} title="OFF" />
+            <Action id={id} project={project} on={on} payload={payload} action={onOn} title="ON" />
           </tbody>
         </table>
       </div>

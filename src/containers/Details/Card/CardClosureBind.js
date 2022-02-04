@@ -7,21 +7,7 @@ import { modify } from '../../../actions';
 import { onOpen, onStop, onClose, OPEN, STOP, CLOSE } from '../../../constants';
 import SelectScript from '../SelectScript';
 
-type Props = {
-  site: string;
-  index: number;
-};
-
-type ActionProps = {
-  action: number;
-  project: string;
-  title: string;
-  value: ?number;
-  test: number;
-  modify: (id: string, payload: {}) => void;
-};
-
-const Action = (props: ActionProps) => {
+const Action = (props) => {
   const {
     value, action, test, project, title
   } = props;
@@ -50,7 +36,7 @@ const Action = (props: ActionProps) => {
   );
 };
 
-const Container = (props : Props) => (
+const Container = (props) => (
   <tr>
     <Action {...props} action={onOpen} test={OPEN} title="Open" />
     <Action {...props} action={onStop} test={STOP} title="Stop" />

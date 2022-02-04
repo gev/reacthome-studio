@@ -10,22 +10,21 @@ import Autocomplete from '../Filter';
 class Container extends Component {
   render() {
     const {
-      id, project, title, code, onSelect
+      id, project, onSelect
     } = this.props;
     return (
-      <Autocomplete id={id} root={project} onSelect={onSelect} type={SCRIPT} />
-
-      // <SelectMenu
-      //   handle={
-      //     <div>
-      //       <Button theme={id ? 'primary' : 'text-hint-on-background'}>{code || title || SCRIPT}</Button>
-      //       <Link to={`/project/${project}/${id}`}>.</Link>
-      //     </div>
-      //     }
-      //   onSelect={onSelect}
-      //   select={[SCRIPT]}
-      //   root={project}
-      // />
+      <table>
+        <tr>
+          <td>
+            <Autocomplete id={id} root={project} onSelect={onSelect} type={SCRIPT} />
+          </td>
+          {id && (
+            <td>
+              <Link to={`/project/${project}/${id}`}>...</Link>  
+            </td>
+          )}
+        </tr>
+      </table>
     );
   }
 }
