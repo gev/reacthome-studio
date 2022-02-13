@@ -3,13 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SelectClock from './SelectClock';
 
-type Props = {
-  id: string;
-  project: string;
-  payload: ?{};
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
       id, project, payload = {}

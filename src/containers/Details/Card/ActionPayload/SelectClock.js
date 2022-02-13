@@ -19,7 +19,7 @@ class Container extends Component {
       <SelectMenu
         handle={<Button>{code || title || CLOCK}</Button>}
         onSelect={this.select}
-        selet={[CLOCK]}
+        select={[CLOCK]}
         root={project}
       />
     );
