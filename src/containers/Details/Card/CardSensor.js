@@ -14,7 +14,7 @@ import { Typography } from '@rmwc/typography';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify } from '../../../actions';
 import { CODE, onTemperature, onHumidity, onDoppler, onIllumination, DI } from '../../../constants';
-import Button from '../Card/CardDiBind';
+import Di from './CardDiBind';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
 import RGB from '../../RGB';
@@ -45,11 +45,12 @@ const Row = ({
 );
 
 class Container extends Component {
-  state = { button: 0 };
+  state = { di: 0 }
 
-  selectButton = ({ detail: { index } }) => {
-    this.setState({ button: index });
-  };
+  selectDi = ({ detail: { index } }) => {
+    this.setState({ di: index });
+  }
+
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -119,8 +120,8 @@ class Container extends Component {
           </tbody>
         </table>
         <TabBar
-          activeTabIndex={this.state.button}
-          onActivate={this.selectButton}
+          activeTabIndex={this.state.di}
+          onActivate={this.selectDi}
         >
           <Tab>1</Tab>
           <Tab>2</Tab>
@@ -128,9 +129,8 @@ class Container extends Component {
           <Tab>4</Tab>
         </TabBar>
         <div className="paper">
-          <Button id={`${id}/${DI}/${this.state.button + 1}`} project={project} />
+          <Di id={`${id}/${DI}/${this.state.di + 1}`} project={project} />
         </div>
-        {/* <Button id={id} project={project} index={this.state.button + 1} /> */}
         {
           hasDoppler && (
             <div>

@@ -9,22 +9,31 @@ import {
   CardActions,
   CardActionIcons
 } from '@rmwc/card';
+import { TabBar, Tab } from '@rmwc/tabs';
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
-import { CODE } from '../../../constants';
+import { CODE, DI } from '../../../constants';
 import Di from './CardDiBind';
 import SelectDi from './SelectDi';
 
 class Container extends Component {
+  state = { di: 0 }
+
+  selectDi = ({ detail: { index } }) => {
+    this.setState({ di: index });
+  }
+
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
     change({ [id]: value });
   }
+
   select = (bind) => {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
+  
   render() {
     const {
       code, project, bind, removeField
@@ -37,13 +46,18 @@ class Container extends Component {
         <div className="paper">
           <SelectDi id={bind} root={project} onSelect={this.select} />
         </div>
-        {
-          bind && (
-            <div className="paper">
-              <Di id={bind} project={project} />
-            </div>
-          )
-        }
+        <TabBar
+          activeTabIndex={this.state.di}
+          onActivate={this.selectDi}
+        >
+          <Tab>1</Tab>
+          <Tab>2</Tab>
+          <Tab>3</Tab>
+          <Tab>4</Tab>
+        </TabBar>
+        <div className="paper">
+          <Di id={`${id}/${DI}/${this.state.di + 1}`} project={project} />
+        </div>
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />
