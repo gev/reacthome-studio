@@ -9,13 +9,7 @@ import SliderEndpoint from './DeviceSliderEndpoint';
 import Slider from './DeviceSlider';
 import { DO, TEMPERATURE, HUMIDITY, ILLUMINATION, ALARM, LEVEL, COLOR, ACTION_MOVE_TO_HUE, ACTION_MOVE_TO_SATURATION, ACTION_MOVE_TO_LEVEL, CLOSURE, THERMOSTAT, ACTION_SETPOINT } from '../../constants';
 
-type Props = {
-  id: string;
-  daemon: string;
-  config: {};
-};
-
-const Row = ({ title, value, magnitude }: RowProps) => (
+const Row = ({ title, value, magnitude }) => (
   <table>
     <tbody>
       <tr>
@@ -30,7 +24,7 @@ const Row = ({ title, value, magnitude }: RowProps) => (
   </table>
 );
 
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { id, daemon, endpoint = [] } = this.props;
     return endpoint.map(e => (

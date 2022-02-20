@@ -162,6 +162,7 @@ export const DIM_ON = 0x1;
 export const DIM_SET = 0x2;
 export const DIM_FADE = 0x3;
 export const DIM_TYPE = 0x4;
+export const DIM_GROUP = 0x5;
 
 export const DIM_TYPES = ['Unplugged', 'Rising edge', 'Falling edge', 'PWM', 'Relay'];
 export const RS485_LINE_CONTROLS = ['8n1', '8e1', '8o1', '9n1', '8n2', '8e2', '8o2', '9n2'];

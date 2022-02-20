@@ -14,23 +14,20 @@ import {
 } from '../../constants';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  bind: string;
-  type: ?string;
-  value: ?boolean;
-  request: (action: {}) => void;
-};
-
-export default connect(DIM)((props: Props) => {
+export default connect(DIM)((props) => {
   const {
-    id, index, value, type, request
+    id, index, value, type, request, groupNumber, group
   } = props;
 
-  const setType = (t) => () => {
+  const setType = (value) => () => {
     request({
-      type: ACTION_DIMMER, action: DIM_TYPE, id, index, value: t
+      type: ACTION_DIMMER, action: DIM_TYPE, id, index, value, 
+    });
+  };
+
+  const setGroup = (value) => () => {
+    request({
+      type: ACTION_DIMMER, action: DIM_GROUP, id, index, value, 
     });
   };
 
@@ -47,18 +44,9 @@ export default connect(DIM)((props: Props) => {
   };
 
   return ([
-    <tr key="control">
+    <tr key="r1">
       <td className="paper">
         <Typography use="caption">{index}</Typography>
-      </td>
-      <td className="paper">
-        <SimpleMenu handle={<Button>{DIM_TYPES[type] || 'Type'}</Button>}>
-          {
-            DIM_TYPES.map((v, i) => (
-              <MenuItem key={v} onClick={setType(i)}>{v}</MenuItem>
-            ))
-          }
-        </SimpleMenu>
       </td>
       <td className="paper" width="100%">
         <Slider
@@ -72,6 +60,26 @@ export default connect(DIM)((props: Props) => {
       </td>
       <td className="paper">
         <Switch checked={!!value} onChange={onoff} />
+      </td>
+    </tr>,
+    <tr key='r2'>
+      <td>
+        <SimpleMenu handle={<Button>{group || index}</Button>}>
+          {
+            Array(groupNumber).fill(0).map((_, i) => (
+              <MenuItem key={i+1} onClick={setGroup(i+1)}>{i+1}</MenuItem>
+            ))
+          }
+        </SimpleMenu>
+      </td>
+      <td>
+        <SimpleMenu handle={<Button>{DIM_TYPES[type] || 'Type'}</Button>}>
+          {
+            DIM_TYPES.map((v, i) => (
+              <MenuItem key={v} onClick={setType(i)}>{v}</MenuItem>
+            ))
+          }
+        </SimpleMenu>
       </td>
     </tr>
   ]);
