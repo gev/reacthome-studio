@@ -10,7 +10,7 @@ import {
   DIM_TYPES,
   DIM_SET,
   DIM_TYPE,
-  DIM_ON, DIM_OFF, DIM
+  DIM_ON, DIM_OFF, DIM, DIM_GROUP
 } from '../../constants';
 import connect from './connect';
 
