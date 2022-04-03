@@ -16,6 +16,7 @@ export const ACTION_INIT = 'ACTION_INIT';
 export const ACTION_DOWNLOAD = 'ACTION_DOWNLOAD';
 
 export const ACTION_RGB_DIM = 'ACTION_RGB_DIM';
+export const ACTION_RGB_BUTTON_SET = 'ACTION_RGB_BUTTON_SET';
 export const ACTION_ENABLE = 'ACTION_ENABLE';
 export const ACTION_DISABLE = 'ACTION_DISABLE';
 export const ACTION_ON = 'ACTION_ON';
@@ -153,6 +154,8 @@ export const DI_OFF = 0x0;
 export const DI_ON = 0x1;
 export const DI_HOLD = 0x2;
 export const DI_CLICK = 0x3;
+export const DI_CLICK_2 = 0x4;
+export const DI_CLICK_3 = 0x5;
 
 export const DO_OFF = 0x0;
 export const DO_ON = 0x1;
@@ -348,6 +351,7 @@ export const ACTION_TYPE = [
   ACTION_SITE_LIGHT_DIM_RELATIVE,
   ACTION_SITE_LIGHT_OFF,
   ACTION_RGB_DIM,
+  ACTION_RGB_BUTTON_SET,
   ACTION_OPEN,
   ACTION_CLOSE,
   ACTION_STOP,
@@ -382,6 +386,8 @@ export const onOff = 'onOff';
 export const onOn = 'onOn';
 export const onHold = 'onHold';
 export const onClick = 'onClick';
+export const onClick2 = 'onClick2';
+export const onClick3 = 'onClick3';
 export const onOpen = 'onOpen';
 export const onClose = 'onClose';
 export const onStop = 'onStop';

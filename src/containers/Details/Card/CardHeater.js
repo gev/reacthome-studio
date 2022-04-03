@@ -60,7 +60,7 @@ class Container extends Component {
     change({ [id]: value });
   }
   setmin = (event) => {
-    const { max = 35 } = this.props;
+    const { max = 60 } = this.props;
     const { value } = event.detail;
     this.props.change({ min: value < max ? value : max });
   }
@@ -94,10 +94,10 @@ class Container extends Component {
           }}/>
         </div>
         <div className="paper">
-          <Slider value={min || 20} min={15} max={35} step={1} onInput={this.setmin} discrete />
+          <Slider value={min || 20} min={15} max={60} step={1} onInput={this.setmin} discrete />
         </div>
         <div className="paper">
-          <Slider value={max || 30} min={15} max={35} step={1} onInput={this.setmax} discrete />
+          <Slider value={max || 30} min={15} max={60} step={1} onInput={this.setmax} discrete />
         </div>
         <div className="paper">
           <Autocomplete id={this.props.sensor} root={project} onSelect={this.selectSensor} />

@@ -34,7 +34,8 @@ import {
   ACTION_STOP,
   ACTION_SET,
   ACTION_INC_SETPOINT,
-  ACTION_DEC_SETPOINT
+  ACTION_DEC_SETPOINT,
+  ACTION_RGB_BUTTON_SET
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -60,12 +61,12 @@ import ActionPayloadRing from './ActionPayloadRing';
 import ActionPayloadSetpoint from './ActionPayloadSetpoint';
 import ActionPayloadSet from './ActionPayloadSet';
 import ActionPayloadIncDecSetpoint from './ActionPayloadIncDecSetpoint';
+import ActionPayloadRGBButtonSet from './ActionPayloadRGBButtonSet';
+import { bindActionCreators } from 'redux';
+import { modify } from '../../../../actions';
 
-type Props = {
-  type: ?string
-};
 
-const Container = (props: Props) => {
+const Container = (props) => {
   switch (props.type) {
     case ACTION_DISABLE:
     case ACTION_ENABLE:
@@ -85,6 +86,8 @@ const Container = (props: Props) => {
       return <ActionPayloadSiteLightOff {...props} />;
     case ACTION_RGB_DIM:
       return <ActionPayloadRGBDim {...props} />;
+    case ACTION_RGB_BUTTON_SET:
+      return <ActionPayloadRGBButtonSet {...props} />;
     case ACTION_TIMER_START:
       return <ActionPayloadTimerStart {...props} />;
     case ACTION_TIMER_STOP:
@@ -128,4 +131,9 @@ const Container = (props: Props) => {
   }
 };
 
-export default connect(({ pool }, { id }) => pool[id] || {})(Container);
+export default connect(
+  ({ pool }, { id }) => pool[id] || {},
+  (dispatch, { id }) => bindActionCreators({
+    change: (payload) => modify(id, payload)
+  }, dispatch)
+)(Container);
