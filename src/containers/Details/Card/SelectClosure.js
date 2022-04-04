@@ -28,6 +28,7 @@ import {
   DEVICE_TYPE_MIX_1,
   DEVICE_TYPE_RELAY_2_DIN,
   DEVICE_TYPE_MIX_2,
+	DEVICE_TYPE_MIX_1_RS,
 } from '../../../constants';
 
 type Props = {
@@ -61,7 +62,8 @@ const Do = c(({
       n = 1;
       break;
     case DEVICE_TYPE_RELAY_6:
-    case DEVICE_TYPE_MIX_1:
+		case DEVICE_TYPE_MIX_1:
+		case DEVICE_TYPE_MIX_1_RS:
     case DEVICE_TYPE_MIX_2:
       n = major >= 2 ? 3 : 0;
       break;

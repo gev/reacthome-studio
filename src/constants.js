@@ -129,6 +129,7 @@ export const DEVICE_TYPE_DI_8_DIN = 0xa8;
 export const DEVICE_TYPE_AO_4_DIN = 0xa9;
 export const DEVICE_TYPE_MIX_2 = 0xaa;
 export const DEVICE_TYPE_MIX_1 = 0xab;
+export const DEVICE_TYPE_MIX_1_RS = 0xac;
 export const DEVICE_TYPE_PNP = 0xe0;
 
 export const DEVICE_TYPE_TEMPERATURE_EXT = 0xf0;
@@ -627,6 +628,9 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_MIX_1]: {
     title: 'MIX1'
+	},
+	[DEVICE_TYPE_MIX_1_RS]: {
+    title: 'MIX1 RS'
   },
   [DEVICE_TYPE_MIX_2]: {
     title: 'MIX2'
