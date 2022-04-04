@@ -17,19 +17,7 @@ import { TITLE, CODE } from '../../../constants';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
 
-type Props = {
-  id: string,
-  code: ?string,
-  title: ?string,
-  project: string,
-  daemon: string,
-  onDoppler: ?string;
-  change: (payload: {}) => void,
-  removeField: () => void,
-  details: () => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;

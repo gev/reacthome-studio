@@ -4,14 +4,7 @@ import React, { Component } from 'react';
 import RGB from './RGB';
 import Autocomplete from '../../../Filter';
 
-type Props = {
-  id: string;
-  root: string;
-  payload: ?{};
-  change: (id: string) => void;
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   select = (id) => {
     const { change, payload } = this.props;
     change({ payload: { ...payload, id } });

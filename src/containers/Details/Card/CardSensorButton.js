@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Typography } from '@rmwc/typography';
-import { DI, onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD, onClick, DI_CLICK } from '../../../constants';
+import { DI, onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD, onClick, DI_CLICK, onClick2, onClick3, DI_CLICK_2, DI_CLICK_3 } from '../../../constants';
 import connect from './connect';
 import SelectScript from '../SelectScript';
 
@@ -42,8 +42,10 @@ export default connect(DI)((props) => (
   <table>
     <tbody>
       <Action {...props} action={onOn} test={DI_ON} title="ON" />
-      <Action {...props} action={onHold} test={DI_HOLD} title="HOLD" />
       <Action {...props} action={onClick} test={DI_CLICK} title="CLICK" />
+      <Action {...props} action={onClick2} test={DI_CLICK_2} title="CLICK2" />
+      <Action {...props} action={onClick3} test={DI_CLICK_3} title="CLICK3" />
+      <Action {...props} action={onHold} test={DI_HOLD} title="HOLD" />
       <Action {...props} action={onOff} test={DI_OFF} title="OFF" />
     </tbody>
   </table>

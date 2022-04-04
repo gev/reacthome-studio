@@ -7,6 +7,17 @@ import { offline, online } from './online';
 
 const PROTOCOL = 'connect';
 
+let queue = [];
+
+setInterval(() => { 
+  const q = queue;
+  q.forEach(({ dispatch, id, data }) => {
+    dispatch(handle(id))(data);
+  })
+  queue = [];
+}, 200);
+
+
 export default (id) => (dispatch, getState) => {
 
   if (peers.has(id)) {
@@ -14,6 +25,8 @@ export default (id) => (dispatch, getState) => {
   }
 
   const connect = () => {
+    // return;  
+
 		const { ip } = getState().pool[id] || {};
 		if (ip) {
      connectTo(`ws://${ip}:${LOCAL_PORT}`, true);
@@ -32,7 +45,9 @@ export default (id) => (dispatch, getState) => {
           return;
         }
       }
-      ws.onmessage = dispatch(handle(id));
+      ws.onmessage = (data) => {
+        queue.push({ dispatch, id, data });
+      }
       ws.onclose = () => {
         if (peers.get(id) === ws) {
           peers.delete(id);

@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SimpleMenu } from '@rmwc/menu';
@@ -7,24 +6,11 @@ import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
 import { DI, DEVICE_TYPE_PLC, DEVICE_TYPE_DI24, DEVICE_TYPE_DI16, DRIVER_TYPE_BB_PLC1, DEVICE_TYPE_CLIMATE, DEVICE_TYPE_RELAY_2, DEVICE_TYPE_DI_4, ENDPOINT, DEVICE_TYPE_RELAY_2_DIN, DO, DEVICE_TYPE_MIX_2, DEVICE_TYPE_MIX_1, DEVICE_TYPE_SENSOR4, DEVICE_TYPE_SMART_4G, DEVICE_TYPE_SMART_4A, DEVICE_TYPE_SMART_4GD, DEVICE_TYPE_MIX_1_RS } from '../../../constants';
 
-type Props = {
-  id: string,
-  root: string;
-  onSelect: (id: string) => void
-};
-
-type DiProps = {
-  id: string;
-  type: string,
-  index: ?number,
-  onSelect: (i: number) => void
-};
-
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Di = c(({
   id, type, endpoint, index, onSelect
-}: DiProps) => {
+}) => {
   const a = [];
   const select = (i, type) => () => {
     onSelect(i, type);
@@ -88,7 +74,7 @@ const Di = c(({
   );
 });
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {}
   componentWillMount() {
     const { id } = this.props;

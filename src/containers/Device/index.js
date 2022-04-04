@@ -22,7 +22,8 @@ import {
   DEVICE_TYPE_BOOTLOADER,
   ACTION_FIND_ME,
   ACTION_BOOTLOAD,
-  DEVICE
+  DEVICE,
+  DEVICE_TYPE_DIM_8
 } from '../../constants';
 import { modify, remove, request } from '../../actions';
 import Device from './Device';
@@ -59,7 +60,7 @@ class Devices extends Component{
     } = this.props;
     const date = new Date(timestamp);
     const { title, hasFindMeAction = false } = DEVICE_TYPES[type] || {};
-    return (
+    return  (
       <Card className={!online && 'offline'}>
         <div className="paper">
           <div>
