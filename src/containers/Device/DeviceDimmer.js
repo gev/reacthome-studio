@@ -31,6 +31,24 @@ export default class extends Component {
             </tbody>
           ) : null
         }
+        {
+          n === 12 ? (
+            <tbody>
+              <Row {...this.props} index={ 1} groupNumber={12} />
+              <Row {...this.props} index={ 2} groupNumber={12} />
+              <Row {...this.props} index={ 3} groupNumber={12} />
+              <Row {...this.props} index={ 4} groupNumber={12} />
+              <Row {...this.props} index={ 5} groupNumber={12} />
+              <Row {...this.props} index={ 6} groupNumber={12} />
+              <Row {...this.props} index={ 7} groupNumber={12} />
+              <Row {...this.props} index={ 8} groupNumber={12} />
+              <Row {...this.props} index={ 9} groupNumber={12} />
+              <Row {...this.props} index={10} groupNumber={12} />
+              <Row {...this.props} index={11} groupNumber={12} />
+              <Row {...this.props} index={12} groupNumber={12} />
+            </tbody>
+          ) : null
+        }
       </table>
     );
   }

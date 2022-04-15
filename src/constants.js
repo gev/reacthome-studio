@@ -131,6 +131,7 @@ export const DEVICE_TYPE_AO_4_DIN = 0xa9;
 export const DEVICE_TYPE_MIX_2 = 0xaa;
 export const DEVICE_TYPE_MIX_1 = 0xab;
 export const DEVICE_TYPE_MIX_1_RS = 0xac;
+export const DEVICE_TYPE_DIM_12_LED_RS = 0xac;
 export const DEVICE_TYPE_PNP = 0xe0;
 
 export const DEVICE_TYPE_TEMPERATURE_EXT = 0xf0;
@@ -592,6 +593,10 @@ export const DEVICE_TYPES = {
     title: 'Relay 24',
     hasFindMeAction: true,
   },
+  [DEVICE_TYPE_DIM_12_LED_RS]: {
+    title: 'Dimmer 12 LED RS',
+    hasFindMeAction: true,
+  },
   [DEVICE_TYPE_DIM_8]: {
     title: 'Dimmer 8',
     hasFindMeAction: true,
@@ -633,16 +638,16 @@ export const DEVICE_TYPES = {
     title: 'External temperature'
   },
   [DEVICE_TYPE_MIX_1]: {
-    title: 'MIX1'
+    title: 'MIX 1'
 	},
 	[DEVICE_TYPE_MIX_1_RS]: {
-    title: 'MIX1 RS'
+    title: 'MIX 1 RS'
   },
   [DEVICE_TYPE_MIX_2]: {
-    title: 'MIX2'
+    title: 'MIX 2'
   },
   [DEVICE_TYPE_AO_4_DIN]: {
-    title: 'AO4 DIN'
+    title: 'AO 4 DIN'
   },
 };
 
