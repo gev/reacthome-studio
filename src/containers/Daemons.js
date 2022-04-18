@@ -11,15 +11,7 @@ import connectTo from '../websocket';
 import { ROOT, PROJECT, DAEMON } from '../constants';
 import ListItem from './ListItem';
 
-type Props = {
-  daemon: [];
-  connectTo: (string) => void;
-  navigate: (string) => void;
-  add: (string) => void;
-  set: (string, {}) => void;
-};
-
-class Daemons extends Component<Props> {
+class Daemons extends Component {
   navigate = (id) => () => {
     this.props.connectTo(id);
     this.props.navigate(id);

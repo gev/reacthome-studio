@@ -25,7 +25,6 @@ export default (id) => (dispatch, getState) => {
   }
 
   const connect = () => {
-    // return;  
 
 		const { ip } = getState().pool[id] || {};
 		if (ip) {
