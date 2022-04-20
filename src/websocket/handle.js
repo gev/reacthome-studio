@@ -8,37 +8,31 @@ import { writeFile, asset } from '../fs';
 import { PTY } from '../terminal/constants';
 import onPTY from '../terminal';
 
-const queue = [];
-
-setInterval(() => {
-  while (queue.length > 0) {
-    const { id, action, dispatch } = queue.shift();    
-    switch (action.type) {
-      case LIST: {
-        dispatch(onList(id, action));
-        break;
-      }
-      case ACTION_SET: {
-        dispatch(compare(action.id, action.payload));
-        break;
-      }
-      case ACTION_ASSET: {
-        writeFile(asset(action.name), Buffer.from(action.payload, 'base64'))
-          .catch(console.error);
-        break;
-      }
-      case PTY: {
-        onPTY(id, action.chunk);
-      }
-    }
-  }
-}, 100);
+let i = 0;
 
 export default (id) => (dispatch) => {
   return ({ data }) => {
     try {
       const action = JSON.parse(data);
-      queue.push({ id, action, dispatch });
+      // console.log(i++, action);
+      switch (action.type) {
+        case LIST: {
+          dispatch(onList(id, action));
+          break;
+        }
+        case ACTION_SET: {
+          dispatch(compare(action.id, action.payload));
+          break;
+        }
+        case ACTION_ASSET: {
+          writeFile(asset(action.name), Buffer.from(action.payload, 'base64'))
+            .catch(console.error);
+          break;
+        }
+        case PTY: {
+          onPTY(id, action.chunk);
+        }
+      }
     } catch (e) {
       console.error(e);
     }

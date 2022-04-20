@@ -28,12 +28,7 @@ import RS21Details from './DetailsRS21';
 import ElectricityMeterDetails from './DetailsElectricityMeter';
 import DetailsThermostat from './DetailsThermostat';
 
-type Props = {
-  type: ?string,
-  field: ?string
-};
-
-export default (props: Props) => {
+export default (props) => {
   const { field, type } = props;
   if (!field && type === PROJECT) return <ProjectDetails {...props} />;
   if (!field && type === SITE) return <SiteDetails {...props} />;

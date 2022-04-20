@@ -13,6 +13,7 @@ import { init } from './assets';
 import discovery from './discovery';
 import { offline } from './websocket/online';
 import Daemon from './containers/Daemon';
+import { cleanup } from './state';
 
 const history = createHashHistory();
 
@@ -22,6 +23,7 @@ export default class extends Component {
   async componentWillMount() {
     await init();
     const pool = {};
+    console.log(localStorage.length);
     try {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
@@ -31,6 +33,8 @@ export default class extends Component {
     } catch (e) {
       console.error(e);
     }
+    cleanup(pool);
+    console.log(localStorage.length);
     const store = createStore(reducer, { pool }, history);
     const { root } = store.getState().pool;
     if (root && root.daemon) {

@@ -1,5 +1,5 @@
 
-import get from '../state';
+import { get } from '../state';
 import { ACTION_SET, ACTION_ASSET } from '../constants';
 import { send } from '../websocket/peer';
 import { compare } from './create';
@@ -21,10 +21,11 @@ export const request = (id, action) => () => {
   send(id, action);
 };
 
-export const sendProject = (pid) => (dispatch, getState) => {
-  const project = getState().pool[pid];
+export const sendProject = (pid) => (_, getState) => {
+  const { pool } = getState();
+  const project = pool[pid];
   if (!project || !project.daemon) return;
-  const { state, assets } = get(getState)(pid);
+  const { state, assets } = get(pool, pid);
   Object.entries(state).forEach(([id, payload]) => {
     send(project.daemon, { type: ACTION_SET, id, payload });
   });

@@ -7,46 +7,30 @@ import { offline, online } from './online';
 
 const PROTOCOL = 'connect';
 
-let queue = [];
-
-setInterval(() => { 
-  const q = queue;
-  q.forEach(({ dispatch, id, data }) => {
-    dispatch(handle(id))(data);
-  })
-  queue = [];
-}, 200);
-
-
-export default (id) => (dispatch, getState) => {
+export default (id, ip) => (dispatch) => {
 
   if (peers.has(id)) {
     return;
   }
 
+  const uri = ip
+    ? `ws://${ip}:${LOCAL_PORT}`
+    : `wss://${REMOTE_URI}/${id}`;
+
   const connect = () => {
-
-		const { ip } = getState().pool[id] || {};
-		if (ip) {
-     connectTo(`ws://${ip}:${LOCAL_PORT}`, true);
-		}
-    connectTo(`wss://${REMOTE_URI}/${id}`, false);
-  };
-
-  const connectTo = (uri, local) => {
+    console.log(`connecting to ${uri}`);
     const ws = new WebSocket(uri, PROTOCOL);
     ws.onopen = () => {
+      console.log(`connected to ${uri}`);
       if (peers.has(id)) {
-        if (local) {
+        if (ip) {
           peers.get(id).close();
         } else {
           ws.close();
           return;
         }
       }
-      ws.onmessage = (data) => {
-        queue.push({ dispatch, id, data });
-      }
+      ws.onmessage = dispatch(handle(id));
       ws.onclose = () => {
         if (peers.get(id) === ws) {
           peers.delete(id);
@@ -60,11 +44,13 @@ export default (id) => (dispatch, getState) => {
     // ws.onerror = console.error;
   };
 
-  setInterval(() => {
-    if (!peers.has(id)) {
-      connect();
-    }
-  }, 5000);
+  if (!ip) {
+    setInterval(() => {
+      if (!peers.has(id)) {
+        connect();
+      }
+    }, 5000);
+  }
 
   connect();
 };

@@ -1,4 +1,3 @@
-
 import { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -7,11 +6,11 @@ import connectTo from '../websocket';
 class ServiceManager extends Component {
   componentWillMount() {
     const { daemon = [] } = this.props;
-    daemon.forEach(id => {
-      this.props.websocket(id);
-    });
+    // this.props.websocket(daemon[4]);
+    // daemon.forEach(id => {
+    //   this.props.websocket(id);
+    // });
   }
-
   render() {
     return this.props.children;
   }

@@ -15,11 +15,9 @@ const Container = ({ id, device = [], terminal }) => (
       action={<Button onClick={terminal}>Terminal</Button>
     }>
       {
-        device && (
-          device.map(i => (
-            <Device key={i} id={i} daemon={id} />
-          ))
-        )
+        device.map(i => (
+          <Device key={i} id={i} daemon={id} />
+        ))
       }
     </DetailSection>
   </div>

@@ -13,9 +13,10 @@ import ListItem from './ListItem';
 
 class Daemons extends Component {
   navigate = (id) => () => {
+    this.props.add(ROOT, DAEMON, id);
+    // this.props.set(id, { device: [] });
     this.props.connectTo(id);
     this.props.navigate(id);
-    this.props.add(ROOT, DAEMON, id);
   };
 
   change = (event) => {

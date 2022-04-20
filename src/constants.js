@@ -174,6 +174,7 @@ export const RS485_LINE_CONTROLS = ['8n1', '8e1', '8o1', '9n1', '8n2', '8e2', '8
 
 export const ID = 'id';
 export const ROOT = 'root';
+export const POOL = 'pool';
 export const BIND = 'bind';
 export const DAEMON = 'daemon';
 export const TOUCH = 'touch';
