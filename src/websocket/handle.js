@@ -14,7 +14,6 @@ export default (id) => (dispatch) => {
   return ({ data }) => {
     try {
       const action = JSON.parse(data);
-      // console.log(i++, action);
       switch (action.type) {
         case LIST: {
           dispatch(onList(id, action));

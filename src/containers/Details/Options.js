@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import SelectMenuItem from './SelectMenuItem';
 
 const filter = (pool, root, select) => {
-  console.log(pool, root, select)
   if (root) {
     const a = [];
     const filter_ = (id) => {

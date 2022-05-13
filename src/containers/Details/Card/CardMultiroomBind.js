@@ -42,7 +42,7 @@ const Row = zone(({
   id, source = [], index, set
 }) => {
   const [dev] = id.split('/');
-  const s = source[index];
+  const s = source[index] || {};
   const config = (active, volume) => {
     const a = [...source];
     a[index] = { active, volume };

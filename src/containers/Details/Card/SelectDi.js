@@ -90,7 +90,6 @@ class Container extends Component {
     this.setState({ dev, index: null });
   }
   selectDi = (index, type) => {
-    console.log(type);
     this.setState({ index });
     this.props.onSelect(`${this.state.dev}/${type}/${index}`);
   }

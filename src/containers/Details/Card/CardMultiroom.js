@@ -15,17 +15,7 @@ import { CODE, TITLE } from '../../../constants';
 import Multiroom from './CardMultiroomBind';
 import SelectMutiroomZone from './SelectMutiroomZone';
 
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  project: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;

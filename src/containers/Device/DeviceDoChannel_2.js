@@ -6,14 +6,7 @@ import { Switch } from '@rmwc/switch';
 import { DO, ACTION_DO } from '../../constants';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  value: ?boolean;
-  request: (action: {}) => void;
-};
-
-export default connect(DO)((props: Props) => {
+export default connect(DO)((props) => {
   const {
     id, index, value, timeout, request
   } = props;

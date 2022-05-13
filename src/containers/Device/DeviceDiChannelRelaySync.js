@@ -43,7 +43,6 @@ class Container extends Component {
     const { sync = [state, state], set } = this.props;
     const value = [[...sync[0]], [...sync[1]]];
     value[onAction][index - 1] = action;
-    console.log(index, value);
     set(value);
   };
 

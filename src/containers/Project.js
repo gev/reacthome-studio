@@ -9,13 +9,7 @@ import Location from './Location';
 import Weather from './Weather';
 import Terminal from './Terminal';
 
-type Props = {
-  match: {},
-  title: ?string,
-  daemon: ?string
-};
-
-class Project extends Component<Props> {
+class Project extends Component {
   render() {
     const {
       title, match: { params: { project, id, field } }, daemon

@@ -12,7 +12,6 @@ export const getPTY = (id) => {
   const pty = new Terminal();
   pty.onData((chunk) => {
     const { rows, cols } = pty;
-    console.log(rows, cols);
     send(id, {
       type: PTY, chunk, rows, cols
     });

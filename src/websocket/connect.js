@@ -18,10 +18,8 @@ export default (id, ip) => (dispatch) => {
     : `wss://${REMOTE_URI}/${id}`;
 
   const connect = () => {
-    console.log(`connecting to ${uri}`);
     const ws = new WebSocket(uri, PROTOCOL);
     ws.onopen = () => {
-      console.log(`connected to ${uri}`);
       if (peers.has(id)) {
         if (ip) {
           peers.get(id).close();
@@ -49,7 +47,7 @@ export default (id, ip) => (dispatch) => {
       if (!peers.has(id)) {
         connect();
       }
-    }, 5000);
+    }, 10000);
   }
 
   connect();

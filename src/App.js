@@ -23,7 +23,6 @@ export default class extends Component {
   async componentWillMount() {
     await init();
     const pool = {};
-    console.log(localStorage.length);
     try {
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
@@ -34,7 +33,6 @@ export default class extends Component {
       console.error(e);
     }
     cleanup(pool);
-    console.log(localStorage.length);
     const store = createStore(reducer, { pool }, history);
     const { root } = store.getState().pool;
     if (root && root.daemon) {

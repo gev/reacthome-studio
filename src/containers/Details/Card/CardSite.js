@@ -64,7 +64,6 @@ class Container extends Component<Props> {
       } = {}
     } = this.props;
     const url = asset(image).replace(/\\/g, '/');
-    console.log(image, url);
     return (
       <Card>
         <CardMedia square style={{ backgroundImage: `url("${url}")` }}>

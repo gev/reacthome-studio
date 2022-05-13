@@ -8,13 +8,12 @@ import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import { add, set } from '../actions';
 import connectTo from '../websocket';
-import { ROOT, PROJECT, DAEMON } from '../constants';
+import { ROOT, DAEMON } from '../constants';
 import ListItem from './ListItem';
 
 class Daemons extends Component {
   navigate = (id) => () => {
     this.props.add(ROOT, DAEMON, id);
-    // this.props.set(id, { device: [] });
     this.props.connectTo(id);
     this.props.navigate(id);
   };

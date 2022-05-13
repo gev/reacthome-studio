@@ -37,6 +37,7 @@ import Relay6 from './DeviceRelay6';
 import Relay6v2 from './DeviceRelay6_2';
 import Relay12 from './DeviceRelay12';
 import Relay12v2 from './DeviceRelay12_2';
+import Relay12v3 from './DeviceRelay12_3';
 import Relay24 from './DeviceRelay24';
 import Di4 from './DeviceDi4';
 import Di8 from './DeviceDi8';
@@ -54,11 +55,7 @@ import Mix1 from './DeviceMix1';
 import DeviceAO from './DeviceAO';
 import DeviceMix1rs from './DeviceMix1rs';
 
-type Props = {
-  type: ?string
-};
-
-export default (props: Props) => {
+export default (props) => {
   switch (props.type) {
     case DEVICE_TYPE_DOPPLER: return <Doppler {...props} />;
     case DEVICE_TYPE_DOPPLER_LEGACY: return <Doppler {...props} />;
@@ -93,8 +90,9 @@ export default (props: Props) => {
       const [major] = (props.version || '').split('.');
       switch (major) {
         case '2':
-        case '3':
           return <Relay12v2 {...props} />;
+        case '3':
+          return <Relay12v3 {...props} />;
         default:
           return <Relay12 {...props} />;
       }

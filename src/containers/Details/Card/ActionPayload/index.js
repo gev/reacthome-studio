@@ -35,13 +35,13 @@ import {
   ACTION_SET,
   ACTION_INC_SETPOINT,
   ACTION_DEC_SETPOINT,
-  ACTION_RGB_BUTTON_SET
+  ACTION_RGB_BUTTON_SET,
+  ACTION_SITE_LIGHT_ON
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
 import ActionPayloadDimRelative from './ActionPayloadDimRelative';
 import ActionPayloadSiteLightDimRelative from './ActionPayloadSiteLightDimRelative';
-import ActionPayloadSiteLightOff from './ActionPayloadSiteLightOff';
 import ActionPayloadTimerStart from './ActionPayloadTimerStart';
 import ActionPayloadTimerStop from './ActionPayloadTimerStop';
 import ActionPayloadDoppler from './ActionPayloadDoppler';
@@ -64,6 +64,7 @@ import ActionPayloadIncDecSetpoint from './ActionPayloadIncDecSetpoint';
 import ActionPayloadRGBButtonSet from './ActionPayloadRGBButtonSet';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../../actions';
+import ActionPayloadSiteLightOnOff from './ActionPayloadSiteLightOnOff';
 
 
 const Container = (props) => {
@@ -82,8 +83,9 @@ const Container = (props) => {
       return <ActionPayloadDimRelative {...props} />;
     case ACTION_SITE_LIGHT_DIM_RELATIVE:
       return <ActionPayloadSiteLightDimRelative {...props} />;
+    case ACTION_SITE_LIGHT_ON:
     case ACTION_SITE_LIGHT_OFF:
-      return <ActionPayloadSiteLightOff {...props} />;
+      return <ActionPayloadSiteLightOnOff {...props} />;
     case ACTION_RGB_DIM:
       return <ActionPayloadRGBDim {...props} />;
     case ACTION_RGB_BUTTON_SET:

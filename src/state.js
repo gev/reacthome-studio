@@ -96,8 +96,6 @@ export const cleanup = (pool) => {
   if (Array.isArray(project)) {
     project.forEach(id => build(id, pool, state, assets));
   }
-  console.log('state', Object.keys(state).length);
-  console.log('assets', Object.keys(assets).length);
   Object.keys(pool).forEach(k => { 
     if (k === ROOT) return;
     if (state[k] === undefined) { 

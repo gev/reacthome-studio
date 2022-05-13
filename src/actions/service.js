@@ -12,8 +12,6 @@ export const dispatchAction = (action) => (dispatch) => {
       dispatch(compare(id, payload));
       break;
     }
-    default:
-      console.log(action);
   }
 };
 

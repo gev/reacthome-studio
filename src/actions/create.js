@@ -66,7 +66,6 @@ export const remove = (id, field, subject) => (dispatch, getState) => {
 };
 
 export const attach = (id, field, file) => (dispatch) => {
-  console.log(file);
   const name = uuid() + path.parse(file).ext;
   const rs = createReadStream(file);
   const ws = createWriteStream(asset(name));
