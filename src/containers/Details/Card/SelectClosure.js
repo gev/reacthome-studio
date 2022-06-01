@@ -29,6 +29,7 @@ import {
   DEVICE_TYPE_RELAY_2_DIN,
   DEVICE_TYPE_MIX_2,
 	DEVICE_TYPE_MIX_1_RS,
+  DEVICE_TYPE_RELAY_12_RS,
 } from '../../../constants';
 
 type Props = {
@@ -68,6 +69,7 @@ const Do = c(({
       n = major >= 2 ? 3 : 0;
       break;
     case DEVICE_TYPE_RELAY_12:
+    case DEVICE_TYPE_RELAY_12_RS:
       n = major >= 2 ? 6 : 0;
       break;
     default:

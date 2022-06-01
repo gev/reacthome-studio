@@ -24,7 +24,7 @@ import {
   DEVICE_TYPE_RSHUB,
   DEVICE_TYPE_TEMPERATURE_EXT,
   ZIGBEE,
-  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP, DEVICE_TYPE_MIX_1, DEVICE_TYPE_AO_4_DIN, DEVICE_TYPE_SMART_4A, DEVICE_TYPE_SMART_4GD, DEVICE_TYPE_MIX_1_RS, DEVICE_TYPE_DIM_12_LED_RS
+  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP, DEVICE_TYPE_MIX_1, DEVICE_TYPE_AO_4_DIN, DEVICE_TYPE_SMART_4A, DEVICE_TYPE_SMART_4GD, DEVICE_TYPE_MIX_1_RS, DEVICE_TYPE_DIM_12_LED_RS, DEVICE_TYPE_RELAY_12_RS
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -38,6 +38,7 @@ import Relay6v2 from './DeviceRelay6_2';
 import Relay12 from './DeviceRelay12';
 import Relay12v2 from './DeviceRelay12_2';
 import Relay12v3 from './DeviceRelay12_3';
+import Relay12RSv3 from './DeviceRelay12rs_3';
 import Relay24 from './DeviceRelay24';
 import Di4 from './DeviceDi4';
 import Di8 from './DeviceDi8';
@@ -73,8 +74,8 @@ export default (props) => {
     case DEVICE_TYPE_DO12: return <Do12 {...props} />;
     case DEVICE_TYPE_RELAY_2: return <Relay2 {...props} />;
     case DEVICE_TYPE_RELAY_2_DIN: return <Relay2DIN {...props} />;
-		case DEVICE_TYPE_MIX_1: return <Mix1 {...props} />;
-		case DEVICE_TYPE_MIX_1_RS: return <DeviceMix1rs {...props} />;
+    case DEVICE_TYPE_MIX_1: return <Mix1 {...props} />;
+    case DEVICE_TYPE_MIX_1_RS: return <DeviceMix1rs {...props} />;
     case DEVICE_TYPE_MIX_2: return <Mix2 {...props} />;
     case DEVICE_TYPE_RELAY_6: {
       const [major] = (props.version || '').split('.');
@@ -85,6 +86,9 @@ export default (props) => {
         default:
           return <Relay6 {...props} />;
       }
+    }
+    case DEVICE_TYPE_RELAY_12_RS: {
+      return <Relay12RSv3 {...props} />;
     }
     case DEVICE_TYPE_RELAY_12: {
       const [major] = (props.version || '').split('.');

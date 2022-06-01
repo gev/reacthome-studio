@@ -13,6 +13,7 @@ import ListItem from './ListItem';
 
 class Daemons extends Component {
   navigate = (id) => () => {
+    this.props.set(id, { type: DAEMON });
     this.props.add(ROOT, DAEMON, id);
     this.props.connectTo(id);
     this.props.navigate(id);

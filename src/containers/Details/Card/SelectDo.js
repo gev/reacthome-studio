@@ -31,6 +31,7 @@ import {
   DEVICE_TYPE_AO_4_DIN,
   AO,
 	DEVICE_TYPE_MIX_1_RS,
+  DEVICE_TYPE_RELAY_12_RS,
 } from '../../../constants';
 
 type Props = {
@@ -76,6 +77,7 @@ const Do = c(({
       hasGroups = major >= 2;
       break;
     case DEVICE_TYPE_RELAY_12:
+    case DEVICE_TYPE_RELAY_12_RS:
       n = 12;
       t = DO;
       hasGroups = major >= 2;
