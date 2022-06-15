@@ -3301,7 +3301,7 @@ fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
 
-fast-deep-equal@gev/fast-deep-equal:
+"fast-deep-equal@github:gev/fast-deep-equal":
   version "1.1.1"
   resolved "https://codeload.github.com/gev/fast-deep-equal/tar.gz/468f2117c83ddc711575220e609ae8c18f48cb7a"
 
@@ -6174,9 +6174,9 @@ react@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-reacthome-ircodes@gev/reacthome-ircodes:
+"reacthome-ircodes@github:gev/reacthome-ircodes":
   version "2.0.0"
-  resolved "git+ssh://git@github.com/gev/reacthome-ircodes.git#4a5d2f79a3e4fc9ed278414d2dc902327e2a8ad2"
+  resolved "git+ssh://git@github.com/gev/reacthome-ircodes.git#f5b06b30e54e2b7a226bdbe77d06df4ab9e69ddf"
   dependencies:
     csv-parse "^3.1.3"
     polycrc "^1.0.1"

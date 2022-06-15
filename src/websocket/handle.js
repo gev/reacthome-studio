@@ -20,6 +20,7 @@ export default (id) => (dispatch) => {
           break;
         }
         case ACTION_SET: {
+          // console.log(i++, action);
           dispatch(compare(action.id, action.payload));
           break;
         }

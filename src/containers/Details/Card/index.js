@@ -52,6 +52,7 @@ import {
   DRIVER_TYPE_NOVA,
   DEVICE_TYPE_SMART_4GD,
   DEVICE_TYPE_SMART_4A,
+  SCREEN,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -88,6 +89,7 @@ import CardZigbee from './CardZigbee';
 import CardHeater from './CardHeater';
 import CardMultiroom from './CardMultiroom';
 import CardNova from './CardNova';
+import CardScreen from './CardScreen';
 
 type Props = {
   type: ?string
@@ -146,6 +148,8 @@ const Container = (props: Props) => {
       return <CardSchedule {...props} />;
     case CLOCK:
       return <CardClock {...props} />;
+    case SCREEN:
+      return <CardScreen {...props} />;
     case TV:
       return <CardTV {...props} />;
     case AC:

@@ -43,6 +43,7 @@ export const ACTION_THERMOSTAT_HANDLE = 'ACTION_THERMOSTAT_HANDLE';
 export const ACTION_LIMIT_HEATING_HANDLE = 'ACTION_LIMIT_HEATING_HANDLE';
 export const ACTION_LEAKAGE_HANDLE = 'ACTION_LEAKAGE_HANDLE';
 export const ACTION_TOGGLE = 'ACTION_TOGGLE';
+export const ACTION_SCREEN = 'ACTION_SCREEN';
 export const ACTION_TV = 'ACTION_TV';
 export const ACTION_SCRIPT_RUN = 'ACTION_SCRIPT_RUN';
 
@@ -254,6 +255,7 @@ export const SOCKET_220 = 'socket_220';
 export const BOILER = 'boiler';
 export const PUMP = 'pump';
 export const FAN = 'fan';
+export const SCREEN = 'screen';
 export const TV = 'TV';
 export const AC = 'AC';
 export const SOCKET_RJ45 = 'socket_RJ45';
@@ -327,6 +329,7 @@ export const MODEL_TYPE = [
   VALVE_WATER,
   VALVE_HEATING,
   WARM_FLOOR,
+  SCREEN,
   TV,
   AC,
   FAN,
@@ -380,6 +383,7 @@ export const ACTION_TYPE = [
   ACTION_LEAKAGE_HANDLE,
   ACTION_TOGGLE,
   ACTION_TV,
+  ACTION_SCREEN,
   ACTION_SET,
   ACTION_SCRIPT_RUN,
   NOTIFY,

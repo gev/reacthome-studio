@@ -36,7 +36,8 @@ import {
   ACTION_INC_SETPOINT,
   ACTION_DEC_SETPOINT,
   ACTION_RGB_BUTTON_SET,
-  ACTION_SITE_LIGHT_ON
+  ACTION_SITE_LIGHT_ON,
+  ACTION_SCREEN
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -65,6 +66,7 @@ import ActionPayloadRGBButtonSet from './ActionPayloadRGBButtonSet';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../../actions';
 import ActionPayloadSiteLightOnOff from './ActionPayloadSiteLightOnOff';
+import ActionPayloadScreen from './ActionPayloadScreen';
 
 
 const Container = (props) => {
@@ -119,6 +121,8 @@ const Container = (props) => {
       return <ActionPayloadIncDecSetpoint {...props} />;
     case ACTION_TOGGLE:
       return <ActionPayloadToggle {...props} />;
+    case ACTION_SCREEN:
+      return <ActionPayloadScreen {...props} />;
     case ACTION_TV:
       return <ActionPayloadTV {...props} />;
     case ACTION_SET:
