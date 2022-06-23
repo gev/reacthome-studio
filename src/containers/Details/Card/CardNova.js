@@ -19,18 +19,6 @@ import { ACTION_OFF, ACTION_ON, ACTION_SETPOINT, ACTION_SET_ADDRESS, ACTION_SET_
 import SelectModbus from './SelectModbus';
 import { send } from '../../../websocket/peer';
 
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
-
 const Check = ({checked, onChange, label}) => (
   <td>
     <div><Typography use="caption">{label}</Typography></div>
@@ -38,7 +26,7 @@ const Check = ({checked, onChange, label}) => (
   </td>
 );
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;

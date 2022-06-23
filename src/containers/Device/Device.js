@@ -55,6 +55,7 @@ import Lanamp from './DeviceLanamp';
 import Mix1 from './DeviceMix1';
 import DeviceAO from './DeviceAO';
 import DeviceMix1rs from './DeviceMix1rs';
+import DeviceMix3rs_3 from './DeviceMix1rs_3';
 
 export default (props) => {
   switch (props.type) {
@@ -75,7 +76,15 @@ export default (props) => {
     case DEVICE_TYPE_RELAY_2: return <Relay2 {...props} />;
     case DEVICE_TYPE_RELAY_2_DIN: return <Relay2DIN {...props} />;
     case DEVICE_TYPE_MIX_1: return <Mix1 {...props} />;
-    case DEVICE_TYPE_MIX_1_RS: return <DeviceMix1rs {...props} />;
+    case DEVICE_TYPE_MIX_1_RS: {
+      const [major] = (props.version || '').split('.');
+      switch (major) {
+        case '3':
+          return <DeviceMix3rs_3 {...props} />;
+        default:
+          return <DeviceMix1rs {...props} />;
+      }
+    }
     case DEVICE_TYPE_MIX_2: return <Mix2 {...props} />;
     case DEVICE_TYPE_RELAY_6: {
       const [major] = (props.version || '').split('.');
