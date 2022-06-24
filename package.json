@@ -60,7 +60,7 @@
     "koa-mount": "^4.0.0",
     "koa-static": "^4.0.2",
     "mkdirp": "^0.5.1",
-    "node-fetch": "^2.1.2",
+    "node-fetch": "^2.6.7",
     "node-vibrant": "^3.0.0",
     "react": "^16.2.0",
     "react-chartjs-2": "^2.7.0",
