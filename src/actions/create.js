@@ -21,6 +21,11 @@ export const add = (id, field, subject) => (dispatch, getState) => {
   dispatch(modify(id, { [field]: prev && prev[field] ? [...prev[field], subject] : [subject] }));
 };
 
+export const get = (id) => (_, getState) => {
+  if (!id) return;
+  return getState().pool[id] || {};
+};
+
 export const set = (id, payload) => (dispatch, getState) => {
   if (!id) return;
   const prev = getState().pool[id];

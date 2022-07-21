@@ -17,24 +17,11 @@ import {
 } from '../../../constants';
 import { send } from '../../../websocket/peer';
 
-type Props = {
-  id: string,
-  root: string;
-  onSelect: (id: string) => void
-};
-
-type DiProps = {
-  id: string;
-  type: string,
-  index: ?number,
-  onSelect: (i: number) => void
-};
-
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Ir = c(({
   id, type, index, onSelect
-}: DiProps) => {
+}) => {
   const a = [];
   const select = (i) => () => {
     onSelect(i);
@@ -68,12 +55,12 @@ const Ir = c(({
   );
 });
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {}
   componentWillMount() {
-    const { id } = this.props;
+    const { id, device } = this.props;
     const [dev,, index] = (id || '').split('/');
-    this.setState({ dev, index });
+    this.setState({ dev: dev || device, index });
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;

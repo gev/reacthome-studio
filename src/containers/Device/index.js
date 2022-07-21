@@ -28,7 +28,7 @@ import {
 import { modify, remove, request } from '../../actions';
 import Device from './Device';
 
-class Devices extends Component{
+class Devices extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -60,7 +60,7 @@ class Devices extends Component{
     } = this.props;
     const date = new Date(timestamp);
     const { title, hasFindMeAction = false } = DEVICE_TYPES[type] || {};
-    return  (
+    return (
       <Card className={!online && 'offline'}>
         <div className="paper">
           <div>
@@ -147,7 +147,7 @@ export default connect(
   createSelector(
     ({ pool }, { id }) => pool[id] || {},
     (_, props) => props,
-    (o, {daemon}) => ({...o, daemon})
+    (o, { daemon }) => ({ ...o, daemon })
   ),
   (dispatch, { id, daemon }) => bindActionCreators({
     findMe: (finding) => request(daemon, { type: ACTION_FIND_ME, id, finding }),

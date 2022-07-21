@@ -34,25 +34,11 @@ import {
   DEVICE_TYPE_RELAY_12_RS,
 } from '../../../constants';
 
-type Props = {
-  id: string,
-  root: string;
-  onSelect: (id: string) => void
-};
-
-type DoProps = {
-  id: string;
-  type: string,
-  index: ?number,
-  size: ?number,
-  onSelect: (i: number) => void
-};
-
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
   id, type, type_, version = '', endpoint, index, onSelect, size = 0
-}: DoProps) => {
+}) => {
   const a = [];
   const select = (i, t) => () => {
     onSelect(i, t);
@@ -158,12 +144,12 @@ const Do = c(({
   );
 });
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {}
   componentWillMount() {
-    const { id } = this.props;
+    const { id, device } = this.props;
     const [dev,, index] = (id || '').split('/');
-    this.setState({ dev, index });
+    this.setState({ dev: dev || device, index });
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;
