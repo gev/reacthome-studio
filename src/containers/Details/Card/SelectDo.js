@@ -30,8 +30,9 @@ import {
   DEVICE_TYPE_MIX_1,
   DEVICE_TYPE_AO_4_DIN,
   AO,
-	DEVICE_TYPE_MIX_1_RS,
+  DEVICE_TYPE_MIX_1_RS,
   DEVICE_TYPE_RELAY_12_RS,
+  DEVICE_TYPE_DIM_8_RS,
 } from '../../../constants';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
@@ -55,8 +56,8 @@ const Do = c(({
       hasGroups = major >= 2;
       break;
     case DEVICE_TYPE_RELAY_6:
-		case DEVICE_TYPE_MIX_1:
-		case DEVICE_TYPE_MIX_1_RS:
+    case DEVICE_TYPE_MIX_1:
+    case DEVICE_TYPE_MIX_1_RS:
     case DEVICE_TYPE_MIX_2:
       n = 6;
       t = DO;
@@ -95,6 +96,7 @@ const Do = c(({
       break;
     case DEVICE_TYPE_DIM8_LEGACY:
     case DEVICE_TYPE_DIM_8:
+    case DEVICE_TYPE_DIM_8_RS:
       n = 8;
       t = DIM;
       break;
@@ -148,7 +150,7 @@ class Container extends Component {
   state = {}
   componentWillMount() {
     const { id, device } = this.props;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev: dev || device, index });
   }
   componentWillReceiveProps({ id }) {

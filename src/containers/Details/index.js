@@ -10,9 +10,10 @@ import Details from './Details';
 
 class Container extends AbstractDetails {
   render() {
-    const { title, code } = this.props;
+    const { id, title, code } = this.props;
     return (
       <div className="paper content">
+        <div className="paper selectable">{id}</div>
         <div className="paper">
           <TextField id={TITLE} value={title || ''} onChange={this.change} fullwidth placeholder="Untitled" className="title" />
           <TextField id={CODE} value={code || ''} onChange={this.change} placeholder="code" />

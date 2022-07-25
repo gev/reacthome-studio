@@ -71,23 +71,24 @@ export const remove = (id, field, subject) => (dispatch, getState) => {
 };
 
 export const attach = (id, field, file) => (dispatch) => {
-  const name = uuid() + path.parse(file).ext;
+  const { ext } = path.parse(file);
+  const name = uuid() + ext;
   const rs = createReadStream(file);
   const ws = createWriteStream(asset(name));
   rs.on('error', console.error);
   ws.on('error', console.error);
   ws.on('close', () => {
-    Vibrant
-      .from(file)
-      .getPalette((err, data) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        const palette = Object.entries(data).reduce((a, [i, swatch]) =>
-          (swatch ? ({ ...a, [i[0].toLowerCase() + i.slice(1)]: swatch.getHex() }) : a), {});
-        dispatch(modify(id, { [field]: name, palette }));
-      });
+    //   Vibrant
+    //     .from(file)
+    //     .getPalette((err, data) => {
+    //       if (err) {
+    //         console.error(err);
+    //         return;
+    //       }
+    //       const palette = Object.entries(data).reduce((a, [i, swatch]) =>
+    //         (swatch ? ({ ...a, [i[0].toLowerCase() + i.slice(1)]: swatch.getHex() }) : a), {});
+    dispatch(modify(id, { [field]: name, screen: ext.toLowerCase() === '.svg' ? 'plan' : 'site' }));
+    //     });
   });
   rs.pipe(ws);
 };

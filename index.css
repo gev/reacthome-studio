@@ -1,9 +1,15 @@
-
 * {
   user-select: none;
 }
 
-html, body, #app {
+.selectable {
+  user-select: text;
+  cursor: text;
+}
+
+html,
+body,
+#app {
   font-weight: 400;
   font-family: 'Ubuntu';
   /* overflow: hidden; */

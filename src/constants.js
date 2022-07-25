@@ -135,6 +135,8 @@ export const DEVICE_TYPE_MIX_1 = 0xab;
 export const DEVICE_TYPE_MIX_1_RS = 0xac;
 export const DEVICE_TYPE_DIM_12_LED_RS = 0xad;
 export const DEVICE_TYPE_RELAY_12_RS = 0xae;
+export const DEVICE_TYPE_DIM_8_RS = 0xaf;
+export const DEVICE_TYPE_RS_HUB_1_RS = 0xb0;
 
 export const DEVICE_TYPE_PNP = 0xe0;
 
@@ -614,6 +616,10 @@ export const DEVICE_TYPES = {
     title: 'Dimmer 8',
     hasFindMeAction: true,
   },
+  [DEVICE_TYPE_DIM_8_RS]: {
+    title: 'Dimmer 8 RS',
+    hasFindMeAction: true,
+  },
   [DEVICE_TYPE_DIM_4]: {
     title: 'Dimmer 4',
     hasFindMeAction: true,
@@ -652,8 +658,8 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_MIX_1]: {
     title: 'MIX 1'
-	},
-	[DEVICE_TYPE_MIX_1_RS]: {
+  },
+  [DEVICE_TYPE_MIX_1_RS]: {
     title: 'MIX 1 RS'
   },
   [DEVICE_TYPE_MIX_2]: {
@@ -661,6 +667,9 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_AO_4_DIN]: {
     title: 'AO 4 DIN'
+  },
+  [DEVICE_TYPE_RS_HUB_1_RS]: {
+    title: 'RS HUB1 RS'
   },
 };
 

@@ -34,7 +34,7 @@ type ColorPairProps = {
   children: Children
 }
 
-const ColorPair = ({ color, backgroundColor, children } : ColorPairProps) => (
+const ColorPair = ({ color, backgroundColor, children }: ColorPairProps) => (
   backgroundColor ? (
     <div style={{ color, backgroundColor }}>
       {children}

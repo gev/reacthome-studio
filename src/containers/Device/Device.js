@@ -24,7 +24,19 @@ import {
   DEVICE_TYPE_RSHUB,
   DEVICE_TYPE_TEMPERATURE_EXT,
   ZIGBEE,
-  DEVICE_TYPE_RELAY_2_DIN, DEVICE_TYPE_DI_8_DIN, DEVICE_TYPE_MIX_2, DEVICE_TYPE_LAN_AMP, DEVICE_TYPE_MIX_1, DEVICE_TYPE_AO_4_DIN, DEVICE_TYPE_SMART_4A, DEVICE_TYPE_SMART_4GD, DEVICE_TYPE_MIX_1_RS, DEVICE_TYPE_DIM_12_LED_RS, DEVICE_TYPE_RELAY_12_RS
+  DEVICE_TYPE_RELAY_2_DIN,
+  DEVICE_TYPE_DI_8_DIN,
+  DEVICE_TYPE_MIX_2,
+  DEVICE_TYPE_LAN_AMP,
+  DEVICE_TYPE_MIX_1,
+  DEVICE_TYPE_AO_4_DIN,
+  DEVICE_TYPE_SMART_4A,
+  DEVICE_TYPE_SMART_4GD,
+  DEVICE_TYPE_MIX_1_RS,
+  DEVICE_TYPE_DIM_12_LED_RS,
+  DEVICE_TYPE_RELAY_12_RS,
+  DEVICE_TYPE_DIM_8_RS,
+  DEVICE_TYPE_RS_HUB_1_RS
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -56,6 +68,7 @@ import Mix1 from './DeviceMix1';
 import DeviceAO from './DeviceAO';
 import DeviceMix1rs from './DeviceMix1rs';
 import DeviceMix3rs_3 from './DeviceMix1rs_3';
+import DeviceRSHub1RS from './DeviceRSHub1RS';
 
 export default (props) => {
   switch (props.type) {
@@ -65,6 +78,7 @@ export default (props) => {
     case DEVICE_TYPE_AO_4_DIN: return <DeviceAO {...props} n={4} />;
     case DEVICE_TYPE_DIM_4: return <Dimmer {...props} n={4} />;
     case DEVICE_TYPE_DIM_8: return <Dimmer {...props} n={8} />;
+    case DEVICE_TYPE_DIM_8_RS: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DIM_12_LED_RS: return <Dimmer {...props} n={12} />;
     case DEVICE_TYPE_DIM8_LEGACY: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DI_4: return <Di4 {...props} />;
@@ -124,6 +138,7 @@ export default (props) => {
     case DEVICE_TYPE_IR_RECEIVER: return <IrReceiver {...props} />;
     case DEVICE_TYPE_RSHUB: return <RSHub {...props} />;
     case DEVICE_TYPE_LAN_AMP: return <Lanamp {...props} />;
+    case DEVICE_TYPE_RS_HUB_1_RS: return <DeviceRSHub1RS {...props} />
     default: {
       switch (props.protocol) {
         case ZIGBEE: return <Zigbee {...props} />;

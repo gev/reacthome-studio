@@ -5,7 +5,7 @@ import { SimpleMenu } from '@rmwc/menu';
 import { Button } from '@rmwc/button';
 import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
-import { DEVICE_TYPE_RSHUB, RS485, DEVICE_TYPE_RELAY_24, DEVICE_TYPE_RELAY_12, DEVICE_TYPE_RELAY_6 } from '../../../constants';
+import { DEVICE_TYPE_RSHUB, RS485, DEVICE_TYPE_RELAY_24, DEVICE_TYPE_RELAY_12, DEVICE_TYPE_RELAY_6, DEVICE_TYPE_RS_HUB_1_RS } from '../../../constants';
 
 type Props = {
   id: string,
@@ -35,6 +35,7 @@ const Channel = c(({
     case DEVICE_TYPE_RELAY_12:
     case DEVICE_TYPE_RELAY_24:
     case DEVICE_TYPE_RSHUB:
+    case DEVICE_TYPE_RS_HUB_1_RS:
       n = 1;
       break;
     default: n = 0;
@@ -55,12 +56,12 @@ class Container extends Component<Props> {
   state = {}
   componentWillMount() {
     const { id } = this.props;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev, index });
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev, index });
   }
   selectDev = (dev) => {
