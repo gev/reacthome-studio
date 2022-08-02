@@ -137,6 +137,7 @@ export const DEVICE_TYPE_DIM_12_LED_RS = 0xad;
 export const DEVICE_TYPE_RELAY_12_RS = 0xae;
 export const DEVICE_TYPE_DIM_8_RS = 0xaf;
 export const DEVICE_TYPE_RS_HUB_1_RS = 0xb0;
+export const DEVICE_TYPE_RS_HUB_1 = 0xb1;
 
 export const DEVICE_TYPE_PNP = 0xe0;
 
@@ -670,6 +671,9 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_RS_HUB_1_RS]: {
     title: 'RS HUB1 RS'
+  },
+  [DEVICE_TYPE_RS_HUB_1]: {
+    title: 'RS HUB1'
   },
 };
 

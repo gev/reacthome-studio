@@ -2,7 +2,7 @@
 import { Buffer } from 'buffer';
 import { createSocket } from 'dgram';
 import { ROOT, DAEMON } from './constants';
-import { add, set } from './actions';
+import { add, modify, set } from './actions';
 import { peers } from './websocket/peer';
 import connect from './websocket/connect';
 
@@ -20,7 +20,7 @@ export default () => (dispatch) => {
       const { id, type, payload } = JSON.parse(Buffer.from(message));
       if (type === DISCOVERY) {
         delete payload.online;
-        dispatch(set(id, payload));
+        dispatch(compare(id, payload));
         dispatch(add(ROOT, DAEMON, id));
         if (!peers.has(id)) {
           dispatch(connect(id, address));

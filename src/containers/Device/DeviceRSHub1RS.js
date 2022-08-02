@@ -18,7 +18,7 @@ export default class extends Component {
     return ([
       <table key="rs485">
         <tbody>
-          <RS485Channel {...this.props} index={1} is_rbus={false} />
+          <RS485Channel {...this.props} index={1} />
         </tbody>
       </table>
     ]);

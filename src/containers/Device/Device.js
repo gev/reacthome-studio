@@ -36,7 +36,8 @@ import {
   DEVICE_TYPE_DIM_12_LED_RS,
   DEVICE_TYPE_RELAY_12_RS,
   DEVICE_TYPE_DIM_8_RS,
-  DEVICE_TYPE_RS_HUB_1_RS
+  DEVICE_TYPE_RS_HUB_1_RS,
+  DEVICE_TYPE_RS_HUB_1
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -138,7 +139,8 @@ export default (props) => {
     case DEVICE_TYPE_IR_RECEIVER: return <IrReceiver {...props} />;
     case DEVICE_TYPE_RSHUB: return <RSHub {...props} />;
     case DEVICE_TYPE_LAN_AMP: return <Lanamp {...props} />;
-    case DEVICE_TYPE_RS_HUB_1_RS: return <DeviceRSHub1RS {...props} />
+    case DEVICE_TYPE_RS_HUB_1: return <DeviceRSHub1RS {...props} />
+    case DEVICE_TYPE_RS_HUB_1_RS: return <DeviceRSHub1RS {...props} is_rbus={false} />
     default: {
       switch (props.protocol) {
         case ZIGBEE: return <Zigbee {...props} />;
