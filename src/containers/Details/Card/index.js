@@ -53,6 +53,7 @@ import {
   DEVICE_TYPE_SMART_4GD,
   DEVICE_TYPE_SMART_4A,
   SCREEN,
+  DEVICE_TYPE_SMART_4AM,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -113,6 +114,8 @@ const Container = (props: Props) => {
       return <CardSensor {...props} led={4} hasDoppler hasDisplay />;
     case DEVICE_TYPE_SMART_4A:
       return <CardSensor {...props} led={5} />;
+    case DEVICE_TYPE_SMART_4AM:
+      return <CardSensor {...props} led={5} hasDoppler />;
     case DEVICE_TYPE_CLIMATE:
       return <CardClimate {...props} />;
     case DEVICE_TYPE_TEMPERATURE_EXT:
@@ -137,7 +140,7 @@ const Container = (props: Props) => {
     case VALVE_HEATING:
       return <CardHeater {...props} />;
     case WARM_FLOOR:
-      return <CardHeater {...props}  />;
+      return <CardHeater {...props} />;
     case CURTAINS:
       return <CardClosure {...props} />;
     case LIGHT_RGB:

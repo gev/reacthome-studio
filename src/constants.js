@@ -119,6 +119,7 @@ export const DEVICE_TYPE_IR_4 = 0x24;
 export const DEVICE_TYPE_SMART_4G = 0x25;
 export const DEVICE_TYPE_SMART_4GD = 0x26;
 export const DEVICE_TYPE_SMART_4A = 0x27;
+export const DEVICE_TYPE_SMART_4AM = 0x2a;
 
 export const DEVICE_TYPE_RELAY_6 = 0xa0;
 export const DEVICE_TYPE_RELAY_12 = 0xa1;
@@ -643,6 +644,10 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_SMART_4A]: {
     title: 'Smart 4A',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_SMART_4AM]: {
+    title: 'Smart 4AM',
     hasFindMeAction: true
   },
   [TOUCH]: {

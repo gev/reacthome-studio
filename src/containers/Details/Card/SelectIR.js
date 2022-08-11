@@ -14,6 +14,7 @@ import {
   DEVICE_TYPE_SMART_4G,
   DEVICE_TYPE_SMART_4GD,
   DEVICE_TYPE_LAN_AMP,
+  DEVICE_TYPE_SMART_4AM,
 } from '../../../constants';
 import { send } from '../../../websocket/peer';
 
@@ -33,6 +34,7 @@ const Ir = c(({
       break;
     case DEVICE_TYPE_IR_4:
     case DEVICE_TYPE_SMART_4A:
+    case DEVICE_TYPE_SMART_4AM:
     case DEVICE_TYPE_SMART_4G:
     case DEVICE_TYPE_SMART_4GD:
     case DEVICE_TYPE_LAN_AMP:
@@ -59,12 +61,12 @@ class Container extends Component {
   state = {}
   componentWillMount() {
     const { id, device } = this.props;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev: dev || device, index });
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev, index });
   }
   selectDev = (dev) => {

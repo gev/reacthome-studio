@@ -37,7 +37,8 @@ import {
   DEVICE_TYPE_RELAY_12_RS,
   DEVICE_TYPE_DIM_8_RS,
   DEVICE_TYPE_RS_HUB_1_RS,
-  DEVICE_TYPE_RS_HUB_1
+  DEVICE_TYPE_RS_HUB_1,
+  DEVICE_TYPE_SMART_4AM
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -134,6 +135,8 @@ export default (props) => {
       return <Sensor {...props} led={4} hasDoppler hasDisplay />;
     case DEVICE_TYPE_SMART_4A:
       return <Sensor {...props} led={5} />;
+    case DEVICE_TYPE_SMART_4AM:
+      return <Sensor {...props} led={5} hasDoppler />;
     case DEVICE_TYPE_CLIMATE: return <Climate {...props} />;
     case DEVICE_TYPE_TEMPERATURE_EXT: return <TempExt {...props} />;
     case DEVICE_TYPE_IR_RECEIVER: return <IrReceiver {...props} />;
