@@ -33,6 +33,7 @@ import {
   DEVICE_TYPE_MIX_1_RS,
   DEVICE_TYPE_RELAY_12_RS,
   DEVICE_TYPE_DIM_8_RS,
+  DEVICE_TYPE_DIM_12_LED_RS,
 } from '../../../constants';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
@@ -98,6 +99,10 @@ const Do = c(({
     case DEVICE_TYPE_DIM_8:
     case DEVICE_TYPE_DIM_8_RS:
       n = 8;
+      t = DIM;
+      break;
+    case DEVICE_TYPE_DIM_12_LED_RS:
+      n = 12;
       t = DIM;
       break;
     case DEVICE_TYPE_DO8:
