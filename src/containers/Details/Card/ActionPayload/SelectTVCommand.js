@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
 import { codes } from 'reacthome-ircodes';
-import {SCREEN } from '../../../../constants';
+import { TV } from '../../../../constants';
 import { modify } from '../../../../actions';
 import SelectMenu from '../../SelectMenu';
 
@@ -13,13 +13,13 @@ class Container extends Component {
 
   async componentWillMount() {
     const { brand, model } = this.props;
-    const { command = {} } = ((codes[SCREEN] || {})[brand] || {})[model] || {};
+    const { command = {} } = ((codes[TV] || {})[brand] || {})[model] || {};
     this.setState({ commands: Object.keys(command) });
   }
 
   async componentWillReceiveProps(props) {
     const { brand, model } = props;
-    const { command = {} } = ((codes[SCREEN] || {})[brand] || {})[model] || {};
+    const { command = {} } = ((codes[TV] || {})[brand] || {})[model] || {};
     this.setState({ commands: Object.keys(command) });
   }
 
