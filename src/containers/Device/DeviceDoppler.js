@@ -91,17 +91,17 @@ class Doppler extends Component {
   };
 
   render() {
-    const { data } = this.state;
-    // const { raw = [] } = this.props;
-    // const data = {
-    //   labels: new Array(raw.length).fill(''),
-    //   datasets: [
-    //     {
-    //       ...art('raw'),
-    //       data: raw
-    //     }
-    //   ]
-    // };
+    // const { data } = this.state;
+    const { raw = [] } = this.props;
+    const data = {
+      labels: new Array(raw.length).fill(''),
+      datasets: [
+        {
+          ...art('raw'),
+          data: raw
+        }
+      ]
+    };
     return (
       <div className="paper">
         <div>

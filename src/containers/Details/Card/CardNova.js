@@ -19,7 +19,7 @@ import { ACTION_OFF, ACTION_ON, ACTION_SETPOINT, ACTION_SET_ADDRESS, ACTION_SET_
 import SelectModbus from './SelectModbus';
 import { send } from '../../../websocket/peer';
 
-const Check = ({checked, onChange, label}) => (
+const Check = ({ checked, onChange, label }) => (
   <td>
     <div><Typography use="caption">{label}</Typography></div>
     <div><Radio checked={checked} onChange={onChange} /></div>
@@ -36,9 +36,9 @@ class Container extends Component {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
-  toggle = ({ target: { checked } }) => {
-    const { id, daemon } = this.props;
-    const type = checked ? ACTION_ON : ACTION_OFF;
+  toggle = () => {
+    const { id, daemon, value } = this.props;
+    const type = value ? ACTION_OFF : ACTION_ON;
     send(daemon, { id, type });
   };
   setFanSpeed = ({ detail: { value } }) => {
@@ -80,7 +80,7 @@ class Container extends Component {
           <Slider
             min={0}
             step={1}
-            max={3}
+            max={10}
             value={fan_speed || 0}
             onInput={this.setFanSpeed}
             discrete
@@ -89,8 +89,8 @@ class Container extends Component {
         <div className="paper">
           <Typography>Set point</Typography>
           <Slider
-            min={0}
-            step={1}
+            min={15}
+            step={0.5}
             max={30}
             value={setpoint || 0}
             onInput={this.setPoint}
