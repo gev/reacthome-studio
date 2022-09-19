@@ -94,11 +94,7 @@ import CardNova from './CardNova';
 import CardScreen from './CardScreen';
 import CardCO2 from './CardCO2';
 
-type Props = {
-  type: ?string
-};
-
-const Container = (props: Props) => {
+const Container = (props) => {
   if (props.protocol === ZIGBEE) {
     return <CardZigbee {...props} />;
   }
