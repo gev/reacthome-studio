@@ -120,6 +120,7 @@ export const DEVICE_TYPE_SMART_4G = 0x25;
 export const DEVICE_TYPE_SMART_4GD = 0x26;
 export const DEVICE_TYPE_SMART_4A = 0x27;
 export const DEVICE_TYPE_SMART_4AM = 0x2a;
+export const DEVICE_TYPE_CO2 = 0x2b;
 
 export const DEVICE_TYPE_RELAY_6 = 0xa0;
 export const DEVICE_TYPE_RELAY_12 = 0xa1;
@@ -415,6 +416,7 @@ export const onTemperature = 'onTemperature';
 export const onTemperatureExt = 'onTemperatureExt';
 export const onHumidity = 'onHumidity';
 export const onIllumination = 'onIllumination';
+export const onCO2 = 'onCO2';
 export const onStartCool = 'onStartCool';
 export const onStartHeat = 'onStartHeat';
 export const onStopHeat = 'onStopHeat';
@@ -649,6 +651,10 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_SMART_4AM]: {
     title: 'Smart 4AM',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_CO2]: {
+    title: 'CO2',
     hasFindMeAction: true
   },
   [TOUCH]: {

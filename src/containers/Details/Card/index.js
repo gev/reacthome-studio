@@ -54,6 +54,7 @@ import {
   DEVICE_TYPE_SMART_4A,
   SCREEN,
   DEVICE_TYPE_SMART_4AM,
+  DEVICE_TYPE_CO2,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -91,6 +92,7 @@ import CardHeater from './CardHeater';
 import CardMultiroom from './CardMultiroom';
 import CardNova from './CardNova';
 import CardScreen from './CardScreen';
+import CardCO2 from './CardCO2';
 
 type Props = {
   type: ?string
@@ -116,6 +118,8 @@ const Container = (props: Props) => {
       return <CardSensor {...props} led={5} />;
     case DEVICE_TYPE_SMART_4AM:
       return <CardSensor {...props} led={5} hasDoppler />;
+    case DEVICE_TYPE_CO2:
+      return <CardCO2 {...props} />;
     case DEVICE_TYPE_CLIMATE:
       return <CardClimate {...props} />;
     case DEVICE_TYPE_TEMPERATURE_EXT:

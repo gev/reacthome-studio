@@ -67,10 +67,6 @@ class Container extends Component {
     switch (type) {
       case DEVICE_TYPE_IR1:
       case DEVICE_TYPE_IR_4:
-      case DEVICE_TYPE_SMART_4A:
-      case DEVICE_TYPE_SMART_4AM:
-      case DEVICE_TYPE_SMART_4G:
-      case DEVICE_TYPE_SMART_4GD:
       case DEVICE_TYPE_LAN_AMP:
       case DEVICE_TYPE_IR6:
         return <CardACIR {...this.props} device={bind} />

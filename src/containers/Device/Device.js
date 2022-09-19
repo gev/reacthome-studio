@@ -38,7 +38,8 @@ import {
   DEVICE_TYPE_DIM_8_RS,
   DEVICE_TYPE_RS_HUB_1_RS,
   DEVICE_TYPE_RS_HUB_1,
-  DEVICE_TYPE_SMART_4AM
+  DEVICE_TYPE_SMART_4AM,
+  DEVICE_TYPE_CO2
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -71,6 +72,7 @@ import DeviceAO from './DeviceAO';
 import DeviceMix1rs from './DeviceMix1rs';
 import DeviceMix3rs_3 from './DeviceMix1rs_3';
 import DeviceRSHub1RS from './DeviceRSHub1RS';
+import DeviceCO2 from './DeviceCO2';
 
 export default (props) => {
   switch (props.type) {
@@ -137,6 +139,8 @@ export default (props) => {
       return <Sensor {...props} led={5} />;
     case DEVICE_TYPE_SMART_4AM:
       return <Sensor {...props} led={5} hasDoppler />;
+    case DEVICE_TYPE_CO2:
+      return <DeviceCO2 {...props} />;
     case DEVICE_TYPE_CLIMATE: return <Climate {...props} />;
     case DEVICE_TYPE_TEMPERATURE_EXT: return <TempExt {...props} />;
     case DEVICE_TYPE_IR_RECEIVER: return <IrReceiver {...props} />;
