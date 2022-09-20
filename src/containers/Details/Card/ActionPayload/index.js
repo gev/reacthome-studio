@@ -37,7 +37,8 @@ import {
   ACTION_DEC_SETPOINT,
   ACTION_RGB_BUTTON_SET,
   ACTION_SITE_LIGHT_ON,
-  ACTION_SCREEN
+  ACTION_SCREEN,
+  ACTION_SET_FAN_SPEED
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -67,7 +68,7 @@ import { bindActionCreators } from 'redux';
 import { modify } from '../../../../actions';
 import ActionPayloadSiteLightOnOff from './ActionPayloadSiteLightOnOff';
 import ActionPayloadScreen from './ActionPayloadScreen';
-
+import ActionPayloadFanSpeed from './ActionPayloadFanSpeed';
 
 const Container = (props) => {
   switch (props.type) {
@@ -81,6 +82,8 @@ const Container = (props) => {
       return <ActionPayloadOnOff {...props} />;
     case ACTION_DIM:
       return <ActionPayloadDim {...props} />;
+    case ACTION_SET_FAN_SPEED:
+      return <ActionPayloadFanSpeed {...props} />;
     case ACTION_DIM_RELATIVE:
       return <ActionPayloadDimRelative {...props} />;
     case ACTION_SITE_LIGHT_DIM_RELATIVE:

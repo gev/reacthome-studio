@@ -14,8 +14,8 @@ class Container extends Component {
     const { value } = this.props;
     return (
       <Slider
-        min={5}
-        max={35}
+        min={1}
+        max={10}
         step={1}
         value={value}
         onInput={this.input}
