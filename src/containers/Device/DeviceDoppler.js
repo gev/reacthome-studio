@@ -92,20 +92,23 @@ class Doppler extends Component {
 
   render() {
     const { data } = this.state;
-    // const { raw = [] } = this.props;
-    // const data = {
-    //   labels: new Array(raw.length).fill(''),
-    //   datasets: [
-    //     {
-    //       ...art('raw'),
-    //       data: raw
-    //     }
-    //   ]
-    // };
+    const { raw = [] } = this.props;
+    const r = {
+      labels: new Array(raw.length).fill(''),
+      datasets: [
+        {
+          ...art('raw'),
+          data: raw
+        }
+      ]
+    };
     return (
-      <div className="paper">
+      <div className="paper" >
         <div>
           <Line style={{ height: '200 px' }} data={data} options={optDoppler} />
+        </div>
+        <div>
+          <Line style={{ height: '200 px' }} data={r} options={optDoppler} />
         </div>
       </div>
     );
