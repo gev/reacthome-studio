@@ -2,7 +2,7 @@
 import { Buffer } from 'buffer';
 import { createSocket } from 'dgram';
 import { ROOT, DAEMON } from './constants';
-import { add, modify, set } from './actions';
+import { add, compare } from './actions';
 import { peers } from './websocket/peer';
 import connect from './websocket/connect';
 
