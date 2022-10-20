@@ -39,7 +39,8 @@ import {
   DEVICE_TYPE_RS_HUB_1_RS,
   DEVICE_TYPE_RS_HUB_1,
   DEVICE_TYPE_SMART_4AM,
-  DEVICE_TYPE_CO2
+  DEVICE_TYPE_CO2,
+  DEVICE_TYPE_SMART_6_PUSH
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -132,13 +133,15 @@ export default (props) => {
     case DEVICE_TYPE_PLC: return <Plc {...props} />;
     case DEVICE_TYPE_SENSOR4:
     case DEVICE_TYPE_SMART_4G:
-      return <Sensor {...props} led={4} hasDoppler />;
+      return <Sensor {...props} button={4} led={4} hasDoppler />;
     case DEVICE_TYPE_SMART_4GD:
-      return <Sensor {...props} led={4} hasDoppler hasDisplay />;
+      return <Sensor {...props} button={4} led={4} hasDoppler hasDisplay />;
     case DEVICE_TYPE_SMART_4A:
-      return <Sensor {...props} led={5} />;
+      return <Sensor {...props} button={4} led={5} />;
     case DEVICE_TYPE_SMART_4AM:
-      return <Sensor {...props} led={5} hasDoppler />;
+      return <Sensor {...props} button={4} led={5} hasDoppler />;
+    case DEVICE_TYPE_SMART_6_PUSH:
+      return <Sensor {...props} button={6} led={6} hasDoppler />;
     case DEVICE_TYPE_CO2:
       return <DeviceCO2 {...props} />;
     case DEVICE_TYPE_CLIMATE: return <Climate {...props} />;

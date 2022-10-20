@@ -55,6 +55,7 @@ import {
   SCREEN,
   DEVICE_TYPE_SMART_4AM,
   DEVICE_TYPE_CO2,
+  DEVICE_TYPE_SMART_6_PUSH,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -107,13 +108,15 @@ const Container = (props) => {
       return <CardCamera {...props} />;
     case DEVICE_TYPE_SENSOR4:
     case DEVICE_TYPE_SMART_4G:
-      return <CardSensor {...props} led={4} hasDoppler />;
+      return <CardSensor {...props} button={4} led={4} hasDoppler />;
     case DEVICE_TYPE_SMART_4GD:
-      return <CardSensor {...props} led={4} hasDoppler hasDisplay />;
+      return <CardSensor {...props} button={4} led={4} hasDoppler hasDisplay />;
     case DEVICE_TYPE_SMART_4A:
-      return <CardSensor {...props} led={5} />;
+      return <CardSensor {...props} button={4} led={5} />;
     case DEVICE_TYPE_SMART_4AM:
-      return <CardSensor {...props} led={5} hasDoppler />;
+      return <CardSensor {...props} button={4} led={5} hasDoppler />;
+    case DEVICE_TYPE_SMART_6_PUSH:
+      return <CardSensor {...props} button={6} led={6} hasDoppler />;
     case DEVICE_TYPE_CO2:
       return <CardCO2 {...props} />;
     case DEVICE_TYPE_CLIMATE:

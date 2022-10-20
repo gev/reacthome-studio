@@ -121,6 +121,7 @@ export const DEVICE_TYPE_SMART_4GD = 0x26;
 export const DEVICE_TYPE_SMART_4A = 0x27;
 export const DEVICE_TYPE_SMART_4AM = 0x2a;
 export const DEVICE_TYPE_CO2 = 0x2b;
+export const DEVICE_TYPE_SMART_6_PUSH = 0x2c;
 
 export const DEVICE_TYPE_RELAY_6 = 0xa0;
 export const DEVICE_TYPE_RELAY_12 = 0xa1;
@@ -651,6 +652,10 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_SMART_4AM]: {
     title: 'Smart 4AM',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_SMART_6_PUSH]: {
+    title: 'Smart 6 Push',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_CO2]: {

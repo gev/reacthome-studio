@@ -23,7 +23,7 @@ const Row = ({ title, value, magnitude }) => (
 export default class extends Component {
   render() {
     const {
-      id, temperature, correct = 0, vibro = 100, humidity, illumination, daemon, led, hasDoppler, hasDisplay
+      id, temperature, correct = 0, vibro = 100, humidity, illumination, daemon, button, led, hasDoppler, hasDisplay
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -36,46 +36,47 @@ export default class extends Component {
       hasDisplay && <Display key="display" id={id} daemon={daemon} />,
       ...rgb(led),
       <table key="climate" style={{ textAlign: 'left' }}>
-				<tbody>
-					<tr>
-						<td className="paper">{`Correct ${correct}°C`}</td>
-						<td className="paper">
-							<Slider
-								value={correct}
-								min={-12.8}
-								max={12.7}
-								step={0.1}
-								onInput={(event) => {
-									send(daemon, {id, type: ACTION_TEMPERATURE_CORRECT, value: event.detail.value})
-								 }} />
-						</td>
-					</tr>
+        <tbody>
+          <tr>
+            <td className="paper">{`Correct ${correct}°C`}</td>
+            <td className="paper">
+              <Slider
+                value={correct}
+                min={-12.8}
+                max={12.7}
+                step={0.1}
+                onInput={(event) => {
+                  send(daemon, { id, type: ACTION_TEMPERATURE_CORRECT, value: event.detail.value })
+                }} />
+            </td>
+          </tr>
           <Row title="Temperature" value={temperature} magnitude="°C" />
           <Row title="Humidity" value={humidity} magnitude="%" />
           <Row title="Illumination" value={illumination} magnitude="lux" />
-					<tr>
-						<td className="paper">Vibro</td>
-						<td className="paper">
-							<Slider
-								value={vibro / 25}
-								min={0}
-								max={10}
-								step={1}
-								discrete
-								onInput={(event) => {
-									send(daemon, {id, type: ACTION_VIBRO, value: event.detail.value * 25})
-								 }} />
-						</td>
-					</tr>
+          <tr>
+            <td className="paper">Vibro</td>
+            <td className="paper">
+              <Slider
+                value={vibro / 25}
+                min={0}
+                max={10}
+                step={1}
+                discrete
+                onInput={(event) => {
+                  send(daemon, { id, type: ACTION_VIBRO, value: event.detail.value * 25 })
+                }} />
+            </td>
+          </tr>
         </tbody>
       </table>,
       <table key="buttons">
         <tbody>
           <tr>
-            <td className="paper"><Di id={id} index={1} /></td>
-            <td className="paper"><Di id={id} index={2} /></td>
-            <td className="paper"><Di id={id} index={3} /></td>
-            <td className="paper"><Di id={id} index={4} /></td>
+            {
+              new Array(button).fill(0).map((_, i) => (
+                <td className="paper"><Di id={id} index={i + 1} /></td>
+              ))
+            }
           </tr>
         </tbody>
       </table>,

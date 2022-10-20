@@ -35,7 +35,7 @@ const Row = ({
     <td>
       {
         script &&
-          <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
+        <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
       }
     </td>
     <td>
@@ -72,7 +72,7 @@ class Container extends Component {
   render() {
     const {
       id, code, project, daemon, temperature, removeField, humidity, illumination,
-      led, hasDoppler, hasDisplay, dispaly
+      button, led, hasDoppler, hasDisplay, dispaly
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -123,10 +123,11 @@ class Container extends Component {
           activeTabIndex={this.state.di}
           onActivate={this.selectDi}
         >
-          <Tab>1</Tab>
-          <Tab>2</Tab>
-          <Tab>3</Tab>
-          <Tab>4</Tab>
+          {
+            new Array(button).fill(0).map((_, i) => (
+              <Tab>{i + 1}</Tab>
+            ))
+          }
         </TabBar>
         <div className="paper">
           <Di id={`${id}/${DI}/${this.state.di + 1}`} project={project} />
@@ -149,7 +150,7 @@ class Container extends Component {
                       <td>
                         {
                           this.props.onDoppler &&
-                            <Typography use="caption" onClick={this.remove(onDoppler)}><strong> X </strong></Typography>
+                          <Typography use="caption" onClick={this.remove(onDoppler)}><strong> X </strong></Typography>
                         }
                       </td>
                     </tr>
