@@ -159,8 +159,11 @@ export const DRIVER_TYPE_M206 = 'M206';
 export const DRIVER_TYPE_M230 = 'M230';
 export const DRIVER_TYPE_MODBUS = 'MODBUS';
 export const DRIVER_TYPE_NOVA = 'NOVA';
+export const DRIVER_TYPE_SWIFT = 'SWIFT';
 export const DRIVER_TYPE_VARMANN = 'VARMANN';
 export const DRIVER_TYPE_INTESIS_BOX = 'INTESIS_BOX';
+export const DRIVER_TYPE_ALINK = "ALINK";
+
 
 export const DI_OFF = 0x0;
 export const DI_ON = 0x1;
@@ -722,7 +725,13 @@ export const DRIVER_TYPES = {
   [DRIVER_TYPE_INTESIS_BOX]: {
     title: 'Imtesis Box'
   },
+  [DRIVER_TYPE_ALINK]: {
+    title: 'Alink'
+  },
   [DRIVER_TYPE_NOVA]: {
-    title: 'Nova'
+    title: 'Shuft Nova'
+  },
+  [DRIVER_TYPE_SWIFT]: {
+    title: 'Shuft Swift'
   },
 };

@@ -56,6 +56,8 @@ import {
   DEVICE_TYPE_SMART_4AM,
   DEVICE_TYPE_CO2,
   DEVICE_TYPE_SMART_6_PUSH,
+  DRIVER_TYPE_ALINK,
+  DRIVER_TYPE_SWIFT,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -92,8 +94,10 @@ import CardZigbee from './CardZigbee';
 import CardHeater from './CardHeater';
 import CardMultiroom from './CardMultiroom';
 import CardNova from './CardNova';
+import CardSwift from './CardSwift';
 import CardScreen from './CardScreen';
 import CardCO2 from './CardCO2';
+import CardAlink from './CardAlink';
 
 const Container = (props) => {
   if (props.protocol === ZIGBEE) {
@@ -189,8 +193,12 @@ const Container = (props) => {
       return <CardVarmann {...props} />;
     case DRIVER_TYPE_INTESIS_BOX:
       return <CardIntesisBox {...props} />;
+    case DRIVER_TYPE_ALINK:
+      return <CardAlink {...props} />;
     case DRIVER_TYPE_NOVA:
       return <CardNova {...props} />;
+    case DRIVER_TYPE_SWIFT:
+      return <CardSwift {...props} />;
     case MULTIROOM:
       return <CardMultiroom {...props} />;
     default:
