@@ -31,7 +31,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "concurrently": "^3.5.1",
     "css-loader": "^0.28.11",
-    "electron": "^7.1.0",
+    "electron": "^18.3.7",
     "eslint": "^4.17.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-flowtype": "^2.44.0",
