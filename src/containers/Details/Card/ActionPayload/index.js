@@ -38,7 +38,8 @@ import {
   ACTION_RGB_BUTTON_SET,
   ACTION_SITE_LIGHT_ON,
   ACTION_SCREEN,
-  ACTION_SET_FAN_SPEED
+  ACTION_SET_FAN_SPEED,
+  ACTION_SETPOINT_MIN_MAX
 } from '../../../../constants';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadDim from './ActionPayloadDim';
@@ -69,6 +70,7 @@ import { modify } from '../../../../actions';
 import ActionPayloadSiteLightOnOff from './ActionPayloadSiteLightOnOff';
 import ActionPayloadScreen from './ActionPayloadScreen';
 import ActionPayloadFanSpeed from './ActionPayloadFanSpeed';
+import ActionPayloadSetpointMinMax from './ActionPayloadSetpointMinMax';
 
 const Container = (props) => {
   switch (props.type) {
@@ -119,6 +121,8 @@ const Container = (props) => {
       return <ActionPayloadHeatLimit {...props} />;
     case ACTION_SETPOINT:
       return <ActionPayloadSetpoint {...props} />;
+    case ACTION_SETPOINT_MIN_MAX:
+      return <ActionPayloadSetpointMinMax {...props} />;
     case ACTION_INC_SETPOINT:
     case ACTION_DEC_SETPOINT:
       return <ActionPayloadIncDecSetpoint {...props} />;
