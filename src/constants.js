@@ -142,6 +142,7 @@ export const DEVICE_TYPE_RELAY_12_RS = 0xae;
 export const DEVICE_TYPE_DIM_8_RS = 0xaf;
 export const DEVICE_TYPE_RS_HUB_1_RS = 0xb0;
 export const DEVICE_TYPE_RS_HUB_1 = 0xb1;
+export const DEVICE_TYPE_RS_HUB_4 = 0xb2;
 
 export const DEVICE_TYPE_PNP = 0xe0;
 
@@ -163,7 +164,9 @@ export const DRIVER_TYPE_NOVA = 'NOVA';
 export const DRIVER_TYPE_SWIFT = 'SWIFT';
 export const DRIVER_TYPE_VARMANN = 'VARMANN';
 export const DRIVER_TYPE_INTESIS_BOX = 'INTESIS_BOX';
-export const DRIVER_TYPE_ALINK = "ALINK";
+export const DRIVER_TYPE_RTD_RA = 'RT_DA';
+
+export const DRIVER_TYPE_ALINK = 'ALINK';
 
 
 export const DI_OFF = 0x0;
@@ -697,6 +700,9 @@ export const DEVICE_TYPES = {
   [DEVICE_TYPE_RS_HUB_1]: {
     title: 'RS HUB1'
   },
+  [DEVICE_TYPE_RS_HUB_4]: {
+    title: 'RS HUB4'
+  },
 };
 
 export const DRIVER_TYPES = {
@@ -726,6 +732,9 @@ export const DRIVER_TYPES = {
   },
   [DRIVER_TYPE_INTESIS_BOX]: {
     title: 'Imtesis Box'
+  },
+  [DRIVER_TYPE_RTD_RA]: {
+    title: 'RTD-RA'
   },
   [DRIVER_TYPE_ALINK]: {
     title: 'Alink'

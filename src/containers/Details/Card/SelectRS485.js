@@ -5,7 +5,7 @@ import { SimpleMenu } from '@rmwc/menu';
 import { Button } from '@rmwc/button';
 import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
-import { DEVICE_TYPE_RSHUB, RS485, DEVICE_TYPE_RELAY_24, DEVICE_TYPE_RELAY_12, DEVICE_TYPE_RELAY_6, DEVICE_TYPE_RS_HUB_1_RS, DEVICE_TYPE_RS_HUB_1 } from '../../../constants';
+import { DEVICE_TYPE_RSHUB, RS485, DEVICE_TYPE_RELAY_24, DEVICE_TYPE_RELAY_12, DEVICE_TYPE_RELAY_6, DEVICE_TYPE_RS_HUB_1_RS, DEVICE_TYPE_RS_HUB_1, DEVICE_TYPE_RS_HUB_4 } from '../../../constants';
 
 type Props = {
   id: string,
@@ -38,6 +38,9 @@ const Channel = c(({
     case DEVICE_TYPE_RS_HUB_1:
     case DEVICE_TYPE_RS_HUB_1_RS:
       n = 1;
+      break;
+    case DEVICE_TYPE_RS_HUB_4:
+      n = 4;
       break;
     default: n = 0;
   }

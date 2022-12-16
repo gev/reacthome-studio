@@ -58,6 +58,7 @@ import {
   DEVICE_TYPE_SMART_6_PUSH,
   DRIVER_TYPE_ALINK,
   DRIVER_TYPE_SWIFT,
+  DRIVER_TYPE_RTD_RA,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -98,6 +99,7 @@ import CardSwift from './CardSwift';
 import CardScreen from './CardScreen';
 import CardCO2 from './CardCO2';
 import CardAlink from './CardAlink';
+import CardRTDRA from './CardRTD_RA';
 
 const Container = (props) => {
   if (props.protocol === ZIGBEE) {
@@ -193,6 +195,8 @@ const Container = (props) => {
       return <CardVarmann {...props} />;
     case DRIVER_TYPE_INTESIS_BOX:
       return <CardIntesisBox {...props} />;
+    case DRIVER_TYPE_RTD_RA:
+      return <CardRTDRA {...props} />;
     case DRIVER_TYPE_ALINK:
       return <CardAlink {...props} />;
     case DRIVER_TYPE_NOVA:
