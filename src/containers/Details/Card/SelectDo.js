@@ -34,6 +34,8 @@ import {
   DEVICE_TYPE_RELAY_12_RS,
   DEVICE_TYPE_DIM_8_RS,
   DEVICE_TYPE_DIM_12_LED_RS,
+  DEVICE_TYPE_DIM_12_AC_RS,
+  DEVICE_TYPE_DIM_12_DC_RS,
 } from '../../../constants';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
@@ -102,6 +104,8 @@ const Do = c(({
       t = DIM;
       break;
     case DEVICE_TYPE_DIM_12_LED_RS:
+    case DEVICE_TYPE_DIM_12_AC_RS:
+    case DEVICE_TYPE_DIM_12_DC_RS:
       n = 12;
       t = DIM;
       break;

@@ -34,6 +34,8 @@ import {
   DEVICE_TYPE_SMART_4GD,
   DEVICE_TYPE_MIX_1_RS,
   DEVICE_TYPE_DIM_12_LED_RS,
+  DEVICE_TYPE_DIM_12_AC_RS,
+  DEVICE_TYPE_DIM_12_DC_RS,
   DEVICE_TYPE_RELAY_12_RS,
   DEVICE_TYPE_DIM_8_RS,
   DEVICE_TYPE_RS_HUB_1_RS,
@@ -87,6 +89,8 @@ export default (props) => {
     case DEVICE_TYPE_DIM_8: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DIM_8_RS: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DIM_12_LED_RS: return <Dimmer {...props} n={12} />;
+    case DEVICE_TYPE_DIM_12_AC_RS: return <Dimmer {...props} n={12} />;
+    case DEVICE_TYPE_DIM_12_DC_RS: return <Dimmer {...props} n={12} />;
     case DEVICE_TYPE_DIM8_LEGACY: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DI_4: return <Di4 {...props} />;
     case DEVICE_TYPE_DI_8_DIN: return <Di8 {...props} />;

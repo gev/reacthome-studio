@@ -144,6 +144,9 @@ export const DEVICE_TYPE_RS_HUB_1_RS = 0xb0;
 export const DEVICE_TYPE_RS_HUB_1 = 0xb1;
 export const DEVICE_TYPE_RS_HUB_4 = 0xb2;
 
+export const DEVICE_TYPE_DIM_12_AC_RS = 0xb3;
+export const DEVICE_TYPE_DIM_12_DC_RS = 0xb4;
+
 export const DEVICE_TYPE_PNP = 0xe0;
 
 export const DEVICE_TYPE_TEMPERATURE_EXT = 0xf0;
@@ -626,6 +629,14 @@ export const DEVICE_TYPES = {
     title: 'Dimmer 12 LED RS',
     hasFindMeAction: true,
   },
+  [DEVICE_TYPE_DIM_12_AC_RS]: {
+    title: 'Dimmer 12 AC RS',
+    hasFindMeAction: true,
+  },
+  [DEVICE_TYPE_DIM_12_DC_RS]: {
+    title: 'Dimmer 12 DC RS',
+    hasFindMeAction: true,
+  },
   [DEVICE_TYPE_DIM_8]: {
     title: 'Dimmer 8',
     hasFindMeAction: true,
@@ -701,7 +712,8 @@ export const DEVICE_TYPES = {
     title: 'RS HUB1'
   },
   [DEVICE_TYPE_RS_HUB_4]: {
-    title: 'RS HUB4'
+    title: 'RS HUB4',
+    hasFindMeAction: true
   },
 };
 

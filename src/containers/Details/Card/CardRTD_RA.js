@@ -48,9 +48,9 @@ class Container extends Component<Props> {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
-  toggle = ({ target: { checked } }) => {
+  toggle = (checked) => () => {
     const { id, daemon } = this.props;
-    const type = checked ? ACTION_ON : ACTION_OFF;
+    const type = checked ? ACTION_OFF : ACTION_ON;
     send(daemon, { id, type });
   };
   setFanSpeed = ({ detail: { value } }) => {
@@ -85,7 +85,7 @@ class Container extends Component<Props> {
           <SelectModbus id={bind} root={project} onSelect={this.select} />
         </div>
         <div className="paper">
-          <Switch checked={!!value} onChange={this.toggle} />
+          <Switch checked={!!value} onChange={this.toggle(!!value)} />
         </div>
         <div className="paper">
           <table>
