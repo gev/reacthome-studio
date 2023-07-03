@@ -8,7 +8,7 @@ import connect from './connect';
 
 export default connect(DO)((props) => {
   const {
-    id, index, value, timeout, request
+    id, index, title, value, timeout, request
   } = props;
 
   const setValue = (event) => {
@@ -25,7 +25,7 @@ export default connect(DO)((props) => {
 
   return (
     <div>
-      <div><Typography use="caption">{index}</Typography></div>
+      <div><Typography use="caption">{titlee || index}</Typography></div>
       <div><Switch checked={!!value} onChange={setValue} /></div>
       <TextField value={timeout} label="timeout" onInput={setTimeout} type="number" />
     </div>

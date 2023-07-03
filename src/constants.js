@@ -71,6 +71,7 @@ export const CLOSE = 'close';
 export const ACTION_DO = 0x00;
 export const ACTION_GROUP = 0x02;
 export const ACTION_DI_RELAY_SYNC = 0x03;
+export const ACTION_ATS_MODE = 0x04;
 export const ACTION_VIBRO = 0x0a;
 export const ACTION_IR = 0x10;
 export const ACTION_IR_CONFIG = 0x11;
@@ -143,6 +144,7 @@ export const DEVICE_TYPE_DIM_8_RS = 0xaf;
 export const DEVICE_TYPE_RS_HUB_1_RS = 0xb0;
 export const DEVICE_TYPE_RS_HUB_1 = 0xb1;
 export const DEVICE_TYPE_RS_HUB_4 = 0xb2;
+export const DEVICE_TYPE_MIX_6x12_RS = 0xb5;
 
 export const DEVICE_TYPE_DIM_12_AC_RS = 0xb3;
 export const DEVICE_TYPE_DIM_12_DC_RS = 0xb4;
@@ -707,6 +709,10 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_RS_HUB_1_RS]: {
     title: 'RS HUB1 RS'
+  },
+  [DEVICE_TYPE_MIX_6x12_RS]: {
+    title: 'MIX 6x12 ATS',
+    hasFindMeAction: true
   },
   [DEVICE_TYPE_RS_HUB_1]: {
     title: 'RS HUB1'

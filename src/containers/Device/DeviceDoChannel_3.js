@@ -10,7 +10,7 @@ import connect from './connect';
 
 export default connect(DO)((props) => {
   const {
-    id, index, value, timeout, request, groupNumber, group
+    id, index, title, value, timeout, request, groupNumber, group
   } = props;
 
   const setValue = (event) => {
@@ -27,18 +27,18 @@ export default connect(DO)((props) => {
 
   const setGroup = (group) => () => {
     request({
-      type: ACTION_DO, id, index, group 
+      type: ACTION_DO, id, index, group
     });
   };
 
   return (
     <div>
-      <div className="paper" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-        <Typography use="caption">{index}</Typography>
+      <div className="paper" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Typography use="caption">{title || index}</Typography>
         <SimpleMenu handle={<Button>{group || index}</Button>}>
           {
             Array(groupNumber).fill(0).map((_, i) => (
-              <MenuItem key={i+1} onClick={setGroup(i+1)}>{i+1}</MenuItem>
+              <MenuItem key={i + 1} onClick={setGroup(i + 1)}>{i + 1}</MenuItem>
             ))
           }
         </SimpleMenu>

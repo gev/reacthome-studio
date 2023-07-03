@@ -14,7 +14,7 @@ type Props = {
 
 export default connect(DO)((props: Props) => {
   const {
-    id, index, value, request
+    id, index, title, value, request
   } = props;
 
   const setValue = (event) => {
@@ -25,7 +25,7 @@ export default connect(DO)((props: Props) => {
 
   return (
     <div>
-      <div><Typography use="caption">{index}</Typography></div>
+      <div><Typography use="caption">{title || index}</Typography></div>
       <div><Switch checked={!!value} onChange={setValue} /></div>
     </div>
   );

@@ -36,6 +36,7 @@ import {
   DEVICE_TYPE_DIM_12_LED_RS,
   DEVICE_TYPE_DIM_12_AC_RS,
   DEVICE_TYPE_DIM_12_DC_RS,
+  DEVICE_TYPE_MIX_6x12_RS,
 } from '../../../constants';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
@@ -62,6 +63,7 @@ const Do = c(({
     case DEVICE_TYPE_MIX_1:
     case DEVICE_TYPE_MIX_1_RS:
     case DEVICE_TYPE_MIX_2:
+    case DEVICE_TYPE_MIX_6x12_RS:
       n = 6;
       t = DO;
       hasGroups = major >= 2;

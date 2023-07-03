@@ -43,7 +43,8 @@ import {
   DEVICE_TYPE_SMART_4AM,
   DEVICE_TYPE_CO2,
   DEVICE_TYPE_SMART_6_PUSH,
-  DEVICE_TYPE_RS_HUB_4
+  DEVICE_TYPE_RS_HUB_4,
+  DEVICE_TYPE_MIX_6x12_RS
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -78,6 +79,7 @@ import DeviceMix3rs_3 from './DeviceMix1rs_3';
 import DeviceRSHub1RS from './DeviceRSHub1RS';
 import DeviceCO2 from './DeviceCO2';
 import DeviceRSHub4 from './DeviceRSHub4';
+import DeviceMix6x12 from './DeviceMix6x12';
 
 export default (props) => {
   switch (props.type) {
@@ -110,6 +112,7 @@ export default (props) => {
           return <DeviceMix1rs {...props} />;
       }
     }
+    case DEVICE_TYPE_MIX_6x12_RS: return <DeviceMix6x12 {...props} />
     case DEVICE_TYPE_MIX_2: return <Mix2 {...props} />;
     case DEVICE_TYPE_RELAY_6: {
       const [major] = (props.version || '').split('.');

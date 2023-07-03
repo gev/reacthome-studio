@@ -21,6 +21,7 @@ import {
   DEVICE_TYPE_MIX_1,
   DEVICE_TYPE_MIX_1_RS,
   DEVICE_TYPE_MIX_2,
+  DEVICE_TYPE_MIX_6x12_RS,
   DEVICE_TYPE_PLC,
   DEVICE_TYPE_RELAY_12,
   DEVICE_TYPE_RELAY_12_RS,
@@ -75,6 +76,7 @@ class Container extends Component {
       case DEVICE_TYPE_RELAY_6:
       case DEVICE_TYPE_MIX_1:
       case DEVICE_TYPE_MIX_1_RS:
+      case DEVICE_TYPE_MIX_6x12_RS:
       case DEVICE_TYPE_MIX_2:
       case DEVICE_TYPE_RELAY_12:
       case DEVICE_TYPE_RELAY_12_RS:

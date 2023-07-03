@@ -10,9 +10,9 @@ type Props = {
   value: ?boolean;
 };
 
-export default connect(DI)(({ index, value } : Props) => (
+export default connect(DI)(({ index, value, title }: Props) => (
   <div>
-    <div><Typography use="caption">{index}</Typography></div>
+    <div><Typography use="caption">{title || index}</Typography></div>
     <div><Icon icon="fiber_manual_record" theme={value ? 'secondary' : 'text-hint-on-background'} /></div>
   </div>
 ));

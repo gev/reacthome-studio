@@ -28,8 +28,9 @@ import {
   DEVICE_TYPE_MIX_1,
   DEVICE_TYPE_RELAY_2_DIN,
   DEVICE_TYPE_MIX_2,
-	DEVICE_TYPE_MIX_1_RS,
+  DEVICE_TYPE_MIX_1_RS,
   DEVICE_TYPE_RELAY_12_RS,
+  DEVICE_TYPE_MIX_6x12_RS,
 } from '../../../constants';
 
 type Props = {
@@ -63,13 +64,14 @@ const Do = c(({
       n = 1;
       break;
     case DEVICE_TYPE_RELAY_6:
-		case DEVICE_TYPE_MIX_1:
-		case DEVICE_TYPE_MIX_1_RS:
+    case DEVICE_TYPE_MIX_1:
+    case DEVICE_TYPE_MIX_1_RS:
     case DEVICE_TYPE_MIX_2:
       n = major >= 2 ? 3 : 0;
       break;
     case DEVICE_TYPE_RELAY_12:
     case DEVICE_TYPE_RELAY_12_RS:
+    case DEVICE_TYPE_MIX_6x12_RS:
       n = major >= 2 ? 6 : 0;
       break;
     default:
@@ -103,12 +105,12 @@ class Container extends Component<Props> {
   state = {}
   componentWillMount() {
     const { id } = this.props;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev, index });
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev, index });
   }
   selectDev = (dev) => {
