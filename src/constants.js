@@ -149,6 +149,8 @@ export const DEVICE_TYPE_MIX_6x12_RS = 0xb5;
 export const DEVICE_TYPE_DIM_12_AC_RS = 0xb3;
 export const DEVICE_TYPE_DIM_12_DC_RS = 0xb4;
 
+export const DEVICE_TYPE_SERVER = 0xc0;
+
 export const DEVICE_TYPE_PNP = 0xe0;
 
 export const DEVICE_TYPE_TEMPERATURE_EXT = 0xf0;
@@ -719,6 +721,10 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_RS_HUB_4]: {
     title: 'RS HUB4',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_SERVER]: {
+    title: 'Server Next',
     hasFindMeAction: true
   },
 };

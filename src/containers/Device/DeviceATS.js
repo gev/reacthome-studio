@@ -47,18 +47,18 @@ class Container extends Component {
               m.l.map((l, i) => (
                 <tr key={`l${i}`}>
                   <td className="paper">{l.g ? 'G' : `N${i + 1}`}</td>
-                  <td className="paper"><Di id={id} index={l.isU} title="U" /></td>
-                  <td className="paper"><Do id={id} daemon={daemon} index={l.on} title="On" /></td>
-                  <td className="paper"><Di id={id} index={l.isOn} title="On" /></td>
-                  {l.g ? (<td className="paper"> <Do id={id} daemon={daemon} index={l.start} title="start" /></td>) : null}
+                  <td className="paper"><Di id={id} index={l.isU} title={`U / di ${l.isU}`} /></td>
+                  <td className="paper"><Do id={id} daemon={daemon} index={l.on} title={`relay ${l.on}`} /></td>
+                  <td className="paper"><Di id={id} index={l.isOn} title={`On/Off / di ${l.isOn}`} /></td>
+                  {l.g ? (<td className="paper"> <Do id={id} daemon={daemon} index={l.start} title={`start / relay ${l.start}`} /></td>) : null}
                 </tr>
               ))
             }
             {
               m.r.map((r, i) => (
                 <tr key={`r${i}`}>
-                  <td className="paper"></td>
-                  <td className="paper"><Di id={id} index={r} title="reset" /></td>
+                  <td className="paper" />
+                  <td className="paper"><Di id={id} index={r} title={`reset / di ${r}`} /></td>
                 </tr>
               ))
             }

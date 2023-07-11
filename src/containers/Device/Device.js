@@ -44,7 +44,8 @@ import {
   DEVICE_TYPE_CO2,
   DEVICE_TYPE_SMART_6_PUSH,
   DEVICE_TYPE_RS_HUB_4,
-  DEVICE_TYPE_MIX_6x12_RS
+  DEVICE_TYPE_MIX_6x12_RS,
+  DEVICE_TYPE_SERVER
 } from '../../constants';
 import Doppler from './DeviceDoppler';
 import Dimmer from './DeviceDimmer';
@@ -80,6 +81,7 @@ import DeviceRSHub1RS from './DeviceRSHub1RS';
 import DeviceCO2 from './DeviceCO2';
 import DeviceRSHub4 from './DeviceRSHub4';
 import DeviceMix6x12 from './DeviceMix6x12';
+import DeviceServer from './DeviceServer';
 
 export default (props) => {
   switch (props.type) {
@@ -161,6 +163,7 @@ export default (props) => {
     case DEVICE_TYPE_RS_HUB_1: return <DeviceRSHub1RS {...props} />;
     case DEVICE_TYPE_RS_HUB_4: return <DeviceRSHub4 {...props} />;
     case DEVICE_TYPE_RS_HUB_1_RS: return <DeviceRSHub1RS {...props} is_rbus={false} />;
+    case DEVICE_TYPE_SERVER: return <DeviceServer {...props} />;
     default: {
       switch (props.protocol) {
         case ZIGBEE: return <Zigbee {...props} />;
