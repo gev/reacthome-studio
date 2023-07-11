@@ -37,6 +37,7 @@ import {
   DEVICE_TYPE_DIM_12_AC_RS,
   DEVICE_TYPE_DIM_12_DC_RS,
   DEVICE_TYPE_MIX_6x12_RS,
+  DEVICE_TYPE_SERVER,
 } from '../../../constants';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
@@ -109,6 +110,10 @@ const Do = c(({
     case DEVICE_TYPE_DIM_12_AC_RS:
     case DEVICE_TYPE_DIM_12_DC_RS:
       n = 12;
+      t = DIM;
+      break;
+    case DEVICE_TYPE_SERVER:
+      n = 3;
       t = DIM;
       break;
     case DEVICE_TYPE_DO8:
