@@ -28,7 +28,7 @@ const modes = {
 
 class Container extends Component {
   render() {
-    const { id, daemon, mode = 0x00, setMode } = this.props;
+    const { id, daemon, mode = 0x00, setMode, state = 0xff, attempt, source } = this.props;
     const m = modes[mode] || DEF_MODE;
     return (
       <div>
@@ -62,6 +62,13 @@ class Container extends Component {
                 </tr>
               ))
             }
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <td className="paper">source: {source}</td>
+            <td className="paper">attempt: {attempt}</td>
+            <td className="paper">state: {state}</td>
           </tbody>
         </table>
       </div>
