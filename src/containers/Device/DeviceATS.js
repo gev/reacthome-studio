@@ -68,7 +68,7 @@ class Container extends Component {
           <tbody>
             <td className="paper">source: {source}</td>
             <td className="paper">attempt: {attempt}</td>
-            <td className="paper">state: {state}</td>
+            <td className="paper">error: {state}</td>
           </tbody>
         </table>
       </div>
