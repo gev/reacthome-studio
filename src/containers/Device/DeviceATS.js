@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
+import { Typography } from '@rmwc/typography';
 import { SimpleMenu, MenuItem } from '@rmwc/menu';
 import { ACTION_ATS_MODE } from '../../constants';
 import { request } from '../../actions';
@@ -28,7 +29,7 @@ const modes = {
 
 class Container extends Component {
   render() {
-    const { id, daemon, mode = 0x00, setMode, state = 0xff, attempt, source } = this.props;
+    const { id, daemon, mode = 0x00, setMode, error = [0, 0, 0, 0], attempt, source } = this.props;
     const m = modes[mode] || DEF_MODE;
     return (
       <div>
@@ -44,15 +45,24 @@ class Container extends Component {
         <table>
           <tbody>
             {
-              m.l.map((l, i) => (
+              m.l.map((l, i) => [
                 <tr key={`l${i}`}>
                   <td className="paper">{l.g ? 'G' : `N${i + 1}`}</td>
                   <td className="paper"><Di id={id} index={l.isU} title={`U / di ${l.isU}`} /></td>
                   <td className="paper"><Do id={id} daemon={daemon} index={l.on} title={`relay ${l.on}`} /></td>
                   <td className="paper"><Di id={id} index={l.isOn} title={`On/Off / di ${l.isOn}`} /></td>
-                  {l.g ? (<td className="paper"> <Do id={id} daemon={daemon} index={l.start} title={`start / relay ${l.start}`} /></td>) : null}
+                  {l.g ? (<td className="paper"><Do id={id} daemon={daemon} index={l.start} title={`start / relay ${l.start}`} /></td>) : null}
+                </tr>,
+                <tr key={`e${i}`}>
+                  <td />
+                  <td className="paper"><Typography use="caption">Line error</Typography></td>
+                  <td className="paper">{error[i + 1].toString(2)}</td>
+                  {l.g ? [
+                    <td key={`get${i}`} className="paper"><Typography use="caption">Generator error</Typography></td>,
+                    <td key={`gev${i}`} className="paper">{error[0]}</td>
+                  ] : null}
                 </tr>
-              ))
+              ])
             }
             {
               m.r.map((r, i) => (
@@ -62,13 +72,6 @@ class Container extends Component {
                 </tr>
               ))
             }
-          </tbody>
-        </table>
-        <table>
-          <tbody>
-            <td className="paper">source: {source}</td>
-            <td className="paper">attempt: {attempt}</td>
-            <td className="paper">error: {state}</td>
           </tbody>
         </table>
       </div>
