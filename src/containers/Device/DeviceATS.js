@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Button } from '@rmwc/button';
 import { Typography } from '@rmwc/typography';
 import { SimpleMenu, MenuItem } from '@rmwc/menu';
-import { ACTION_ATS_MODE } from '../../constants';
+import { ACTION_ATS_MODE, ACTION_ERROR } from '../../constants';
 import { request } from '../../actions';
 import Di from './DeviceDiChannel';
 import Do from './DeviceDoChannel';
@@ -29,7 +29,7 @@ const modes = {
 
 class Container extends Component {
   render() {
-    const { id, daemon, mode = 0x00, setMode, error = [0, 0, 0, 0], attempt, source } = this.props;
+    const { id, daemon, mode = 0x00, setMode, error = [0, 0, 0, 0], attempt = 0, resetError } = this.props;
     const m = modes[mode] || DEF_MODE;
     return (
       <div>
@@ -51,16 +51,31 @@ class Container extends Component {
                   <td className="paper"><Di id={id} index={l.isU} title={`U / di ${l.isU}`} /></td>
                   <td className="paper"><Do id={id} daemon={daemon} index={l.on} title={`relay ${l.on}`} /></td>
                   <td className="paper"><Di id={id} index={l.isOn} title={`On/Off / di ${l.isOn}`} /></td>
-                  {l.g ? (<td className="paper"><Do id={id} daemon={daemon} index={l.start} title={`start / relay ${l.start}`} /></td>) : null}
+                  {l.g ? (<td className="paper"><Do id={id} daemon={daemon} index={l.start} title={`start / relay ${l.start}`} /></td>) : <td />}
                 </tr>,
                 <tr key={`e${i}`}>
                   <td />
-                  <td className="paper"><Typography use="caption">Line error</Typography></td>
-                  <td className="paper">{error[i + 1].toString(2)}</td>
-                  {l.g ? [
-                    <td key={`get${i}`} className="paper"><Typography use="caption">Generator error</Typography></td>,
-                    <td key={`gev${i}`} className="paper">{error[0]}</td>
-                  ] : null}
+                  <td colSpan={4}>
+                    <div>
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td className="paper" ><Typography use="caption">Line error</Typography>{` ${error[i + 1].toString(2)}`}</td>
+                            {
+                              l.g ? (
+                                <td className="paper" ><Typography use="caption">Generator error</Typography>{` ${error[0]}`}</td>
+                              ) : <td />
+                            }
+                            {
+                              l.g ? (
+                                <td className="paper" ><Typography use="caption">Attempt</Typography>{` ${attempt}`}</td>
+                              ) : <td />
+                            }
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
                 </tr>
               ])
             }
@@ -69,6 +84,7 @@ class Container extends Component {
                 <tr key={`r${i}`}>
                   <td className="paper" />
                   <td className="paper"><Di id={id} index={r} title={`reset / di ${r}`} /></td>
+                  <td className="paper" colSpan={3}><Button outlined onClick={resetError}>Reset Error</Button></td>
                 </tr>
               ))
             }
@@ -84,6 +100,9 @@ export default connect(
   (dispatch, { id, daemon }) => bindActionCreators({
     setMode: (value) => request(daemon, {
       type: ACTION_ATS_MODE, id, value
+    }),
+    resetError: () => request(daemon, {
+      type: ACTION_ERROR, id
     })
   }, dispatch)
 )(Container);
