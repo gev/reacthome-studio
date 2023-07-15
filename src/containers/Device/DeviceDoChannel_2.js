@@ -25,7 +25,7 @@ export default connect(DO)((props) => {
 
   return (
     <div>
-      <div><Typography use="caption">{titlee || index}</Typography></div>
+      <div><Typography use="caption">{title || index}</Typography></div>
       <div><Switch checked={!!value} onChange={setValue} /></div>
       <TextField value={timeout} label="timeout" onInput={setTimeout} type="number" />
     </div>
