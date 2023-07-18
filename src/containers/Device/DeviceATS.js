@@ -22,8 +22,8 @@ const DEF_MODE = { title: 'Mode', l: [], r: [] };
 
 const modes = {
   [MODE_NONE]: { title: 'None', value: MODE_NONE, l: [], r: [] },
-  [MODE_N1_G]: { title: 'N1_G', value: MODE_N1_G, l: [line(1, 2, 1), gen(3, 4, 2, 3)], r: [5] },
-  [MODE_N2]: { title: 'N2', value: MODE_N2, l: [line(1, 2, 1), line(3, 4, 2)], r: [5] },
+  [MODE_N1_G]: { title: 'N1_G', value: MODE_N1_G, l: [line(1, 2, 1), gen(5, 6, 3, 4)], r: [7] },
+  [MODE_N2]: { title: 'N2', value: MODE_N2, l: [line(1, 2, 1), line(3, 4, 2)], r: [7] },
   [MODE_N2_G]: { title: 'N2_G', value: MODE_N2_G, l: [line(1, 2, 1), line(3, 4, 2), gen(5, 6, 3, 4)], r: [7] },
 };
 
