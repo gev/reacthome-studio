@@ -24,7 +24,6 @@ import {
   DEVICE_TYPE_RELAY_12,
   DEVICE_TYPE_RELAY_24,
   ENDPOINT,
-  GROUP,
   DEVICE_TYPE_RELAY_2_DIN,
   DEVICE_TYPE_MIX_2,
   DEVICE_TYPE_MIX_1,
@@ -38,6 +37,9 @@ import {
   DEVICE_TYPE_DIM_12_DC_RS,
   DEVICE_TYPE_MIX_6x12_RS,
   DEVICE_TYPE_SERVER,
+  DRIVER_TYPE_DALI_GW,
+  DALI_GROUP,
+  DALI_LIGHT,
 } from '../../../constants';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
@@ -131,7 +133,18 @@ const Do = c(({
     default:
       n = 0;
   }
-  if (n === 0) {
+  if (type === DRIVER_TYPE_DALI_GW) {
+    for (let i = 0; i < 16; i++) {
+      a.push((
+        <MenuItem label={DALI_GROUP} key={`g${i}`} index={i} onClick={select(i, DALI_GROUP)} id={`${id}/${DALI_GROUP}/${i}`} />
+      ));
+    }
+    for (let i = 0; i < 64; i++) {
+      a.push((
+        <MenuItem label={DALI_LIGHT} key={`g${i}`} index={i} onClick={select(i, DALI_LIGHT)} id={`${id}/${DALI_LIGHT}/${i}`} />
+      ));
+    }
+  } else if (n === 0) {
     if (endpoint && Array.isArray(endpoint)) {
       endpoint
         .filter(({ cluster }) => cluster.includes(DO))

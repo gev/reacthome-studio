@@ -5,15 +5,12 @@ import DoGroup from '../../Device/DeviceDoGroup_2';
 import DoEndpoint from '../../Device/DeviceDoEndpoint';
 import Dimmer from '../../Device/DeviceDimmerChannel';
 import Artnet from './ArtnetChannel';
-import { DO, DIM, ARTNET, ENDPOINT, GROUP, AO } from '../../../constants';
+import { DO, DIM, ARTNET, ENDPOINT, GROUP, AO, DALI_LIGHT, DALI_GROUP } from '../../../constants';
 import DeviceAOChannel from '../../Device/DeviceAOChannel';
+import daliChannel, { DaliGroup, DaliLight } from './DaliChannel';
+import DaliChannel from './DaliChannel';
 
-type Props = {
-  id: string;
-  daemon: string;
-};
-
-export default ({ id, daemon }: Props) => {
+export default ({ id, daemon }) => {
   const [dev, type, index] = id.split('/');
   return (
     <div className="paper">
@@ -50,6 +47,28 @@ export default ({ id, daemon }: Props) => {
           <table>
             <tbody>
               <Artnet id={dev} index={index} daemon={daemon} />
+            </tbody>
+          </table>
+        )
+      }
+      {
+        (type === DALI_LIGHT) && (
+          <table>
+            <tbody>
+              {
+                <DaliLight id={dev} index={index} daemon={daemon} />
+              }
+            </tbody>
+          </table>
+        )
+      }
+      {
+        (type === DALI_GROUP) && (
+          <table>
+            <tbody>
+              {
+                <DaliGroup id={dev} index={index} daemon={daemon} />
+              }
             </tbody>
           </table>
         )

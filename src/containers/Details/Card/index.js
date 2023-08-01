@@ -59,6 +59,7 @@ import {
   DRIVER_TYPE_ALINK,
   DRIVER_TYPE_SWIFT,
   DRIVER_TYPE_RTD_RA,
+  DRIVER_TYPE_DALI_GW,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -100,6 +101,7 @@ import CardScreen from './CardScreen';
 import CardCO2 from './CardCO2';
 import CardAlink from './CardAlink';
 import CardRTDRA from './CardRTD_RA';
+import CardDaliGW from './CardDaliGW';
 
 const Container = (props) => {
   if (props.protocol === ZIGBEE) {
@@ -182,6 +184,8 @@ const Container = (props) => {
       return <CardRS21 {...props} />;
     case DRIVER_TYPE_ARTNET:
       return <CardArtnet {...props} />;
+    case DRIVER_TYPE_DALI_GW:
+      return <CardDaliGW {...props} />
     case DRIVER_TYPE_BB_PLC1:
       return <CardBBPLC1 {...props} />;
     case DRIVER_TYPE_BB_PLC2:

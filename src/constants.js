@@ -82,6 +82,7 @@ export const ACTION_DOPPLER = 0xb0;
 export const ACTION_TEMPERATURE_CORRECT = 0xcf
 export const ACTION_DIMMER = 0xd0;
 export const ACTION_ARTNET = 0xd1;
+export const ACTION_DALI = 0xd2;
 export const ACTION_IMAGE = 0xe1;
 export const ACTION_DISCOVERY = 0xf0;
 export const ACTION_READY = 0xf1;
@@ -161,6 +162,7 @@ export const DEVICE_TYPE_BOOTLOADER = 0xff;
 export const ACTION_MULTIROOM_ZONE = 'ACTION_MULTIROOM_ZONE';
 
 export const DRIVER_TYPE_ARTNET = 'ARTNET';
+export const DRIVER_TYPE_DALI_GW = 'DALI_GW';
 export const DRIVER_TYPE_RS21 = 'RS21';
 export const DRIVER_TYPE_BB_PLC1 = 'BB_PLC1';
 export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
@@ -261,6 +263,8 @@ export const LIGHT = 'light';
 export const LIGHT_220 = 'light_220';
 export const LIGHT_LED = 'light_LED';
 export const LIGHT_RGB = 'light_RGB';
+export const DALI_LIGHT = 'dali_light';
+export const DALI_GROUP = 'dali_group';
 export const BUTTON = 'button';
 export const SENSOR = 'sensor';
 export const DOPPLER = 'doppler';
@@ -319,6 +323,11 @@ export const ARTNET_SET = 0x2;
 export const ARTNET_FADE = 0x3;
 export const ARTNET_TYPE = 0x4;
 export const ARTNET_CONFIG = 0x5;
+
+export const DALI_OFF = 0x0;
+export const DALI_ON = 0x1;
+export const DALI_SET = 0x2;
+export const DALI_FADE = 0x3;
 
 export const DIM_TYPE_UNPLUGGED = 0x0;
 export const DIM_TYPE_RISING_EDGE = 0x1;
@@ -732,6 +741,9 @@ export const DEVICE_TYPES = {
 export const DRIVER_TYPES = {
   [DRIVER_TYPE_ARTNET]: {
     title: 'Artnet'
+  },
+  [DRIVER_TYPE_DALI_GW]: {
+    title: 'Dali GW'
   },
   [DRIVER_TYPE_RS21]: {
     title: 'Wi-Fi Temperature Sensor RS21'

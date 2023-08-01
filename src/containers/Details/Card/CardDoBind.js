@@ -7,21 +7,8 @@ import { modify } from '../../../actions';
 import { onOff, onOn, DO_OFF, DO_ON, GROUP, onOpen, onStop, onClose, OPEN, CLOSE, STOP } from '../../../constants';
 import SelectScript from '../SelectScript';
 
-type Props = {
-  site: string;
-  index: number;
-};
 
-type ActionProps = {
-  action: number;
-  project: string;
-  title: string;
-  value: ?number;
-  test: number;
-  modify: (id: string, payload: {}) => void;
-};
-
-const Action = (props: ActionProps) => {
+const Action = (props) => {
   const {
     value, action, test, project, title
   } = props;
@@ -40,7 +27,7 @@ const Action = (props: ActionProps) => {
         </Typography>
         {
           script &&
-            <Typography use="caption" onClick={clear}><strong> X </strong></Typography>
+          <Typography use="caption" onClick={clear}><strong> X </strong></Typography>
         }
       </div>
       <div>
@@ -50,7 +37,7 @@ const Action = (props: ActionProps) => {
   );
 };
 
-const Container = (props : Props) => {
+const Container = (props) => {
   const type = props.id.split('/')[1];
   return (type === GROUP) ? (
     <tr>

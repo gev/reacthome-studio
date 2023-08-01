@@ -7,14 +7,8 @@ import { GROUP, ACTION_GROUP, OPEN, CLOSE, STOP, OPEN_CLOSE, CLOSE_OPEN, ACTION_
 import Do from './DeviceDoChannel_2';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  enabled: ?boolean;
-  request: (action: {}) => void;
-};
 
-export default connect(GROUP)((props: Props) => {
+export default connect(GROUP)((props) => {
   const {
     id, index, daemon, request, enabled, delay, type = OPEN_CLOSE,
   } = props;
