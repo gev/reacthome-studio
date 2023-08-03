@@ -6,23 +6,17 @@ import { TextField } from '@rmwc/textfield';
 import Autocomplete from '../../Filter';
 import { ADDRESS, MODBUS } from '../../../constants';
 
-type Props = {
-  id: string,
-  root: string;
-  onSelect: (id: string) => void
-};
-
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {}
   componentWillMount() {
     const { id } = this.props;
-    const [dev,, address] = (id || '').split('/');
+    const [dev, , address] = (id || '').split('/');
     this.setState({ dev, address });
   }
   componentWillReceiveProps({ id }) {
-    const [dev,, address = null] = (id || '').split('/');
+    const [dev, , address = null] = (id || '').split('/');
     this.setState({ dev, address });
   }
   selectDev = (dev) => {

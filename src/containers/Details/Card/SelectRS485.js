@@ -5,26 +5,12 @@ import { SimpleMenu } from '@rmwc/menu';
 import { Button } from '@rmwc/button';
 import MenuItem from './MenuItem';
 import Autocomplete from '../../Filter';
-import { DEVICE_TYPE_RSHUB, RS485, DEVICE_TYPE_RELAY_24, DEVICE_TYPE_RELAY_12, DEVICE_TYPE_RELAY_6, DEVICE_TYPE_RS_HUB_1_RS, DEVICE_TYPE_RS_HUB_1, DEVICE_TYPE_RS_HUB_4 } from '../../../constants';
+import { DEVICE_TYPE_RSHUB, RS485, DEVICE_TYPE_RELAY_24, DEVICE_TYPE_RELAY_12, DEVICE_TYPE_RELAY_6, DEVICE_TYPE_RS_HUB_1_RS, DEVICE_TYPE_RS_HUB_1, DEVICE_TYPE_RS_HUB_4, DEVICE_TYPE_SERVER } from '../../../constants';
 
-type Props = {
-  id: string,
-  root: string;
-  onSelect: (id: string) => void
-};
-
-type DiProps = {
-  id: string;
-  type: string,
-  index: ?number,
-  onSelect: (i: number) => void
-};
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
-const Channel = c(({
-  id, type, index, onSelect
-}: DiProps) => {
+const Channel = c(({ id, type, index, onSelect }) => {
   const a = [];
   const select = (i) => () => {
     onSelect(i);
@@ -40,6 +26,7 @@ const Channel = c(({
       n = 1;
       break;
     case DEVICE_TYPE_RS_HUB_4:
+    case DEVICE_TYPE_SERVER:
       n = 4;
       break;
     default: n = 0;
@@ -56,7 +43,7 @@ const Channel = c(({
   );
 });
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {}
   componentWillMount() {
     const { id } = this.props;

@@ -60,6 +60,8 @@ import {
   DRIVER_TYPE_SWIFT,
   DRIVER_TYPE_RTD_RA,
   DRIVER_TYPE_DALI_GW,
+  DRIVER_TYPE_MODBUS_TCP,
+  DRIVER_TYPE_MODBUS_RBUS,
 } from '../../../constants';
 import CardDefault from './CardDefault';
 import CardCamera from './CardCamera';
@@ -89,7 +91,6 @@ import CardOnOff from './CardOnOff';
 import CardSchedule from './CardSchedule';
 import CardClosure from './CardClosure';
 import CardRing from './CardRing';
-import CardModbus from './CardModbus';
 import CardVarmann from './CardVarmann';
 import CardIntesisBox from './CardIntesisBox';
 import CardZigbee from './CardZigbee';
@@ -102,6 +103,8 @@ import CardCO2 from './CardCO2';
 import CardAlink from './CardAlink';
 import CardRTDRA from './CardRTD_RA';
 import CardDaliGW from './CardDaliGW';
+import CardModbusRBUS from './CardModbusRBUS';
+import CardModbusTCP from './CardModbusTCP';
 
 const Container = (props) => {
   if (props.protocol === ZIGBEE) {
@@ -194,7 +197,10 @@ const Container = (props) => {
     case DRIVER_TYPE_M230:
       return <CardElectricityMeter {...props} />;
     case DRIVER_TYPE_MODBUS:
-      return <CardModbus {...props} />;
+    case DRIVER_TYPE_MODBUS_RBUS:
+      return <CardModbusRBUS {...props} />;
+    case DRIVER_TYPE_MODBUS_TCP:
+      return <CardModbusTCP {...props} />;
     case DRIVER_TYPE_VARMANN:
       return <CardVarmann {...props} />;
     case DRIVER_TYPE_INTESIS_BOX:

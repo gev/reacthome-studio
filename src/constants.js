@@ -169,6 +169,8 @@ export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
 export const DRIVER_TYPE_M206 = 'M206';
 export const DRIVER_TYPE_M230 = 'M230';
 export const DRIVER_TYPE_MODBUS = 'MODBUS';
+export const DRIVER_TYPE_MODBUS_RBUS = 'MODBUS_RBUS';
+export const DRIVER_TYPE_MODBUS_TCP = 'MODBUS_TCP';
 export const DRIVER_TYPE_NOVA = 'NOVA';
 export const DRIVER_TYPE_SWIFT = 'SWIFT';
 export const DRIVER_TYPE_VARMANN = 'VARMANN';
@@ -760,8 +762,11 @@ export const DRIVER_TYPES = {
   [DRIVER_TYPE_M230]: {
     title: 'Mercury M230'
   },
-  [DRIVER_TYPE_MODBUS]: {
-    title: 'Modbus'
+  [DRIVER_TYPE_MODBUS_RBUS]: {
+    title: 'Modbus RBUS'
+  },
+  [DRIVER_TYPE_MODBUS_TCP]: {
+    title: 'Modbus TCP'
   },
   [DRIVER_TYPE_VARMANN]: {
     title: 'Varmann'

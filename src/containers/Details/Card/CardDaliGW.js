@@ -14,11 +14,17 @@ import { TextField } from '@rmwc/textfield';
 import { TabBar, Tab } from '@rmwc/tabs';
 
 import { TITLE, CODE, DALI_GROUP, DALI_LIGHT } from '../../../constants';
-import { remove, modify } from '../../../actions';
+import { remove, modify, makeBind } from '../../../actions';
 import { DaliGroup, DaliLight } from './DaliChannel';
+import SelectModbus from './SelectModbus';
 
 class Container extends Component {
   state = { tabIndex: 0 };
+
+  bind = (bind) => {
+    const { id } = this.props;
+    this.props.makeBind(id, bind);
+  }
 
   select = ({ detail: { index } }) => {
     this.setState({ tabIndex: index });
@@ -30,16 +36,10 @@ class Container extends Component {
     change({ [id]: value });
   }
 
-  changeInt = (event) => {
-    const { change } = this.props;
-    const { id, value } = event.target;
-    change({ [id]: parseInt(value, 10) });
-  }
-
   render() {
     const { tabIndex } = this.state;
     const {
-      id, title, code, host, port, address,
+      id, project, title, code, bind,
       details, removeField
     } = this.props;
     const lights = [];
@@ -59,9 +59,7 @@ class Container extends Component {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <TextField id="host" value={host} label="host" type="text" onChange={this.change} />
-          <TextField id="port" value={port} label="port" type="number" onChange={this.changeInt} />
-          <TextField id="address" value={address} label="address" type="number" onChange={this.changeInt} />
+          <SelectModbus id={bind} root={project} onSelect={this.bind} />
         </div>
         <TabBar
           activeTabIndex={tabIndex}
@@ -102,6 +100,7 @@ export default connect(
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
-    change: (payload) => modify(id, payload)
+    change: (payload) => modify(id, payload),
+    makeBind
   }, dispatch)
 )(Container);

@@ -12,36 +12,22 @@ import {
 import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
 import { CODE, TITLE } from '../../../constants';
-import DeviceRS485Channel from '../../Device/DeviceRS485Channel';
-import SelectRS485 from './SelectRS485';
 
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
     change({ [id]: value });
   }
-  select = (bind) => {
-    const { id } = this.props;
-    this.props.makeBind(id, bind);
+  changeInt = (event) => {
+    const { change } = this.props;
+    const { id, value } = event.target;
+    change({ [id]: parseInt(value, 10) });
   }
   render() {
     const {
-      code, project, daemon, bind, title, removeField
+      code, host, port, title, removeField
     } = this.props;
-    const [id,, index] = bind ? bind.split('/') : [];
     return (
       <Card>
         <div className="paper">
@@ -51,13 +37,9 @@ class Container extends Component<Props> {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <SelectRS485 id={bind} root={project} onSelect={this.select} />
+          <TextField id="host" value={host} label="host" type="text" onChange={this.change} />
+          <TextField id="port" value={port} label="port" type="number" onChange={this.changeInt} />
         </div>
-        {
-          bind && (
-            <DeviceRS485Channel id={id} index={index} daemon={daemon} />
-          )
-        }
         <CardActions>
           <CardActionIcons>
             <CardAction icon="remove" onClick={removeField} />
@@ -76,6 +58,5 @@ export default connect(
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     details: () => push(`/project/${project}/${id}`),
     change: (payload) => modify(id, payload),
-    makeBind
   }, dispatch)
 )(Container);
