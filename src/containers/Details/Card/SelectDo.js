@@ -40,6 +40,7 @@ import {
   DRIVER_TYPE_DALI_GW,
   DALI_GROUP,
   DALI_LIGHT,
+  GROUP,
 } from '../../../constants';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
