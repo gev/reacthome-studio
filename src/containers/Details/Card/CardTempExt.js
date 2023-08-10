@@ -15,29 +15,12 @@ import { remove, modify } from '../../../actions';
 import { CODE, onTemperature } from '../../../constants';
 import SelectScript from '../SelectScript';
 import Autocomplete from '../../Filter';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  code: ?string,
-  project: string,
-  temperature: ?number;
-  onTemperature: ?string;
-  change: (payload: {}) => void,
-  removeField: () => void
-};
-
-type RowProps = {
-  title: string;
-  value: any;
-  magnitude: ?string;
-  project: string;
-  script: ?string;
-  onSelect: (id: string) => void;
-  onRemove: () => void;
-};
 
 const Row = ({
   title, value, magnitude, project, script, onSelect, onRemove
-}: RowProps) => (
+}) => (
   <tr>
     <td className="paper">
       <Typography use="body">{title}</Typography>
@@ -48,7 +31,7 @@ const Row = ({
     <td>
       {
         script &&
-          <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
+        <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
       }
     </td>
     <td>
@@ -58,7 +41,7 @@ const Row = ({
 );
 
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -105,7 +88,7 @@ class Container extends Component<Props> {
         </div>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

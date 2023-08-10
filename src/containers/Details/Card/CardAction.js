@@ -16,6 +16,7 @@ import { remove, modify, request } from '../../../actions';
 import { CODE, ACTION_TYPE, DELAY } from '../../../constants';
 import SelectMenu from '../SelectMenu';
 import ActionPayload from './ActionPayload';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 class Container extends Component {
   change = ({ target: { id, value, type } }) => {
@@ -54,7 +55,7 @@ class Container extends Component {
           <TextField id={DELAY} value={delay || ''} onChange={this.change} label={DELAY} type="number" />
           <CardActionIcons>
             <CardAction icon="play_arrow" onClick={this.run} />
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>
@@ -66,7 +67,7 @@ export default connect(
   createSelector(
     ({ pool }, { id }) => pool[id] || {},
     ({ pool }, { project }) => pool[project].daemon,
-    (o, daemon) => ({...o, daemon})
+    (o, daemon) => ({ ...o, daemon })
   ),
   (dispatch, {
     parent, id, field, multiple

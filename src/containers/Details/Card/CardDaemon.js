@@ -14,17 +14,9 @@ import { TextField } from '@rmwc/textfield';
 import { remove, modify } from '../../../actions';
 import { TITLE, CODE, TERMINAL } from '../../../constants';
 import OnStart from './CardDaemonOnStart';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  code: ?string,
-  title: ?string,
-  project: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  details: () => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -52,7 +44,7 @@ class Container extends Component<Props> {
             <CardAction onClick={terminal}>Terminal</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

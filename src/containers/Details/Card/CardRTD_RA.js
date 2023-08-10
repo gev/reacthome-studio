@@ -18,18 +18,8 @@ import { remove, modify, makeBind } from '../../../actions';
 import { ACTION_OFF, ACTION_ON, ACTION_SETPOINT, ACTION_SET_ADDRESS, ACTION_SET_DIRECTION, ACTION_SET_FAN_SPEED, ACTION_SET_MODE, CODE, TITLE } from '../../../constants';
 import SelectModbus from './SelectModbus';
 import { send } from '../../../websocket/peer';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
 
 const Check = ({ checked, onChange, label }) => (
   <td>
@@ -38,7 +28,7 @@ const Check = ({ checked, onChange, label }) => (
   </td>
 );
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -134,7 +124,7 @@ class Container extends Component<Props> {
         </div>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

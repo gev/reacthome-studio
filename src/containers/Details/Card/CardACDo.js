@@ -16,6 +16,7 @@ import DeviceDo from './DeviceDo';
 import SelectDo from './SelectDo';
 import Do from './CardDoBind';
 import SelectThermostat from './SelectThermostat';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 
 class Container extends Component {
@@ -58,7 +59,7 @@ class Container extends Component {
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

@@ -20,6 +20,7 @@ import SelectScript from '../SelectScript';
 import RGB from '../../RGB';
 import Display from '../../Display';
 import Autocomplete from '../../Filter';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 
 const Row = ({
@@ -166,7 +167,7 @@ class Container extends Component {
         </div>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

@@ -18,6 +18,8 @@ import { CODE, TITLE, LEAKAGE_SENSOR, VALVE_WATER, onOff, onOn, DO_OFF, DO_ON } 
 import SelectLeakageSensor from './SelectLeakageSensor';
 import SelectValveWater from './SelectValveWater';
 import SelectScript from '../SelectScript';
+import CardActionRemove from '../../../components/CardActionRemove';
+import RemoveButton from '../../../components/RemoveButton';
 
 const Action = (props) => {
   const {
@@ -38,7 +40,7 @@ const Action = (props) => {
         </Typography>
         {
           script &&
-            <Typography use="caption" onClick={clear}><strong> X </strong></Typography>
+          <Typography use="caption" onClick={clear}><strong> X </strong></Typography>
         }
       </div>
       <div>
@@ -50,7 +52,7 @@ const Action = (props) => {
 
 const Item = connect(({ pool }, { id }) => pool[id] || {})((props) => (
   <ListItem>
-    <ListItemGraphic icon={<IconButton icon="remove" onClick={props.remove} />} />
+    <ListItemGraphic icon={<RemoveButton title={props.code || props.title} onClick={props.remove} />} />
     {props.code || props.title}
   </ListItem>
 ));
@@ -108,7 +110,7 @@ class Container extends Component {
         </table>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

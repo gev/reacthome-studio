@@ -41,6 +41,7 @@ import SelectThermostat from './SelectThermostat';
 import Autocomplete from '../../Filter';
 import CardACIR from './CardACIR';
 import CardACDo from './CardACDo';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 
 class Container extends Component {
@@ -104,7 +105,7 @@ class Container extends Component {
             </div>
             <CardActions>
               <CardActionIcons>
-                <CardAction icon="remove" onClick={removeField} />
+                <CardActionRemove remove={removeField} />
               </CardActionIcons>
             </CardActions>
           </Card>

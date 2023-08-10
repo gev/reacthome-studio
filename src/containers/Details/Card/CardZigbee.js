@@ -17,6 +17,7 @@ import Button from './CardSensorButton';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
 import RGB from '../../RGB';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 const Row = ({
   title, value, magnitude, project, script, onSelect, onRemove
@@ -31,7 +32,7 @@ const Row = ({
     <td>
       {
         script &&
-          <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
+        <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
       }
     </td>
     <td>
@@ -99,7 +100,7 @@ class Container extends Component {
         </table>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

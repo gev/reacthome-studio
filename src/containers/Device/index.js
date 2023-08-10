@@ -27,6 +27,7 @@ import {
 } from '../../constants';
 import { modify, remove, request } from '../../actions';
 import Device from './Device';
+import CardActionRemove from '../../components/CardActionRemove';
 
 class Devices extends Component {
   change = (event) => {
@@ -135,7 +136,7 @@ class Devices extends Component {
                 />
               )
             }
-            <CardAction icon="remove" onClick={removeDevice} />
+            <CardActionRemove remove={removeDevice} />
           </CardActionIcons>
         </CardActions>
       </Card>

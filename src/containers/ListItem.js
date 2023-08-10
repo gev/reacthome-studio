@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect, } from 'react-redux';
-import { ListItem, ListItemText } from '@rmwc/list';
+import { Link } from 'react-router-dom';
+
+import { ListItem, ListItemText, ListItemGraphic } from '@rmwc/list';
+import RemoveButton from '../components/RemoveButton';
 
 class Daemons extends Component {
   render() {
-    const { id, code, title, onClick } = this.props;
+    const { id, code, title, onClick, onRemove } = this.props;
     return (
-      <ListItem onClick={onClick}>
-        <ListItemText>{title || code || id}</ListItemText>
+      <ListItem>
+        <ListItemGraphic icon={<RemoveButton title={title || code || id} icon="remove" onClick={onRemove} />} />
+        <ListItemText onClick={onClick}>{title || code || id}</ListItemText>
       </ListItem>
     );
   }

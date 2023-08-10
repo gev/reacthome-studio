@@ -9,20 +9,11 @@ import { modify } from '../../../../actions';
 import Autocomplete from '../../../Filter';
 import SelectScript from '../../SelectScript';
 import { onOff, onOn } from '../../../../constants';
-
-type Props = {
-  id: string;
-  project: string;
-  payload: ?{};
-  on: (on: string, script: string) => void;
-  add: (id: string) => void;
-  remove: (id: string) => void;
-};
+import RemoveButton from '../../../../components/RemoveButton';
 
 const Item = connect(({ pool }, { id }) => pool[id] || {})(({ code, title, remove }) => (
   <ListItem>
-    <ListItemGraphic icon={<IconButton icon="remove" onClick={remove} />} />
-    {code || title}
+    <ListItemGraphic icon={<RemoveButton title={code || title} icon="remove" onClick={remove} />} />
   </ListItem>
 ));
 
@@ -37,7 +28,7 @@ const Action = ({
         <Typography use="caption">{title}</Typography>
         {
           payload[action] &&
-            <Typography use="caption" onClick={remove(action)}><strong> X </strong></Typography>
+          <Typography use="caption" onClick={remove(action)}><strong> X </strong></Typography>
         }
       </td>
       <td>
@@ -48,7 +39,7 @@ const Action = ({
   );
 };
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {};
 
   select = (subj) => {

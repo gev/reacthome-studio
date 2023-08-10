@@ -16,6 +16,7 @@ import { CODE, TITLE, OPEN_CLOSE, LEFT_RIGTH, RIGTH_LEFT, UP_DOWN } from '../../
 import DeviceClosure from './DeviceClosure';
 import SelectClosure from './SelectClosure';
 import Closure from './CardClosureBind';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 
 const Radio = ({
@@ -23,8 +24,8 @@ const Radio = ({
 }) => (
   <Button
     onClick={() => {
-        onSelect(option);
-      }}
+      onSelect(option);
+    }}
     outlined={option === value}
   >{label}
   </Button>
@@ -80,7 +81,7 @@ class Container extends Component {
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

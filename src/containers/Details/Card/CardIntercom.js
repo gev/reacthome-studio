@@ -14,6 +14,7 @@ import { TextField } from '@rmwc/textfield';
 import { remove, modify, makeBind } from '../../../actions';
 import { CODE, TITLE, SIP_USER } from '../../../constants';
 import SelectCamera from './SelectCamera';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 
 class Container extends Component {
@@ -45,7 +46,7 @@ class Container extends Component {
         </div>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

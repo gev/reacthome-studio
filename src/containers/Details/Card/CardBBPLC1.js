@@ -16,34 +16,10 @@ import { remove, modify } from '../../../actions';
 import Di from '../../Device/DeviceDiChannel';
 import Do from '../../Device/DeviceDoChannel';
 import SelectLeakage from './SelectLeakage';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  id: string;
-  daemon: string;
-  project: string;
-  title: ?string;
-  code: ?string;
-  host: ?string;
-  port: ?number;
-  leakage1: ?string;
-  leakage2: ?string;
-  change: (payload: {}) => void,
-  removeField: () => void,
-  details: () => void
-};
 
-type RowDiProps = {
-  id: string;
-  index: number;
-};
-
-type RowDoProps = {
-  id: string;
-  daemon: string;
-  index: number;
-};
-
-const RowDi = ({ id, index } : RowDiProps) => (
+const RowDi = ({ id, index }) => (
   <tr>
     <td className="paper"><Di id={id} index={index + 0} /></td>
     <td className="paper"><Di id={id} index={index + 1} /></td>
@@ -54,7 +30,7 @@ const RowDi = ({ id, index } : RowDiProps) => (
   </tr>
 );
 
-const RowDo = ({ id, daemon, index } : RowDoProps) => (
+const RowDo = ({ id, daemon, index }) => (
   <tr>
     <td className="paper"><Do id={id} daemon={daemon} index={index + 0} /></td>
     <td className="paper"><Do id={id} daemon={daemon} index={index + 1} /></td>
@@ -63,7 +39,7 @@ const RowDo = ({ id, daemon, index } : RowDoProps) => (
   </tr>
 );
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -144,7 +120,7 @@ class Container extends Component<Props> {
             <CardAction onClick={details}>Details</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

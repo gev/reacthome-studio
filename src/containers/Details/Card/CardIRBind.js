@@ -6,13 +6,7 @@ import { Typography } from '@rmwc/typography';
 import { modify } from '../../../actions';
 import SelectScript from '../SelectScript';
 
-type ActionProps = {
-  onIR: ?string;
-  project: string;
-  modify: (id: string, payload: {}) => void;
-};
-
-class Container extends Component<ActionProps> {
+class Container extends Component {
   select = (id) => {
     this.props.modify({ onIR: id });
   };

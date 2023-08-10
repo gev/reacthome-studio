@@ -14,20 +14,9 @@ import { remove, modify, makeBind } from '../../../actions';
 import { CODE, TITLE } from '../../../constants';
 import DeviceRS485Channel from '../../Device/DeviceRS485Channel';
 import SelectRS485 from './SelectRS485';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -41,7 +30,7 @@ class Container extends Component<Props> {
     const {
       code, project, daemon, bind, title, removeField
     } = this.props;
-    const [id,, index] = bind ? bind.split('/') : [];
+    const [id, , index] = bind ? bind.split('/') : [];
     return (
       <Card>
         <div className="paper">
@@ -60,7 +49,7 @@ class Container extends Component<Props> {
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

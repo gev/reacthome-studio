@@ -20,6 +20,7 @@ import Do from './CardDoBind';
 import Typography from '@rmwc/typography';
 import SelectScript from '../SelectScript';
 import { Checkbox } from '@rmwc/checkbox';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 const Sensor = connect(
   ({ pool }, { id }) => pool[id] || {},
@@ -27,7 +28,7 @@ const Sensor = connect(
     onSelect: (onTemperature) => modify(id, { onTemperature })
   }, dispatch)
 )(({
-  code, title, remove, onTemperature, onSelect, project,  
+  code, title, remove, onTemperature, onSelect, project,
   temperature
 }) => (
   <table>
@@ -36,7 +37,7 @@ const Sensor = connect(
         <td>
           <div>
             <Typography>{code || title}</Typography>
-            <br/>
+            <br />
             <Typography>{temperature}°C</Typography>
           </div>
           <Typography use="caption" onClick={remove}><strong> X </strong></Typography>
@@ -45,7 +46,7 @@ const Sensor = connect(
           <SelectScript id={onTemperature} project={project} onSelect={onSelect} />
           {
             onTemperature &&
-              <Typography use="caption" onClick={() => onSelect(null)}><strong> X </strong></Typography>
+            <Typography use="caption" onClick={() => onSelect(null)}><strong> X </strong></Typography>
           }
         </td>
       </tr>
@@ -90,8 +91,8 @@ class Container extends Component {
         </div>
         <div className="paper">
           <Checkbox label="Inverse" checked={inverse} onChange={() => {
-            this.props.change({inverse: !inverse})
-          }}/>
+            this.props.change({ inverse: !inverse })
+          }} />
         </div>
         <div className="paper">
           <Slider value={min || 20} min={15} max={60} step={1} onInput={this.setmin} discrete />
@@ -124,7 +125,7 @@ class Container extends Component {
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

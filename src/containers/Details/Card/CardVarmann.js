@@ -16,20 +16,10 @@ import { remove, modify, makeBind } from '../../../actions';
 import { ACTION_SET_ADDRESS, ACTION_SET_FAN_SPEED, CODE, TITLE } from '../../../constants';
 import SelectModbus from './SelectModbus';
 import { send } from '../../../websocket/peer';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  id: string;
-  bind: ?string;
-  code: ?string,
-  title: ?string;
-  project: string,
-  daemon: string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  makeBind: (id: string, bind: string) => void
-};
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -41,7 +31,7 @@ class Container extends Component<Props> {
   }
   setAddress = () => {
     const { id, daemon, bind } = this.props;
-    const [,, value] = (bind || '').split('/');
+    const [, , value] = (bind || '').split('/');
     this.props.makeBind(id, bind);
     send(daemon, { id, type: ACTION_SET_ADDRESS, value });
   }
@@ -77,7 +67,7 @@ class Container extends Component<Props> {
         </div>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

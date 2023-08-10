@@ -15,6 +15,7 @@ import { CODE, TITLE } from '../../../constants';
 import DeviceDo from './DeviceDo';
 import SelectDo from './SelectDo';
 import Do from './CardDoBind';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 class Container extends Component {
   change = (event) => {
@@ -53,7 +54,7 @@ class Container extends Component {
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

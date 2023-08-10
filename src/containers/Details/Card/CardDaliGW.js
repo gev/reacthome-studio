@@ -17,6 +17,7 @@ import { TITLE, CODE, DALI_GROUP, DALI_LIGHT } from '../../../constants';
 import { remove, modify, makeBind } from '../../../actions';
 import { DaliGroup, DaliLight } from './DaliChannel';
 import SelectModbus from './SelectModbus';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 class Container extends Component {
   state = { tabIndex: 0 };
@@ -85,7 +86,7 @@ class Container extends Component {
             <CardAction onClick={details}>Details</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

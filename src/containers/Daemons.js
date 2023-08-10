@@ -3,15 +3,17 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect, } from 'react-redux';
 import { push } from 'react-router-redux';
+import { Button } from '@rmwc/button';
 import { List } from '@rmwc/list';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
-import { add, set } from '../actions';
+import { add, set, remove } from '../actions';
 import connectTo from '../websocket';
 import { ROOT, DAEMON } from '../constants';
 import ListItem from './ListItem';
 
 class Daemons extends Component {
+  state = {};
   navigate = (id) => () => {
     this.props.set(id, { type: DAEMON, timestamp: 0 });
     this.props.add(ROOT, DAEMON, id);
@@ -19,11 +21,20 @@ class Daemons extends Component {
     this.props.navigate(id);
   };
 
+  add = () => {
+    const id = this.state.daemon;
+    if (id) {
+      this.props.set(id, { type: DAEMON });
+      this.props.add(ROOT, DAEMON, id);
+      this.props.connectTo(id);
+    }
+  }
   change = (event) => {
-    const id = event.target.value;
-    this.props.set(id, { type: DAEMON });
-    this.props.add(ROOT, DAEMON, id);
-    this.props.connectTo(id);
+    this.setState({ daemon: event.target.value })
+  }
+
+  remove = (id) => () => {
+    this.props.remove(ROOT, DAEMON, id)
   }
 
   render() {
@@ -36,12 +47,15 @@ class Daemons extends Component {
         <List>
           {
             daemon.map(id => (
-              <ListItem key={id} id={id} onClick={this.navigate(id)} />
+              <ListItem key={id} id={id} onClick={this.navigate(id)} onRemove={this.remove(id)} />
             ))
           }
         </List>
         <div>
           <TextField label={DAEMON} onChange={this.change} />
+        </div>
+        <div>
+          <Button onClick={this.add}>Add server</Button>
         </div>
       </div>
     );
@@ -55,5 +69,6 @@ export default connect(
     connectTo,
     add,
     set,
+    remove,
   }, dispatch)
 )(Daemons);

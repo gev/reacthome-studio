@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import type { Children } from 'react';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,32 +18,10 @@ import DeviceValueChannel from '../../Device/DeviceValueChannel';
 import Do from '../../Device/DeviceDoChannel';
 import SelectThermostat from './SelectThermostat';
 import SelectWaterCounter from './SelectWaterCounter';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  id: string;
-  daemon: string;
-  project: string;
-  title: ?String;
-  code: ?String;
-  host: ?string;
-  port: ?number;
-  change: (payload: {}) => void;
-  removeField: () => void;
-  details: () => void;
-};
 
-type RowProps = {
-  label: string;
-  children: Children;
-};
-
-type RowDoProps = {
-  id: string;
-  daemon: string;
-  index: number;
-};
-
-const RowDo = ({ id, daemon, index } : RowDoProps) => (
+const RowDo = ({ id, daemon, index }) => (
   <tr>
     <td className="paper"><Do id={id} daemon={daemon} index={index + 0} /></td>
     <td className="paper"><Do id={id} daemon={daemon} index={index + 1} /></td>
@@ -54,7 +31,7 @@ const RowDo = ({ id, daemon, index } : RowDoProps) => (
   </tr>
 );
 
-const RowValue = ({ label, children }: RowProps) => (
+const RowValue = ({ label, children }) => (
   <tr>
     <td>
       <Typography use="caption">{label}</Typography>
@@ -63,7 +40,7 @@ const RowValue = ({ label, children }: RowProps) => (
   </tr>
 );
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -311,7 +288,7 @@ class Container extends Component<Props> {
             <CardAction onClick={details}>Details</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

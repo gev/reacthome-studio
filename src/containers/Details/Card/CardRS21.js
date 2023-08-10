@@ -15,21 +15,9 @@ import { Typography } from '@rmwc/typography';
 import { remove, modify } from '../../../actions';
 import { TITLE, CODE, IP } from '../../../constants';
 import SelectScript from '../SelectScript';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  online: ?Boolean,
-  project: ?string,
-  code: ?string,
-  title: ?string,
-  ip: ?string,
-  temperature: ?number,
-  onTemperature: ?string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  details: () => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -71,7 +59,7 @@ class Container extends Component<Props> {
               <td>
                 {
                   onTemperature &&
-                    <Typography use="caption" onClick={this.remove}><strong> X </strong></Typography>
+                  <Typography use="caption" onClick={this.remove}><strong> X </strong></Typography>
                 }
               </td>
               <td>
@@ -85,7 +73,7 @@ class Container extends Component<Props> {
             <CardAction onClick={details}>Details</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

@@ -14,18 +14,10 @@ import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import { remove, modify } from '../../../actions';
 import { TITLE, CODE } from '../../../constants';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  code: ?string,
-  title: ?string,
-  time: ?number,
-  state: ?boolean,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  details: () => void
-};
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = { time: 0 };
 
   componentWillMount() {
@@ -76,7 +68,7 @@ class Container extends Component<Props> {
             <CardAction onClick={details}>Details</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

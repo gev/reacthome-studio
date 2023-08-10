@@ -17,6 +17,7 @@ import { CODE, onTemperature, onHumidity, DI } from '../../../constants';
 import Di from './CardDiBind';
 import SelectScript from '../SelectScript';
 import Autocomplete from '../../Filter';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 const Row = ({
   title, value, magnitude, project, script, onSelect, onRemove
@@ -31,7 +32,7 @@ const Row = ({
     <td>
       {
         script &&
-          <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
+        <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
       }
     </td>
     <td>
@@ -115,7 +116,7 @@ class Container extends Component {
         </div>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

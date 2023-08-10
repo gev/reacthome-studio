@@ -16,6 +16,7 @@ import { remove, modify } from '../../../actions';
 import { TITLE, CODE } from '../../../constants';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import SelectScript from '../SelectScript';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 class Container extends Component {
   change = (event) => {
@@ -55,7 +56,7 @@ class Container extends Component {
                 <td>
                   {
                     this.props.onDoppler &&
-                      <Typography use="caption" onClick={this.remove}><strong> X </strong></Typography>
+                    <Typography use="caption" onClick={this.remove}><strong> X </strong></Typography>
                   }
                 </td>
               </tr>
@@ -67,7 +68,7 @@ class Container extends Component {
             <CardAction onClick={details}>Details</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

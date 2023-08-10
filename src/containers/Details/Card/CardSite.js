@@ -16,25 +16,10 @@ import { TextField } from '@rmwc/textfield';
 import { remove, modify, attach } from '../../../actions';
 import { TITLE, CODE, IMAGE } from '../../../constants';
 import { asset } from '../../../fs';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  code: ?string,
-  title: ?string,
-  image: ?string,
-  palette: ?{},
-  change: (payload: {}) => void,
-  attachImage: (file: string) => void,
-  removeField: () => void,
-  details: () => void
-};
 
-type ColorPairProps = {
-  color: string,
-  backgroundColor: ?string,
-  children: Children
-}
-
-const ColorPair = ({ color, backgroundColor, children }: ColorPairProps) => (
+const ColorPair = ({ color, backgroundColor, children }) => (
   backgroundColor ? (
     <div style={{ color, backgroundColor }}>
       {children}
@@ -42,7 +27,7 @@ const ColorPair = ({ color, backgroundColor, children }: ColorPairProps) => (
   ) : null
 );
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -138,7 +123,7 @@ class Container extends Component<Props> {
             <CardAction onClick={details}>Details</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

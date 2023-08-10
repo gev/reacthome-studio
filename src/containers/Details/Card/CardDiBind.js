@@ -11,13 +11,14 @@ import { onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD, onClick, DI_CLICK, onClick
 import SelectScript from '../SelectScript';
 import { TextField } from '@rmwc/textfield';
 import { Checkbox } from '@rmwc/checkbox';
+import RemoveButton from '../../../components/RemoveButton';
 
 const Item = connect(({ pool }, { id }) => pool[id] || {})((props) => (
   <ListItem>
-    <ListItemGraphic icon={<IconButton icon="remove" onClick={props.remove} />} />
+    <ListItemGraphic icon={<RemoveButton title={props.code || props.title} onClick={props.remove} />} />
     {props.code || props.title}
-    <div style={{right: 12, position:'absolute'}}>
-      <Link to={`/project/${props.project}/${props.id}`}>...</Link>  
+    <div style={{ right: 12, position: 'absolute' }}>
+      <Link to={`/project/${props.project}/${props.id}`}>...</Link>
     </div>
   </ListItem>
 ));
@@ -43,15 +44,15 @@ const Action = (props) => {
     if (Array.isArray(props[action])) {
       props.remove(action, id);
     } else {
-      props.modify({ [action]: [] });      
+      props.modify({ [action]: [] });
     }
   };
   const modify = (field) => (event) => {
-    props.modify({[field]: event.target.value})
+    props.modify({ [field]: event.target.value })
   }
   return (
     <tr className="paper">
-      <td style={{borderRight: 'solid 1px silver', height: '100%'}}>
+      <td style={{ borderRight: 'solid 1px silver', height: '100%' }}>
         <div>
           <Typography use="caption" theme={value === test ? 'secondary' : 'text-hint-on-background'}>
             {title}
@@ -72,7 +73,7 @@ const Action = (props) => {
               <tbody>
                 <tr>
                   <td><Checkbox checked={repeat} label='repeat' onChange={() => {
-                    props.modify({repeat: !repeat})
+                    props.modify({ repeat: !repeat })
                   }} /></td>
                   <td><TextField value={interval} label="interval" onChange={modify("interval")} /></td>
                 </tr>

@@ -18,6 +18,7 @@ import SelectThermostat from './SelectThermostat';
 import SelectIR from './SelectIR';
 import IR from './CardIRBind';
 import SelectMenu from '../SelectMenu';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 const brands = codes[AC] || {};
 
@@ -89,7 +90,7 @@ class Container extends Component {
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

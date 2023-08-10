@@ -13,19 +13,9 @@ import { TextField } from '@rmwc/textfield';
 import { remove, modify, request } from '../../../actions';
 import { CODE, TITLE, ACTION_SETPOINT } from '../../../constants';
 import SelectSensor from './SelectSensor';
+import CardActionRemove from '../../../components/CardActionRemove';
 
-type Props = {
-  sensor: ?string,
-  project: ?string,
-  setpoint: ?number,
-  code: ?string,
-  title: ?string,
-  change: (payload: {}) => void,
-  removeField: () => void,
-  setSetpoint: (value: ?number) => void
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   setpoint = (event) => {
     this.props.setSetpoint(event.detail.value);
   }
@@ -57,7 +47,7 @@ class Container extends Component<Props> {
         </div>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

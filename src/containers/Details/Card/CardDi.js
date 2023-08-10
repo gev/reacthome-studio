@@ -14,6 +14,7 @@ import { remove, modify, makeBind } from '../../../actions';
 import { CODE } from '../../../constants';
 import Di from './CardDiBind';
 import SelectDi from './SelectDi';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 class Container extends Component {
   change = (event) => {
@@ -46,13 +47,13 @@ class Container extends Component {
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>
     );
   }
-} 
+}
 
 export default connect(
   ({ pool }, { id }) => pool[id] || {},

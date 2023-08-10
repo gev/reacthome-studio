@@ -14,6 +14,7 @@ import { remove, modify, makeBind } from '../../../actions';
 import { CODE, TITLE } from '../../../constants';
 import DeviceRS485Channel from '../../Device/DeviceRS485Channel';
 import SelectRS485 from './SelectRS485';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 class Container extends Component {
   change = (event) => {
@@ -48,7 +49,7 @@ class Container extends Component {
         }
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>

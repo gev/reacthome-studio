@@ -18,6 +18,7 @@ import { remove, modify, makeBind } from '../../../actions';
 import { ACTION_OFF, ACTION_ON, ACTION_SETPOINT, ACTION_SET_ADDRESS, ACTION_SET_DIRECTION, ACTION_SET_FAN_SPEED, ACTION_SET_MODE, CODE, TITLE } from '../../../constants';
 import SelectModbus from './SelectModbus';
 import { send } from '../../../websocket/peer';
+import CardActionRemove from '../../../components/CardActionRemove';
 
 const Check = ({ checked, onChange, label }) => (
   <td>
@@ -99,7 +100,7 @@ class Container extends Component {
         </div>
         <CardActions>
           <CardActionIcons>
-            <CardAction icon="remove" onClick={removeField} />
+            <CardActionRemove remove={removeField} />
           </CardActionIcons>
         </CardActions>
       </Card>
