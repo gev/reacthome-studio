@@ -7,8 +7,7 @@ import Dimmer from '../../Device/DeviceDimmerChannel';
 import Artnet from './ArtnetChannel';
 import { DO, DIM, ARTNET, ENDPOINT, GROUP, AO, DALI_LIGHT, DALI_GROUP } from '../../../constants';
 import DeviceAOChannel from '../../Device/DeviceAOChannel';
-import daliChannel, { DaliGroup, DaliLight } from './DaliChannel';
-import DaliChannel from './DaliChannel';
+import { DaliGroup, DaliLight } from './DaliChannel';
 
 export default ({ id, daemon }) => {
   const [dev, type, index] = id.split('/');
