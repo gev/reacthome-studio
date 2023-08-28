@@ -13,7 +13,7 @@ const CLIENT_GROUP = '224.0.0.2';
 const TIMEOUT = 10000;
 
 export default () => (dispatch) => {
-  const socket = createSocket('udp4');
+  const socket = createSocket({ type: 'udp4', reuseAddr: true });
   socket.on('error', console.error);
   socket.on('message', (message, { address }) => {
     try {
@@ -30,6 +30,10 @@ export default () => (dispatch) => {
       console.error(e);
     }
   });
+  socket.on('listening', () => {
+    socket.addMembership(CLIENT_GROUP);
+  })
+  socket.bind(CLIENT_PORT);
   setInterval(() => {
     socket.send(JSON.stringify({
       type: DISCOVERY,
