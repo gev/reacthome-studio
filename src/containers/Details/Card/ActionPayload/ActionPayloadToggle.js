@@ -2,8 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { List, ListItem, ListItemGraphic } from '@rmwc/list';
-import { IconButton } from '@rmwc/icon-button';
+import { List, ListItem, ListItemGraphic, ListItemText } from '@rmwc/list';
 import { Typography } from '@rmwc/typography';
 import { modify } from '../../../../actions';
 import Autocomplete from '../../../Filter';
@@ -14,6 +13,7 @@ import RemoveButton from '../../../../components/RemoveButton';
 const Item = connect(({ pool }, { id }) => pool[id] || {})(({ code, title, remove }) => (
   <ListItem>
     <ListItemGraphic icon={<RemoveButton title={code || title} icon="remove" onClick={remove} />} />
+    <ListItemText>{code || title}</ListItemText>
   </ListItem>
 ));
 

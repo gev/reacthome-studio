@@ -18,7 +18,7 @@ export default () => (dispatch) => {
   socket.on('message', (message, { address }) => {
     try {
       const { id, type, payload } = JSON.parse(Buffer.from(message));
-      if (type === DISCOVERY) {
+      if (id && payload && type === DISCOVERY) {
         delete payload.online;
         dispatch(compare(id, payload));
         dispatch(add(ROOT, DAEMON, id));
@@ -34,9 +34,4 @@ export default () => (dispatch) => {
     socket.addMembership(CLIENT_GROUP);
   })
   socket.bind(CLIENT_PORT);
-  setInterval(() => {
-    socket.send(JSON.stringify({
-      type: DISCOVERY,
-    }), CLIENT_PORT, CLIENT_GROUP);
-  }, TIMEOUT);
 };

@@ -9,8 +9,7 @@ import {
   CardActions,
   CardActionIcons
 } from '@rmwc/card';
-import { List, ListItem, ListItemGraphic } from '@rmwc/list';
-import { IconButton } from '@rmwc/icon-button';
+import { List, ListItem, ListItemGraphic, ListItemText } from '@rmwc/list';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import { remove, modify, add, makeBind } from '../../../actions';
@@ -53,7 +52,7 @@ const Action = (props) => {
 const Item = connect(({ pool }, { id }) => pool[id] || {})((props) => (
   <ListItem>
     <ListItemGraphic icon={<RemoveButton title={props.code || props.title} onClick={props.remove} />} />
-    {props.code || props.title}
+    <ListItemText>{props.code || props.title}</ListItemText>
   </ListItem>
 ));
 

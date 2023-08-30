@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { IconButton } from '@rmwc/icon-button';
 import { List, ListItem, ListItemGraphic } from '@rmwc/list';
 import { Typography } from '@rmwc/typography';
 import { modify, add, remove } from '../../../actions';
