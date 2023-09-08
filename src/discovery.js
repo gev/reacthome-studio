@@ -12,8 +12,6 @@ const DISCOVERY = 'discovery';
 const CLIENT_PORT = 2021;
 const CLIENT_GROUP = '224.0.0.2';
 
-const joins = new Set();
-
 export default () => (dispatch) => {
   const socket = createSocket({ type: 'udp4', reuseAddr: true });
   socket.on('error', console.error);
@@ -43,10 +41,9 @@ export default () => (dispatch) => {
           []
         )
       ifaces.forEach(i => {
-        if (!joins.has(i)) {
+        try {
           socket.addMembership(CLIENT_GROUP, i)
-          joins.add(i)
-        }
+        } catch (e) { }
       })
     }, 1000);
   })
