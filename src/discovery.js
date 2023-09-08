@@ -5,6 +5,7 @@ import { ROOT, DAEMON } from './constants';
 import { add, compare } from './actions';
 import { peers } from './websocket/peer';
 import connect from './websocket/connect';
+import os from 'os';
 
 const DISCOVERY = 'discovery';
 
