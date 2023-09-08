@@ -42,7 +42,6 @@ export default () => (dispatch) => {
           ],
           []
         )
-
       ifaces.forEach(i => {
         if (!joins.has(i)) {
           socket.addMembership(CLIENT_GROUP, i)
