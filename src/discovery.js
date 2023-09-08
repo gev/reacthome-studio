@@ -10,7 +10,8 @@ const DISCOVERY = 'discovery';
 
 const CLIENT_PORT = 2021;
 const CLIENT_GROUP = '224.0.0.2';
-const TIMEOUT = 10000;
+
+const joins = new Set();
 
 export default () => (dispatch) => {
   const socket = createSocket({ type: 'udp4', reuseAddr: true });
@@ -31,7 +32,23 @@ export default () => (dispatch) => {
     }
   });
   socket.on('listening', () => {
-    socket.addMembership(CLIENT_GROUP);
+    setInterval(() => {
+      const ifaces = Object.values(os.networkInterfaces())
+        .reduce((a, b) =>
+          [...a,
+          ...b.filter(i => !i.internal && i.family === 'IPv4')
+            .map(i => i.address)
+          ],
+          []
+        )
+
+      ifaces.forEach(i => {
+        if (!joins.has(i)) {
+          socket.addMembership(CLIENT_GROUP, i)
+          joins.add(i)
+        }
+      })
+    }, 1000);
   })
   socket.bind(CLIENT_PORT);
 };
