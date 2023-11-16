@@ -173,6 +173,7 @@ export const DRIVER_TYPE_MODBUS_RBUS = 'MODBUS_RBUS';
 export const DRIVER_TYPE_MODBUS_TCP = 'MODBUS_TCP';
 export const DRIVER_TYPE_NOVA = 'NOVA';
 export const DRIVER_TYPE_SWIFT = 'SWIFT';
+export const DRIVER_TYPE_COMFOVENT = 'COMFOVENT';
 export const DRIVER_TYPE_VARMANN = 'VARMANN';
 export const DRIVER_TYPE_INTESIS_BOX = 'INTESIS_BOX';
 export const DRIVER_TYPE_RTD_RA = 'RT_DA';
@@ -772,7 +773,7 @@ export const DRIVER_TYPES = {
     title: 'Varmann'
   },
   [DRIVER_TYPE_INTESIS_BOX]: {
-    title: 'Imtesis Box'
+    title: 'Intesis Box'
   },
   [DRIVER_TYPE_RTD_RA]: {
     title: 'RTD-RA'
@@ -785,5 +786,8 @@ export const DRIVER_TYPES = {
   },
   [DRIVER_TYPE_SWIFT]: {
     title: 'Shuft Swift'
+  },
+  [DRIVER_TYPE_COMFOVENT]: {
+    title: 'Comfovent'
   },
 };

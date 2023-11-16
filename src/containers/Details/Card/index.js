@@ -2,109 +2,111 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  SITE,
-  TIMER,
-  CAMERA,
-  BUTTON,
-  SMOCK_SENSOR,
-  MOTION_SENSOR,
-  LEAKAGE_SENSOR,
-  DEVICE_TYPE_SENSOR4,
-  DEVICE_TYPE_DOPPLER_LEGACY,
-  VALVE_HEATING,
-  VALVE_WATER,
-  SOCKET_220,
-  LIGHT_220,
-  LIGHT_LED,
-  BOILER,
-  PUMP,
-  FAN,
-  TV,
   AC,
-  INTERCOM,
-  TOUCH,
-  THERMOSTAT,
+  BOILER,
+  BUTTON,
+  CAMERA,
   CLOCK,
+  CURTAINS,
   DAEMON,
-  DRIVER_TYPE_RS21,
+  DEVICE_TYPE_CLIMATE,
+  DEVICE_TYPE_CO2,
+  DEVICE_TYPE_DOPPLER,
+  DEVICE_TYPE_DOPPLER_LEGACY,
+  DEVICE_TYPE_SENSOR4,
+  DEVICE_TYPE_SMART_4A,
+  DEVICE_TYPE_SMART_4AM,
+  DEVICE_TYPE_SMART_4G,
+  DEVICE_TYPE_SMART_4GD,
+  DEVICE_TYPE_SMART_6_PUSH,
+  DEVICE_TYPE_TEMPERATURE_EXT,
+  DRIVER_TYPE_ALINK,
   DRIVER_TYPE_ARTNET,
   DRIVER_TYPE_BB_PLC1,
   DRIVER_TYPE_BB_PLC2,
-  WARM_FLOOR,
-  LEAKAGE,
+  DRIVER_TYPE_COMFOVENT,
+  DRIVER_TYPE_DALI_GW,
+  DRIVER_TYPE_INTESIS_BOX,
   DRIVER_TYPE_M206,
   DRIVER_TYPE_M230,
-  DEVICE_TYPE_SMART_4G,
-  LIGHT_RGB,
-  DEVICE_TYPE_CLIMATE,
-  DEVICE_TYPE_DOPPLER,
-  DEVICE_TYPE_TEMPERATURE_EXT,
-  SECURITY,
-  SCHEDULE,
-  REED,
-  CURTAINS,
-  RING,
   DRIVER_TYPE_MODBUS,
-  DRIVER_TYPE_VARMANN,
-  DRIVER_TYPE_INTESIS_BOX,
-  ZIGBEE,
-  MULTIROOM,
-  DRIVER_TYPE_NOVA,
-  DEVICE_TYPE_SMART_4GD,
-  DEVICE_TYPE_SMART_4A,
-  SCREEN,
-  DEVICE_TYPE_SMART_4AM,
-  DEVICE_TYPE_CO2,
-  DEVICE_TYPE_SMART_6_PUSH,
-  DRIVER_TYPE_ALINK,
-  DRIVER_TYPE_SWIFT,
-  DRIVER_TYPE_RTD_RA,
-  DRIVER_TYPE_DALI_GW,
-  DRIVER_TYPE_MODBUS_TCP,
   DRIVER_TYPE_MODBUS_RBUS,
+  DRIVER_TYPE_MODBUS_TCP,
+  DRIVER_TYPE_NOVA,
+  DRIVER_TYPE_RS21,
+  DRIVER_TYPE_RTD_RA,
+  DRIVER_TYPE_SWIFT,
+  DRIVER_TYPE_VARMANN,
+  FAN,
+  INTERCOM,
+  LEAKAGE,
+  LEAKAGE_SENSOR,
+  LIGHT_220,
+  LIGHT_LED,
+  LIGHT_RGB,
+  MOTION_SENSOR,
+  MULTIROOM,
+  PUMP,
+  REED,
+  RING,
+  SCHEDULE,
+  SCREEN,
+  SECURITY,
+  SITE,
+  SMOCK_SENSOR,
+  SOCKET_220,
+  THERMOSTAT,
+  TIMER,
+  TOUCH,
+  TV,
+  VALVE_HEATING,
+  VALVE_WATER,
+  WARM_FLOOR,
+  ZIGBEE,
 } from '../../../constants';
-import CardDefault from './CardDefault';
-import CardCamera from './CardCamera';
-import CardTimer from './CardTimer';
-import CardSite from './CardSite';
-import CardSensor from './CardSensor';
-import CardDoppler from './CardDoppler';
-import CardDi from './CardDi';
-import CardDo from './CardDo';
-import CardTV from './CardTV';
 import CardAC from './CardAC';
-import CardTouch from './CardTouch';
-import CardIntercom from './CardIntercom';
-import CardThermostat from './CardThermostat';
-import CardClock from './CardClock';
-import CardDaemon from './CardDaemon';
-import CardRS21 from './CardRS21';
+import CardAlink from './CardAlink';
 import CardArtnet from './CardArtnet';
 import CardBBPLC1 from './CardBBPLC1';
 import CardBBPLC2 from './CardBBPLC2';
-import CardLeakage from './CardLeakage';
-import CardElectricityMeter from './CardElectricityMeter';
-import CardRGB from './CardRGB';
-import CardClimate from './CardClimate';
-import CardTempExt from './CardTempExt';
-import CardOnOff from './CardOnOff';
-import CardSchedule from './CardSchedule';
-import CardClosure from './CardClosure';
-import CardRing from './CardRing';
-import CardVarmann from './CardVarmann';
-import CardIntesisBox from './CardIntesisBox';
-import CardZigbee from './CardZigbee';
-import CardHeater from './CardHeater';
-import CardMultiroom from './CardMultiroom';
-import CardNova from './CardNova';
-import CardSwift from './CardSwift';
-import CardScreen from './CardScreen';
 import CardCO2 from './CardCO2';
-import CardAlink from './CardAlink';
-import CardRTDRA from './CardRTD_RA';
+import CardCamera from './CardCamera';
+import CardClimate from './CardClimate';
+import CardClock from './CardClock';
+import CardClosure from './CardClosure';
+import CardComfovent from './CardComfovent';
+import CardDaemon from './CardDaemon';
 import CardDaliGW from './CardDaliGW';
+import CardDefault from './CardDefault';
+import CardDi from './CardDi';
+import CardDo from './CardDo';
+import CardDoppler from './CardDoppler';
+import CardElectricityMeter from './CardElectricityMeter';
+import CardHeater from './CardHeater';
+import CardIntercom from './CardIntercom';
+import CardIntesisBox from './CardIntesisBox';
+import CardLeakage from './CardLeakage';
 import CardModbusRBUS from './CardModbusRBUS';
 import CardModbusTCP from './CardModbusTCP';
+import CardMultiroom from './CardMultiroom';
+import CardNova from './CardNova';
+import CardOnOff from './CardOnOff';
+import CardRGB from './CardRGB';
+import CardRS21 from './CardRS21';
+import CardRTDRA from './CardRTD_RA';
+import CardRing from './CardRing';
+import CardSchedule from './CardSchedule';
+import CardScreen from './CardScreen';
+import CardSensor from './CardSensor';
+import CardSite from './CardSite';
+import CardSwift from './CardSwift';
+import CardTV from './CardTV';
+import CardTempExt from './CardTempExt';
+import CardThermostat from './CardThermostat';
+import CardTimer from './CardTimer';
+import CardTouch from './CardTouch';
+import CardVarmann from './CardVarmann';
+import CardZigbee from './CardZigbee';
 
 const Container = (props) => {
   if (props.protocol === ZIGBEE) {
@@ -213,6 +215,8 @@ const Container = (props) => {
       return <CardNova {...props} />;
     case DRIVER_TYPE_SWIFT:
       return <CardSwift {...props} />;
+    case DRIVER_TYPE_COMFOVENT:
+      return <CardComfovent {...props} />;
     case MULTIROOM:
       return <CardMultiroom {...props} />;
     default:
