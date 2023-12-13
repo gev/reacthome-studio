@@ -41,6 +41,7 @@ import {
   DALI_GROUP,
   DALI_LIGHT,
   GROUP,
+  DEVICE_TYPE_RS_HUB_4,
 } from '../../../constants';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
@@ -116,6 +117,7 @@ const Do = c(({
       t = DIM;
       break;
     case DEVICE_TYPE_SERVER:
+    case DEVICE_TYPE_RS_HUB_4:
       n = 3;
       t = DIM;
       break;

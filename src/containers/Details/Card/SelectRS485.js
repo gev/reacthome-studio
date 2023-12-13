@@ -27,6 +27,7 @@ const Channel = c(({ id, type, index, onSelect }) => {
       break;
     case DEVICE_TYPE_RS_HUB_4:
     case DEVICE_TYPE_SERVER:
+    case DEVICE_TYPE_RS_HUB_4:
       n = 4;
       break;
     default: n = 0;

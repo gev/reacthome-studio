@@ -1,9 +1,9 @@
 
+import { Tab, TabBar } from '@rmwc/tabs';
 import React, { Component } from 'react';
-import { TabBar, Tab } from '@rmwc/tabs';
-import DeviceRSHub4 from './DeviceRSHub4';
 import DeviceDi4 from './DeviceDi4';
 import DeviceDimmer from './DeviceDimmer';
+import DeviceRSHub4 from './DeviceRSHub4l';
 
 
 export default class extends Component {
