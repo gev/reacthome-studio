@@ -1,14 +1,9 @@
 
+import { Typography } from '@rmwc/typography';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Typography } from '@rmwc/typography';
 
-type Props = {
-  magnitude: ?string;
-  value: ?boolean;
-};
-
-const Container = ({ value, magnitude } : Props) => (
+const Container = ({ value, magnitude }) => (
   <div>
     <Typography use="caption">{value}{magnitude}</Typography>
   </div>

@@ -1,30 +1,23 @@
 
-import React from 'react';
-import { Typography } from '@rmwc/typography';
-import { Switch } from '@rmwc/switch';
-import { Slider } from '@rmwc/slider';
 import { Button } from '@rmwc/button';
-import { SimpleMenu, MenuItem } from '@rmwc/menu';
+import { MenuItem, SimpleMenu } from '@rmwc/menu';
+import { Slider } from '@rmwc/slider';
+import { Switch } from '@rmwc/switch';
+import { Typography } from '@rmwc/typography';
+import React from 'react';
 import {
-  ARTNET,
   ACTION_ARTNET,
-  ARTNET_TYPES,
+  ARTNET,
   ARTNET_FADE,
+  ARTNET_OFF,
+  ARTNET_ON,
   ARTNET_TYPE,
-  ARTNET_ON, ARTNET_OFF
+  ARTNET_TYPES
 } from '../../../constants';
 import connect from '../../Device/connect';
 
-type Props = {
-  id: string;
-  index: number;
-  bind: string;
-  type: ?string;
-  value: ?boolean;
-  request: (action: {}) => void;
-};
 
-export default connect(ARTNET)((props: Props) => {
+export default connect(ARTNET)((props) => {
   const {
     id, index, value, type, request
   } = props;

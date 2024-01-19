@@ -1,18 +1,8 @@
 
-import React, { Component } from 'react';
 import { Typography } from '@rmwc/typography';
+import React, { Component } from 'react';
 
-type Props = {
-  temperature: ?number;
-};
-
-type RowProps = {
-  title: string;
-  value: any;
-  magnitude: ?string;
-};
-
-const Row = ({ title, value, magnitude }: RowProps) => (
+const Row = ({ title, value, magnitude }) => (
   <tr>
     <td className="paper">
       <Typography use="body">{title}</Typography>
@@ -23,7 +13,7 @@ const Row = ({ title, value, magnitude }: RowProps) => (
   </tr>
 );
 
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const {
       temperature

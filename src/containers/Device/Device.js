@@ -34,7 +34,6 @@ import {
   DEVICE_TYPE_RELAY_2_DIN,
   DEVICE_TYPE_RELAY_6,
   DEVICE_TYPE_RSHUB,
-  DEVICE_TYPE_RS_HUB_1,
   DEVICE_TYPE_RS_HUB_1_LEGACY,
   DEVICE_TYPE_RS_HUB_1_RS,
   DEVICE_TYPE_RS_HUB_4,
@@ -70,8 +69,8 @@ import DeviceMix6x12 from './DeviceMix6x12';
 import Plc from './DevicePlc';
 import RSHub from './DeviceRSHub';
 import DeviceRSHub1RS from './DeviceRSHub1RS';
-import DeviceRSHub4l from './DeviceRSHub4l';
 import DeviceRSHub4 from './DeviceRSHub4';
+import DeviceRSHub4l from './DeviceRSHub4l';
 import Relay12 from './DeviceRelay12';
 import Relay12v2 from './DeviceRelay12_2';
 import Relay12v3 from './DeviceRelay12_3';
@@ -176,3 +175,11 @@ export default (props) => {
     }
   }
 };
+
+// все смарты
+// di4 на gd32
+// di4 на pic32
+// server на gd32
+// hub на gd32
+// co2
+// climate

@@ -490,6 +490,8 @@ export const LEFT_RIGTH = 'left_right';
 export const RIGTH_LEFT = 'right_left';
 export const UP_DOWN = 'up_down';
 
+export const TEMPERATURE_EXT = 'temperature_ext';
+
 export const DEVICE_TYPES = {
   [DEVICE_TYPE_UNKNOWN]: {
     title: 'Unknown'

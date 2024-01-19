@@ -1,6 +1,6 @@
-import { existsSync, unlinkSync, readdirSync } from "fs";
+import { existsSync, readdirSync, unlinkSync } from "fs";
 import { ASSETS } from "./assets/constants";
-import { PROJECT, DAEMON, DEVICE, IMAGE, POOL, ROOT, SCRIPT, SITE } from "./constants";
+import { DAEMON, DEVICE, IMAGE, POOL, PROJECT, ROOT, SCRIPT, SITE, TEMPERATURE_EXT } from "./constants";
 import { asset } from "./fs";
 
 function isNumber(str) {
@@ -40,16 +40,17 @@ const build = (id, pool, state, assets) => {
             });
             break;
           }
+          case TEMPERATURE_EXT:
           case DEVICE: {
-            v.forEach(d => { 
+            v.forEach(d => {
               // if (typeof d === 'string') {
-                Object
-                  .keys(pool)
-                  .filter(i => i.startsWith(`${d}/`))
-                  .forEach(i => {
-                    state[i] = pool[i];
-                  });
-                state[d] = pool[d];
+              Object
+                .keys(pool)
+                .filter(i => i.startsWith(`${d}/`))
+                .forEach(i => {
+                  state[i] = pool[i];
+                });
+              state[d] = pool[d];
               // }
             });
             break;
@@ -60,10 +61,10 @@ const build = (id, pool, state, assets) => {
               case PROJECT:
               case SITE:
               case SCRIPT: {
-                v.forEach(i => { 
+                v.forEach(i => {
                   // if (typeof i === 'string') {
-                    build(i, pool, state, assets);
-                    // state[i] = pool[i];
+                  build(i, pool, state, assets);
+                  // state[i] = pool[i];
                   // }
                 });
                 break;
@@ -96,9 +97,9 @@ export const cleanup = (pool) => {
   if (Array.isArray(project)) {
     project.forEach(id => build(id, pool, state, assets));
   }
-  Object.keys(pool).forEach(k => { 
+  Object.keys(pool).forEach(k => {
     if (k === ROOT) return;
-    if (state[k] === undefined) { 
+    if (state[k] === undefined) {
       delete pool[k];
       localStorage.removeItem(k);
     }
@@ -112,4 +113,3 @@ export const cleanup = (pool) => {
     }
   });
 };
-
