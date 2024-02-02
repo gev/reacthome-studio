@@ -12,12 +12,12 @@ const list = (pool, id, type, a = [], f = []) => {
     if (o) {
       if (o.title || o.code) {
         if (type ? o.type === type : true) {
-          a.push([id, DEVICE_TYPES[o.type] ? {...o, type: DEVICE_TYPES[o.type].title} : o]);
+          a.push([id, DEVICE_TYPES[o.type] ? { ...o, type: DEVICE_TYPES[o.type].title } : o]);
         }
       }
-      if ( o.type === DAEMON
+      if (o.type === DAEMON
         || o.type === PROJECT
-        || o.type == SITE) {
+        || o.type === SITE) {
         Object.values(o).forEach(i => {
           if (Array.isArray(i)) {
             i.forEach(j => list(pool, j, type, a, f));
@@ -25,6 +25,9 @@ const list = (pool, id, type, a = [], f = []) => {
             list(pool, i, type, a, f);
           }
         });
+      }
+      if (Array.isArray(o.temperature_ext)) {
+        o.temperature_ext.forEach(i => list(pool, i, type, a, f));
       }
     }
   }

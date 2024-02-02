@@ -45,6 +45,8 @@ import {
   DEVICE_TYPE_SMART_4G,
   DEVICE_TYPE_SMART_4GD,
   DEVICE_TYPE_SMART_6_PUSH,
+  DEVICE_TYPE_SMART_BOTTOM_1,
+  DEVICE_TYPE_SMART_BOTTOM_2,
   DEVICE_TYPE_TEMPERATURE_EXT,
   ZIGBEE
 } from '../../constants';
@@ -80,10 +82,11 @@ import Relay24 from './DeviceRelay24';
 import Relay2DIN from './DeviceRelay2DIN';
 import Relay6 from './DeviceRelay6';
 import Relay6v2 from './DeviceRelay6_2';
-import Sensor from './DeviceSensor';
 import DeviceServer from './DeviceServer';
+import Smart from './DeviceSmart';
 import TempExt from './DeviceTempExt';
 import Zigbee from './DeviceZigbee';
+import DeviceSmartNext from './DeviceSmartNext';
 
 export default (props) => {
   switch (props.type) {
@@ -146,15 +149,18 @@ export default (props) => {
     case DEVICE_TYPE_PLC: return <Plc {...props} />;
     case DEVICE_TYPE_SENSOR4:
     case DEVICE_TYPE_SMART_4G:
-      return <Sensor {...props} button={4} led={4} hasDoppler />;
+      return <Smart {...props} button={4} led={4} hasDoppler />;
     case DEVICE_TYPE_SMART_4GD:
-      return <Sensor {...props} button={4} led={4} hasDoppler hasDisplay />;
+      return <Smart {...props} button={4} led={4} hasDoppler hasDisplay />;
     case DEVICE_TYPE_SMART_4A:
-      return <Sensor {...props} button={4} led={5} />;
+      return <Smart {...props} button={4} led={5} />;
     case DEVICE_TYPE_SMART_4AM:
-      return <Sensor {...props} button={4} led={5} hasDoppler />;
+      return <Smart {...props} button={4} led={5} hasDoppler />;
     case DEVICE_TYPE_SMART_6_PUSH:
-      return <Sensor {...props} button={6} led={6} hasDoppler />;
+      return <Smart {...props} button={6} led={6} hasDoppler />;
+    case DEVICE_TYPE_SMART_BOTTOM_1:
+    case DEVICE_TYPE_SMART_BOTTOM_2:
+      return <DeviceSmartNext {...props} />;
     case DEVICE_TYPE_CO2:
       return <DeviceCO2 {...props} />;
     case DEVICE_TYPE_CLIMATE: return <Climate {...props} />;
@@ -177,9 +183,3 @@ export default (props) => {
 };
 
 // все смарты
-// di4 на gd32
-// di4 на pic32
-// server на gd32
-// hub на gd32
-// co2
-// climate

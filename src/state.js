@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, unlinkSync } from "fs";
 import { ASSETS } from "./assets/constants";
-import { DAEMON, DEVICE, IMAGE, POOL, PROJECT, ROOT, SCRIPT, SITE, TEMPERATURE_EXT } from "./constants";
+import { DAEMON, DEVICE, IMAGE, POOL, PROJECT, ROOT, SCRIPT, SITE } from "./constants";
 import { asset } from "./fs";
 
 function isNumber(str) {
@@ -40,7 +40,6 @@ const build = (id, pool, state, assets) => {
             });
             break;
           }
-          case TEMPERATURE_EXT:
           case DEVICE: {
             v.forEach(d => {
               // if (typeof d === 'string') {
@@ -51,6 +50,12 @@ const build = (id, pool, state, assets) => {
                   state[i] = pool[i];
                 });
               state[d] = pool[d];
+              if (Array.isArray(state[d].temperature_ext)) {
+                state[d].temperature_ext.forEach(i => {
+                  state[i] = pool[i];
+                })
+              }
+
               // }
             });
             break;

@@ -1,9 +1,9 @@
 
+import { ACTION_ASSET, ACTION_SET } from '../constants';
+import { asset, readFile } from '../fs';
 import { get } from '../state';
-import { ACTION_SET, ACTION_ASSET } from '../constants';
 import { send } from '../websocket/peer';
 import { compare } from './create';
-import { asset, readFile } from '../fs';
 
 export const dispatchAction = (action) => (dispatch) => {
   const { id, payload } = action;

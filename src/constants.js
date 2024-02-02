@@ -150,6 +150,10 @@ export const DEVICE_TYPE_MIX_6x12_RS = 0xb5;
 export const DEVICE_TYPE_DIM_12_AC_RS = 0xb3;
 export const DEVICE_TYPE_DIM_12_DC_RS = 0xb4;
 
+export const DEVICE_TYPE_SMART_TOP_A6P = 0x30;
+export const DEVICE_TYPE_SMART_BOTTOM_1 = 0x3a;
+export const DEVICE_TYPE_SMART_BOTTOM_2 = 0x3b;
+
 export const DEVICE_TYPE_SERVER = 0xc0;
 export const DEVICE_TYPE_RS_HUB_4 = 0xc1;
 
@@ -486,8 +490,8 @@ export const COMPARATORS = [
 
 export const OPEN_CLOSE = 'open_close';
 export const CLOSE_OPEN = 'close_open';
-export const LEFT_RIGTH = 'left_right';
-export const RIGTH_LEFT = 'right_left';
+export const LEFT_RIGHT = 'left_right';
+export const RIGHT_LEFT = 'right_left';
 export const UP_DOWN = 'up_down';
 
 export const TEMPERATURE_EXT = 'temperature_ext';
@@ -695,6 +699,14 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_SMART_6_PUSH]: {
     title: 'Smart 6 Push',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_SMART_BOTTOM_1]: {
+    title: 'Smart Next',
+    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_SMART_BOTTOM_2]: {
+    title: 'Smart Next',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_CO2]: {

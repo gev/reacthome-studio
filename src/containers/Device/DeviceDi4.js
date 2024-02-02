@@ -1,33 +1,40 @@
 
-import { Typography } from '@rmwc/typography';
-import React, { Component } from 'react';
-import Di from './DeviceDiChannel';
 
-const Row = ({ title, value, magnitude }) => (
-  <tr>
-    <td className="paper">
-      <Typography use="body">{title}</Typography>
-    </td>
-    <td className="paper">
-      <Typography use="body">{value}{magnitude}</Typography>
-    </td>
-  </tr>
-);
+import { Tab, TabBar } from '@rmwc/tabs';
+import React, { Component } from 'react';
+import DeviceDi from './DeviceDi';
+import DeviceExt from './DeviceExt';
+
 
 export default class extends Component {
+  state = { tabIndex: 0 };
+  select = ({ detail: { index } }) => {
+    this.setState({ tabIndex: index });
+  }
   render() {
-    const { id } = this.props;
-    return [
-      <table key="di">
-        <tbody>
-          <tr>
-            <td className="paper"><Di id={id} index={1} /></td>
-            <td className="paper"><Di id={id} index={2} /></td>
-            <td className="paper"><Di id={id} index={3} /></td>
-            <td className="paper"><Di id={id} index={4} /></td>
-          </tr>
-        </tbody>
-      </table>
-    ];
+    const { tabIndex } = this.state;
+    return ([
+      <div key="tab">
+        <TabBar
+          activeTabIndex={tabIndex}
+          onActivate={this.select}
+        >
+          <Tab>Inputs</Tab>
+          <Tab>Ext</Tab>
+        </TabBar>
+      </div>,
+      <div key="body">
+        {
+          tabIndex === 0 && (
+            <DeviceDi {...this.props} n={4} />
+          )
+        }
+        {
+          tabIndex === 1 && (
+            <DeviceExt {...this.props} />
+          )
+        }
+      </div>
+    ]);
   }
 }

@@ -2,9 +2,9 @@
 import { Tab, TabBar } from '@rmwc/tabs';
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
-import DeviceDoppler from './DeviceDoppler';
+import { DEVICE_TYPE_SMART_BOTTOM_2 } from '../../constants';
+import DeviceDi from './DeviceDi';
 import DeviceExt from './DeviceExt';
-
 
 const Row = ({ title, value, magnitude }) => (
   <tr>
@@ -24,23 +24,32 @@ export default class extends Component {
   }
   render() {
     const { tabIndex } = this.state;
-    const {
-      id, temperature, humidity, co2, daemon
-    } = this.props;
+    const { co2, temperature, humidity, type } = this.props;
+    const hasCO2 = type === DEVICE_TYPE_SMART_BOTTOM_2;
+    const tabs = [
+      <Tab key="inputs">Inputs</Tab>,
+      <Tab key="ext">Ext</Tab>,
+    ];
+    if (hasCO2) {
+      tabs.push(<Tab key="climate">Climate</Tab>);
+    }
     return [
       <div key="tab">
-        <TabBar
-          activeTabIndex={tabIndex}
-          onActivate={this.select}
-        >
-          <Tab>Climate</Tab>
-          <Tab>Doppler</Tab>
-          <Tab>Ext</Tab>
-        </TabBar>
+        <TabBar activeTabIndex={tabIndex} onActivate={this.select}>{tabs}</TabBar>
       </div>,
       <div key="body">
         {
           tabIndex === 0 && (
+            <DeviceDi {...this.props} n={4} />
+          )
+        }
+        {
+          tabIndex === 1 && (
+            <DeviceExt {...this.props} />
+          )
+        }
+        {
+          tabIndex === 2 && (
             <table style={{ textAlign: 'left' }}>
               <tbody>
                 <Row title="Temperature" value={temperature} magnitude="°C" />
@@ -50,18 +59,7 @@ export default class extends Component {
             </table>
           )
         }
-        {
-          tabIndex === 1 && (
-            <DeviceDoppler daemon={daemon} key="doppler" id={id} />
-          )
-        }
-        {
-          tabIndex === 2 && (
-            <DeviceExt {...this.props} />
-          )
-        }
       </div>,
-
     ];
   }
 }

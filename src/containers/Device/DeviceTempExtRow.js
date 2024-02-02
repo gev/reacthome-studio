@@ -22,7 +22,7 @@ class Container extends Component {
           <Typography use="body">{index}</Typography>
         </td>
         <td className="paper">
-          <Typography use="body">{id}</Typography>
+          <Typography use="caption">{id}</Typography>
         </td>
         <td className="paper">
           <TextField value={code || ''} onChange={this.change} placeholder="Code" />

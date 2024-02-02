@@ -1,29 +1,26 @@
 
+import { Slider } from '@rmwc/slider';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Slider } from '@rmwc/slider';
 import { request } from '../actions';
 import { ACTION_RGB_DIM } from '../constants';
 
-type Props = {
-  set: (value: {}) => void
-}
 
-class Container extends Component<Props> {
+class Container extends Component {
 
   red = (event) => {
-    const {g, b} = this.props;
+    const { g, b } = this.props;
     this.props.set({ g, b, r: event.detail.value });
   };
 
   green = (event) => {
-    const {r, b} = this.props;
+    const { r, b } = this.props;
     this.props.set({ r, b, g: event.detail.value });
   };
 
   blue = (event) => {
-    const {r, g} = this.props;
+    const { r, g } = this.props;
     this.props.set({ r, g, b: event.detail.value });
   };
 
