@@ -12,14 +12,11 @@ export default class extends Component {
   render() {
     const { tabIndex } = this.state;
     const { type, daemon, top, topDetected } = this.props;
-    const tabs = [(<Tab key="top">Bottom</Tab>)];
-    if (top && topDetected) {
-      tabs.push(<Tab key="bottom">Top</Tab>);
-    }
-    return [
+    return top && topDetected ? [
       <div key="tab">
         <TabBar activeTabIndex={tabIndex} onActivate={this.select}>
-          {tabs}
+          <Tab>Bottom</Tab>
+          <Tab>Top</Tab>
         </TabBar>
       </div>,
       <div key="body">
@@ -34,6 +31,8 @@ export default class extends Component {
           )
         }
       </div>,
-    ];
+    ] : (
+      <DeviceSmartNextBottom {...this.props} />
+    );
   }
 }
