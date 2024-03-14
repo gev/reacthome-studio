@@ -125,6 +125,8 @@ export const DEVICE_TYPE_SMART_4A = 0x27;
 export const DEVICE_TYPE_SMART_4AM = 0x2a;
 export const DEVICE_TYPE_CO2 = 0x2b;
 export const DEVICE_TYPE_SMART_6_PUSH = 0x2c;
+export const DEVICE_TYPE_DOPPLER_1_DI_4 = 0x2d;
+export const DEVICE_TYPE_DOPPLER_5_DI_4 = 0x2e;
 
 export const DEVICE_TYPE_RELAY_6 = 0xa0;
 export const DEVICE_TYPE_RELAY_12 = 0xa1;
@@ -156,6 +158,8 @@ export const DEVICE_TYPE_SMART_BOTTOM_2 = 0x3b;
 
 export const DEVICE_TYPE_SERVER = 0xc0;
 export const DEVICE_TYPE_RS_HUB_4 = 0xc1;
+
+
 
 
 export const DEVICE_TYPE_PNP = 0xe0;
@@ -520,7 +524,12 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_DOPPLER]: {
     title: 'Doppler',
-    firmware: 'doppler'
+  },
+  [DEVICE_TYPE_DOPPLER_1_DI_4]: {
+    title: 'Doppler-1 / DI-4',
+  },
+  [DEVICE_TYPE_DOPPLER_5_DI_4]: {
+    title: 'Doppler-5 / DI-4',
   },
   [DEVICE_TYPE_DMX]: {
     title: 'DMX',

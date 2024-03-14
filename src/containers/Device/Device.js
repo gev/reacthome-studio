@@ -19,6 +19,8 @@ import {
   DEVICE_TYPE_DO12,
   DEVICE_TYPE_DO8,
   DEVICE_TYPE_DOPPLER,
+  DEVICE_TYPE_DOPPLER_1_DI_4,
+  DEVICE_TYPE_DOPPLER_5_DI_4,
   DEVICE_TYPE_DOPPLER_LEGACY,
   DEVICE_TYPE_IR_RECEIVER,
   DEVICE_TYPE_LAN_AMP,
@@ -61,6 +63,7 @@ import Dimmer from './DeviceDimmer';
 import Do12 from './DeviceDo12';
 import Do8 from './DeviceDo8';
 import Doppler from './DeviceDoppler';
+import DeviceDopplerDI from './DeviceDopplerDI';
 import IrReceiver from './DeviceIRReceiver';
 import Lanamp from './DeviceLanamp';
 import Mix1 from './DeviceMix1';
@@ -84,14 +87,16 @@ import Relay6 from './DeviceRelay6';
 import Relay6v2 from './DeviceRelay6_2';
 import DeviceServer from './DeviceServer';
 import Smart from './DeviceSmart';
+import DeviceSmartNext from './DeviceSmartNext';
 import TempExt from './DeviceTempExt';
 import Zigbee from './DeviceZigbee';
-import DeviceSmartNext from './DeviceSmartNext';
 
 export default (props) => {
   switch (props.type) {
     case DEVICE_TYPE_DOPPLER: return <Doppler {...props} />;
     case DEVICE_TYPE_DOPPLER_LEGACY: return <Doppler {...props} />;
+    case DEVICE_TYPE_DOPPLER_1_DI_4: return <DeviceDopplerDI {...props} doppler={1} di={4} />;
+    case DEVICE_TYPE_DOPPLER_5_DI_4: return <DeviceDopplerDI {...props} doppler={5} di={4} />;
     case DEVICE_TYPE_DIM4_LEGACY: return <Dimmer {...props} n={4} />;
     case DEVICE_TYPE_AO_4_DIN: return <DeviceAO {...props} n={4} />;
     case DEVICE_TYPE_DIM_4: return <Dimmer {...props} n={4} />;
