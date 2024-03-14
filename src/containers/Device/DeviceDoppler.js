@@ -20,7 +20,7 @@ const optDoppler = {
   }
 };
 
-const colors = ["Red", "Blue", "Green", "Purple", "Orange"];
+const colors = ["Purple", "Blue", "Green", "Orange", "Red"];
 
 const art = (value = 0, i = 0) => {
   const color = colors[i];
