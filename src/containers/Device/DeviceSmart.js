@@ -8,7 +8,7 @@ import { send } from '../../websocket/peer';
 import Display from '../Display';
 import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
-import DeviceDoppler from './DeviceDoppler';
+import DeviceDoppler from './DeviceDopplerLegacy';
 import DeviceExt from './DeviceExt';
 
 const Row = ({ title, value, magnitude }) => (
