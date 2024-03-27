@@ -3,7 +3,7 @@ import { Tab, TabBar } from '@rmwc/tabs';
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DEVICE_TYPE_SMART_TOP_A6P } from '../../constants';
+import { DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D } from '../../constants';
 import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
 
@@ -28,8 +28,17 @@ class Container extends Component {
     const {
       id, temperature, humidity, daemon, type,
     } = this.props;
-    const button = type === DEVICE_TYPE_SMART_TOP_A6P ? 6 : 4;
-    const led = button;
+    let button = 0, led = 0;
+    switch (type) {
+      case DEVICE_TYPE_SMART_TOP_A6P:
+        button = 6;
+        led = 6;
+        break;
+      case DEVICE_TYPE_SMART_TOP_G4D:
+        button = 4;
+        led = 8;
+        break;
+    }
     const rgb = [];
     for (let i = 1; i <= led; i++) {
       rgb.push(<RGB id={id} index={i} daemon={daemon} key={`${id}/rgb/${i}`} />);

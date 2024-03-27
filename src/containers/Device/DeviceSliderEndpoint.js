@@ -1,20 +1,12 @@
 
-import React from 'react';
 import { Typography } from '@rmwc/typography';
-import { Slider } from '@rmwc/slider';
+import React from 'react';
+import Slider from '../../components/Slider';
 import { ENDPOINT } from '../../constants';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  bind: string;
-  type: ?string;
-  value: ?boolean;
-  request: (action: {}) => void;
-};
 
-export default connect(ENDPOINT)((props: Props) => {
+export default connect(ENDPOINT)((props) => {
   const {
     id, index, val, request, action, caption, min = 0, max = 255
   } = props;

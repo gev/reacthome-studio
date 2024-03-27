@@ -1,26 +1,25 @@
 
-import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
   Card,
-  CardAction,
-  CardActions,
-  CardActionIcons
+  CardActionIcons,
+  CardActions
 } from '@rmwc/card';
-import { TabBar, Tab } from '@rmwc/tabs';
-import { Typography } from '@rmwc/typography';
+import { Tab, TabBar } from '@rmwc/tabs';
 import { TextField } from '@rmwc/textfield';
-import { remove, modify } from '../../../actions';
-import { CODE, onTemperature, onHumidity, onDoppler, onIllumination, DI } from '../../../constants';
-import Di from './CardDiBind';
+import { Typography } from '@rmwc/typography';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { modify, remove } from '../../../actions';
+import CardActionRemove from '../../../components/CardActionRemove';
+import { CODE, DI, onDoppler, onHumidity, onIllumination, onTemperature } from '../../../constants';
 import DeviceDoppler from '../../Device/DeviceDoppler';
-import SelectScript from '../SelectScript';
-import RGB from '../../RGB';
 import Display from '../../Display';
 import Autocomplete from '../../Filter';
-import CardActionRemove from '../../../components/CardActionRemove';
+import RGB from '../../RGB';
+import SelectScript from '../SelectScript';
+import Di from './CardDiBind';
 
 
 const Row = ({
@@ -73,7 +72,7 @@ class Container extends Component {
   render() {
     const {
       id, code, project, daemon, temperature, removeField, humidity, illumination,
-      button, led, hasDoppler, hasDisplay, dispaly
+      button, led, hasDoppler, hasDisplay, display
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -163,7 +162,7 @@ class Container extends Component {
         }
         <div className="paper">
           <Typography>Display</Typography>
-          <Autocomplete id={dispaly} root={project} onSelect={this.setDisplay} />
+          <Autocomplete id={display} root={project} onSelect={this.setDisplay} />
         </div>
         <CardActions>
           <CardActionIcons>

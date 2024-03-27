@@ -1,26 +1,25 @@
 
-import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
   Card,
-  CardAction,
-  CardActions,
-  CardActionIcons
+  CardActionIcons,
+  CardActions
 } from '@rmwc/card';
-import { Slider } from '@rmwc/slider';
+import { Checkbox } from '@rmwc/checkbox';
 import { TextField } from '@rmwc/textfield';
-import { remove, modify, makeBind } from '../../../actions';
+import Typography from '@rmwc/typography';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { makeBind, modify, remove } from '../../../actions';
+import CardActionRemove from '../../../components/CardActionRemove';
+import Slider from '../../../components/Slider';
 import { CODE, TITLE } from '../../../constants';
 import Autocomplete from '../../Filter';
+import SelectScript from '../SelectScript';
+import Do from './CardDoBind';
 import DeviceDo from './DeviceDo';
 import SelectDo from './SelectDo';
-import Do from './CardDoBind';
-import Typography from '@rmwc/typography';
-import SelectScript from '../SelectScript';
-import { Checkbox } from '@rmwc/checkbox';
-import CardActionRemove from '../../../components/CardActionRemove';
 
 const Sensor = connect(
   ({ pool }, { id }) => pool[id] || {},
@@ -95,22 +94,6 @@ class Container extends Component {
           }} />
         </div>
         <div className="paper">
-          <Slider value={min || 20} min={15} max={60} step={1} onInput={this.setmin} discrete />
-        </div>
-        <div className="paper">
-          <Slider value={max || 30} min={15} max={60} step={1} onInput={this.setmax} discrete />
-        </div>
-        <div className="paper">
-          <Autocomplete id={this.props.sensor} root={project} onSelect={this.selectSensor} />
-        </div>
-        {
-          this.props.sensor && (
-            <div className="paper">
-              <Sensor id={this.props.sensor} project={project} remove={() => this.selectSensor(null)} />
-            </div>
-          )
-        }
-        <div className="paper">
           <SelectDo id={bind} root={project} onSelect={this.selectActuator} />
         </div>
         {
@@ -123,6 +106,34 @@ class Container extends Component {
             <DeviceDo id={bind} daemon={daemon} />
           ]
         }
+        <div className="paper">
+          <Autocomplete id={this.props.sensor} root={project} onSelect={this.selectSensor} />
+        </div>
+        {
+          this.props.sensor && (
+            <div className="paper">
+              <Sensor id={this.props.sensor} project={project} remove={() => this.selectSensor(null)} />
+            </div>
+          )
+        }
+        {this.props.sensor && (
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <div className="paper">
+                    <Slider label="setpoint min" value={min || 20} min={15} max={60} step={1} onInput={this.setmin} discrete />
+                  </div>
+                </td>
+                <td>
+                  <div className="paper">
+                    <Slider label="setpoint max" value={max || 30} min={15} max={60} step={1} onInput={this.setmax} discrete />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
         <CardActions>
           <CardActionIcons>
             <CardActionRemove remove={removeField} />

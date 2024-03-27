@@ -1,19 +1,18 @@
 
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
   Card,
-  CardAction,
-  CardActions,
-  CardActionIcons
+  CardActionIcons,
+  CardActions
 } from '@rmwc/card';
-import { Slider } from '@rmwc/slider';
 import { TextField } from '@rmwc/textfield';
-import { remove, modify, request } from '../../../actions';
-import { CODE, TITLE, ACTION_SETPOINT } from '../../../constants';
-import SelectSensor from './SelectSensor';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { modify, remove, request } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
+import Slider from '../../../components/Slider';
+import { ACTION_SETPOINT, CODE, TITLE } from '../../../constants';
+import SelectSensor from './SelectSensor';
 
 class Container extends Component {
   setpoint = (event) => {
@@ -40,7 +39,7 @@ class Container extends Component {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <Slider value={setpoint || 25} min={15} max={35} step={1} onInput={this.setpoint} discrete />
+          <Slider label="setpoint" value={setpoint || 25} min={15} max={35} step={1} onInput={this.setpoint} discrete />
         </div>
         <div className="paper">
           <SelectSensor id={sensor} root={project} onSelect={this.setSensor} />

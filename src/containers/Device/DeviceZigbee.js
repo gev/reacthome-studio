@@ -67,7 +67,7 @@ export default class extends Component {
               case THERMOSTAT: return [
                 <Row key="temp" title="Temperature" value={this.props.temperature} magnitude="°C" />,
                 <div key="setpoint">
-                  <Slider id={id} daemon={daemon} min={5} max={30} action={ACTION_SETPOINT} val="setpoint" caption="Setpoint" />
+                  <Slider label="setpoint" id={id} daemon={daemon} min={5} max={30} action={ACTION_SETPOINT} val="setpoint" caption="Setpoint" />
                   <Do id={id} daemon={daemon} />
                 </div>
               ];

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Typography } from '@rmwc/typography';
 import { Switch } from '@rmwc/switch';
-import { Slider } from '@rmwc/slider';
+import Slider from '../../components/Slider';
 import {
   ACTION_DIMMER,
   DIM_SET,
@@ -10,16 +10,8 @@ import {
 } from '../../constants';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  bind: string;
-  type: ?string;
-  value: ?boolean;
-  request: (action: {}) => void;
-};
 
-export default connect(AO)((props: Props) => {
+export default connect(AO)((props) => {
   const {
     id, index, value, request
   } = props;

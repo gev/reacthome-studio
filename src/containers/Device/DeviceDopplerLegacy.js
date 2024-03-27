@@ -1,12 +1,7 @@
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Line } from 'react-chartjs-2';
-import { Typography } from '@rmwc/typography';
-import { Slider } from '@rmwc/slider';
-import { request } from '../../actions';
-import { ACTION_DOPPLER } from '../../constants';
+import { connect } from 'react-redux';
 
 const optDoppler = {
   responsive: true,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Slider } from '@rmwc/slider';
+import Slider from '../components/Slider';
 
 import { request } from '../actions';
 import { ACTION_IMAGE } from '../constants';
@@ -21,8 +21,8 @@ const Segment = ({ image, index, width, height, onChange }) => {
   };
   return (
     <div style={{
-      backgroundColor, width, height, border:'solid 1px #aaa'
-    }} onClick={change}/>
+      backgroundColor, width, height, border: 'solid 1px #aaa'
+    }} onClick={change} />
   );
 };
 
@@ -81,14 +81,14 @@ class Container extends Component {
                 <Image image={c1} onChange={change1} />
               </div>
             </td>
-            <td>  
+            <td>
               <TextField defaultValue={text} onInput={(event) => setImage(event.target.value, level)} />
             </td>
           </tr>
           <tr>
             <td>
               <div className="paper">
-                <Slider value={level} min={0} max={255} step={1} onInput={setLevel} discrete />
+                <Slider label="brightness" value={level} min={0} max={255} step={1} onInput={setLevel} discrete />
               </div>
             </td>
           </tr>

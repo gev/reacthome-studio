@@ -1,14 +1,14 @@
 /* eslint-disable no-bitwise */
 
+import { Checkbox } from '@rmwc/checkbox';
+import { TextField } from '@rmwc/textfield';
+import { Typography } from '@rmwc/typography';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Checkbox } from '@rmwc/checkbox';
-import { TextField } from '@rmwc/textfield';
-import { Slider } from '@rmwc/slider';
-import { Typography } from '@rmwc/typography';
 import { modify, request } from '../../../actions';
-import { TITLE, ACTION_MULTIROOM_ZONE } from '../../../constants';
+import Slider from '../../../components/Slider';
+import { ACTION_MULTIROOM_ZONE, TITLE } from '../../../constants';
 
 const amp = connect(
   ({ pool }, { id }) => pool[id] || {},
@@ -81,18 +81,19 @@ const Row = zone(({
       <td>
         <div>
           {
-          s.active && (
-            <Slider
-              value={s.volume}
-              min={0}
-              max={255}
-              discrete
-              onInput={(event) => {
-                config(s.active, event.detail.value);
-              }}
-            />
-          )
-        }
+            s.active && (
+              <Slider
+                label="volume"
+                value={s.volume}
+                min={0}
+                max={255}
+                discrete
+                onInput={(event) => {
+                  config(s.active, event.detail.value);
+                }}
+              />
+            )
+          }
         </div>
       </td>
     </tr>,

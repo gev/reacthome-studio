@@ -1,16 +1,18 @@
 
-import React from 'react';
-import { Typography } from '@rmwc/typography';
-import { Switch } from '@rmwc/switch';
-import { Slider } from '@rmwc/slider';
 import { Button } from '@rmwc/button';
-import { SimpleMenu, MenuItem } from '@rmwc/menu';
+import { MenuItem, SimpleMenu } from '@rmwc/menu';
+import { Switch } from '@rmwc/switch';
+import { Typography } from '@rmwc/typography';
+import React from 'react';
+import Slider from '../../components/Slider';
 import {
   ACTION_DIMMER,
-  DIM_TYPES,
+  DIM, DIM_GROUP,
+  DIM_OFF,
+  DIM_ON,
   DIM_SET,
   DIM_TYPE,
-  DIM_ON, DIM_OFF, DIM, DIM_GROUP
+  DIM_TYPES
 } from '../../constants';
 import connect from './connect';
 
@@ -21,13 +23,13 @@ export default connect(DIM)((props) => {
 
   const setType = (value) => () => {
     request({
-      type: ACTION_DIMMER, action: DIM_TYPE, id, index, value, 
+      type: ACTION_DIMMER, action: DIM_TYPE, id, index, value,
     });
   };
 
   const setGroup = (value) => () => {
     request({
-      type: ACTION_DIMMER, action: DIM_GROUP, id, index, value, 
+      type: ACTION_DIMMER, action: DIM_GROUP, id, index, value,
     });
   };
 
@@ -67,7 +69,7 @@ export default connect(DIM)((props) => {
         <SimpleMenu handle={<Button>{group || index}</Button>}>
           {
             Array(groupNumber).fill(0).map((_, i) => (
-              <MenuItem key={i+1} onClick={setGroup(i+1)}>{i+1}</MenuItem>
+              <MenuItem key={i + 1} onClick={setGroup(i + 1)}>{i + 1}</MenuItem>
             ))
           }
         </SimpleMenu>

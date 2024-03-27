@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Slider } from '@rmwc/slider';
 import { modify } from '../../../../actions';
+import Slider from '../../../../components/Slider';
 
 class Container extends Component {
   input = (event) => {
@@ -14,6 +14,7 @@ class Container extends Component {
     const { min } = this.props;
     return (
       <Slider
+        label="setpoint min"
         min={15}
         max={60}
         step={1}

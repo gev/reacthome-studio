@@ -1,24 +1,23 @@
 
-import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
   Card,
-  CardAction,
-  CardActions,
-  CardActionIcons
+  CardActionIcons,
+  CardActions
 } from '@rmwc/card';
 import { Radio } from '@rmwc/radio';
-import { Slider } from '@rmwc/slider';
 import { Switch } from '@rmwc/switch';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
-import { remove, modify, makeBind } from '../../../actions';
-import { ACTION_OFF, ACTION_ON, ACTION_SETPOINT, ACTION_SET_ADDRESS, ACTION_SET_DIRECTION, ACTION_SET_FAN_SPEED, ACTION_SET_MODE, CODE, TITLE } from '../../../constants';
-import SelectModbus from './SelectModbus';
-import { send } from '../../../websocket/peer';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { makeBind, modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
+import Slider from '../../../components/Slider';
+import { ACTION_OFF, ACTION_ON, ACTION_SETPOINT, ACTION_SET_DIRECTION, ACTION_SET_FAN_SPEED, ACTION_SET_MODE, CODE, TITLE } from '../../../constants';
+import { send } from '../../../websocket/peer';
+import SelectModbus from './SelectModbus';
 
 
 const Check = ({ checked, onChange, label }) => (
@@ -93,6 +92,7 @@ class Container extends Component {
         <div className="paper">
           <Typography>Fan speed</Typography>
           <Slider
+            id="fan speed"
             min={0}
             step={1}
             max={5}
@@ -114,6 +114,7 @@ class Container extends Component {
         <div className="paper">
           <Typography>Set point</Typography>
           <Slider
+            id="setpoint"
             min={10}
             step={1}
             max={32}

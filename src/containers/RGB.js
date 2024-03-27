@@ -1,11 +1,9 @@
-
-import { Slider } from '@rmwc/slider';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { request } from '../actions';
+import Slider from '../components/Slider';
 import { ACTION_RGB_DIM } from '../constants';
-
 
 class Container extends Component {
 
@@ -25,14 +23,15 @@ class Container extends Component {
   };
 
   render() {
-    const { r = 0, g = 0, b = 0 } = this.props;
+    const { r = 0, g = 0, b = 0, index, label } = this.props;
     return (
       <table>
         <tbody>
           <tr>
-            <td><div className="paper"><Slider value={r} min={0} max={255} step={1} onInput={this.red} discrete color="red" /></div></td>
-            <td><div className="paper"><Slider value={g} min={0} max={255} step={1} onInput={this.green} discrete color="green" /></div></td>
-            <td><div className="paper"><Slider value={b} min={0} max={255} step={1} onInput={this.blue} discrete color="blue" /></div></td>
+            <td><div className="paper">{label || index || ''}</div></td>
+            <td><div className="paper"><Slider label="r" value={r} min={0} max={255} step={1} onInput={this.red} discrete color="red" /></div></td>
+            <td><div className="paper"><Slider label="g" value={g} min={0} max={255} step={1} onInput={this.green} discrete color="green" /></div></td>
+            <td><div className="paper"><Slider label="b" value={b} min={0} max={255} step={1} onInput={this.blue} discrete color="blue" /></div></td>
           </tr>
         </tbody>
       </table>

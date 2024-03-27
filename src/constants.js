@@ -153,6 +153,7 @@ export const DEVICE_TYPE_DIM_12_AC_RS = 0xb3;
 export const DEVICE_TYPE_DIM_12_DC_RS = 0xb4;
 
 export const DEVICE_TYPE_SMART_TOP_A6P = 0x30;
+export const DEVICE_TYPE_SMART_TOP_G4D = 0x31;
 export const DEVICE_TYPE_SMART_BOTTOM_1 = 0x3a;
 export const DEVICE_TYPE_SMART_BOTTOM_2 = 0x3b;
 

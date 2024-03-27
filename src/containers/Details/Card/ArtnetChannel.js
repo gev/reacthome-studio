@@ -1,10 +1,10 @@
 
 import { Button } from '@rmwc/button';
 import { MenuItem, SimpleMenu } from '@rmwc/menu';
-import { Slider } from '@rmwc/slider';
 import { Switch } from '@rmwc/switch';
 import { Typography } from '@rmwc/typography';
 import React from 'react';
+import Slider from '../../../components/Slider';
 import {
   ACTION_ARTNET,
   ARTNET,
@@ -56,6 +56,7 @@ export default connect(ARTNET)((props) => {
       </td>
       <td className="paper" width="100%">
         <Slider
+          label="brightness"
           min={0}
           step={1}
           max={255}

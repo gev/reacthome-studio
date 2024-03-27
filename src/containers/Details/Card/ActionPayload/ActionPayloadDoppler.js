@@ -1,26 +1,17 @@
 
+import { TextField } from '@rmwc/textfield';
+import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { TextField } from '@rmwc/textfield';
-import { Typography } from '@rmwc/typography';
 import { modify } from '../../../../actions';
+import { HIGH_THRESHOLD, LOW_THRESHOLD, QUIET, onHighThreshold, onLowThreshold, onQuiet } from '../../../../constants';
+import DeviceDoppler from '../../../Device/DeviceDoppler';
 import SelectScript from '../../SelectScript';
 import SelectDoppler from './SelectDoppler';
-import DeviceDoppler from '../../../Device/DeviceDoppler';
-import { onHighThreshold, onLowThreshold, onQuiet, QUIET, HIGH_THRESHOLD, LOW_THRESHOLD } from '../../../../constants';
 
-type Props = {
-  id: string;
-  project: string;
-  daemon: string;
-  payload: ?{};
-  setLow: (value: number) => void;
-  setHigh: (value: number) => void;
-  on: (on: string, id: string) => void;
-};
 
-class Container extends Component<Props> {
+class Container extends Component {
   high = (event) => {
     this.props.setHigh(event.target.value);
   };
@@ -39,7 +30,12 @@ class Container extends Component<Props> {
     } = this.props;
     return (
       <div className="paper">
-        <SelectDoppler action={id} payload={payload} project={project} root={project} />
+        <table>
+          <tr>
+            <td><div className='paper'>doppler</div></td>
+            <td><SelectDoppler action={id} payload={payload} project={project} root={project} /></td>
+          </tr>
+        </table>
         <DeviceDoppler id={payload.id} daemon={daemon} />
         <table>
           <tbody>

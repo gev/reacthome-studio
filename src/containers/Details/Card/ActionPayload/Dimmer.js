@@ -2,15 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Slider } from '@rmwc/slider';
 import { modify } from '../../../../actions';
+import Slider from '../../../../components/Slider';
 
-type Props = {
-  value: ?number,
-  modify: (id: string) => void;
-};
 
-class Container extends Component<Props> {
+class Container extends Component {
   input = (event) => {
     this.props.modify(event.detail.value);
   }

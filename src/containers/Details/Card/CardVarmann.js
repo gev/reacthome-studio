@@ -1,22 +1,21 @@
 
-import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
   Card,
-  CardAction,
-  CardActions,
-  CardActionIcons
+  CardActionIcons,
+  CardActions
 } from '@rmwc/card';
-import { Slider } from '@rmwc/slider';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
-import { remove, modify, makeBind } from '../../../actions';
-import { ACTION_SET_ADDRESS, ACTION_SET_FAN_SPEED, CODE, TITLE } from '../../../constants';
-import SelectModbus from './SelectModbus';
-import { send } from '../../../websocket/peer';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { makeBind, modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
+import Slider from '../../../components/Slider';
+import { ACTION_SET_ADDRESS, ACTION_SET_FAN_SPEED, CODE, TITLE } from '../../../constants';
+import { send } from '../../../websocket/peer';
+import SelectModbus from './SelectModbus';
 
 
 class Container extends Component {
@@ -57,6 +56,7 @@ class Container extends Component {
         <div className="paper">
           <Typography>Fan speed</Typography>
           <Slider
+            label="fan speed"
             min={0}
             step={1}
             max={100}

@@ -1,21 +1,20 @@
 
-import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
   Card,
-  CardAction,
-  CardActions,
-  CardActionIcons
+  CardActionIcons,
+  CardActions
 } from '@rmwc/card';
-import { Typography } from '@rmwc/typography';
 import { TextField } from '@rmwc/textfield';
-import { remove, modify } from '../../../actions';
-import { CODE, onTemperature } from '../../../constants';
-import SelectScript from '../SelectScript';
-import Autocomplete from '../../Filter';
+import { Typography } from '@rmwc/typography';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
+import { CODE, onTemperature } from '../../../constants';
+import Autocomplete from '../../Filter';
+import SelectScript from '../SelectScript';
 
 
 const Row = ({
@@ -62,7 +61,7 @@ class Container extends Component {
 
   render() {
     const {
-      code, project, temperature, removeField, dispaly
+      code, project, temperature, removeField, display
     } = this.props;
     return (
       <Card>
@@ -84,7 +83,7 @@ class Container extends Component {
         </table>
         <div className="paper">
           <Typography>Display</Typography>
-          <Autocomplete id={dispaly} root={project} onSelect={this.setDisplay} />
+          <Autocomplete id={display} root={project} onSelect={this.setDisplay} />
         </div>
         <CardActions>
           <CardActionIcons>
