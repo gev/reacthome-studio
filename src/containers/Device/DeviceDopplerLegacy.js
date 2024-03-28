@@ -45,7 +45,7 @@ const initialData = {
   labels: new Array(n).fill(''),
   datasets: [{ ...art(0), data: new Array(n).fill(0) }]
 };
-class Doppler extends Component {
+class Container extends Component {
   state = {
     data: initialData,
     raw: [],
@@ -110,4 +110,4 @@ class Doppler extends Component {
   }
 }
 
-export default connect(({ pool }, { id }) => pool[id] || {})(Doppler);
+export default connect(({ pool }, { id }) => pool[id] || {})(Container);

@@ -15,7 +15,7 @@ import { bindActionCreators } from 'redux';
 import { modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
 import { CODE, TITLE } from '../../../constants';
-import DeviceDoppler from '../../Device/DeviceDoppler';
+import DeviceDopplerLegacy from '../../Device/DeviceDopplerLegacy';
 import SelectScript from '../SelectScript';
 
 class Container extends Component {
@@ -35,7 +35,7 @@ class Container extends Component {
 
   render() {
     const {
-      id, code, title, n, removeField, details, daemon, project, onDoppler
+      id, code, title, removeField, details, daemon, project, onDoppler
     } = this.props;
     return (
       <Card>
@@ -45,7 +45,7 @@ class Container extends Component {
         <div className="paper">
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
-        <DeviceDoppler id={id} daemon={daemon} n={n} />
+        <DeviceDopplerLegacy id={id} daemon={daemon} />
         <div className="paper">
           <table>
             <tbody>

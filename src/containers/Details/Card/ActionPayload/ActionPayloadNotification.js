@@ -1,14 +1,10 @@
 
-import React, { Component } from 'react';
 import { TextField } from '@rmwc/textfield';
-import { TITLE, MESSAGE } from '../../../../constants';
+import React, { Component } from 'react';
+import { MESSAGE, TITLE } from '../../../../constants';
 
-type Props = {
-  payload: ?{};
-  change: (id: string) => void;
-};
 
-export default class extends Component<Props> {
+export default class extends Component {
   change = ({ target: { id, value } }) => {
     const { payload } = this.props;
     this.props.change({ payload: { ...payload, [id]: value } });

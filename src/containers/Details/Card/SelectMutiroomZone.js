@@ -35,7 +35,7 @@ const Zone = c(({
   );
 });
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {}
   componentWillMount() {
     const { id } = this.props;
@@ -44,7 +44,7 @@ class Container extends Component<Props> {
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev, index });
   }
   selectDev = (dev) => {

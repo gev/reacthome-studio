@@ -1,11 +1,10 @@
 
 
-import React, { Component } from 'react';
-import RGB from './RGB';
-import Autocomplete from '../../../Filter';
-import { MenuItem } from '@rmwc/menu';
-import { SimpleMenu } from '@rmwc/menu';
 import { Button } from '@rmwc/button';
+import { MenuItem, SimpleMenu } from '@rmwc/menu';
+import React, { Component } from 'react';
+import Autocomplete from '../../../Filter';
+import RGB from './RGB';
 
 export default class extends Component {
   state = {};
@@ -39,7 +38,7 @@ export default class extends Component {
               <td>
                 {
                   this.state.id && (
-                    <SimpleMenu handle={<Button>{payload.index === undefined ? 'select': payload.index}</Button>}>
+                    <SimpleMenu handle={<Button>{payload.index === undefined ? 'select' : payload.index}</Button>}>
                       {
                         Array(6).fill(0).map((_, i) => (
                           <MenuItem key={i} onClick={this.selectIndex(i)}>{i}</MenuItem>
@@ -48,7 +47,7 @@ export default class extends Component {
                     </SimpleMenu>
                   )
                 }
-                
+
               </td>
             </tr>
           </tbody>

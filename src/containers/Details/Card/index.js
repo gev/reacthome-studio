@@ -12,6 +12,8 @@ import {
   DEVICE_TYPE_CLIMATE,
   DEVICE_TYPE_CO2,
   DEVICE_TYPE_DOPPLER,
+  DEVICE_TYPE_DOPPLER_1_DI_4,
+  DEVICE_TYPE_DOPPLER_5_DI_4,
   DEVICE_TYPE_DOPPLER_LEGACY,
   DEVICE_TYPE_SENSOR4,
   DEVICE_TYPE_SMART_4A,
@@ -81,6 +83,7 @@ import CardDefault from './CardDefault';
 import CardDi from './CardDi';
 import CardDo from './CardDo';
 import CardDoppler from './CardDoppler';
+import CardDopplerLegacy from './CardDopplerLegacy';
 import CardElectricityMeter from './CardElectricityMeter';
 import CardHeater from './CardHeater';
 import CardIntercom from './CardIntercom';
@@ -136,9 +139,13 @@ const Container = (props) => {
       return <CardClimate {...props} />;
     case DEVICE_TYPE_TEMPERATURE_EXT:
       return <CardTempExt {...props} />;
+    case DEVICE_TYPE_DOPPLER_1_DI_4:
+      return <CardDoppler {...props} n={1} />;
+    case DEVICE_TYPE_DOPPLER_5_DI_4:
+      return <CardDoppler {...props} n={5} />;
     case DEVICE_TYPE_DOPPLER:
     case DEVICE_TYPE_DOPPLER_LEGACY:
-      return <CardDoppler {...props} />;
+      return <CardDopplerLegacy {...props} />;
     case REED:
     case BUTTON:
     case SMOCK_SENSOR:

@@ -1,4 +1,6 @@
 
+import { Button } from '@rmwc/button';
+import { MenuItem, SimpleMenu } from '@rmwc/menu';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
@@ -7,8 +9,10 @@ import { bindActionCreators } from 'redux';
 import { modify } from '../../../../actions';
 import { HIGH_THRESHOLD, LOW_THRESHOLD, QUIET, onHighThreshold, onLowThreshold, onQuiet } from '../../../../constants';
 import DeviceDoppler from '../../../Device/DeviceDoppler';
+import DeviceDopplerLegacy from '../../../Device/DeviceDopplerLegacy';
 import SelectScript from '../../SelectScript';
 import SelectDoppler from './SelectDoppler';
+
 
 
 class Container extends Component {
@@ -24,9 +28,13 @@ class Container extends Component {
     this.props.on(on, id);
   };
 
+  selectIndex = (index) => () => {
+    this.props.setIndex(index);
+  };
+
   render() {
     const {
-      id, project, payload = {}, daemon
+      id, project, payload = { n: 0 }, daemon
     } = this.props;
     return (
       <div className="paper">
@@ -34,9 +42,28 @@ class Container extends Component {
           <tr>
             <td><div className='paper'>doppler</div></td>
             <td><SelectDoppler action={id} payload={payload} project={project} root={project} /></td>
+            {
+              payload.n > 0 && (
+                <SimpleMenu handle={<Button>channel {payload.index || ''}</Button>}>
+                  {
+                    new Array(payload.n).fill(0).map((_, i) => (
+                      <MenuItem key={i} onClick={this.selectIndex(i + 1)}>{i + 1}</MenuItem>
+                    ))
+                  }
+                </SimpleMenu>
+              )
+            }
           </tr>
         </table>
-        <DeviceDoppler id={payload.id} daemon={daemon} />
+        {
+          payload.id && (
+            payload.n > 0 ? (
+              <DeviceDoppler id={payload.id} daemon={daemon} n={payload.n} selected={payload.index} />
+            ) : (
+              <DeviceDopplerLegacy id={payload.id} daemon={daemon} />
+            )
+          )
+        }
         <table>
           <tbody>
             <tr>
@@ -85,6 +112,7 @@ class Container extends Component {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id, payload }) => bindActionCreators({
+    setIndex: (index) => modify(id, { payload: { ...payload, index } }),
     setLow: (low) => modify(id, { payload: { ...payload, low } }),
     setHigh: (high) => modify(id, { payload: { ...payload, high } }),
     on: (on, script) => modify(id, { payload: { ...payload, [on]: script } })

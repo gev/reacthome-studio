@@ -23,24 +23,12 @@ import {
   DEVICE_TYPE_IR_4,
 } from '../../../constants';
 
-type Props = {
-  id: string,
-  root: string;
-  onSelect: (id: string) => void
-};
-
-type ChannelProps = {
-  id: string;
-  type: string,
-  index: ?number,
-  onSelect: (i: number) => void
-};
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Channel = c(({
   id, type, index, onSelect, size = 0
-}: ChannelProps) => {
+}) => {
   const a = [];
   const select = (i, t) => () => {
     onSelect(i, t);
@@ -106,16 +94,16 @@ const Channel = c(({
   );
 });
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {}
   componentWillMount() {
     const { id } = this.props;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev, index });
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;
-    const [dev,, index] = (id || '').split('/');
+    const [dev, , index] = (id || '').split('/');
     this.setState({ dev, index });
   }
   selectDev = (dev) => {
