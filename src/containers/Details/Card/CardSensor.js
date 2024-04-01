@@ -91,7 +91,7 @@ class Container extends Component {
         <table style={{ textAlign: 'left' }}>
           <tbody>
             {
-              hasTemperature || hasCO2 && <Row
+              hasTemperature && <Row
                 title="Temperature"
                 value={temperature}
                 magnitude="°C"
@@ -102,7 +102,7 @@ class Container extends Component {
               />
             }
             {
-              hasHumidity || hasCO2 &&
+              hasHumidity &&
               <Row
                 title="Humidity"
                 value={humidity}

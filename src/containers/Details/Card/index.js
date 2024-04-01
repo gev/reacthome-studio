@@ -128,23 +128,23 @@ const Container = (props) => {
       return <CardCamera {...props} />;
     case DEVICE_TYPE_SENSOR4:
     case DEVICE_TYPE_SMART_4G:
-      return <CardSensor {...props} button={4} hasDoppler />;
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity hasDoppler />;
     case DEVICE_TYPE_SMART_4GD:
-      return <CardSensor {...props} button={4} hasDoppler />;
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity hasDoppler />;
     case DEVICE_TYPE_SMART_4A:
-      return <CardSensor {...props} button={4} />;
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_4AM:
-      return <CardSensor {...props} button={4} />;
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_6_PUSH:
-      return <CardSensor {...props} button={6} />;
+      return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_TOP_A6P:
-      return <CardSensor {...props} button={6} />;
+      return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_TOP_G4D:
-      return <CardSensor {...props} button={4} />;
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_BOTTOM_1:
       return <CardSensor {...props} button={4} />;
     case DEVICE_TYPE_SMART_BOTTOM_2:
-      return <CardSensor {...props} button={4} hasCO2 />;
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity hasCO2 />;
     case DEVICE_TYPE_CO2:
       return <CardCO2 {...props} hasDoppler />;
     case DEVICE_TYPE_CLIMATE:
