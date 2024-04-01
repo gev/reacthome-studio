@@ -29,6 +29,9 @@ const list = (pool, id, type, a = [], f = []) => {
       if (Array.isArray(o.temperature_ext)) {
         o.temperature_ext.forEach(i => list(pool, i, type, a, f));
       }
+      if (o.top) {
+        list(pool, o.top, type, a, f);
+      }
     }
   }
   return a;

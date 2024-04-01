@@ -21,6 +21,10 @@ import {
   DEVICE_TYPE_SMART_4G,
   DEVICE_TYPE_SMART_4GD,
   DEVICE_TYPE_SMART_6_PUSH,
+  DEVICE_TYPE_SMART_BOTTOM_1,
+  DEVICE_TYPE_SMART_BOTTOM_2,
+  DEVICE_TYPE_SMART_TOP_A6P,
+  DEVICE_TYPE_SMART_TOP_G4D,
   DEVICE_TYPE_TEMPERATURE_EXT,
   DRIVER_TYPE_ALINK,
   DRIVER_TYPE_ARTNET,
@@ -64,7 +68,7 @@ import {
   VALVE_HEATING,
   VALVE_WATER,
   WARM_FLOOR,
-  ZIGBEE,
+  ZIGBEE
 } from '../../../constants';
 import CardAC from './CardAC';
 import CardAlink from './CardAlink';
@@ -124,17 +128,25 @@ const Container = (props) => {
       return <CardCamera {...props} />;
     case DEVICE_TYPE_SENSOR4:
     case DEVICE_TYPE_SMART_4G:
-      return <CardSensor {...props} button={4} led={4} hasDoppler />;
+      return <CardSensor {...props} button={4} hasDoppler />;
     case DEVICE_TYPE_SMART_4GD:
-      return <CardSensor {...props} button={4} led={4} hasDoppler hasDisplay />;
+      return <CardSensor {...props} button={4} hasDoppler />;
     case DEVICE_TYPE_SMART_4A:
-      return <CardSensor {...props} button={4} led={5} />;
+      return <CardSensor {...props} button={4} />;
     case DEVICE_TYPE_SMART_4AM:
-      return <CardSensor {...props} button={4} led={5} hasDoppler />;
+      return <CardSensor {...props} button={4} />;
     case DEVICE_TYPE_SMART_6_PUSH:
-      return <CardSensor {...props} button={6} led={6} hasDoppler />;
+      return <CardSensor {...props} button={6} />;
+    case DEVICE_TYPE_SMART_TOP_A6P:
+      return <CardSensor {...props} button={6} />;
+    case DEVICE_TYPE_SMART_TOP_G4D:
+      return <CardSensor {...props} button={4} />;
+    case DEVICE_TYPE_SMART_BOTTOM_1:
+      return <CardSensor {...props} button={4} />;
+    case DEVICE_TYPE_SMART_BOTTOM_2:
+      return <CardSensor {...props} button={4} hasCO2 />;
     case DEVICE_TYPE_CO2:
-      return <CardCO2 {...props} />;
+      return <CardCO2 {...props} hasDoppler />;
     case DEVICE_TYPE_CLIMATE:
       return <CardClimate {...props} />;
     case DEVICE_TYPE_TEMPERATURE_EXT:

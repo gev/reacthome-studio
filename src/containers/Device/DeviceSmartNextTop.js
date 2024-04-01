@@ -1,11 +1,15 @@
 
 import { Tab, TabBar } from '@rmwc/tabs';
+import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { modify } from '../../actions';
 import { DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D } from '../../constants';
 import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
+
 
 const Row = ({ title, value, magnitude }) => (
   <tr>
@@ -20,13 +24,17 @@ const Row = ({ title, value, magnitude }) => (
 
 class Container extends Component {
   state = { tabIndex: 0 };
+  change = (event) => {
+    const { value } = event.target;
+    this.props.change({ code: value });
+  }
   select = ({ detail: { index } }) => {
     this.setState({ tabIndex: index });
   }
   render() {
     const { tabIndex } = this.state;
     const {
-      id, temperature, humidity, daemon, type,
+      id, code, temperature, humidity, daemon, type,
     } = this.props;
     let button = 0, led = 0;
     switch (type) {
@@ -49,6 +57,9 @@ class Container extends Component {
       <Tab key="climate">Climate</Tab>,
     ];
     return type ? [
+      <td className="paper">
+        <TextField value={code || ''} onChange={this.change} placeholder="Code" />
+      </td>,
       <div key="tab">
         <TabBar activeTabIndex={tabIndex} onActivate={this.select}>{tabs}</TabBar>
       </div>,
@@ -79,5 +90,8 @@ class Container extends Component {
 }
 
 export default connect(
-  ({ pool }, { id, daemon }) => ({ ...pool[id], daemon })
+  ({ pool }, { id, daemon }) => ({ ...pool[id], daemon }),
+  (dispatch, { id }) => bindActionCreators({
+    change: (payload) => modify(id, payload),
+  }, dispatch)
 )(Container);

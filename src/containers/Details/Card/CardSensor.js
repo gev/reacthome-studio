@@ -71,8 +71,8 @@ class Container extends Component {
 
   render() {
     const {
-      id, code, project, daemon, temperature, removeField, humidity, illumination,
-      button, led, hasDoppler, hasDisplay, display
+      id, code, project, daemon, temperature, removeField, humidity, illumination, co2,
+      button, led, hasCO2, hasIllumination, hasHumidity, hasTemperature, hasDoppler, hasDisplay, display
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -90,33 +90,53 @@ class Container extends Component {
         {rgb(led)}
         <table style={{ textAlign: 'left' }}>
           <tbody>
-            <Row
-              title="Temperature"
-              value={temperature}
-              magnitude="°C"
-              script={this.props.onTemperature}
-              onSelect={this.select(onTemperature)}
-              onRemove={this.remove(onTemperature)}
-              project={project}
-            />
-            <Row
-              title="Humidity"
-              value={humidity}
-              magnitude="%"
-              script={this.props.onHumidity}
-              onSelect={this.select(onHumidity)}
-              onRemove={this.remove(onHumidity)}
-              project={project}
-            />
-            <Row
-              title="Illumination"
-              value={illumination}
-              magnitude="lux"
-              script={this.props.onIllumination}
-              onSelect={this.select(onIllumination)}
-              onRemove={this.remove(onIllumination)}
-              project={project}
-            />
+            {
+              hasTemperature || hasCO2 && <Row
+                title="Temperature"
+                value={temperature}
+                magnitude="°C"
+                script={this.props.onTemperature}
+                onSelect={this.select(onTemperature)}
+                onRemove={this.remove(onTemperature)}
+                project={project}
+              />
+            }
+            {
+              hasHumidity || hasCO2 &&
+              <Row
+                title="Humidity"
+                value={humidity}
+                magnitude="%"
+                script={this.props.onHumidity}
+                onSelect={this.select(onHumidity)}
+                onRemove={this.remove(onHumidity)}
+                project={project}
+              />
+            }
+            {
+              hasCO2 &&
+              <Row
+                title="CO2"
+                value={co2}
+                magnitude="ppm"
+                script={this.props.onIllumination}
+                onSelect={this.select(onIllumination)}
+                onRemove={this.remove(onIllumination)}
+                project={project}
+              />
+            }
+            {
+              hasIllumination &&
+              <Row
+                title="Illumination"
+                value={illumination}
+                magnitude="lux"
+                script={this.props.onIllumination}
+                onSelect={this.select(onIllumination)}
+                onRemove={this.remove(onIllumination)}
+                project={project}
+              />
+            }
           </tbody>
         </table>
         <TabBar
