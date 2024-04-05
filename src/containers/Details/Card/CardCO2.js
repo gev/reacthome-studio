@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import { modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
 import { CODE, onCO2, onDoppler, onHumidity, onTemperature } from '../../../constants';
+import DeviceDoppler from '../../Device/DeviceDoppler';
 import Autocomplete from '../../Filter';
 import SelectScript from '../SelectScript';
 

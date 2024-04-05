@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Slider from '../components/Slider';
 
+import TextField from '@rmwc/textfield';
 import { request } from '../actions';
 import { ACTION_IMAGE } from '../constants';
-import TextField from '@rmwc/textfield';
 
 const Segment = ({ image, index, width, height, onChange }) => {
   const setMask = 1 << index;
@@ -39,22 +39,22 @@ const Image = ({ image, onChange }) => (
         <td><HSegment image={image} index={0} onChange={onChange} /></td>
         <td />
       </tr>
-      <tr heigth={40}>
+      <tr height={40}>
         <td><VSegment image={image} index={1} onChange={onChange} /></td>
         <td />
         <td><VSegment image={image} index={2} onChange={onChange} /></td>
       </tr>
-      <tr heigth={10}>
+      <tr height={10}>
         <td />
         <td><HSegment image={image} index={3} onChange={onChange} /></td>
         <td />
       </tr>
-      <tr heigth={40}>
+      <tr height={40}>
         <td><VSegment image={image} index={4} onChange={onChange} /></td>
         <td />
         <td><VSegment image={image} index={5} onChange={onChange} /></td>
       </tr>
-      <tr heigth={10}>
+      <tr height={10}>
         <td />
         <td><HSegment image={image} index={6} onChange={onChange} /></td>
         <td />

@@ -9,7 +9,7 @@ import { modify } from '../../actions';
 import { DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D } from '../../constants';
 import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
-
+import DeviceSmartNextFaceG4D from './DeviceSmartNextFaceG4D';
 
 const Row = ({ title, value, magnitude }) => (
   <tr>
@@ -34,9 +34,14 @@ class Container extends Component {
   render() {
     const { tabIndex } = this.state;
     const {
-      id, code, temperature, humidity, daemon, type,
+      id, code, temperature, humidity, daemon, type
     } = this.props;
     let button = 0, led = 0;
+    const tabs = [
+      <Tab key="buttons">Buttons</Tab>,
+      <Tab key="leds">LEDs</Tab>,
+      <Tab key="climate">Climate</Tab>,
+    ];
     switch (type) {
       case DEVICE_TYPE_SMART_TOP_A6P:
         button = 6;
@@ -45,17 +50,13 @@ class Container extends Component {
       case DEVICE_TYPE_SMART_TOP_G4D:
         button = 4;
         led = 8;
+        tabs.push(<Tab key="face">Face</Tab>);
         break;
     }
     const rgb = [];
     for (let i = 1; i <= led; i++) {
       rgb.push(<RGB id={id} index={i} daemon={daemon} key={`${id}/rgb/${i}`} />);
     }
-    const tabs = [
-      <Tab key="buttons">Buttons</Tab>,
-      <Tab key="leds">LEDs</Tab>,
-      <Tab key="climate">Climate</Tab>,
-    ];
     return type ? [
       <td className="paper">
         <TextField value={code || ''} onChange={this.change} placeholder="Code" />
@@ -82,6 +83,11 @@ class Container extends Component {
                 <Row title="Humidity" value={humidity} magnitude="%" />
               </tbody>
             </table>
+          )
+        }
+        {
+          tabIndex === 3 && (
+            <DeviceSmartNextFaceG4D id={id} daemon={daemon} />
           )
         }
       </div>,

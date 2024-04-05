@@ -63,6 +63,10 @@ const config = {
           path.resolve('./node_modules/@material')
         ],
         use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.svg$/,
+        loader: 'file-loader'
       }]
   },
   plugins: [
