@@ -26,7 +26,7 @@ const Circle = ({ color = [[0, 0, 0], [0, 0, 0]] }) => (
 )
 
 const Rect = ({ className, color = [0, 0, 0], style }) => (
-  <div
+  <button
     className={className}
     style={{ backgroundColor: rgb(color), ...style }}
   />
@@ -74,9 +74,9 @@ const Power = ({ color = [0, 0, 0] }) => (
   />
 )
 
-const Mode = ({ color = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]] }) => (
+const Mode = ({ color = [] }) => (
   <div className={style.mode}>
-    {color.map((c, i) => (
+    {color.map((c = [0, 0, 0], i) => (
       <Rect
         key={`mode${i}`}
         className={style.indicator}
