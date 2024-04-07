@@ -1,21 +1,13 @@
 
-import React from 'react';
 import { ToolbarIcon, } from '@rmwc/toolbar';
+import React from 'react';
 import { PARENT, SITE } from '../../constants';
+import Card from './Card';
 import DetailSection from './DetailSection';
 import AbstractDetails from './DetailsAbstract';
-import Card from './Card';
 
-type Props = {
-  id: string;
-  project: string;
-  daemon: string;
-  field: string;
-  bind: string;
-  create: (field: string, type: string) => void
-};
 
-const Details = (props: Props) => {
+const Details = (props) => {
   const {
     project, id, field, create, bind, daemon
   } = props;
