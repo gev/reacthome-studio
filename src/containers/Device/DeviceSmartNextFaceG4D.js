@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../actions';
-import style from './DeviceSmartNextFaceG4D.css';
+import Slider from '../../components/Slider';
+import styles from './DeviceSmartNextFaceG4D.css';
 
 const scale = (a, min = 50, max = 240) => min + (max - min) * a / 255;
 
@@ -20,28 +21,35 @@ const compose = ([ar, ag, ab], am, [r, g, b], m) => {
 
 const Circle = ({ color = [[0, 0, 0], [0, 0, 0]] }) => (
   <div
-    className={style.circle}
+    className={styles.circle}
     style={{ background: `linear-gradient(to right, ${rgb(color[0])}, ${rgb(color[1])})` }}
   />
 )
 
-const Rect = ({ className, color = [0, 0, 0], style }) => (
-  <button
-    className={className}
-    style={{ backgroundColor: rgb(color), ...style }}
-  />
-)
+class Rect extends Component {
+  render() {
+    const { className, color = [0, 0, 0], style } = this.props;
+    return (
+      <div style={style} >
+        <button
+          className={className}
+          style={{ backgroundColor: rgb(color) }}
+        />
+      </div>
+    )
+  }
+}
 
 const Button = ({ left = [0, 0, 0], right = [0, 0, 0] }) => {
   return (
-    <div className={style.button}>
+    <div className={styles.button}>
       <Rect
-        className={style.rectV}
+        className={styles.rectV}
         color={left}
       />
       <Circle color={[left, right]} />
       <Rect
-        className={style.rectV}
+        className={styles.rectV}
         color={right}
       />
     </div>
@@ -50,17 +58,17 @@ const Button = ({ left = [0, 0, 0], right = [0, 0, 0] }) => {
 
 const Intensity = ({ top = [0, 0, 0], bottom = [0, 0, 0] }) => {
   return (
-    <div className={style.intensity}>
+    <div className={styles.intensity}>
       <Rect
-        className={style.rectH1}
+        className={styles.rectH1}
         color={top}
       />
       <Rect
-        className={style.rectH2}
+        className={styles.rectH2}
         color={compose(top, 1, bottom, 1)}
       />
       <Rect
-        className={style.rectH3}
+        className={styles.rectH3}
         color={bottom}
       />
     </div>
@@ -69,17 +77,17 @@ const Intensity = ({ top = [0, 0, 0], bottom = [0, 0, 0] }) => {
 
 const Power = ({ color = [0, 0, 0] }) => (
   <Rect
-    className={style.indicator}
+    className={styles.indicator}
     color={color}
   />
 )
 
 const Mode = ({ color = [] }) => (
-  <div className={style.mode}>
+  <div className={styles.mode}>
     {color.map((c = [0, 0, 0], i) => (
       <Rect
         key={`mode${i}`}
-        className={style.indicator}
+        className={styles.indicator}
         color={c}
         style={{ gridColumn: (i & 1) + 1, gridRow: (i >> 1) + 1 }}
       />
@@ -93,7 +101,7 @@ const Display = ({ leftTop = [0, 0, 0], leftBottom = [0, 0, 0], rightTop = [0, 0
     const top = compose(leftTop, 13 - i, rightTop, i);
     const bottom = compose(leftBottom, 13 - i, rightBottom, i);
     for (let j = 0; j < 5; j++) {
-      let className = style.pixel;
+      let className = styles.pixel;
       if (i === 0 && j !== 2) continue;
       if (i === 2) continue;
       if (i === 4 && j === 1) continue;
@@ -103,7 +111,7 @@ const Display = ({ leftTop = [0, 0, 0], leftBottom = [0, 0, 0], rightTop = [0, 0
       if (i === 8 && j === 3) continue;
       if (i === 10) {
         if (j !== 4) continue;
-        className = style.pixel_;
+        className = styles.pixel_;
       }
       if (i === 12 && j === 1) continue;
       if (i === 12 && j === 3) continue;
@@ -119,26 +127,26 @@ const Display = ({ leftTop = [0, 0, 0], leftBottom = [0, 0, 0], rightTop = [0, 0
   }
   return (
     <div>
-      <div className={style.middle}>
+      <div className={styles.middle}>
         <Rect
-          className={style.rectH}
+          className={styles.rectH}
           color={leftTop}
         />
         <Rect
-          className={style.rectH}
+          className={styles.rectH}
           color={rightTop}
         />
       </div>
-      <div className={style.display}>
+      <div className={styles.display}>
         {pixels}
       </div>
-      <div className={style.middle}>
+      <div className={styles.middle}>
         <Rect
-          className={style.rectH}
+          className={styles.rectH}
           color={leftBottom}
         />
         <Rect
-          className={style.rectH}
+          className={styles.rectH}
           color={rightBottom}
         />
       </div>
@@ -151,25 +159,36 @@ class Container extends Component {
   render() {
     return (
       <div className='paper'>
-        <div className={style.top}>
+        <div className={styles.top}>
           <Button left={[255, 0, 0]} right={[0, 0, 255]} />
           <Button left={[0, 0, 255]} right={[255, 0, 0]} />
         </div>
-        <div className={style.middle}>
-          <div className={style.left}>
+        <div className={styles.middle}>
+          <div className={styles.left}>
             <Intensity top={[255, 0, 0]} bottom={[0, 255, 0]} />
             <Power color={[255, 128, 0]} />
           </div>
           <Display leftTop={[255, 255, 0]} leftBottom={[255, 0, 0]} rightTop={[0, 255, 0]} rightBottom={[0, 0, 255]} />
-          <div className={style.right}>
+          <div className={styles.right}>
             <Mode color={[[255, 128, 0], [128, 255, 0], [0, 128, 255], [255, 0, 128], [0, 255, 128], [128, 0, 255]]} />
           </div>
         </div>
-        <div className={style.bottom}>
+        <div className={styles.bottom}>
           <Button left={[255, 0, 0]} right={[0, 0, 255]} />
           <Button left={[0, 0, 255]} right={[255, 0, 0]} />
         </div>
-      </div >
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                <td><div className="paper"><Slider label="r" min={0} max={255} step={1} discrete color="red" /></div></td>
+                <td><div className="paper"><Slider label="g" min={0} max={255} step={1} discrete color="green" /></div></td>
+                <td><div className="paper"><Slider label="b" min={0} max={255} step={1} discrete color="blue" /></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
 }

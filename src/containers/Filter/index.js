@@ -6,16 +6,16 @@ import TextField from './TextField';
 import Filter from './Filter';
 
 export default class extends Component {
-  state = { text: '', debonced: '' };
+  state = { text: '', debounced: '' };
 
-  debonced = debounce(debonced => {
-    this.setState({ debonced, open: true });
+  debounced = debounce(debounced => {
+    this.setState({ debounced, open: true });
   }, 250)
 
   input = (event) => {
     const text = event.target.value;
     this.setState({ text });
-    this.debonced(text)
+    this.debounced(text)
   }
 
   open = () => {
@@ -33,7 +33,7 @@ export default class extends Component {
   }
 
   render() {
-    const { text, open, debonced } = this.state;
+    const { text, open, debounced } = this.state;
     const { id, root, type } = this.props;
     return (
       <div onFocusCapture={this.open} onBlurCapture={this.close}>
@@ -51,7 +51,7 @@ export default class extends Component {
               zIndex: '9999',
             }}>
               <List twoLine>
-                <Filter id={root} type={type} text={debonced} onSelect={this.select} />
+                <Filter id={root} type={type} text={debounced} onSelect={this.select} />
               </List>
             </div>
           )
