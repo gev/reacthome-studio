@@ -1,0 +1,106 @@
+.top,
+.bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.middle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.intensity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.display {
+  display: grid;
+}
+
+.rectV {
+  width: 16px;
+  height: 32px;
+}
+
+.rectH {
+  width: 32px;
+  height: 16px;
+}
+
+.rectH1 {
+  width: 32px;
+  height: 16px;
+}
+
+.rectH2 {
+  width: 24px;
+  height: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.rectH3 {
+  width: 16px;
+  height: 16px;
+}
+
+.circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.pixel,
+.pixel_ {
+  width: 16px;
+  height: 16px;
+}
+
+.pixel_ {
+  transform: translate(0, 8px);
+}
+
+.indicator {
+  width: 32px;
+  height: 32px;
+}
+
+.mode,
+.display {
+  display: grid;
+  gap: 8px;
+}
+
+.display {
+  grid-template-columns: repeat(14, 16px);
+  padding-left: 24px;
+  padding-right: 24px;
+}
