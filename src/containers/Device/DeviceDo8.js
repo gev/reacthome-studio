@@ -2,18 +2,7 @@
 import React, { Component } from 'react';
 import Do from './DeviceDoChannel';
 
-type Props = {
-  id: string;
-  daemon: string;
-};
-
-type RowProps = {
-  id: string;
-  daemon: string;
-  index: number;
-};
-
-const Row = ({ id, daemon, index } : RowProps) => (
+const Row = ({ id, daemon, index }) => (
   <tr>
     <td className="paper"><Do id={id} daemon={daemon} index={index + 0} /></td>
     <td className="paper"><Do id={id} daemon={daemon} index={index + 1} /></td>
@@ -22,7 +11,7 @@ const Row = ({ id, daemon, index } : RowProps) => (
   </tr>
 );
 
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { id, daemon } = this.props;
     return (

@@ -2,13 +2,8 @@
 import React, { Component } from 'react';
 import RS485Channel from './DeviceRS485Channel';
 
-type Props = {
-  id: string;
-  n: number;
-  daemon: string;
-};
 
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     return (
       <table>

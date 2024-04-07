@@ -7,13 +7,8 @@ import { modify } from '../../../actions';
 import { onStart } from '../../../constants';
 import SelectScript from '../SelectScript';
 
-type Props = {
-  id: string,
-  onStart: ?string;
-  change: (payload: {}) => void,
-};
 
-class Container extends Component<Props> {
+class Container extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -43,7 +38,7 @@ class Container extends Component<Props> {
             <td>
               {
                 this.props.onStart &&
-                  <Typography use="caption" onClick={this.remove}><strong> X </strong></Typography>
+                <Typography use="caption" onClick={this.remove}><strong> X </strong></Typography>
               }
             </td>
           </tr>

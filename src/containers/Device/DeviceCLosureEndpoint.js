@@ -4,14 +4,7 @@ import { Button } from '@rmwc/button';
 import { ENDPOINT, STOP, OPEN, CLOSE, CLOSURE } from '../../constants';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  value: ?boolean;
-  request: (action: {}) => void;
-};
-
-export default connect(ENDPOINT)((props: Props) => {
+export default connect(ENDPOINT)((props) => {
   const {
     id, index, request
   } = props;

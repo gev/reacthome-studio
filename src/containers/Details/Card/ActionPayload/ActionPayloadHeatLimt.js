@@ -1,28 +1,21 @@
 
+import { TextField } from '@rmwc/textfield';
+import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { TextField } from '@rmwc/textfield';
-import { Typography } from '@rmwc/typography';
 import { modify } from '../../../../actions';
-import SelectScript from '../../SelectScript';
 import {
   HYSTERESIS,
   START_HEAT,
   STOP_HEAT,
   onStartHeat,
-  onStopHeat } from '../../../../constants';
+  onStopHeat
+} from '../../../../constants';
+import SelectScript from '../../SelectScript';
 import SelectHeater from './SelectHeater';
 
-type Props = {
-  id: string;
-  project: string;
-  payload: ?{};
-  set: (key: string, value: number) => void;
-  on: (on: string, id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   set = (key) => (event) => {
     this.props.set(key, event.target.value);
   };

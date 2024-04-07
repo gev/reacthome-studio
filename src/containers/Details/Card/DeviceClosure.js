@@ -4,12 +4,7 @@ import ClosureEndpoint from '../../Device/DeviceCLosureEndpoint';
 import ClosureGroup from '../../Device/DeviceCLosureGroup';
 import { ENDPOINT, GROUP } from '../../../constants';
 
-type Props = {
-  id: string;
-  daemon: string;
-};
-
-export default ({ id, daemon }: Props) => {
+export default ({ id, daemon }) => {
   const [dev, type, index] = id.split('/');
   return (
     <div className="paper">

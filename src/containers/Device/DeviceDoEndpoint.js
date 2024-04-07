@@ -1,17 +1,10 @@
 
-import React from 'react';
 import { Switch } from '@rmwc/switch';
-import { ENDPOINT, ACTION_DO } from '../../constants';
+import React from 'react';
+import { ACTION_DO, ENDPOINT } from '../../constants';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  value: ?boolean;
-  request: (action: {}) => void;
-};
-
-export default connect(ENDPOINT)((props: Props) => {
+export default connect(ENDPOINT)((props) => {
   const {
     id, index, value, request
   } = props;

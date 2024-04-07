@@ -1,16 +1,10 @@
 
-import React, { Component } from 'react';
 import { TextField } from '@rmwc/textfield';
+import React, { Component } from 'react';
 import { TITLE } from '../../../../constants';
 import Autocomplete from '../../../Filter';
 
-type Props = {
-  root: ?string;
-  payload: ?{};
-  change: (id: string) => void;
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   change = ({ target: { id, value } }) => {
     const { payload } = this.props;
     this.props.change({ payload: { ...payload, payload: { [id]: value } } });

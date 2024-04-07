@@ -18,18 +18,11 @@ import {
   onStartCool,
   onStopCool,
   onStartHeat,
-  onStopHeat } from '../../../../constants';
+  onStopHeat
+} from '../../../../constants';
 import SelectThermostat from './SelectThermostat';
 
-type Props = {
-  id: string;
-  project: string;
-  payload: ?{};
-  set: (key: string, value: number) => void;
-  on: (on: string, id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   set = (key) => (event) => {
     this.props.set(key, event.target.value);
   };

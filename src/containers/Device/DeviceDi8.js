@@ -2,11 +2,7 @@
 import React, { Component } from 'react';
 import Di from './DeviceDiChannel';
 
-type Props = {
-  id: string;
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { id } = this.props;
     return [

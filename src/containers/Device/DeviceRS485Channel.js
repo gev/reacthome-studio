@@ -1,28 +1,19 @@
 /* eslint-disable camelcase */
 
-import React from 'react';
-import { Typography } from '@rmwc/typography';
-import { Checkbox } from '@rmwc/checkbox';
 import { Button } from '@rmwc/button';
-import { SimpleMenu, MenuItem } from '@rmwc/menu';
+import { Checkbox } from '@rmwc/checkbox';
+import { MenuItem, SimpleMenu } from '@rmwc/menu';
 import { TextField } from '@rmwc/textfield';
+import { Typography } from '@rmwc/typography';
+import React from 'react';
 import {
-  RS485,
   ACTION_RS485_MODE,
+  RS485,
   RS485_LINE_CONTROLS
 } from '../../constants';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  is_rbus: Boolean;
-  baud: number;
-  line_control: number;
-  request: (action: {}) => void;
-};
-
-export default connect(RS485)((props: Props) => {
+export default connect(RS485)((props) => {
   const setLineControl = (line_control) => () => {
     props.request({
       ...props, type: ACTION_RS485_MODE, line_control

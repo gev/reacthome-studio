@@ -3,16 +3,8 @@ import Typography from '@rmwc/typography';
 import React, { Component } from 'react';
 import { DISPLAY, THERMOSTAT } from '../../../../constants';
 import Autocomplete from '../../../Filter';
-import Setpoint from './Setpoint';
 
-type Props = {
-  id: string;
-  root: string;
-  payload: ?{};
-  change: (id: string) => void;
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   select = (type) => (id) => {
     const { change, payload } = this.props;
     change({ payload: { ...payload, [type]: id } });

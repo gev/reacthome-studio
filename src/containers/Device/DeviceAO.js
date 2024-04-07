@@ -2,13 +2,7 @@
 import React, { Component } from 'react';
 import Row from './DeviceAOChannel';
 
-type Props = {
-  id: string;
-  n: number;
-  daemon: string;
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { n = 4 } = this.props;
     return (

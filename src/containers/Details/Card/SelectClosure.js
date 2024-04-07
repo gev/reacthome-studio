@@ -1,57 +1,31 @@
 
+import { Button } from '@rmwc/button';
+import { SimpleMenu } from '@rmwc/menu';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SimpleMenu } from '@rmwc/menu';
-import { Button } from '@rmwc/button';
-import MenuItem from './MenuItem';
-import Autocomplete from '../../Filter';
 import {
-  DO,
-  DEVICE_TYPE_PLC,
-  DEVICE_TYPE_DO8,
-  DEVICE_TYPE_DO12,
-  DEVICE_TYPE_DIM4,
-  DEVICE_TYPE_DIM_4,
-  DEVICE_TYPE_DIM8_LEGACY,
-  DIM,
-  ARTNET,
-  DRIVER_TYPE_ARTNET,
-  DRIVER_TYPE_BB_PLC1,
-  DRIVER_TYPE_BB_PLC2,
-  DEVICE_TYPE_DIM_8,
-  DEVICE_TYPE_RELAY_2,
-  DEVICE_TYPE_RELAY_6,
-  DEVICE_TYPE_RELAY_12,
-  DEVICE_TYPE_RELAY_24,
-  ENDPOINT,
-  GROUP,
   DEVICE_TYPE_MIX_1,
-  DEVICE_TYPE_RELAY_2_DIN,
-  DEVICE_TYPE_MIX_2,
   DEVICE_TYPE_MIX_1_RS,
-  DEVICE_TYPE_RELAY_12_RS,
+  DEVICE_TYPE_MIX_2,
   DEVICE_TYPE_MIX_6x12_RS,
+  DEVICE_TYPE_RELAY_12,
+  DEVICE_TYPE_RELAY_12_RS,
+  DEVICE_TYPE_RELAY_2,
+  DEVICE_TYPE_RELAY_2_DIN,
+  DEVICE_TYPE_RELAY_6,
+  ENDPOINT,
+  GROUP
 } from '../../../constants';
+import Autocomplete from '../../Filter';
+import MenuItem from './MenuItem';
 
-type Props = {
-  id: string,
-  root: string;
-  onSelect: (id: string) => void
-};
 
-type DoProps = {
-  id: string;
-  type: string,
-  index: ?number,
-  size: ?number,
-  onSelect: (i: number) => void
-};
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c(({
   id, type, endpoint, index, onSelect, version = '', size = 0
-}: DoProps) => {
+}) => {
   const a = [];
   const select = (i, t) => () => {
     onSelect(i, t);
@@ -101,7 +75,7 @@ const Do = c(({
   );
 });
 
-class Container extends Component<Props> {
+class Container extends Component {
   state = {}
   componentWillMount() {
     const { id } = this.props;

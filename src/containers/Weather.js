@@ -7,15 +7,7 @@ import { modify } from '../actions';
 import { SUNRISE, SUNSET, onSunrise, onSunset } from '../constants';
 import SelectScript from './Details/SelectScript';
 
-type Props = {
-  id: string;
-  weather: ?{};
-  onSunrise: ?string;
-  onSunset: ?string;
-  modify: (payload: {}) => void;
-}
-
-class Container extends Component<Props> {
+class Container extends Component {
   on = (action) => (script) => {
     this.props.modify({ [action]: script });
   }
@@ -46,7 +38,7 @@ class Container extends Component<Props> {
                 <td>
                   {
                     this.props.onSunrise &&
-                      <Typography use="caption" onClick={this.clear(onSunrise)}><strong> X </strong></Typography>
+                    <Typography use="caption" onClick={this.clear(onSunrise)}><strong> X </strong></Typography>
                   }
                 </td>
               </tr>
@@ -63,7 +55,7 @@ class Container extends Component<Props> {
                 <td>
                   {
                     this.props.onSunset &&
-                      <Typography use="caption" onClick={this.clear(onSunset)}><strong> X </strong></Typography>
+                    <Typography use="caption" onClick={this.clear(onSunset)}><strong> X </strong></Typography>
                   }
                 </td>
               </tr>

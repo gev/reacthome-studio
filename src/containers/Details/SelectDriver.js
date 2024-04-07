@@ -1,20 +1,14 @@
 
-import { v4 } from 'uuid';
+import { MenuItem, SimpleMenu } from '@rmwc/menu';
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { SimpleMenu, MenuItem } from '@rmwc/menu';
-import { set, add } from '../../actions';
+import { bindActionCreators } from 'redux';
+import { v4 } from 'uuid';
+import { add, set } from '../../actions';
 import { DRIVER, DRIVER_TYPES } from '../../constants';
 
-type Props = {
-  id: String,
-  handle: Component,
-  add: () => void,
-  set: () => void
-};
 
-class Container extends Component<Props> {
+class Container extends Component {
   select = (type) => () => {
     const id = v4();
     this.props.set(id, { type });
@@ -36,6 +30,6 @@ class Container extends Component<Props> {
 }
 
 export default connect(
-  () => {},
+  () => { },
   (dispatch) => bindActionCreators({ set, add }, dispatch)
 )(Container);

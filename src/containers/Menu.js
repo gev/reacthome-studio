@@ -8,13 +8,8 @@ import {
   ListItemText,
 } from '@rmwc/list';
 
-type Props = {
-  project: string,
-  open: ?boolean,
-  onClose: () => void
-};
 
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { project, open, onClose } = this.props;
     return (

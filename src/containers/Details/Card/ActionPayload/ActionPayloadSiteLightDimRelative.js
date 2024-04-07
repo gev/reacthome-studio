@@ -7,15 +7,7 @@ import { modify } from '../../../../actions';
 import SelectSite from './SelectSite';
 import SelectOperator from './SelectOperator';
 
-type Props = {
-  id: string;
-  site: string;
-  payload: ?{};
-  setOperator: (id: string) => void;
-  setValue: (value: number) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   onInput = (event) => {
     this.props.setValue(Number(event.target.value));
   };

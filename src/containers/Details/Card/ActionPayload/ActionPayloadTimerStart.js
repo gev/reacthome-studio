@@ -1,20 +1,13 @@
 
+import { TextField } from '@rmwc/textfield';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { TextField } from '@rmwc/textfield';
-import SelectTimer from './SelectTimer';
-import SelectScript from './SelectScript';
 import { modify } from '../../../../actions';
+import SelectScript from './SelectScript';
+import SelectTimer from './SelectTimer';
 
-type Props = {
-  id: string;
-  project: string;
-  payload: ?{};
-  modify: (time: number) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   onInput = (event) => {
     this.props.modify(Number(parseInt(event.target.value, 10)));
   };

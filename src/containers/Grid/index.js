@@ -1,21 +1,12 @@
 
-import React, { Component } from 'react';
 import { Typography } from '@rmwc/typography';
+import React, { Component } from 'react';
+import GridBody from './GridBody';
 import GridHeaderColumn from './GridHeaderColumn';
 import GridHeaderRow from './GridHeaderRow';
-import GridBody from './GridBody';
 import styles from './grid.css';
 
-type Props = {
-  project: string
-};
-
-type State = {
-  site: ?string,
-  field: ?string
-};
-
-export default class extends Component<Props, State> {
+export default class extends Component {
   state = {};
 
   onSelect = (site, field) => () => {

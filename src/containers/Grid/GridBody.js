@@ -5,15 +5,8 @@ import { MODEL_TYPE } from '../../constants';
 import GridCell from './GridCell';
 import styles from './grid.css';
 
-type Props = {
-  id: string,
-  site: ?[],
-  project: string,
-  level: ?number,
-  onSelect: (site: string, field: string) => void
-};
 
-class GridBody extends Component<Props> {
+class GridBody extends Component {
   render() {
     const {
       id, site, project, level = 0, onSelect

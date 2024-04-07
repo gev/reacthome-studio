@@ -3,14 +3,7 @@ import React, { Component } from 'react';
 import Autocomplete from '../../../Filter';
 import Dimmer from './Dimmer';
 
-type Props = {
-  id: string;
-  root: string;
-  payload: ?{};
-  change: (id: string) => void;
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   select = (id) => {
     const { change, payload } = this.props;
     change({ payload: { ...payload, id } });

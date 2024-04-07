@@ -3,18 +3,7 @@ import React, { Component } from 'react';
 import Group from './DeviceDoGroup_2';
 import RS485Channel from './DeviceRS485Channel';
 
-type Props = {
-  id: string;
-  daemon: string;
-};
-
-type RowProps = {
-  id: string;
-  daemon: string;
-  index: number;
-};
-
-const Row = ({ id, daemon, index } : RowProps) => (
+const Row = ({ id, daemon, index }) => (
   <tr>
     <td>
       <Group id={id} daemon={daemon} index={index} />
@@ -22,7 +11,7 @@ const Row = ({ id, daemon, index } : RowProps) => (
   </tr>
 );
 
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { id, daemon } = this.props;
     return ([

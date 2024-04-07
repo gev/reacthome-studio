@@ -2,13 +2,8 @@
 import React, { Component } from 'react';
 import { GoogleMap, Marker } from 'react-google-maps';
 
-type Props = {
-  zoom: ?number;
-  location: ?{};
-  modify: (payload: {}) => void;
-}
 
-export default class extends Component<Props> {
+export default class extends Component {
   state = {};
 
   componentWillMount() {

@@ -1,17 +1,10 @@
 
-import React from 'react';
 import { Button } from '@rmwc/button';
-import { STOP, OPEN, CLOSE, CLOSURE, GROUP, ACTION_OPEN, ACTION_STOP, ACTION_CLOSE, ACTION_DO } from '../../constants';
+import React from 'react';
+import { ACTION_CLOSE, ACTION_DO, ACTION_OPEN, ACTION_STOP, GROUP } from '../../constants';
 import connect from './connect';
 
-type Props = {
-  id: string;
-  index: number;
-  value: ?boolean;
-  request: (action: {}) => void;
-};
-
-export default connect(GROUP)((props: Props) => {
+export default connect(GROUP)((props) => {
   const {
     id, index, request
   } = props;

@@ -1,15 +1,7 @@
 
 import { Component } from 'react';
 
-type Props = {
-  change: (payload: {}) => void,
-  create: (field: string, type: ?string, ref: ?string) => void,
-  add: (field: string, subj: string) => void,
-  addBind: (field: string, subj: string, bind: ?string) => void,
-  remove: (subj: string, field: string, obj: string) => void
-};
-
-export default class extends Component<Props> {
+export default class extends Component {
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;

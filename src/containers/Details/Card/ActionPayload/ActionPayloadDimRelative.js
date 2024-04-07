@@ -1,21 +1,13 @@
 
+import { TextField } from '@rmwc/textfield';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { TextField } from '@rmwc/textfield';
 import { modify } from '../../../../actions';
 import Autocomplete from '../../../Filter';
 import SelectOperator from './SelectOperator';
 
-type Props = {
-  root: string;
-  payload: ?{};
-  setOperator: (id: string) => void;
-  setValue: (value: number) => void;
-  select: (id: string) => void;
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   onInput = (event) => {
     this.props.setValue(Number(event.target.value));
   };
@@ -52,4 +44,3 @@ export default connect(
     select: (target) => modify(id, { payload: { ...payload, id: target } })
   }, dispatch)
 )(Container);
-

@@ -3,23 +3,7 @@ import React, { Component } from 'react';
 import Di from './DeviceDiChannel';
 import Do from './DeviceDoChannel';
 
-type Props = {
-  id: string;
-  daemon: string;
-};
-
-type RowDiProps = {
-  id: string;
-  index: number;
-};
-
-type RowDoProps = {
-  id: string;
-  index: number;
-  daemon: string;
-};
-
-const RowDi = ({ id, index } : RowDiProps) => (
+const RowDi = ({ id, index }) => (
   <tr>
     <td className="paper"><Di id={id} index={index + 0} /></td>
     <td className="paper"><Di id={id} index={index + 1} /></td>
@@ -30,7 +14,7 @@ const RowDi = ({ id, index } : RowDiProps) => (
   </tr>
 );
 
-const RowDo = ({ id, daemon, index } : RowDoProps) => (
+const RowDo = ({ id, daemon, index }) => (
   <tr>
     <td className="paper"><Do id={id} daemon={daemon} index={index + 0} /></td>
     <td className="paper"><Do id={id} daemon={daemon} index={index + 1} /></td>
@@ -41,7 +25,7 @@ const RowDo = ({ id, daemon, index } : RowDoProps) => (
   </tr>
 );
 
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { id, daemon } = this.props;
     return [

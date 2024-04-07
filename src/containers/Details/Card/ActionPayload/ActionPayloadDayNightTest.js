@@ -1,16 +1,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { onFalse, onTrue } from '../../../../constants';
 import SelectScript from './SelectScript';
-import { onTrue, onFalse } from '../../../../constants';
 
-type Props = {
-  id: string;
-  project: string;
-  payload: ?{};
-};
-
-class Container extends Component<Props> {
+class Container extends Component {
   render() {
     const {
       id, project, payload = {}

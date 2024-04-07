@@ -2,16 +2,7 @@
 import React, { Component } from 'react';
 import Di from './DeviceDiChannel';
 
-type Props = {
-  id: string;
-};
-
-type RowProps = {
-  id: string;
-  index: number;
-};
-
-const Row = ({ id, index } : RowProps) => (
+const Row = ({ id, index }) => (
   <tr>
     <td className="paper"><Di id={id} index={index + 0} /></td>
     <td className="paper"><Di id={id} index={index + 1} /></td>
@@ -24,7 +15,7 @@ const Row = ({ id, index } : RowProps) => (
   </tr>
 );
 
-export default class extends Component<Props> {
+export default class extends Component {
   render() {
     const { id } = this.props;
     return (
@@ -38,4 +29,3 @@ export default class extends Component<Props> {
     );
   }
 }
-
