@@ -2,9 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button } from '@rmwc/button';
 import { SCRIPT } from '../../constants';
-import SelectMenu from './SelectMenu';
 import Autocomplete from '../Filter';
 
 class Container extends Component {
@@ -14,16 +12,18 @@ class Container extends Component {
     } = this.props;
     return (
       <table>
-        <tr>
-          <td>
-            <Autocomplete id={id} root={project} onSelect={onSelect} type={SCRIPT} />
-          </td>
-          {id && (
+        <tbody>
+          <tr>
             <td>
-              <Link to={`/project/${project}/${id}`}>...</Link>  
+              <Autocomplete id={id} root={project} onSelect={onSelect} type={SCRIPT} />
             </td>
-          )}
-        </tr>
+            {id && (
+              <td>
+                <Link to={`/project/${project}/${id}`}>...</Link>
+              </td>
+            )}
+          </tr>
+        </tbody>
       </table>
     );
   }

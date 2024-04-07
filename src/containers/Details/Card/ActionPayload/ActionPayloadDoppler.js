@@ -39,21 +39,23 @@ class Container extends Component {
     return (
       <div className="paper">
         <table>
-          <tr>
-            <td><div className='paper'>doppler</div></td>
-            <td><SelectDoppler action={id} payload={payload} project={project} root={project} /></td>
-            {
-              payload.n > 0 && (
-                <SimpleMenu handle={<Button>channel {payload.index || ''}</Button>}>
-                  {
-                    new Array(payload.n).fill(0).map((_, i) => (
-                      <MenuItem key={i} onClick={this.selectIndex(i + 1)}>{i + 1}</MenuItem>
-                    ))
-                  }
-                </SimpleMenu>
-              )
-            }
-          </tr>
+          <tbody>
+            <tr>
+              <td><div className='paper'>doppler</div></td>
+              <td><SelectDoppler action={id} payload={payload} project={project} root={project} /></td>
+              {
+                payload.n > 0 && (
+                  <SimpleMenu handle={<Button>channel {payload.index || ''}</Button>}>
+                    {
+                      new Array(payload.n).fill(0).map((_, i) => (
+                        <MenuItem key={i} onClick={this.selectIndex(i + 1)}>{i + 1}</MenuItem>
+                      ))
+                    }
+                  </SimpleMenu>
+                )
+              }
+            </tr>
+          </tbody>
         </table>
         {
           payload.id && (
