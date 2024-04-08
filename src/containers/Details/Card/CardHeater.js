@@ -120,12 +120,12 @@ class Container extends Component {
           <table>
             <tbody>
               <tr>
-                <td>
+                <td width="50%">
                   <div className="paper">
                     <Slider label="setpoint min" value={min || 20} min={15} max={60} step={1} onInput={this.setmin} discrete />
                   </div>
                 </td>
-                <td>
+                <td width="50%">
                   <div className="paper">
                     <Slider label="setpoint max" value={max || 30} min={15} max={60} step={1} onInput={this.setmax} discrete />
                   </div>
