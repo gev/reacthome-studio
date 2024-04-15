@@ -352,7 +352,7 @@ class Container extends Component {
   }
 
   onToggle = (index) => {
-    const { daemon, id, image = [], request } = this.props;
+    const { daemon, id, image = [0, 0, 0, 0, 0, 0, 0, 0], request } = this.props;
     const value = [...image];
     const i = (index - 1) >> 3;
     const j = (index - 1) % 8;
