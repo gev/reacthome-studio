@@ -1,10 +1,11 @@
 
+import { Switch } from '@rmwc/switch';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify, request } from '../../actions';
 import Slider from '../../components/Slider';
-import { ACTION_RGB_DIM } from '../../constants';
+import { ACTION_DIMMER, ACTION_DO, ACTION_GRADIENT, ACTION_IMAGE, ACTION_RGB_DIM, ACTION_VIBRO } from '../../constants';
 import styles from './DeviceSmartNextFaceG4D.css';
 
 function rgbToHsl(r, g, b) {
@@ -53,31 +54,40 @@ function hslToRgb(h, s, l) {
   return [r * 255, g * 255, b * 255];
 }
 
-const rgb = ({ r = 0, g = 0, b = 0 } = {}) => {
+const rgb = ({ r = 0, g = 0, b = 0 } = {}, opacity = 1) => {
   const [h, s, l] = rgbToHsl(r, g, b);
   const [r1, g1, b1] = hslToRgb(h, s, l * 0.6 + 0.35);
-  return r === 0 && g === 0 && b === 0 ? 'black' : `rgb(${r1} ${g1} ${b1})`;
+  return r === 0 && g === 0 && b === 0 ? `rgb(0 0 0 / ${opacity})` : `rgb(${r1} ${g1} ${b1} / ${opacity})`;
 }
 
+const iterate = (callback) => {
+  let index = 19;
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < 14; j++) {
+      if (j === 0 && i !== 2) continue;
+      if (j === 2) continue;
+      if (j === 4 && i === 1) continue;
+      if (j === 4 && i === 3) continue;
+      if (j === 6) continue;
+      if (j === 8 && i === 1) continue;
+      if (j === 8 && i === 3) continue;
+      if (j === 10 && i !== 4) continue;
+      if (j === 12 && i === 1) continue;
+      if (j === 12 && i === 3) continue;
+      callback(index, i, j);
+      index++;
+    }
+  }
+}
 
-const compose = (ac, am = 1, bc, bm = 1) => {
-  const s = am + bm;
-  const blend = (a = 0, b = 0) => Math.floor((a * am + b * bm) / s);
-  return ({
-    r: blend(ac.r, bc.r),
-    g: blend(ac.g, bc.g),
-    b: blend(ac.b, cc.b),
-  });
-};
-
-const channel = (id, index) => `${id}/rgb/${index}`;
+const channel = (type, id, index) => `${id}/${type}/${index}`;
 
 const Circle = connect(
   ({ pool }, { id, index }) =>
   ({
     colors: [
-      pool[channel(id, index)],
-      pool[channel(id, index + 1)],
+      pool[channel('rgb', id, index)],
+      pool[channel('rgb', id, index + 1)],
     ]
   })
 )
@@ -88,108 +98,175 @@ const Circle = connect(
     />
   ))
 
-const Rect = connect(
-  ({ pool }, { id, index }) => pool[channel(id, index)] || {},
+
+class Rect extends Component {
+  onClick = () => {
+    const { color = { r: 0, g: 0, b: 0 }, onSelect, set } = this.props;
+    if (onSelect) {
+      onSelect(color, set);
+    }
+  };
+
+  render() {
+    const { color, opacity, className, style, onDoubleClick } = this.props;
+    return (
+      <div style={style} >
+        <button
+          className={className}
+          style={{ backgroundColor: rgb(color, opacity) }}
+          onDoubleClick={onDoubleClick}
+          onClick={this.onClick}
+        />
+      </div>
+    )
+  }
+}
+
+const Pixel = connect(
+  ({ pool }, { id, index }) => pool[channel('rgb', id, index)] || {},
   (dispatch, { daemon, id, index }) => bindActionCreators({
     set: (value) => request(daemon, {
       type: ACTION_RGB_DIM, value, id, index
     })
   }, dispatch)
 )(class extends Component {
-  onClick = () => {
-    const { r, g, b, onSelect, set } = this.props;
-    if (onSelect) {
-      onSelect({ r, g, b }, color => set(color));
-    }
-  };
 
+  onDoubleClick = () => {
+    const { index, onToggle } = this.props;
+    onToggle(index);
+  }
   render() {
-    const { className, style } = this.props;
+    const { index, className, style, r, g, b, set, onSelect, image = [] } = this.props;
+    const i = (index - 1) >> 3;
+    const j = (index - 1) % 8;
+    const mask = (image[i] >> j) & 1;
     return (
-      <div style={style} >
-        <button
-          className={className}
-          style={{ backgroundColor: rgb(this.props) }}
-          onClick={this.onClick}
-        />
-      </div>
+      <Rect
+        index={index}
+        className={className}
+        style={style}
+        color={{ r, g, b }}
+        opacity={mask ? 1 : 0.2}
+        onSelect={onSelect}
+        onDoubleClick={this.onDoubleClick}
+        set={set}
+      />
     )
   }
 })
 
-const Button = ({ id, daemon, index, onSelect }) => {
+
+const Gradient = connect(
+  ({ pool }, { id, index }) => pool[channel('gradient', id, index)] || {},
+  (dispatch, { daemon, id, index }) => bindActionCreators({
+    set: (value) => request(daemon, {
+      type: ACTION_GRADIENT,
+      id, index,
+      value
+    })
+  }, dispatch)
+)(class extends Component {
+  render() {
+    const { style, r, g, b, onSelect, set } = this.props;
+    return (
+      <Rect
+        className={styles.rectH}
+        style={style}
+        color={{ r, g, b }}
+        onSelect={onSelect}
+        set={set}
+      />
+    )
+  }
+})
+
+const Button = ({ id, daemon, index, image, onSelect, onToggle }) => {
   return (
     <div className={styles.button}>
-      <Rect
+      <Pixel
         id={id}
         daemon={daemon}
         index={2 * index - 1}
         className={styles.rectV}
+        image={image}
         onSelect={onSelect}
+        onToggle={onToggle}
       />
       <Circle id={id} index={2 * index - 1} />
-      <Rect
+      <Pixel
         id={id}
         daemon={daemon}
         index={2 * index}
         className={styles.rectV}
+        image={image}
         onSelect={onSelect}
+        onToggle={onToggle}
       />
     </div>
   )
 };
 
-const Intensity = ({ id, daemon, onSelect }) => {
+const Intensity = ({ id, daemon, image, onSelect, onToggle }) => {
   return (
     <div className={styles.intensity}>
-      <Rect
+      <Pixel
         id={id}
         daemon={daemon}
         index={9}
         className={styles.rectH1}
+        image={image}
         onSelect={onSelect}
+        onToggle={onToggle}
       />
-      <Rect
+      <Pixel
         id={id}
         daemon={daemon}
         index={10}
         className={styles.rectH2}
+        image={image}
         onSelect={onSelect}
+        onToggle={onToggle}
       />
-      <Rect
+      <Pixel
         id={id}
         daemon={daemon}
         index={11}
         className={styles.rectH3}
+        image={image}
         onSelect={onSelect}
+        onToggle={onToggle}
       />
     </div>
   )
 }
 
-const Power = ({ id, daemon, onSelect }) => (
-  <Rect
+const Power = ({ id, daemon, image, onSelect, onToggle }) => (
+  <Pixel
     id={id}
     daemon={daemon}
     index={12}
     className={styles.indicator}
+    image={image}
     onSelect={onSelect}
+    onToggle={onToggle}
   />
 )
 
-const Mode = ({ id, daemon, onSelect }) => {
+const Mode = ({ id, daemon, image, onSelect, onToggle }) => {
   const pixels = [];
   for (let i = 0; i < 3; i++)
     for (let j = 0; j < 2; j++) {
       pixels.push(
-        <Rect
+        <Pixel
           id={id}
           daemon={daemon}
           index={2 * i + j + 13}
           key={`${id}/mode${i}.${j}`}
           className={styles.indicator}
           style={{ gridRow: i + 1, gridColumn: j + 1 }}
+          image={image}
           onSelect={onSelect}
+          onToggle={onToggle}
         />
       );
     }
@@ -200,73 +277,31 @@ const Mode = ({ id, daemon, onSelect }) => {
   );
 }
 
-const Display = ({ id, daemon, onSelect }) => {
+const Display = ({ id, daemon, image, onSelect, onToggle }) => {
   const pixels = [];
-  let index = 19;
-  for (let i = 0; i < 5; i++) {
-    // const top = compose(leftTop, 13 - i, rightTop, i);
-    // const bottom = compose(leftBottom, 13 - i, rightBottom, i);
-    for (let j = 0; j < 14; j++) {
-      let className = styles.pixel;
-      if (j === 0 && i !== 2) continue;
-      if (j === 2) continue;
-      if (j === 4 && i === 1) continue;
-      if (j === 4 && i === 3) continue;
-      if (j === 6) continue;
-      if (j === 8 && i === 1) continue;
-      if (j === 8 && i === 3) continue;
-      if (j === 10) {
-        if (i !== 4) continue;
-        className = styles.pixel_;
-      }
-      if (j === 12 && i === 1) continue;
-      if (j === 12 && i === 3) continue;
-      pixels.push(
-        <Rect
-          id={id}
-          daemon={daemon}
-          index={index}
-          key={`${id}/display/${index}`}
-          className={className}
-          style={{ gridRow: i + 1, gridColumn: j + 1 }}
-          onSelect={onSelect}
-        />
-      );
-      index++;
-    }
-  }
+  iterate((index, i, j) => {
+    pixels.push(
+      <Pixel
+        id={id}
+        daemon={daemon}
+        index={index}
+        key={`${id}/display/${index}`}
+        className={i === 4 && j === 10 ? styles.pixel_ : styles.pixel}
+        style={{ gridRow: i + 1, gridColumn: j + 1 }}
+        image={image}
+        onSelect={onSelect}
+        onToggle={onToggle}
+      />
+    );
+
+  })
   return (
-    <div>
-      {/* <div className={styles.middle}>
-        <Rect
-          className={styles.rectH}
-          color={leftTop}
-          onSelect={onSelect}
-        />
-        <Rect
-          className={styles.rectH}
-          color={rightTop}
-          onSelect={onSelect}
-        />
-      </div> */}
-      <div className={styles.display}>
-        {pixels}
-      </div>
-      {/* <div className={styles.middle}>
-        <Rect
-          className={styles.rectH}
-          color={leftBottom}
-          onSelect={onSelect}
-        />
-        <Rect
-          className={styles.rectH}
-          color={rightBottom}
-          onSelect={onSelect}
-        />
-      </div> */}
+    <div className={styles.display}>
+      {pixels}
     </div>
   )
 }
+
 
 
 class Container extends Component {
@@ -294,29 +329,79 @@ class Container extends Component {
     setColor(this.state.color);
   }
 
+  setVibro = ({ detail: { value } }) => {
+    const { id, daemon, request } = this.props;
+    request(daemon, {
+      type: ACTION_VIBRO, value: value * 25, id,
+    })
+  }
+
+  setBrightness = ({ detail: { value } }) => {
+    const { id, daemon, request } = this.props;
+    request(daemon, {
+      type: ACTION_DIMMER, value, id,
+    })
+  }
+
+  onSwitch = () => {
+    const { id, daemon, state = true, request } = this.props;
+    console.log(daemon, id, state ? 0 : 1)
+    request(daemon, {
+      type: ACTION_DO, id, value: state ? 0 : 1
+    })
+  }
+
+  onToggle = (index) => {
+    const { daemon, id, image = [], request } = this.props;
+    const value = [...image];
+    const i = (index - 1) >> 3;
+    const j = (index - 1) % 8;
+    const mask = (value[i] >> j) & 1;
+    if (mask) {
+      value[i] &= ~(1 << j);
+    } else {
+      value[i] |= 1 << j;
+    }
+    request(daemon, {
+      type: ACTION_IMAGE, value, id
+    })
+
+    console.log(index)
+  }
+
 
   render() {
-    const { id, daemon } = this.props;
+    const { id, daemon, brightness = 128, vibro = 100, state = true, image } = this.props;
     const { color: { r, g, b } } = this.state;
     return (
       <div className='paper'>
         <div className={styles.top}>
-          <Button id={id} daemon={daemon} index={1} onSelect={this.onSelect} />
-          <Button id={id} daemon={daemon} index={2} onSelect={this.onSelect} />
+          <Button id={id} daemon={daemon} index={1} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <Button id={id} daemon={daemon} index={2} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
         </div>
         <div className={styles.middle}>
           <div className={styles.left}>
-            <Intensity id={id} daemon={daemon} onSelect={this.onSelect} />
-            <Power id={id} daemon={daemon} onSelect={this.onSelect} />
+            <Intensity id={id} daemon={daemon} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <Power id={id} daemon={daemon} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
           </div>
-          <Display id={id} daemon={daemon} onSelect={this.onSelect} />
+          <div>
+            <div className={styles.middle}>
+              <Gradient id={id} daemon={daemon} index={1} onSelect={this.onSelect} />
+              <Gradient id={id} daemon={daemon} index={2} onSelect={this.onSelect} />
+            </div>
+            <Display id={id} daemon={daemon} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <div className={styles.middle}>
+              <Gradient id={id} daemon={daemon} index={3} onSelect={this.onSelect} />
+              <Gradient id={id} daemon={daemon} index={4} onSelect={this.onSelect} />
+            </div>
+          </div>
           <div className={styles.right}>
-            <Mode id={id} daemon={daemon} onSelect={this.onSelect} />
+            <Mode id={id} daemon={daemon} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
           </div>
         </div>
         <div className={styles.bottom}>
-          <Button id={id} daemon={daemon} index={3} onSelect={this.onSelect} />
-          <Button id={id} daemon={daemon} index={4} onSelect={this.onSelect} />
+          <Button id={id} daemon={daemon} index={3} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <Button id={id} daemon={daemon} index={4} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
         </div>
         <div>
           <table>
@@ -325,6 +410,17 @@ class Container extends Component {
                 <td width="33%"><div className="paper"><Slider label="r" value={r} min={0} max={255} step={1} discrete onInput={this.setR} /></div></td>
                 <td width="33%"><div className="paper"><Slider label="g" value={g} min={0} max={255} step={1} discrete onInput={this.setG} /></div></td>
                 <td width="33%"><div className="paper"><Slider label="b" value={b} min={0} max={255} step={1} discrete onInput={this.setB} /></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                <td width="30%"><div className="paper"><Slider label="vibro" value={vibro / 25} min={0} max={10} step={1} discrete onInput={this.setVibro} /></div></td>
+                <td width="50%"><div className="paper"><Slider label="brightness" value={brightness} min={0} max={255} step={1} discrete onInput={this.setBrightness} /></div></td>
+                <td width="10%"><div className="paper"><Switch checked={!!state} onChange={this.onSwitch} /></div></td>
               </tr>
             </tbody>
           </table>
@@ -338,5 +434,6 @@ export default connect(
   ({ pool }, { id, daemon }) => ({ ...pool[id], daemon }),
   (dispatch, { id }) => bindActionCreators({
     change: (payload) => modify(id, payload),
+    request: (daemon, payload) => request(daemon, payload),
   }, dispatch)
 )(Container);
