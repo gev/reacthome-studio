@@ -21,7 +21,8 @@ const build = (id, pool, state, assets) => {
     } else if (v) {
       if (typeof v === 'string') {
         switch (k) {
-          case DAEMON: {
+          case DAEMON:
+          case 'top': {
             build(v, pool, state, assets);
             break;
           }
@@ -40,6 +41,7 @@ const build = (id, pool, state, assets) => {
             });
             break;
           }
+
           case DEVICE: {
             v.forEach(d => {
               // if (typeof d === 'string') {
@@ -54,6 +56,9 @@ const build = (id, pool, state, assets) => {
                 state[d].temperature_ext.forEach(i => {
                   state[i] = pool[i];
                 })
+              }
+              if (state[d].top) {
+                state[state[d].top] = pool[state[d].top];
               }
 
               // }
