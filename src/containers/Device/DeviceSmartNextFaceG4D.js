@@ -317,7 +317,8 @@ class Container extends Component {
     if (index !== 0) {
       const i = (index - 1) >> 3;
       const j = (index - 1) % 8;
-      const mask = (this.props.blink[i] >> j) & 1;
+      const { blink = [] } = this.props;
+      const mask = (blink[i] >> j) & 1;
       this.setState({ blink: mask });
     }
     this.setState({ index, color, setColor });
