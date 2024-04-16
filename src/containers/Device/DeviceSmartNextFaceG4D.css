@@ -104,3 +104,18 @@
   padding-left: 24px;
   padding-right: 24px;
 }
+
+.off {
+  opacity: 33%;
+}
+
+.blink {
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+
+  100% {
+    opacity: 10%;
+  }
+}

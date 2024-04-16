@@ -56,10 +56,10 @@ function hslToRgb(h, s, l) {
   return [r * 255, g * 255, b * 255];
 }
 
-const rgb = ({ r = 0, g = 0, b = 0 } = {}, opacity = 1) => {
+const rgb = ({ r = 0, g = 0, b = 0 } = {}) => {
   const [h, s, l] = rgbToHsl(r, g, b);
   const [r1, g1, b1] = hslToRgb(h, s, l * 0.6 + 0.35);
-  return r === 0 && g === 0 && b === 0 ? `rgb(0 0 0 / ${opacity})` : `rgb(${r1} ${g1} ${b1} / ${opacity})`;
+  return r === 0 && g === 0 && b === 0 ? `rgb(0 0 0)` : `rgb(${r1} ${g1} ${b1})`;
 }
 
 const iterate = (callback) => {
@@ -103,12 +103,12 @@ const Circle = connect(
 
 class Rect extends Component {
   render() {
-    const { color, opacity, className, style, onDoubleClick, onClick, blink = false } = this.props;
+    const { color, className, style, onDoubleClick, onClick } = this.props;
     return (
       <div style={style} >
         <button
           className={className}
-          style={{ backgroundColor: rgb(color, opacity) }}
+          style={{ backgroundColor: rgb(color) }}
           onDoubleClick={onDoubleClick}
           onClick={onClick}
         />
@@ -137,14 +137,15 @@ const Pixel = connect(
     const j = (index - 1) % 8;
     const image_mask = (image[i] >> j) & 1;
     const blink_mask = (blink[i] >> j) & 1;
+    const classNames = [className];
+    if (!image_mask) classNames.push(styles.off);
+    if (blink_mask) classNames.push(styles.blink);
     return (
       <Rect
         index={index}
-        className={className}
+        className={classNames.join(' ')}
         style={style}
         color={color}
-        opacity={image_mask ? 1 : 0.2}
-        blink={blink_mask}
         onClick={() => onSelect(index, color, setColor)}
         onDoubleClick={this.onDoubleClick}
       />
