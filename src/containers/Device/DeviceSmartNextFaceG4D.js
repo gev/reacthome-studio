@@ -145,9 +145,8 @@ const Pixel = connect(
         color={color}
         opacity={image_mask ? 1 : 0.2}
         blink={blink_mask}
-        onClick={() => onSelect(index, color, setColor,)}
+        onClick={() => onSelect(index, color, setColor)}
         onDoubleClick={this.onDoubleClick}
-        setColor={setColor}
       />
     )
   }
@@ -157,7 +156,7 @@ const Pixel = connect(
 const Gradient = connect(
   ({ pool }, { id, index }) => pool[channel('gradient', id, index)] || {},
   (dispatch, { daemon, id, index }) => bindActionCreators({
-    set: (value) => request(daemon, {
+    setColor: (value) => request(daemon, {
       type: ACTION_GRADIENT,
       id, index,
       value
