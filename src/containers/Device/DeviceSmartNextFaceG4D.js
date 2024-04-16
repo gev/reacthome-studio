@@ -1,12 +1,14 @@
 
+import { Checkbox } from '@rmwc/checkbox';
 import { Switch } from '@rmwc/switch';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify, request } from '../../actions';
 import Slider from '../../components/Slider';
-import { ACTION_DIMMER, ACTION_DO, ACTION_GRADIENT, ACTION_IMAGE, ACTION_RGB_DIM, ACTION_VIBRO } from '../../constants';
+import { ACTION_BLINK, ACTION_DIMMER, ACTION_DO, ACTION_GRADIENT, ACTION_IMAGE, ACTION_RGB_DIM, ACTION_VIBRO } from '../../constants';
 import styles from './DeviceSmartNextFaceG4D.css';
+
 
 function rgbToHsl(r, g, b) {
   r /= 255, g /= 255, b /= 255;
@@ -100,22 +102,15 @@ const Circle = connect(
 
 
 class Rect extends Component {
-  onClick = () => {
-    const { color = { r: 0, g: 0, b: 0 }, onSelect, set } = this.props;
-    if (onSelect) {
-      onSelect(color, set);
-    }
-  };
-
   render() {
-    const { color, opacity, className, style, onDoubleClick } = this.props;
+    const { color, opacity, className, style, onDoubleClick, onClick, blink = false } = this.props;
     return (
       <div style={style} >
         <button
           className={className}
           style={{ backgroundColor: rgb(color, opacity) }}
           onDoubleClick={onDoubleClick}
-          onClick={this.onClick}
+          onClick={onClick}
         />
       </div>
     )
@@ -125,9 +120,9 @@ class Rect extends Component {
 const Pixel = connect(
   ({ pool }, { id, index }) => pool[channel('rgb', id, index)] || {},
   (dispatch, { daemon, id, index }) => bindActionCreators({
-    set: (value) => request(daemon, {
+    setColor: (value) => request(daemon, {
       type: ACTION_RGB_DIM, value, id, index
-    })
+    }),
   }, dispatch)
 )(class extends Component {
 
@@ -136,20 +131,23 @@ const Pixel = connect(
     onToggle(index);
   }
   render() {
-    const { index, className, style, r, g, b, set, onSelect, image = [] } = this.props;
+    const { index, className, style, r, g, b, setColor, onSelect, image = [], blink = [] } = this.props;
+    const color = { r, g, b };
     const i = (index - 1) >> 3;
     const j = (index - 1) % 8;
-    const mask = (image[i] >> j) & 1;
+    const image_mask = (image[i] >> j) & 1;
+    const blink_mask = (blink[i] >> j) & 1;
     return (
       <Rect
         index={index}
         className={className}
         style={style}
-        color={{ r, g, b }}
-        opacity={mask ? 1 : 0.2}
-        onSelect={onSelect}
+        color={color}
+        opacity={image_mask ? 1 : 0.2}
+        blink={blink_mask}
+        onClick={() => onSelect(index, color, setColor,)}
         onDoubleClick={this.onDoubleClick}
-        set={set}
+        setColor={setColor}
       />
     )
   }
@@ -167,20 +165,20 @@ const Gradient = connect(
   }, dispatch)
 )(class extends Component {
   render() {
-    const { style, r, g, b, onSelect, set } = this.props;
+    const { style, r, g, b, onSelect, setColor } = this.props;
+    const color = { r, g, b };
     return (
       <Rect
         className={styles.rectH}
         style={style}
-        color={{ r, g, b }}
-        onSelect={onSelect}
-        set={set}
+        color={color}
+        onClick={() => onSelect(0, color, setColor)}
       />
     )
   }
 })
 
-const Button = ({ id, daemon, index, image, onSelect, onToggle }) => {
+const Button = ({ id, daemon, index, image, blink, onSelect, onToggle }) => {
   return (
     <div className={styles.button}>
       <Pixel
@@ -189,6 +187,7 @@ const Button = ({ id, daemon, index, image, onSelect, onToggle }) => {
         index={2 * index - 1}
         className={styles.rectV}
         image={image}
+        blink={blink}
         onSelect={onSelect}
         onToggle={onToggle}
       />
@@ -199,6 +198,7 @@ const Button = ({ id, daemon, index, image, onSelect, onToggle }) => {
         index={2 * index}
         className={styles.rectV}
         image={image}
+        blink={blink}
         onSelect={onSelect}
         onToggle={onToggle}
       />
@@ -206,7 +206,7 @@ const Button = ({ id, daemon, index, image, onSelect, onToggle }) => {
   )
 };
 
-const Intensity = ({ id, daemon, image, onSelect, onToggle }) => {
+const Intensity = ({ id, daemon, image, blink, onSelect, onToggle }) => {
   return (
     <div className={styles.intensity}>
       <Pixel
@@ -215,6 +215,7 @@ const Intensity = ({ id, daemon, image, onSelect, onToggle }) => {
         index={9}
         className={styles.rectH1}
         image={image}
+        blink={blink}
         onSelect={onSelect}
         onToggle={onToggle}
       />
@@ -224,6 +225,7 @@ const Intensity = ({ id, daemon, image, onSelect, onToggle }) => {
         index={10}
         className={styles.rectH2}
         image={image}
+        blink={blink}
         onSelect={onSelect}
         onToggle={onToggle}
       />
@@ -233,6 +235,7 @@ const Intensity = ({ id, daemon, image, onSelect, onToggle }) => {
         index={11}
         className={styles.rectH3}
         image={image}
+        blink={blink}
         onSelect={onSelect}
         onToggle={onToggle}
       />
@@ -240,19 +243,20 @@ const Intensity = ({ id, daemon, image, onSelect, onToggle }) => {
   )
 }
 
-const Power = ({ id, daemon, image, onSelect, onToggle }) => (
+const Power = ({ id, daemon, image, blink, onSelect, onToggle }) => (
   <Pixel
     id={id}
     daemon={daemon}
     index={12}
     className={styles.indicator}
     image={image}
+    blink={blink}
     onSelect={onSelect}
     onToggle={onToggle}
   />
 )
 
-const Mode = ({ id, daemon, image, onSelect, onToggle }) => {
+const Mode = ({ id, daemon, image, blink, onSelect, onToggle }) => {
   const pixels = [];
   for (let i = 0; i < 3; i++)
     for (let j = 0; j < 2; j++) {
@@ -265,6 +269,7 @@ const Mode = ({ id, daemon, image, onSelect, onToggle }) => {
           className={styles.indicator}
           style={{ gridRow: i + 1, gridColumn: j + 1 }}
           image={image}
+          blink={blink}
           onSelect={onSelect}
           onToggle={onToggle}
         />
@@ -277,7 +282,7 @@ const Mode = ({ id, daemon, image, onSelect, onToggle }) => {
   );
 }
 
-const Display = ({ id, daemon, image, onSelect, onToggle }) => {
+const Display = ({ id, daemon, image, blink, onSelect, onToggle }) => {
   const pixels = [];
   iterate((index, i, j) => {
     pixels.push(
@@ -289,6 +294,7 @@ const Display = ({ id, daemon, image, onSelect, onToggle }) => {
         className={i === 4 && j === 10 ? styles.pixel_ : styles.pixel}
         style={{ gridRow: i + 1, gridColumn: j + 1 }}
         image={image}
+        blink={blink}
         onSelect={onSelect}
         onToggle={onToggle}
       />
@@ -305,10 +311,16 @@ const Display = ({ id, daemon, image, onSelect, onToggle }) => {
 
 
 class Container extends Component {
-  state = { color: { r: 0, g: 0, b: 0 }, setColor: () => { } };
+  state = { index: 0, color: { r: 0, g: 0, b: 0 }, setColor: () => { }, blink: false, setBlink: () => { } };
 
-  onSelect = (color, setColor) => {
-    this.setState({ color, setColor });
+  onSelect = (index, color, setColor) => {
+    if (index !== 0) {
+      const i = (index - 1) >> 3;
+      const j = (index - 1) % 8;
+      const mask = (this.props.blink[i] >> j) & 1;
+      this.setState({ blink: mask });
+    }
+    this.setState({ index, color, setColor });
   }
 
   setR = ({ detail: { value: r } }) => {
@@ -369,47 +381,68 @@ class Container extends Component {
     console.log(index)
   }
 
+  blink = () => {
+    const { index } = this.state;
+    if (index === 0) return;
+    const { daemon, id, blink = [], request } = this.props;
+    const value = [...blink];
+    const i = (index - 1) >> 3;
+    const j = (index - 1) % 8;
+    const mask = (value[i] >> j) & 1;
+    if (mask) {
+      value[i] &= ~(1 << j);
+      this.setState({ blink: false });
+    } else {
+      value[i] |= 1 << j;
+      this.setState({ blink: true });
+    }
+    request(daemon, {
+      type: ACTION_BLINK, value, id
+    })
+  }
+
 
   render() {
-    const { id, daemon, brightness = 128, vibro = 100, state = true, image } = this.props;
+    const { id, daemon, brightness = 128, vibro = 100, state = true, image, blink } = this.props;
     const { color: { r, g, b } } = this.state;
     return (
       <div className='paper'>
         <div className={styles.top}>
-          <Button id={id} daemon={daemon} index={1} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
-          <Button id={id} daemon={daemon} index={2} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <Button id={id} daemon={daemon} index={1} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <Button id={id} daemon={daemon} index={2} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
         </div>
         <div className={styles.middle}>
           <div className={styles.left}>
-            <Intensity id={id} daemon={daemon} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
-            <Power id={id} daemon={daemon} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <Intensity id={id} daemon={daemon} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <Power id={id} daemon={daemon} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
           </div>
           <div>
             <div className={styles.middle}>
               <Gradient id={id} daemon={daemon} index={1} onSelect={this.onSelect} />
               <Gradient id={id} daemon={daemon} index={2} onSelect={this.onSelect} />
             </div>
-            <Display id={id} daemon={daemon} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <Display id={id} daemon={daemon} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
             <div className={styles.middle}>
               <Gradient id={id} daemon={daemon} index={3} onSelect={this.onSelect} />
               <Gradient id={id} daemon={daemon} index={4} onSelect={this.onSelect} />
             </div>
           </div>
           <div className={styles.right}>
-            <Mode id={id} daemon={daemon} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <Mode id={id} daemon={daemon} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
           </div>
         </div>
         <div className={styles.bottom}>
-          <Button id={id} daemon={daemon} index={3} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
-          <Button id={id} daemon={daemon} index={4} image={image} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <Button id={id} daemon={daemon} index={3} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <Button id={id} daemon={daemon} index={4} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
         </div>
         <div>
           <table>
             <tbody>
               <tr>
-                <td width="33%"><div className="paper"><Slider label="r" value={r} min={0} max={255} step={1} discrete onInput={this.setR} /></div></td>
-                <td width="33%"><div className="paper"><Slider label="g" value={g} min={0} max={255} step={1} discrete onInput={this.setG} /></div></td>
-                <td width="33%"><div className="paper"><Slider label="b" value={b} min={0} max={255} step={1} discrete onInput={this.setB} /></div></td>
+                <td width="30%"><div className="paper"><Slider label="r" value={r} min={0} max={255} step={1} discrete onInput={this.setR} /></div></td>
+                <td width="30%"><div className="paper"><Slider label="g" value={g} min={0} max={255} step={1} discrete onInput={this.setG} /></div></td>
+                <td width="30%"><div className="paper"><Slider label="b" value={b} min={0} max={255} step={1} discrete onInput={this.setB} /></div></td>
+                <td width="10%"><div className="paper"><Checkbox label="blink" checked={!!this.state.blink} onChange={this.blink} /></div></td>
               </tr>
             </tbody>
           </table>

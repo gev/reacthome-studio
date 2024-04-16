@@ -85,6 +85,7 @@ export const ACTION_DIMMER = 0xd0;
 export const ACTION_ARTNET = 0xd1;
 export const ACTION_DALI = 0xd2;
 export const ACTION_IMAGE = 0xe1;
+export const ACTION_BLINK = 0xe2;
 export const ACTION_DISCOVERY = 0xf0;
 export const ACTION_READY = 0xf1;
 export const ACTION_FIND_ME = 0xfa;
