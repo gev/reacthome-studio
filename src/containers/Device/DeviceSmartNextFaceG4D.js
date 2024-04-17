@@ -476,11 +476,3 @@ export default connect(
     request: (daemon, payload) => request(daemon, payload),
   }, dispatch)
 )(Container);
-
-setInterval(() => {
-  Array.prototype.filter.call(document.getElementsByClassName('blink'), (element => {
-    element.style.animation = 'none';
-    element.offsetHeight;
-    element.style.animation = null
-  }));
-}, 1000);
