@@ -714,12 +714,18 @@ export const DEVICE_TYPES = {
     hasFindMeAction: true
   },
   [DEVICE_TYPE_SMART_BOTTOM_1]: {
-    title: 'Smart Next',
+    title: 'Smart Bottom 1',
     hasFindMeAction: true
   },
   [DEVICE_TYPE_SMART_BOTTOM_2]: {
-    title: 'Smart Next',
+    title: 'Smart Bottom 2',
     hasFindMeAction: true
+  },
+  [DEVICE_TYPE_SMART_TOP_A6P]: {
+    title: 'Smart Top A6P',
+  },
+  [DEVICE_TYPE_SMART_TOP_G4D]: {
+    title: 'Smart Top G4D',
   },
   [DEVICE_TYPE_CO2]: {
     title: 'CO2',

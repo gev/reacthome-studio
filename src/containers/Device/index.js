@@ -1,33 +1,32 @@
 
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import {
   Card,
   CardAction,
-  CardActions,
+  CardActionButtons,
   CardActionIcons,
-  CardActionButtons
+  CardActions
 } from '@rmwc/card';
 import { Icon } from '@rmwc/icon';
-import { Switch } from '@rmwc/switch';
 import { LinearProgress } from '@rmwc/linear-progress';
-import { SimpleMenu, MenuItem } from '@rmwc/menu';
+import { MenuItem, SimpleMenu } from '@rmwc/menu';
+import { Switch } from '@rmwc/switch';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
-import {
-  CODE,
-  DEVICE_TYPES,
-  DEVICE_TYPE_BOOTLOADER,
-  ACTION_FIND_ME,
-  ACTION_BOOTLOAD,
-  DEVICE,
-  DEVICE_TYPE_DIM_8
-} from '../../constants';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createSelector } from 'reselect';
 import { modify, remove, request } from '../../actions';
-import Device from './Device';
 import CardActionRemove from '../../components/CardActionRemove';
+import {
+  ACTION_BOOTLOAD,
+  ACTION_FIND_ME,
+  CODE,
+  DEVICE,
+  DEVICE_TYPES,
+  DEVICE_TYPE_BOOTLOADER
+} from '../../constants';
+import Device from './Device';
 
 class Devices extends Component {
   change = (event) => {
@@ -63,34 +62,44 @@ class Devices extends Component {
     const { title, hasFindMeAction = false } = DEVICE_TYPES[type] || {};
     return (
       <Card className={!online && 'offline'}>
-        <div className="paper">
-          <div>
-            <Typography use="title">{title || type || protocol || 'Unknown'}</Typography>
-          </div>
-          <div>
-            <Typography use="caption">{`${id} / ${ip || address} / v${version || '?'}`}</Typography>
-          </div>
-          <div>
-            <Typography use="caption">{timestamp && `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</Typography>
-          </div>
-          {
-            updating && (
-              <div>
-                <LinearProgress determinate={false} />
-              </div>
-            )
-          }
-          {
-            pending && !updating && (
-              <div>
-                <Typography use="caption">Pending update firmware <strong>{pendingFirmware}</strong></Typography>
-              </div>
-            )
-          }
-        </div>
-        <div className="paper">
-          <TextField id={CODE} value={code || ''} onChange={this.change} placeholder="Code" fullwidth />
-        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div className="paper">
+                  <div>
+                    <Typography use="title">{title || type || protocol || 'Unknown'}</Typography>
+                  </div>
+                  <div>
+                    <Typography use="caption">{`${id} / ${ip || address} / v${version || '?'}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography use="caption">{timestamp && `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</Typography>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div className="paper" style={{ textAlign: 'right' }}>
+                  <TextField id={CODE} value={code || ''} onChange={this.change} placeholder="Code" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {
+          updating && (
+            <div className="paper">
+              <LinearProgress determinate={false} />
+            </div>
+          )
+        }
+        {
+          pending && !updating && (
+            <div className="paper">
+              <Typography use="caption">Pending update firmware <strong>{pendingFirmware}</strong></Typography>
+            </div>
+          )
+        }
         <Device {...this.props} />
         <CardActions>
           <CardActionButtons>

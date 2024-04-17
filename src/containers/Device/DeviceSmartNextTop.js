@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../actions';
-import { DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D } from '../../constants';
+import { DEVICE_TYPES, DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D } from '../../constants';
 import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
 import DeviceSmartNextFaceG4D from './DeviceSmartNextFaceG4D';
@@ -34,8 +34,11 @@ class Container extends Component {
   render() {
     const { tabIndex } = this.state;
     const {
-      id, code, temperature, humidity, daemon, type
+      id, code, ip, address, timestamp, version, temperature, humidity, daemon, type
     } = this.props;
+    const { title } = DEVICE_TYPES[type] || {};
+    const date = new Date(timestamp);
+
     let button = 0, led = 0;
     const tabs = [
       <Tab key="buttons">Buttons</Tab>,
@@ -58,9 +61,32 @@ class Container extends Component {
       rgb.push(<RGB id={id} index={i} daemon={daemon} key={`${id}/rgb/${i}`} />);
     }
     return type ? [
-      <td className="paper">
-        <TextField value={code || ''} onChange={this.change} placeholder="Code" />
-      </td>,
+      <div key="header">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div className="paper">
+                  <div>
+                    <Typography use="title">{title || type || 'Unknown'}</Typography>
+                  </div>
+                  <div>
+                    <Typography use="caption">{`${id} / ${ip || address} / v${version || '?'}`}</Typography>
+                  </div>
+                  <div>
+                    <Typography use="caption">{timestamp && `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</Typography>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div className="paper" style={{ textAlign: 'right' }}>
+                  <TextField value={code || ''} onChange={this.change} placeholder="Code" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>,
       <div key="tab">
         <TabBar activeTabIndex={tabIndex} onActivate={this.select}>{tabs}</TabBar>
       </div>,
