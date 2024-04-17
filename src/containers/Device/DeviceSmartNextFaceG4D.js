@@ -138,8 +138,12 @@ const Pixel = connect(
     const image_mask = (image[i] >> j) & 1;
     const blink_mask = (blink[i] >> j) & 1;
     const classNames = [className];
-    if (!image_mask) classNames.push(styles.off);
-    if (blink_mask) classNames.push(styles.blink);
+    if (!image_mask) {
+      classNames.push(styles.off);
+    }
+    if (blink_mask) {
+      classNames.push('blink');
+    }
     return (
       <Rect
         index={index}
@@ -400,6 +404,7 @@ class Container extends Component {
     request(daemon, {
       type: ACTION_BLINK, value, id
     })
+
   }
 
 
@@ -471,3 +476,11 @@ export default connect(
     request: (daemon, payload) => request(daemon, payload),
   }, dispatch)
 )(Container);
+
+setInterval(() => {
+  Array.prototype.filter.call(document.getElementsByClassName('blink'), (element => {
+    element.style.animation = 'none';
+    element.offsetHeight;
+    element.style.animation = null
+  }));
+}, 1000);

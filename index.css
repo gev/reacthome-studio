@@ -63,3 +63,14 @@ table {
 .title input {
   font-size: 48px;
 }
+
+@keyframes blink {
+  100% {
+    opacity: 10%;
+  }
+}
+
+.blink {
+  animation: blink 500ms infinite alternate-reverse;
+
+}

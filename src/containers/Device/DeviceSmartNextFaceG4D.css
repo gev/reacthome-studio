@@ -106,16 +106,6 @@
 }
 
 .off {
-  opacity: 33%;
-}
-
-.blink {
-  animation: blink 1s linear infinite;
-}
-
-@keyframes blink {
-
-  100% {
-    opacity: 10%;
-  }
+  opacity: 0.5;
+  transform: scale(0.75);
 }
