@@ -1,12 +1,14 @@
 
 import { Checkbox } from '@rmwc/checkbox';
 import { Switch } from '@rmwc/switch';
+import { TextField } from '@rmwc/textfield';
+import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify, request } from '../../actions';
 import Slider from '../../components/Slider';
-import { ACTION_BLINK, ACTION_DIMMER, ACTION_DO, ACTION_GRADIENT, ACTION_IMAGE, ACTION_RGB_DIM, ACTION_VIBRO } from '../../constants';
+import { ACTION_BLINK, ACTION_DIMMER, ACTION_DO, ACTION_GRADIENT, ACTION_IMAGE, ACTION_PRINT, ACTION_RGB_DIM, ACTION_VIBRO } from '../../constants';
 import styles from './DeviceSmartNextFaceG4D.css';
 
 
@@ -58,7 +60,7 @@ function hslToRgb(h, s, l) {
 
 const rgb = ({ r = 0, g = 0, b = 0 } = {}) => {
   const [h, s, l] = rgbToHsl(r, g, b);
-  const [r1, g1, b1] = hslToRgb(h, s, l * 0.6 + 0.35);
+  const [r1, g1, b1] = hslToRgb(h, s, l * 0.75 + 0.25);
   return r === 0 && g === 0 && b === 0 ? `rgb(0 0 0)` : `rgb(${r1} ${g1} ${b1})`;
 }
 
@@ -103,15 +105,18 @@ const Circle = connect(
 
 class Rect extends Component {
   render() {
-    const { color, className, style, onDoubleClick, onClick } = this.props;
+    const { index, color, className, style, onDoubleClick, onClick } = this.props;
     return (
-      <div style={style} >
-        <button
-          className={className}
-          style={{ backgroundColor: rgb(color) }}
-          onDoubleClick={onDoubleClick}
-          onClick={onClick}
-        />
+      <div style={{ ...style, textAlign: 'center' }} >
+        <Typography use="caption">{index}</Typography>
+        <div>
+          <button
+            className={className}
+            style={{ backgroundColor: rgb(color) }}
+            onDoubleClick={onDoubleClick}
+            onClick={onClick}
+          />
+        </div>
       </div>
     )
   }
@@ -407,6 +412,10 @@ class Container extends Component {
 
   }
 
+  setText = ({ target: { value } }) => {
+    const { id, daemon, request } = this.props;
+    request(daemon, { type: ACTION_PRINT, value, id });
+  }
 
   render() {
     const { id, daemon, brightness = 128, vibro = 100, state = true, image, blink } = this.props;
@@ -415,6 +424,7 @@ class Container extends Component {
       <div className='paper'>
         <div className={styles.top}>
           <Button id={id} daemon={daemon} index={1} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <div />
           <Button id={id} daemon={daemon} index={2} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
         </div>
         <div className={styles.middle}>
@@ -439,6 +449,7 @@ class Container extends Component {
         </div>
         <div className={styles.bottom}>
           <Button id={id} daemon={daemon} index={3} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <div><TextField onChange={this.setText} placeholder="Text" /></div>
           <Button id={id} daemon={daemon} index={4} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
         </div>
         <div>

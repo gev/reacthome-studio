@@ -63,6 +63,8 @@ export const ACTION_SET_FAN_SPEED = 'ACTION_SET_FAN_SPEED';
 export const ACTION_SET_MODE = 'ACTION_SET_MODE';
 export const ACTION_SET_DIRECTION = 'ACTION_SET_DIRECTION';
 
+export const ACTION_PRINT = 'ACTION_PRINT';
+
 export const CLOSURE = 'closure';
 export const STOP = 'stop';
 export const OPEN = 'open';
