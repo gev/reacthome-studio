@@ -1,9 +1,9 @@
 
-import Slider from '@rmwc/slider';
 import { Tab, TabBar } from '@rmwc/tabs';
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
-import { ACTION_TEMPERATURE_CORRECT, ACTION_VIBRO } from '../../constants';
+import Slider from '../../components/Slider';
+import { ACTION_VIBRO } from '../../constants';
 import { send } from '../../websocket/peer';
 import Display from '../Display';
 import RGB from '../RGB';
@@ -11,13 +11,24 @@ import DeviceDi from './DeviceDi';
 import DeviceDoppler from './DeviceDopplerLegacy';
 import DeviceExt from './DeviceExt';
 
-const Row = ({ title, value, magnitude }) => (
+const Row = ({ title, value, magnitude, onCorrect, correct, min, max, step }) => (
   <tr>
     <td className="paper">
       <Typography use="body">{title}</Typography>
     </td>
     <td className="paper">
-      <Typography use="body">{value}{magnitude}</Typography>
+      <Typography use="body">{(value + correct).toFixed(2)}{magnitude}</Typography>
+    </td>
+    <td width="50%" className="paper">
+      <Slider
+        label="cor"
+        value={correct}
+        min={min}
+        max={max}
+        step={step}
+        onInput={(event) => {
+          onCorrect(Math.round(event.detail.value * 10) / 10);
+        }} />
     </td>
   </tr>
 );
@@ -30,7 +41,10 @@ export default class extends Component {
   render() {
     const { tabIndex } = this.state;
     const {
-      id, temperature, correct = 0, vibro = 100, humidity, illumination, daemon, button, led, hasDoppler, hasDisplay
+      id,
+      temperature, humidity, illumination,
+      temperature_correct = 0, humidity_correct = 0, illumination_correct = 0,
+      vibro = 100, daemon, button, led, hasDoppler, hasDisplay, change
     } = this.props;
     const rgb = (n) => {
       const a = [];
@@ -75,6 +89,7 @@ export default class extends Component {
                   <td className="paper">Vibro</td>
                   <td className="paper">
                     <Slider
+                      label="vol"
                       value={vibro / 25}
                       min={0}
                       max={10}
@@ -93,22 +108,9 @@ export default class extends Component {
           tabIndex === 3 && (
             <table style={{ textAlign: 'left' }}>
               <tbody>
-                <tr>
-                  <td className="paper">{`Correct ${correct}°C`}</td>
-                  <td className="paper">
-                    <Slider
-                      value={correct}
-                      min={-12.8}
-                      max={12.7}
-                      step={0.1}
-                      onInput={(event) => {
-                        send(daemon, { id, type: ACTION_TEMPERATURE_CORRECT, value: event.detail.value })
-                      }} />
-                  </td>
-                </tr>
-                <Row title="Temperature" value={temperature} magnitude="°C" />
-                <Row title="Humidity" value={humidity} magnitude="%" />
-                <Row title="Illumination" value={illumination} magnitude="lux" />
+                <Row title="Temperature" value={temperature} magnitude="°C" min={-10} max={10} step={0.1} correct={temperature_correct} onCorrect={temperature_correct => change({ temperature_correct })} />
+                <Row title="Humidity" value={humidity} magnitude="%" min={-10} max={10} step={1} correct={humidity_correct} onCorrect={humidity_correct => change({ humidity_correct })} />
+                <Row title="Illumination" value={illumination} magnitude="lux" min={-100} max={100} step={1} correct={illumination_correct} onCorrect={illumination_correct => change({ illumination_correct })} />
               </tbody>
             </table>
           )

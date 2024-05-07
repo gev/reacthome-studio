@@ -105,6 +105,7 @@ import CardRing from './CardRing';
 import CardSchedule from './CardSchedule';
 import CardScreen from './CardScreen';
 import CardSensor from './CardSensor';
+import CardSensorTop from './CardSensorTop';
 import CardSite from './CardSite';
 import CardSwift from './CardSwift';
 import CardTV from './CardTV';
@@ -140,7 +141,7 @@ const Container = (props) => {
     case DEVICE_TYPE_SMART_TOP_A6P:
       return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_TOP_G4D:
-      return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
+      return <CardSensorTop {...props} button={4} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_BOTTOM_1:
       return <CardSensor {...props} button={4} />;
     case DEVICE_TYPE_SMART_BOTTOM_2:

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify, remove } from '../../actions';
 import RemoveButton from '../../components/RemoveButton';
+import Slider from '../../components/Slider';
 
 
 
@@ -15,20 +16,25 @@ class Container extends Component {
     this.props.change({ code: value });
   }
   render() {
-    const { id, temperature, index, code, onRemove } = this.props;
+    const { id, temperature, temperature_correct = 0, index, code, onRemove, change } = this.props;
     return (
       <tr>
         <td className="paper">
           <Typography use="body">{index}</Typography>
         </td>
-        <td className="paper">
-          <Typography use="caption">{id}</Typography>
+        <td width="60%" className="paper">
+          <TextField label={id} value={code || ''} onChange={this.change} style={{ width: '100%' }} />
         </td>
-        <td className="paper">
-          <TextField value={code || ''} onChange={this.change} placeholder="Code" />
-        </td>
-        <td className="paper">
-          <Typography use="body">{`${temperature && temperature.toFixed(2)} °C`}</Typography>
+        <td className="paper" width="40%" >
+          <Slider
+            label={`${temperature && (temperature + temperature_correct).toFixed(2)} °C, cor`}
+            value={temperature_correct}
+            min={-10}
+            max={10}
+            step={0.1}
+            onInput={(event) => {
+              change({ temperature_correct: event.detail.value });
+            }} />
         </td>
         <td>
           <RemoveButton title={code || id} icon="remove" onClick={onRemove} />

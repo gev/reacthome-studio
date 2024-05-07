@@ -6,18 +6,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../actions';
+import Slider from '../../components/Slider';
 import { DEVICE_TYPES, DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D } from '../../constants';
 import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
 import DeviceSmartNextFaceG4D from './DeviceSmartNextFaceG4D';
 
-const Row = ({ title, value, magnitude }) => (
+const Row = ({ title, value, magnitude, onCorrect, correct, min, max, step }) => (
   <tr>
     <td className="paper">
       <Typography use="body">{title}</Typography>
     </td>
     <td className="paper">
-      <Typography use="body">{value}{magnitude}</Typography>
+      <Typography use="body">{(value + correct).toFixed(2)}{magnitude}</Typography>
+    </td>
+    <td width="50%" className="paper">
+      <Slider
+        label="cor"
+        value={correct}
+        min={min}
+        max={max}
+        step={step}
+        onInput={(event) => {
+          onCorrect(Math.round(event.detail.value * 10) / 10);
+        }} />
     </td>
   </tr>
 );
@@ -34,7 +46,8 @@ class Container extends Component {
   render() {
     const { tabIndex } = this.state;
     const {
-      id, code, ip, address, timestamp, version, temperature, humidity, daemon, type
+      id, code, ip, address, timestamp, version, temperature, humidity, daemon, type,
+      temperature_correct, humidity_correct, change
     } = this.props;
     const { title } = DEVICE_TYPES[type] || {};
     const date = new Date(timestamp);
@@ -105,8 +118,8 @@ class Container extends Component {
           tabIndex === 2 && (
             <table style={{ textAlign: 'left' }}>
               <tbody>
-                <Row title="Temperature" value={temperature} magnitude="°C" />
-                <Row title="Humidity" value={humidity} magnitude="%" />
+                <Row title="Temperature" value={temperature} magnitude="°C" min={-10} max={10} step={0.1} correct={temperature_correct} onCorrect={temperature_correct => change({ temperature_correct })} />
+                <Row title="Humidity" value={humidity} magnitude="%" min={-10} max={10} step={1} correct={humidity_correct} onCorrect={humidity_correct => change({ humidity_correct })} />
               </tbody>
             </table>
           )

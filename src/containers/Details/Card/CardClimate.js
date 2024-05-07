@@ -68,7 +68,7 @@ class Container extends Component {
 
   render() {
     const {
-      id, code, project, temperature, removeField, humidity, display
+      id, code, project, temperature, removeField, humidity, display, temperature_correct = 0, humidity_correct = 0
     } = this.props;
     return (
       <Card>
@@ -79,7 +79,7 @@ class Container extends Component {
           <tbody>
             <Row
               title="Temperature"
-              value={temperature}
+              value={temperature + temperature_correct}
               magnitude="°C"
               script={this.props.onTemperature}
               onSelect={this.select(onTemperature)}
@@ -88,7 +88,7 @@ class Container extends Component {
             />
             <Row
               title="Humidity"
-              value={humidity}
+              value={humidity + humidity_correct}
               magnitude="%"
               script={this.props.onHumidity}
               onSelect={this.select(onHumidity)}
