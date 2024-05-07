@@ -17,7 +17,7 @@ const Row = ({ title, value, magnitude, onCorrect, correct, min, max, step }) =>
     </td>
     <td width="50%" className="paper">
       <Slider
-        label={`${value && value.toFixed(2)}. cor`}
+        label={`${value && value.toFixed(2)}${magnitude}. cor`}
         value={correct}
         min={min}
         max={max}
@@ -40,7 +40,7 @@ export default class extends Component {
       co2, temperature, humidity,
       temperature_correct = 0, humidity_correct = 0, co2_correct = 0,
       type, change } = this.props;
-    const { temperature_raw = temperature, humidity_raw = humidity } = this.props;
+    const { temperature_raw = temperature, humidity_raw = humidity, co2_raw = co2 } = this.props;
     const hasCO2 = type === DEVICE_TYPE_SMART_BOTTOM_2;
     const tabs = [
       <Tab key="inputs">Inputs</Tab>,
@@ -70,7 +70,7 @@ export default class extends Component {
               <tbody>
                 <Row title="Temperature" value={temperature_raw} magnitude="°C" min={-10} max={10} step={0.1} correct={temperature_correct} onCorrect={temperature_correct => change({ temperature_correct })} />
                 <Row title="Humidity" value={humidity_raw} magnitude="%" min={-10} max={10} step={1} correct={humidity_correct} onCorrect={humidity_correct => change({ humidity_correct })} />
-                <Row title="CO2" value={co2_raw} magnitude="ppm" min={-100} max={100} step={1} correct={co2_correct} onCorrect={co2_correct => change({ co2_correct })} />
+                <Row title="CO2" value={co2_raw} magnitude="ppm" min={-200} max={200} step={1} correct={co2_correct} onCorrect={co2_correct => change({ co2_correct })} />
               </tbody>
             </table>
           )

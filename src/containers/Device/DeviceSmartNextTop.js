@@ -22,7 +22,7 @@ const Row = ({ title, value, magnitude, onCorrect, correct, min, max, step }) =>
     </td>
     <td width="50%" className="paper">
       <Slider
-        label={`${value && value.toFixed(2)}. cor`}
+        label={`${value && value.toFixed(2)}${magnitude}. cor`}
         value={correct}
         min={min}
         max={max}
