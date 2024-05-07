@@ -96,7 +96,7 @@ class Container extends Component {
             {
               hasTemperature && <Row
                 title="Temperature"
-                value={temperature + temperature_correct}
+                value={temperature}
                 magnitude="°C"
                 script={this.props.onTemperature}
                 onSelect={this.select(onTemperature)}
@@ -108,7 +108,7 @@ class Container extends Component {
               hasHumidity &&
               <Row
                 title="Humidity"
-                value={humidity + humidity_correct}
+                value={humidity}
                 magnitude="%"
                 script={this.props.onHumidity}
                 onSelect={this.select(onHumidity)}
@@ -120,7 +120,7 @@ class Container extends Component {
               hasCO2 &&
               <Row
                 title="CO2"
-                value={co2 + co2_correct}
+                value={co2}
                 magnitude="ppm"
                 script={this.props.onIllumination}
                 onSelect={this.select(onCO2)}
@@ -132,7 +132,7 @@ class Container extends Component {
               hasIllumination &&
               <Row
                 title="Illumination"
-                value={illumination + illumination_correct}
+                value={illumination}
                 magnitude="lux"
                 script={this.props.onIllumination}
                 onSelect={this.select(onIllumination)}

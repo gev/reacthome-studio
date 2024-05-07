@@ -17,6 +17,7 @@ class Container extends Component {
   }
   render() {
     const { id, temperature, temperature_correct = 0, index, code, onRemove, change } = this.props;
+    const { temperature_raw = temperature } = this.props;
     return (
       <tr>
         <td className="paper">
@@ -25,9 +26,12 @@ class Container extends Component {
         <td width="60%" className="paper">
           <TextField label={id} value={code || ''} onChange={this.change} style={{ width: '100%' }} />
         </td>
-        <td className="paper" width="40%" >
+        <td className="paper">
+          <Typography use="body">{`${temperature_raw && (temperature_raw + temperature_correct).toFixed(2)}°C`}</Typography>
+        </td>
+        <td className="paper" width="30%" >
           <Slider
-            label={`${temperature && (temperature + temperature_correct).toFixed(2)} °C, cor`}
+            label={`${temperature_raw && (temperature_raw).toFixed(2)} °C, cor`}
             value={temperature_correct}
             min={-10}
             max={10}

@@ -37,7 +37,7 @@ const Sensor = connect(
           <div>
             <Typography>{code || title}</Typography>
             <br />
-            <Typography>{temperature + temperature_correct}°C</Typography>
+            <Typography>{temperature}°C</Typography>
           </div>
           <Typography use="caption" onClick={remove}><strong> X </strong></Typography>
         </td>
