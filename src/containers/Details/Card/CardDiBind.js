@@ -1,21 +1,21 @@
 
+import { Checkbox } from '@rmwc/checkbox';
+import { List, ListItem, ListItemGraphic } from '@rmwc/list';
+import { TextField } from '@rmwc/textfield';
+import { Typography } from '@rmwc/typography';
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { List, ListItem, ListItemGraphic } from '@rmwc/list';
-import { Typography } from '@rmwc/typography';
-import { modify, add, remove } from '../../../actions';
-import { onOff, onOn, onHold, DI_OFF, DI_ON, DI_HOLD, onClick, DI_CLICK, onClick2, onClick3, DI_CLICK_2, DI_CLICK_3 } from '../../../constants';
-import SelectScript from '../SelectScript';
-import { TextField } from '@rmwc/textfield';
-import { Checkbox } from '@rmwc/checkbox';
+import { bindActionCreators } from 'redux';
+import { add, modify, remove } from '../../../actions';
 import RemoveButton from '../../../components/RemoveButton';
+import { DI_CLICK, DI_CLICK_2, DI_CLICK_3, DI_HOLD, DI_OFF, DI_ON, onClick, onClick2, onClick3, onHold, onOff, onOn } from '../../../constants';
+import SelectScript from '../SelectScript';
 
 const Item = connect(({ pool }, { id }) => pool[id] || {})((props) => (
   <ListItem>
     <ListItemGraphic icon={<RemoveButton title={props.code || props.title} onClick={props.remove} />} />
-    {props.code || props.title}
+    {props.code || props.title || props.id}
     <div style={{ right: 12, position: 'absolute' }}>
       <Link to={`/project/${props.project}/${props.id}`}>...</Link>
     </div>
@@ -34,7 +34,7 @@ const Action = (props) => {
         ? [props[action]]
         : [];
   const select = (id) => {
-    if (!Array.isArray(props[action])) {
+    if (!Array.isArray(props[action]) && props[action]) {
       props.modify({ [action]: [props[action]] });
     }
     props.add(action, id);

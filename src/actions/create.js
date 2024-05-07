@@ -1,11 +1,9 @@
 
-import path from 'path';
 import { createReadStream, createWriteStream } from 'fs';
+import path from 'path';
 import { v4 as uuid } from 'uuid';
-import { contains } from 'fast-deep-equal';
-import Vibrant from 'node-vibrant';
-import { asset } from '../fs';
 import { ACTION_SET, BIND } from '../constants';
+import { asset } from '../fs';
 
 const apply = (id, payload) => (dispatch, getState) => {
   dispatch({ id, payload, type: ACTION_SET });
@@ -54,6 +52,13 @@ export const modify = (id, payload) => (dispatch) => {
 export const create = (id, field, type, bind) => (dispatch, getState) => {
   if (!id || !field) return;
   const subject = uuid();
+  const prev = getState().pool[id];
+  dispatch(modify(subject, bind ? { type, [bind]: id } : { type }));
+  dispatch(modify(id, { [field]: prev && prev[field] ? [...prev[field], subject] : [subject] }));
+};
+
+export const creates = (id, subject, field, type, bind) => (dispatch, getState) => {
+  if (!id || !field) return;
   const prev = getState().pool[id];
   dispatch(modify(subject, bind ? { type, [bind]: id } : { type }));
   dispatch(modify(id, { [field]: prev && prev[field] ? [...prev[field], subject] : [subject] }));

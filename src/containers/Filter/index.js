@@ -1,11 +1,17 @@
 
+import { List, ListDivider, ListItem, ListItemPrimaryText, ListItemSecondaryText, ListItemText } from '@rmwc/list';
 import debounce from 'debounce';
 import React, { Component } from 'react';
-import { List } from '@rmwc/list';
-import TextField from './TextField';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { v4 as uuid } from 'uuid';
+import { creates } from '../../actions';
+import { SCRIPT, SITE } from '../../constants';
 import Filter from './Filter';
+import TextField from './TextField';
 
-export default class extends Component {
+
+class Container extends Component {
   state = { text: '', debounced: '' };
 
   debounced = debounce(debounced => {
@@ -32,6 +38,12 @@ export default class extends Component {
     if (onSelect) onSelect(id);
   }
 
+  create = () => {
+    const id = uuid();
+    this.props.create(id);
+    this.select(id);
+  }
+
   render() {
     const { text, open, debounced } = this.state;
     const { id, root, type } = this.props;
@@ -51,6 +63,21 @@ export default class extends Component {
               zIndex: '9999',
             }}>
               <List twoLine>
+                {
+                  type === SCRIPT && (
+                    <ListItem onMouseDown={this.create}>
+                      <ListItemText>
+                        <ListItemPrimaryText>New...</ListItemPrimaryText>
+                        <ListItemSecondaryText>Create a new script</ListItemSecondaryText>
+                      </ListItemText>
+                    </ListItem>
+                  )
+                }
+                {
+                  type === SCRIPT && (
+                    <ListDivider />
+                  )
+                }
                 <Filter id={root} type={type} text={debounced} onSelect={this.select} />
               </List>
             </div>
@@ -60,3 +87,10 @@ export default class extends Component {
     );
   }
 }
+
+export default connect(
+  () => { },
+  (dispatch, { root }) => bindActionCreators({
+    create: (id) => creates(root, id, SCRIPT, SCRIPT, SITE)
+  }, dispatch)
+)(Container)
