@@ -28,7 +28,7 @@ const Sensor = connect(
   }, dispatch)
 )(({
   code, title, remove, onTemperature, onSelect, project,
-  temperature
+  temperature, temperature_correct = 0
 }) => (
   <table>
     <tbody>
@@ -37,7 +37,7 @@ const Sensor = connect(
           <div>
             <Typography>{code || title}</Typography>
             <br />
-            <Typography>{temperature}°C</Typography>
+            <Typography>{temperature + temperature_correct}°C</Typography>
           </div>
           <Typography use="caption" onClick={remove}><strong> X </strong></Typography>
         </td>

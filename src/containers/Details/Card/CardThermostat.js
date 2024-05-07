@@ -12,7 +12,6 @@ import { modify, remove, request } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
 import Slider from '../../../components/Slider';
 import { ACTION_SETPOINT, CODE, TITLE } from '../../../constants';
-import SelectSensor from './SelectSensor';
 
 class Container extends Component {
   setpoint = (event) => {
@@ -40,9 +39,6 @@ class Container extends Component {
         </div>
         <div className="paper">
           <Slider label="setpoint" value={setpoint || 25} min={15} max={35} step={1} onInput={this.setpoint} discrete />
-        </div>
-        <div className="paper">
-          <SelectSensor id={sensor} root={project} onSelect={this.setSensor} />
         </div>
         <CardActions>
           <CardActionIcons>

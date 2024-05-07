@@ -13,7 +13,7 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
-import { CODE, DI, onDoppler, onHumidity, onIllumination, onTemperature } from '../../../constants';
+import { CODE, DI, onCO2, onDoppler, onHumidity, onIllumination, onTemperature } from '../../../constants';
 import DeviceDoppler from '../../Device/DeviceDoppler';
 import Display from '../../Display';
 import Autocomplete from '../../Filter';
@@ -71,7 +71,10 @@ class Container extends Component {
 
   render() {
     const {
-      id, code, project, daemon, temperature, removeField, humidity, illumination, co2,
+      id, code, project, daemon,
+      temperature, humidity, illumination, co2,
+      temperature_correct = 0, humidity_correct = 0, illumination_correct = 0, co2_correct = 0,
+      removeField,
       button, led, hasCO2, hasIllumination, hasHumidity, hasTemperature, hasDoppler, hasDisplay, display
     } = this.props;
     const rgb = (n) => {
@@ -93,7 +96,7 @@ class Container extends Component {
             {
               hasTemperature && <Row
                 title="Temperature"
-                value={temperature}
+                value={temperature + temperature_correct}
                 magnitude="°C"
                 script={this.props.onTemperature}
                 onSelect={this.select(onTemperature)}
@@ -105,7 +108,7 @@ class Container extends Component {
               hasHumidity &&
               <Row
                 title="Humidity"
-                value={humidity}
+                value={humidity + humidity_correct}
                 magnitude="%"
                 script={this.props.onHumidity}
                 onSelect={this.select(onHumidity)}
@@ -117,11 +120,11 @@ class Container extends Component {
               hasCO2 &&
               <Row
                 title="CO2"
-                value={co2}
+                value={co2 + co2_correct}
                 magnitude="ppm"
                 script={this.props.onIllumination}
-                onSelect={this.select(onIllumination)}
-                onRemove={this.remove(onIllumination)}
+                onSelect={this.select(onCO2)}
+                onRemove={this.remove(onCO2)}
                 project={project}
               />
             }
@@ -129,7 +132,7 @@ class Container extends Component {
               hasIllumination &&
               <Row
                 title="Illumination"
-                value={illumination}
+                value={illumination + illumination_correct}
                 magnitude="lux"
                 script={this.props.onIllumination}
                 onSelect={this.select(onIllumination)}
