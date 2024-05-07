@@ -7,6 +7,7 @@ import {
   BUTTON,
   CAMERA,
   CLOCK,
+  CO2_STAT,
   CURTAINS,
   DAEMON,
   DEVICE_TYPE_CLIMATE,
@@ -44,6 +45,7 @@ import {
   DRIVER_TYPE_SWIFT,
   DRIVER_TYPE_VARMANN,
   FAN,
+  HYGROSTAT,
   INTERCOM,
   LEAKAGE,
   LEAKAGE_SENSOR,
@@ -76,6 +78,7 @@ import CardArtnet from './CardArtnet';
 import CardBBPLC1 from './CardBBPLC1';
 import CardBBPLC2 from './CardBBPLC2';
 import CardCO2 from './CardCO2';
+import CardCO2stat from './CardCO2stat';
 import CardCamera from './CardCamera';
 import CardClimate from './CardClimate';
 import CardClock from './CardClock';
@@ -90,6 +93,7 @@ import CardDoppler from './CardDoppler';
 import CardDopplerLegacy from './CardDopplerLegacy';
 import CardElectricityMeter from './CardElectricityMeter';
 import CardHeater from './CardHeater';
+import CardHydrostat from './CardHydrostat';
 import CardIntercom from './CardIntercom';
 import CardIntesisBox from './CardIntesisBox';
 import CardLeakage from './CardLeakage';
@@ -201,6 +205,10 @@ const Container = (props) => {
       return <CardTouch {...props} />;
     case THERMOSTAT:
       return <CardThermostat {...props} />;
+    case HYGROSTAT:
+      return <CardHydrostat {...props} />;
+    case CO2_STAT:
+      return <CardCO2stat {...props} />;
     case LEAKAGE:
       return <CardLeakage {...props} />;
     case SECURITY:

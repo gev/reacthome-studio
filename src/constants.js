@@ -42,6 +42,8 @@ export const ACTION_NIGHT_TEST = 'ACTION_NIGHT_TEST';
 export const ACTION_DAY_TEST = 'ACTION_DAY_TEST';
 export const ACTION_DOPPLER_HANDLE = 'ACTION_DOPPLER_HANDLE';
 export const ACTION_THERMOSTAT_HANDLE = 'ACTION_THERMOSTAT_HANDLE';
+export const ACTION_HYGROSTAT_HANDLE = 'ACTION_HYGROSTAT_HANDLE';
+export const ACTION_CO2_STAT_HANDLE = 'ACTION_CO2_STAT_HANDLE';
 export const ACTION_LIMIT_HEATING_HANDLE = 'ACTION_LIMIT_HEATING_HANDLE';
 export const ACTION_LEAKAGE_HANDLE = 'ACTION_LEAKAGE_HANDLE';
 export const ACTION_TOGGLE = 'ACTION_TOGGLE';
@@ -246,6 +248,8 @@ export const PREVIEW_URL = 'preview_URL';
 export const MAIN_URL = 'main_URL';
 export const ACTIVE = 'active';
 export const THERMOSTAT = 'thermostat';
+export const HYGROSTAT = 'hygrostat';
+export const CO2_STAT = 'co2_stat';
 export const DISPLAY = 'display';
 export const HEATER = 'heater';
 export const LEAKAGE = 'leakage';
@@ -271,11 +275,21 @@ export const STOP_COOL = 'STOP_COOL';
 export const STOP_HEAT = 'STOP_HEAT';
 export const START_COOL = 'START_COOL';
 export const START_HEAT = 'START_HEAT';
+export const STOP_DRY = 'STOP_DRY';
+export const STOP_WET = 'STOP_WET';
+export const START_DRY = 'START_DRY';
+export const START_WET = 'START_WET';
+export const START_VENTILATION = 'START_VENTILATION';
+export const STOP_VENTILATION = 'STOP_VENTILATION';
 export const HYSTERESIS = 'hysteresis';
 export const COOL_THRESHOLD = 'cool_threshold';
 export const COOL_HYSTERESIS = 'cool_hysteresis';
 export const HEAT_THRESHOLD = 'heat_threshold';
 export const HEAT_HYSTERESIS = 'heat_hysteresis';
+export const DRY_THRESHOLD = 'dry_threshold';
+export const DRY_HYSTERESIS = 'dry_hysteresis';
+export const WET_THRESHOLD = 'wet_threshold';
+export const WET_HYSTERESIS = 'wet_hysteresis';
 
 export const LIGHT = 'light';
 export const LIGHT_220 = 'light_220';
@@ -391,6 +405,8 @@ export const MODEL_TYPE = [
   RING,
   TOUCH,
   THERMOSTAT,
+  HYGROSTAT,
+  CO2_STAT,
   LEAKAGE,
   WATER_COUNTER,
   ELECTRICITY_METER,
@@ -428,6 +444,8 @@ export const ACTION_TYPE = [
   ACTION_DAY_TEST,
   ACTION_DOPPLER_HANDLE,
   ACTION_THERMOSTAT_HANDLE,
+  ACTION_HYGROSTAT_HANDLE,
+  ACTION_CO2_STAT_HANDLE,
   ACTION_LIMIT_HEATING_HANDLE,
   ACTION_LEAKAGE_HANDLE,
   ACTION_TOGGLE,
@@ -464,6 +482,12 @@ export const onStartCool = 'onStartCool';
 export const onStartHeat = 'onStartHeat';
 export const onStopHeat = 'onStopHeat';
 export const onStopCool = 'onStopCool';
+export const onStartDry = 'onStartDry';
+export const onStartWet = 'onStartWet';
+export const onStopWet = 'onStopWet';
+export const onStopDry = 'onStopDry';
+export const onStartVentilation = 'onStartVentilation';
+export const onStopVentilation = 'onStopVentilation';
 export const onTrue = 'onTrue';
 export const onFalse = 'onFalse';
 export const onSunrise = 'onSunrise';

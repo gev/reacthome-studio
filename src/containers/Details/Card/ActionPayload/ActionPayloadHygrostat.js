@@ -6,21 +6,21 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../../actions';
 import {
-  COOL_HYSTERESIS,
-  COOL_THRESHOLD,
-  HEAT_HYSTERESIS,
-  HEAT_THRESHOLD,
-  START_COOL,
-  START_HEAT,
-  STOP_COOL,
-  STOP_HEAT,
-  onStartCool,
-  onStartHeat,
-  onStopCool,
-  onStopHeat
+  DRY_HYSTERESIS,
+  DRY_THRESHOLD,
+  START_DRY,
+  START_WET,
+  STOP_DRY,
+  STOP_WET,
+  WET_HYSTERESIS,
+  WET_THRESHOLD,
+  onStartDry,
+  onStartWet,
+  onStopDry,
+  onStopWet
 } from '../../../../constants';
 import SelectScript from '../../SelectScript';
-import SelectThermostat from './SelectThermostat';
+import SelectHygrostat from './SelectHygrostat';
 
 class Container extends Component {
   set = (key) => (event) => {
@@ -42,24 +42,24 @@ class Container extends Component {
     return (
       <div>
         <div className="paper">
-          <SelectThermostat action={id} payload={payload} project={project} root={project} />
+          <SelectHygrostat action={id} payload={payload} project={project} root={project} />
         </div>
         <table>
           <tbody>
             <tr>
               <td className="paper">
-                <TextField label={COOL_HYSTERESIS} value={payload[COOL_HYSTERESIS] || ''} onInput={this.set(COOL_HYSTERESIS)} />
+                <TextField label={DRY_HYSTERESIS} value={payload[DRY_HYSTERESIS] || ''} onInput={this.set(DRY_HYSTERESIS)} />
               </td>
               <td className="paper">
-                <TextField label={COOL_THRESHOLD} value={payload[COOL_THRESHOLD] || ''} onInput={this.set(COOL_THRESHOLD)} />
+                <TextField label={DRY_THRESHOLD} value={payload[DRY_THRESHOLD] || ''} onInput={this.set(DRY_THRESHOLD)} />
               </td>
             </tr>
             <tr>
               <td className="paper">
-                <TextField label={HEAT_HYSTERESIS} value={payload[HEAT_HYSTERESIS] || ''} onInput={this.set(HEAT_HYSTERESIS)} />
+                <TextField label={WET_HYSTERESIS} value={payload[WET_HYSTERESIS] || ''} onInput={this.set(WET_HYSTERESIS)} />
               </td>
               <td className="paper">
-                <TextField label={HEAT_THRESHOLD} value={payload[HEAT_THRESHOLD] || ''} onInput={this.set(HEAT_THRESHOLD)} />
+                <TextField label={WET_THRESHOLD} value={payload[WET_THRESHOLD] || ''} onInput={this.set(WET_THRESHOLD)} />
               </td>
             </tr>
           </tbody>
@@ -68,76 +68,76 @@ class Container extends Component {
           <tbody>
             <tr>
               <td className="paper">
-                <Typography use="caption">{START_COOL}</Typography>
+                <Typography use="caption">{START_DRY}</Typography>
               </td>
               <td className="paper">
                 <SelectScript
-                  id={payload.onStartCool}
+                  id={payload.onStartDry}
                   project={project}
-                  onSelect={this.on(onStartCool)}
+                  onSelect={this.on(onStartDry)}
                 />
               </td>
               <td className="paper">
                 {
-                  payload.onStartCool && (
-                    <Typography use="caption" onClick={this.remove(onStartCool)}><strong> X </strong></Typography>
+                  payload.onStartDry && (
+                    <Typography use="caption" onClick={this.remove(onStartDry)}><strong> X </strong></Typography>
                   )
                 }
               </td>
             </tr>
             <tr>
               <td className="paper">
-                <Typography use="caption">{STOP_COOL}</Typography>
+                <Typography use="caption">{STOP_DRY}</Typography>
               </td>
               <td className="paper">
                 <SelectScript
-                  id={payload.onStopCool}
+                  id={payload.onStopDry}
                   project={project}
-                  onSelect={this.on(onStopCool)}
+                  onSelect={this.on(onStopDry)}
                 />
               </td>
               <td className="paper">
                 {
-                  payload.onStopCool && (
-                    <Typography use="caption" onClick={this.remove(onStopCool)}><strong> X </strong></Typography>
+                  payload.onStopDry && (
+                    <Typography use="caption" onClick={this.remove(onStopDry)}><strong> X </strong></Typography>
                   )
                 }
               </td>
             </tr>
             <tr>
               <td className="paper">
-                <Typography use="caption">{START_HEAT}</Typography>
+                <Typography use="caption">{START_WET}</Typography>
               </td>
               <td className="paper">
                 <SelectScript
-                  id={payload.onStartHeat}
+                  id={payload.onStartWet}
                   project={project}
-                  onSelect={this.on(onStartHeat)}
+                  onSelect={this.on(onStartWet)}
                 />
               </td>
               <td className="paper">
                 {
-                  payload.onStartHeat && (
-                    <Typography use="caption" onClick={this.remove(onStartHeat)}><strong> X </strong></Typography>
+                  payload.onStartWet && (
+                    <Typography use="caption" onClick={this.remove(onStartWet)}><strong> X </strong></Typography>
                   )
                 }
               </td>
             </tr>
             <tr>
               <td className="paper">
-                <Typography use="caption">{STOP_HEAT}</Typography>
+                <Typography use="caption">{STOP_WET}</Typography>
               </td>
               <td className="paper">
                 <SelectScript
-                  id={payload.onStopHeat}
+                  id={payload.onStopWet}
                   project={project}
-                  onSelect={this.on(onStopHeat)}
+                  onSelect={this.on(onStopWet)}
                 />
               </td>
               <td className="paper">
                 {
-                  payload.onStopHeat && (
-                    <Typography use="caption" onClick={this.remove(onStopHeat)}><strong> X </strong></Typography>
+                  payload.onStopWet && (
+                    <Typography use="caption" onClick={this.remove(onStopWet)}><strong> X </strong></Typography>
                   )
                 }
               </td>

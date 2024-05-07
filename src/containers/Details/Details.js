@@ -1,32 +1,30 @@
 
 import React from 'react';
 import {
-  SITE,
-  PROJECT,
   DAEMON,
-  SENSOR,
   DOPPLER,
-  SCENE,
-  SCRIPT,
-  TOUCH,
   DRIVER,
   DRIVER_TYPE_RS21,
   ELECTRICITY_METER,
-  THERMOSTAT,
+  PROJECT,
+  SCENE,
+  SCRIPT,
+  SENSOR,
+  SITE,
+  TOUCH
 } from '../../constants';
-import SiteDetails from './DetailsSite';
-import ProjectDetails from './DetailsProject';
 import DaemonDetails from './DetailsDaemon';
-import FieldDetails from './DetailsField';
-import SensorDetails from './DetailsSensor';
-import TouchDetails from './DetailsTouch';
 import DopplerDetails from './DetailsDoppler';
+import DriverDetails from './DetailsDriver';
+import ElectricityMeterDetails from './DetailsElectricityMeter';
+import FieldDetails from './DetailsField';
+import ProjectDetails from './DetailsProject';
+import RS21Details from './DetailsRS21';
 import SceneDetails from './DetailsScene';
 import ScriptDetails from './DetailsScript';
-import DriverDetails from './DetailsDriver';
-import RS21Details from './DetailsRS21';
-import ElectricityMeterDetails from './DetailsElectricityMeter';
-import DetailsThermostat from './DetailsThermostat';
+import SensorDetails from './DetailsSensor';
+import SiteDetails from './DetailsSite';
+import TouchDetails from './DetailsTouch';
 
 export default (props) => {
   const { field, type } = props;
@@ -40,7 +38,6 @@ export default (props) => {
   if (field === DRIVER_TYPE_RS21) return <RS21Details {...props} />;
   if (field === DOPPLER) return <DopplerDetails {...props} />;
   if (field === ELECTRICITY_METER) return <ElectricityMeterDetails {...props} />;
-  if (field === THERMOSTAT) return <DetailsThermostat {...props} />;
   // if (field === TV) return <TVDetails {...props} />;
   if (field === SCENE) return <SceneDetails {...props} />;
   if (field) return <FieldDetails {...props} />;

@@ -1,76 +1,80 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { modify } from '../../../../actions';
 import {
-  ACTION_OFF,
-  ACTION_ON,
-  ACTION_DIM,
-  ACTION_DIM_RELATIVE,
-  ACTION_SITE_LIGHT_DIM_RELATIVE,
-  ACTION_SITE_LIGHT_OFF,
-  ACTION_TIMER_START,
-  ACTION_TIMER_STOP,
-  ACTION_DOPPLER_HANDLE,
-  ACTION_TOGGLE,
-  ACTION_SCRIPT_RUN,
-  ACTION_RGB_DIM,
-  ACTION_THERMOSTAT_HANDLE,
   ACTION_CLOCK_START,
   ACTION_CLOCK_STOP,
   ACTION_CLOCK_TEST,
+  ACTION_CLOSE,
+  ACTION_CO2_STAT_HANDLE,
   ACTION_DAY_TEST,
-  ACTION_NIGHT_TEST,
-  ACTION_TV,
-  NOTIFY,
+  ACTION_DEC_SETPOINT,
+  ACTION_DIM,
+  ACTION_DIM_RELATIVE,
   ACTION_DISABLE,
+  ACTION_DOPPLER_HANDLE,
   ACTION_ENABLE,
+  ACTION_HYGROSTAT_HANDLE,
+  ACTION_INC_SETPOINT,
+  ACTION_LIMIT_HEATING_HANDLE,
+  ACTION_NIGHT_TEST,
+  ACTION_OFF,
+  ACTION_ON,
+  ACTION_OPEN,
+  ACTION_RGB_BUTTON_SET,
+  ACTION_RGB_DIM,
   ACTION_SCHEDULE_START,
   ACTION_SCHEDULE_STOP,
-  RING,
-  ACTION_SETPOINT,
-  ACTION_LIMIT_HEATING_HANDLE,
-  ACTION_OPEN,
-  ACTION_CLOSE,
-  ACTION_STOP,
-  ACTION_SET,
-  ACTION_INC_SETPOINT,
-  ACTION_DEC_SETPOINT,
-  ACTION_RGB_BUTTON_SET,
-  ACTION_SITE_LIGHT_ON,
   ACTION_SCREEN,
+  ACTION_SCRIPT_RUN,
+  ACTION_SET,
+  ACTION_SETPOINT,
+  ACTION_SETPOINT_MIN_MAX,
   ACTION_SET_FAN_SPEED,
-  ACTION_SETPOINT_MIN_MAX
+  ACTION_SITE_LIGHT_DIM_RELATIVE,
+  ACTION_SITE_LIGHT_OFF,
+  ACTION_SITE_LIGHT_ON,
+  ACTION_STOP,
+  ACTION_THERMOSTAT_HANDLE,
+  ACTION_TIMER_START,
+  ACTION_TIMER_STOP,
+  ACTION_TOGGLE,
+  ACTION_TV,
+  NOTIFY,
+  RING
 } from '../../../../constants';
-import ActionPayloadOnOff from './ActionPayloadOnOff';
-import ActionPayloadDim from './ActionPayloadDim';
-import ActionPayloadDimRelative from './ActionPayloadDimRelative';
-import ActionPayloadSiteLightDimRelative from './ActionPayloadSiteLightDimRelative';
-import ActionPayloadTimerStart from './ActionPayloadTimerStart';
-import ActionPayloadTimerStop from './ActionPayloadTimerStop';
-import ActionPayloadDoppler from './ActionPayloadDoppler';
-import ActionPayloadThermostat from './ActionPayloadThermostat';
-import ActionPayloadHeatLimit from './ActionPayloadHeatLimt';
-import ActionPayloadToggle from './ActionPayloadToggle';
-import ActionPayloadScriptRun from './ActionPayloadScriptRun';
-import ActionPayloadRGBDim from './ActionPayloadRGBDim';
+import ActionPayloadCO2stat from './ActionPayloadCO2stat';
 import ActionPayloadClock from './ActionPayloadClock';
-import ActionPayloadScheduleStart from './ActionPayloadScheduleStart';
-import ActionPayloadScheduleStop from './ActionPayloadScheduleStop';
 import ActionPayloadClockTest from './ActionPayloadClockTest';
 import ActionPayloadDayNightTest from './ActionPayloadDayNightTest';
-import ActionPayloadTV from './ActionPayloadTV';
-import ActionPayloadNotification from './ActionPayloadNotification';
-import ActionPayloadRing from './ActionPayloadRing';
-import ActionPayloadSetpoint from './ActionPayloadSetpoint';
-import ActionPayloadSet from './ActionPayloadSet';
-import ActionPayloadIncDecSetpoint from './ActionPayloadIncDecSetpoint';
-import ActionPayloadRGBButtonSet from './ActionPayloadRGBButtonSet';
-import { bindActionCreators } from 'redux';
-import { modify } from '../../../../actions';
-import ActionPayloadSiteLightOnOff from './ActionPayloadSiteLightOnOff';
-import ActionPayloadScreen from './ActionPayloadScreen';
+import ActionPayloadDim from './ActionPayloadDim';
+import ActionPayloadDimRelative from './ActionPayloadDimRelative';
+import ActionPayloadDoppler from './ActionPayloadDoppler';
 import ActionPayloadFanSpeed from './ActionPayloadFanSpeed';
+import ActionPayloadHeatLimit from './ActionPayloadHeatLimt';
+import ActionPayloadHygrostat from './ActionPayloadHygrostat';
+import ActionPayloadIncDecSetpoint from './ActionPayloadIncDecSetpoint';
+import ActionPayloadNotification from './ActionPayloadNotification';
+import ActionPayloadOnOff from './ActionPayloadOnOff';
+import ActionPayloadRGBButtonSet from './ActionPayloadRGBButtonSet';
+import ActionPayloadRGBDim from './ActionPayloadRGBDim';
+import ActionPayloadRing from './ActionPayloadRing';
+import ActionPayloadScheduleStart from './ActionPayloadScheduleStart';
+import ActionPayloadScheduleStop from './ActionPayloadScheduleStop';
+import ActionPayloadScreen from './ActionPayloadScreen';
+import ActionPayloadScriptRun from './ActionPayloadScriptRun';
+import ActionPayloadSet from './ActionPayloadSet';
+import ActionPayloadSetpoint from './ActionPayloadSetpoint';
 import ActionPayloadSetpointMinMax from './ActionPayloadSetpointMinMax';
+import ActionPayloadSiteLightDimRelative from './ActionPayloadSiteLightDimRelative';
+import ActionPayloadSiteLightOnOff from './ActionPayloadSiteLightOnOff';
+import ActionPayloadTV from './ActionPayloadTV';
+import ActionPayloadThermostat from './ActionPayloadThermostat';
+import ActionPayloadTimerStart from './ActionPayloadTimerStart';
+import ActionPayloadTimerStop from './ActionPayloadTimerStop';
+import ActionPayloadToggle from './ActionPayloadToggle';
 
 const Container = (props) => {
   switch (props.type) {
@@ -117,6 +121,10 @@ const Container = (props) => {
       return <ActionPayloadDoppler {...props} />;
     case ACTION_THERMOSTAT_HANDLE:
       return <ActionPayloadThermostat {...props} />;
+    case ACTION_HYGROSTAT_HANDLE:
+      return <ActionPayloadHygrostat {...props} />;
+    case ACTION_CO2_STAT_HANDLE:
+      return <ActionPayloadCO2stat {...props} />;
     case ACTION_LIMIT_HEATING_HANDLE:
       return <ActionPayloadHeatLimit {...props} />;
     case ACTION_SETPOINT:

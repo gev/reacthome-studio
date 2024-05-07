@@ -39,9 +39,11 @@ class Container extends Component {
   }
 
   create = () => {
-    const id = uuid();
-    this.props.create(id);
-    this.select(id);
+    if (window.confirm("Create a new script?")) {
+      const id = uuid();
+      this.props.create(id);
+      this.select(id);
+    }
   }
 
   render() {

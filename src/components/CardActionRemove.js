@@ -3,7 +3,7 @@ import { CardAction } from '@rmwc/card';
 
 export default class extends Component {
     remove = () => {
-        if (confirm("Remove item?")) {
+        if (window.confirm("Remove an item?")) {
             this.props.remove();
         }
     }
