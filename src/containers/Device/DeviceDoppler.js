@@ -106,7 +106,7 @@ class Container extends Component {
   render() {
     const { data } = this.state;
     return (
-      <div>
+      <div className="paper">
         <Line style={{ height: '200 px' }} data={data} options={optDoppler} />
       </div>
     )

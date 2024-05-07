@@ -99,12 +99,8 @@ class Container extends Component {
     // };
     return (
       <div className="paper" >
-        <div>
-          <Line style={{ height: '200 px' }} data={data} options={optDoppler} />
-        </div>
-        {/* <div>
-          <Line style={{ height: '200 px' }} data={r} options={optDoppler} />
-        </div> */}
+        <Line style={{ height: '200 px' }} data={data} options={optDoppler} />
+        {/* <Line style={{ height: '200 px' }} data={r} options={optDoppler} /> */}
       </div>
     );
   }
