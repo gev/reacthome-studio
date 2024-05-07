@@ -23,10 +23,10 @@ class Container extends Component {
         <td className="paper">
           <Typography use="body">{index}</Typography>
         </td>
-        <td width="60%" className="paper">
+        <td width="60%">
           <TextField label={id} value={code || ''} onChange={this.change} style={{ width: '100%' }} />
         </td>
-        <td >
+        <td className="paper" >
           <Typography use="body">{`${temperature_raw && (temperature_raw + temperature_correct).toFixed(2)}°C`}</Typography>
         </td>
         <td className="paper" width="30%" >
