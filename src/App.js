@@ -1,19 +1,18 @@
 
+import { RMWCProvider } from '@rmwc/provider';
+import { createHashHistory } from 'history';
+import 'material-components-web/dist/material-components-web.min.css';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router';
-import { createHashHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
-import { RMWCProvider } from '@rmwc/provider';
-import 'material-components-web/dist/material-components-web.min.css';
-import { Main, Project, ServiceManager } from './containers';
-import createStore from './store';
-import reducer from './reducer';
 import { init } from './assets';
-import discovery from './discovery';
-import { offline } from './websocket/online';
+import { Main, Project, ServiceManager } from './containers';
 import Daemon from './containers/Daemon';
-import { cleanup } from './state';
+import discovery from './discovery';
+import reducer from './reducer';
+import createStore from './store';
+import { offline } from './websocket/online';
 
 const history = createHashHistory();
 
@@ -23,16 +22,16 @@ export default class extends Component {
   async componentWillMount() {
     await init();
     const pool = {};
-    try {
-      for (let i = 0; i < localStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
+      try {
         const key = localStorage.key(i);
         const value = localStorage.getItem(key);
         pool[key] = JSON.parse(value);
+      } catch (e) {
+        console.error(e);
       }
-    } catch (e) {
-      console.error(e);
     }
-    cleanup(pool);
+    // cleanup(pool);
     const store = createStore(reducer, { pool }, history);
     const { root } = store.getState().pool;
     if (root && root.daemon) {
