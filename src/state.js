@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, unlinkSync } from "fs";
 import { ASSETS } from "./assets/constants";
-import { DAEMON, DEVICE, IMAGE, POOL, PROJECT, ROOT, SCRIPT, SITE } from "./constants";
+import { DAEMON, DEVICE, IMAGE, MODES, POOL, PROJECT, ROOT, SCRIPT, SITE } from "./constants";
 import { asset } from "./fs";
 
 function isNumber(str) {
@@ -35,6 +35,7 @@ const build = (id, pool, state, assets) => {
       } else if (Array.isArray(v)) {
         switch (k) {
           case SITE:
+          case MODES:
           case SCRIPT: {
             v.forEach(i => {
               build(i, pool, state, assets);

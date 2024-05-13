@@ -38,7 +38,7 @@ const Row = ({
         <Typography use="caption" onClick={onRemove}><strong> X </strong></Typography>
       }
     </td>
-    <td>
+    <td className='paper'>
       <SelectScript id={script} project={project} onSelect={onSelect} />
     </td>
   </tr>
@@ -73,7 +73,6 @@ class Container extends Component {
     const {
       id, code, project, daemon,
       temperature, humidity, illumination, co2,
-      temperature_correct = 0, humidity_correct = 0, illumination_correct = 0, co2_correct = 0,
       removeField,
       button, led, hasCO2, hasIllumination, hasHumidity, hasTemperature, hasDoppler, hasDisplay, display
     } = this.props;

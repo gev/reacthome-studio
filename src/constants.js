@@ -328,6 +328,8 @@ export const CURTAINS = 'curtains';
 export const RING = 'ring';
 
 export const MODEL = 'model';
+export const MODE = 'mode';
+export const MODES = 'modes';
 
 export const NOTIFY = 'notify';
 
