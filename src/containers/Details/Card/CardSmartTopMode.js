@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../actions';
+import CardSmartTopModeScene from './CardSmartTopModeScene';
 
 
 const MODE_COOL = "MODE_COOL";
@@ -37,21 +38,23 @@ class Container extends Component {
   }
 
   render() {
-    const { id, mode, indicator = 0 } = this.props;
+    const { id, mode, indicator = 0, button, project } = this.props;
     return (
       <div>
-        <div className="paper">
-          <SimpleMenu handle={<Button>{mode || `None`}</Button>}>
-            {
-              modes.map((v) => (
-                <MenuItem key={v} onClick={this.setMode(v)}>{v}</MenuItem>
-              ))
-            }
-          </SimpleMenu>
-        </div>
         <table>
           <tbody>
             <tr>
+              <td>
+                <div className="paper">
+                  <SimpleMenu handle={<Button>{mode || `None`}</Button>}>
+                    {
+                      modes.map((v) => (
+                        <MenuItem key={v} onClick={this.setMode(v)}>{v}</MenuItem>
+                      ))
+                    }
+                  </SimpleMenu>
+                </div>
+              </td>
               <td><div className="paper">Indicator</div></td>
               <td>
                 <div className="paper">
@@ -64,23 +67,12 @@ class Container extends Component {
                   </SimpleMenu>
                 </div>
               </td>
-              <td>
-                <div className="paper">
-                  {/* {
-                    mode === MODE_SCENE ? (
-                      <DI id={`${id}`} index={indicator} />
-                    )
-                  } */}
-                </div>
-              </td>
             </tr>
           </tbody>
         </table>
         {
-          mode === MODE_SCENE ? (
-            <div></div>
-          ) : (
-            <div></div>
+          mode === MODE_SCENE && (
+            <CardSmartTopModeScene id={id} button={button} project={project} />
           )
         }
       </div>

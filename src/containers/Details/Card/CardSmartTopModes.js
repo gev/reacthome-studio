@@ -41,7 +41,7 @@ export default class extends Component {
 
 
   render() {
-    const { id, modes = [], timeout = 0, delay = 0 } = this.props;
+    const { id, modes = [], timeout = 0, delay = 0, button } = this.props;
     const { index } = this.state;
     return (
       <div>
@@ -63,6 +63,16 @@ export default class extends Component {
                   <TextField label="delay" value={delay || ''} onInput={this.setDelay} type="number" />
                 </div>
               </td>
+              {
+                modes[index] && (
+                  <td>
+                    <div className="paper">
+                      <Button onClick={this.removeMode(modes[index])}>Remove mode</Button>
+                    </div>
+                  </td>
+                )
+              }
+
             </tr>
           </tbody>
         </table>
@@ -75,12 +85,7 @@ export default class extends Component {
         </TabBar>
         {
           modes[index] && (
-            <div >
-              <CardSmartTopMode id={modes[index]} />
-              <div className="paper">
-                <Button onClick={this.removeMode(modes[index])}>Remove mode</Button>
-              </div>
-            </div>
+            <CardSmartTopMode id={modes[index]} button={button} />
           )
         }
       </div>

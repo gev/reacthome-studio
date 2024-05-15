@@ -16,8 +16,8 @@ const Cell = ({ id, index }) => {
 
 export default class extends Component {
   render() {
-    const { id } = this.props;
-    return (
+    const { id, button } = this.props;
+    return button === 4 && (
       <table>
         <tbody>
           <tr>
