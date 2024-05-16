@@ -35,13 +35,25 @@ const build = (id, pool, state, assets) => {
       } else if (Array.isArray(v)) {
         switch (k) {
           case SITE:
-          case MODES:
           case SCRIPT: {
             v.forEach(i => {
               build(i, pool, state, assets);
             });
             break;
           }
+
+          case MODES:
+            v.forEach(d => {
+              // if (typeof d === 'string') {
+              Object
+                .keys(pool)
+                .filter(i => i.startsWith(`${d}/`))
+                .forEach(i => {
+                  state[i] = pool[i];
+                });
+              state[d] = pool[d];
+            });
+            break;
 
           case DEVICE: {
             v.forEach(d => {
@@ -59,7 +71,7 @@ const build = (id, pool, state, assets) => {
                 })
               }
               if (state[d].top) {
-                state[state[d].top] = pool[state[d].top];
+                build(state[d].top, pool, state, assets);
               }
 
               // }

@@ -43,6 +43,7 @@ export default class extends Component {
   render() {
     const { id, modes = [], timeout = 0, delay = 0, button } = this.props;
     const { index } = this.state;
+    console.log(modes)
     return (
       <div>
         <table>
@@ -79,7 +80,7 @@ export default class extends Component {
         <TabBar activeTabIndex={index} onActivate={this.select}>
           {
             modes.map((_, i) => (
-              <Tab key={`${id}/mode/${i}`}>{i + 1}</Tab>
+              <Tab key={`${id}/mode/${i + 1}`}>{i + 1}</Tab>
             ))
           }
         </TabBar>
