@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../actions';
 
-const BUTTON_MENU = 'BUTTON_MENU';
-const BUTTON_POWER = 'BUTTON_POWER';
-const BUTTON_PLUS = 'BUTTON_PLUS';
-const BUTTON_MINUS = 'BUTTON_MINUS';
+const BUTTON_MENU = 'menu';
+const BUTTON_POWER = 'power';
+const BUTTON_PLUS = 'plus';
+const BUTTON_MINUS = 'minus';
 
 const buttons = [
   null,
