@@ -43,15 +43,15 @@ const build = (id, pool, state, assets) => {
           }
 
           case MODES:
-            v.forEach(d => {
+            v.forEach(m => {
               // if (typeof d === 'string') {
               Object
                 .keys(pool)
-                .filter(i => i.startsWith(`${d}/`))
+                .filter(i => i.startsWith(`${m}/`))
                 .forEach(i => {
                   state[i] = pool[i];
                 });
-              state[d] = pool[d];
+              state[m] = pool[m];
             });
             break;
 
