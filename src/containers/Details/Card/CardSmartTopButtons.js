@@ -1,14 +1,14 @@
 
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
-import { BUTTON } from '../../../constants';
+import { DI } from '../../../constants';
 import CardSmartTopButton from './CardSmartTopButton';
 
 const Cell = ({ id, index }) => {
   return (
     <div>
       <Typography use="body">{index}</Typography>
-      <CardSmartTopButton id={`${id}/${BUTTON}/${index}`} />
+      <CardSmartTopButton id={`${id}/${DI}/${index}`} />
     </div>
   );
 }
