@@ -8,7 +8,6 @@ import { bindActionCreators } from 'redux';
 import { modify } from '../../actions';
 import Slider from '../../components/Slider';
 import { DEVICE_TYPES, DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D } from '../../constants';
-import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
 import DeviceSmartNextFaceG4D from './DeviceSmartNextFaceG4D';
 
@@ -58,7 +57,6 @@ class Container extends Component {
     let button = 0, led = 0;
     const tabs = [
       <Tab key="buttons">Buttons</Tab>,
-      <Tab key="leds">LEDs</Tab>,
       <Tab key="climate">Climate</Tab>,
     ];
     switch (type) {
@@ -71,10 +69,6 @@ class Container extends Component {
         led = 8;
         tabs.push(<Tab key="face">Face</Tab>);
         break;
-    }
-    const rgb = [];
-    for (let i = 1; i <= led; i++) {
-      rgb.push(<RGB id={id} index={i} daemon={daemon} key={`${id}/rgb/${i}`} />);
     }
     return type ? [
       <div key="header">
@@ -114,11 +108,6 @@ class Container extends Component {
         }
         {
           tabIndex === 1 && (
-            rgb
-          )
-        }
-        {
-          tabIndex === 2 && (
             <table style={{ textAlign: 'left' }}>
               <tbody>
                 <Row title="Temperature" value={temperature_raw} magnitude="°C" min={-10} max={10} step={0.1} correct={temperature_correct} onCorrect={temperature_correct => change({ temperature_correct })} />
@@ -128,7 +117,7 @@ class Container extends Component {
           )
         }
         {
-          tabIndex === 3 && (
+          tabIndex === 2 && (
             <DeviceSmartNextFaceG4D id={id} daemon={daemon} />
           )
         }

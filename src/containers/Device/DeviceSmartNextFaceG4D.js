@@ -1,6 +1,7 @@
 
 import { Checkbox } from '@rmwc/checkbox';
 import { Switch } from '@rmwc/switch';
+import { Tab, TabBar } from '@rmwc/tabs';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
@@ -84,14 +85,14 @@ const iterate = (callback) => {
   }
 }
 
-const channel = (type, id, index) => `${id}/${type}/${index}`;
+const channel = (type, id, palette, index) => `${id}/${type}/${palette}.${index}`;
 
 const Circle = connect(
-  ({ pool }, { id, index }) =>
+  ({ pool }, { id, index, palette }) =>
   ({
     colors: [
-      pool[channel('rgb', id, index)],
-      pool[channel('rgb', id, index + 1)],
+      pool[channel('rgb', id, palette, index)],
+      pool[channel('rgb', id, palette, index + 1)],
     ]
   })
 )
@@ -123,10 +124,10 @@ class Rect extends Component {
 }
 
 const Pixel = connect(
-  ({ pool }, { id, index }) => pool[channel('rgb', id, index)] || {},
-  (dispatch, { daemon, id, index }) => bindActionCreators({
+  ({ pool }, { id, palette, index }) => pool[channel('rgb', id, palette, index)] || {},
+  (dispatch, { daemon, id, palette, index }) => bindActionCreators({
     setColor: (value) => request(daemon, {
-      type: ACTION_RGB_DIM, value, id, index
+      type: ACTION_RGB_DIM, value, id, index, palette
     }),
   }, dispatch)
 )(class extends Component {
@@ -164,11 +165,11 @@ const Pixel = connect(
 
 
 const Gradient = connect(
-  ({ pool }, { id, index }) => pool[channel('gradient', id, index)] || {},
-  (dispatch, { daemon, id, index }) => bindActionCreators({
+  ({ pool }, { id, palette, index }) => pool[channel('gradient', id, palette, index)] || {},
+  (dispatch, { daemon, id, palette, index }) => bindActionCreators({
     setColor: (value) => request(daemon, {
       type: ACTION_GRADIENT,
-      id, index,
+      id, palette, index,
       value
     })
   }, dispatch)
@@ -187,12 +188,13 @@ const Gradient = connect(
   }
 })
 
-const Button = ({ id, daemon, index, image, blink, onSelect, onToggle }) => {
+const Button = ({ id, daemon, palette, index, image, blink, onSelect, onToggle }) => {
   return (
     <div className={styles.button}>
       <Pixel
         id={id}
         daemon={daemon}
+        palette={palette}
         index={2 * index - 1}
         className={styles.rectV}
         image={image}
@@ -204,6 +206,7 @@ const Button = ({ id, daemon, index, image, blink, onSelect, onToggle }) => {
       <Pixel
         id={id}
         daemon={daemon}
+        palette={palette}
         index={2 * index}
         className={styles.rectV}
         image={image}
@@ -215,12 +218,13 @@ const Button = ({ id, daemon, index, image, blink, onSelect, onToggle }) => {
   )
 };
 
-const Intensity = ({ id, daemon, image, blink, onSelect, onToggle }) => {
+const Intensity = ({ id, daemon, palette, image, blink, onSelect, onToggle }) => {
   return (
     <div className={styles.intensity}>
       <Pixel
         id={id}
         daemon={daemon}
+        palette={palette}
         index={9}
         className={styles.rectH1}
         image={image}
@@ -231,6 +235,7 @@ const Intensity = ({ id, daemon, image, blink, onSelect, onToggle }) => {
       <Pixel
         id={id}
         daemon={daemon}
+        palette={palette}
         index={10}
         className={styles.rectH2}
         image={image}
@@ -241,6 +246,7 @@ const Intensity = ({ id, daemon, image, blink, onSelect, onToggle }) => {
       <Pixel
         id={id}
         daemon={daemon}
+        palette={palette}
         index={11}
         className={styles.rectH3}
         image={image}
@@ -252,10 +258,11 @@ const Intensity = ({ id, daemon, image, blink, onSelect, onToggle }) => {
   )
 }
 
-const Power = ({ id, daemon, image, blink, onSelect, onToggle }) => (
+const Power = ({ id, daemon, palette, image, blink, onSelect, onToggle }) => (
   <Pixel
     id={id}
     daemon={daemon}
+    palette={palette}
     index={12}
     className={styles.indicator}
     image={image}
@@ -265,7 +272,7 @@ const Power = ({ id, daemon, image, blink, onSelect, onToggle }) => (
   />
 )
 
-const Mode = ({ id, daemon, image, blink, onSelect, onToggle }) => {
+const Mode = ({ id, daemon, palette, image, blink, onSelect, onToggle }) => {
   const pixels = [];
   for (let i = 0; i < 3; i++)
     for (let j = 0; j < 2; j++) {
@@ -273,6 +280,7 @@ const Mode = ({ id, daemon, image, blink, onSelect, onToggle }) => {
         <Pixel
           id={id}
           daemon={daemon}
+          palette={palette}
           index={2 * i + j + 13}
           key={`${id}/mode${i}.${j}`}
           className={styles.indicator}
@@ -291,13 +299,14 @@ const Mode = ({ id, daemon, image, blink, onSelect, onToggle }) => {
   );
 }
 
-const Display = ({ id, daemon, image, blink, onSelect, onToggle }) => {
+const Display = ({ id, daemon, palette, image, blink, onSelect, onToggle }) => {
   const pixels = [];
   iterate((index, i, j) => {
     pixels.push(
       <Pixel
         id={id}
         daemon={daemon}
+        palette={palette}
         index={index}
         key={`${id}/display/${index}`}
         className={i === 4 && j === 10 ? styles.pixel_ : styles.pixel}
@@ -320,8 +329,12 @@ const Display = ({ id, daemon, image, blink, onSelect, onToggle }) => {
 
 
 class Container extends Component {
-  state = { index: 0, color: { r: 0, g: 0, b: 0 }, setColor: () => { }, blink: false, setBlink: () => { } };
+  state = { tab: 0, index: 0, color: { r: 0, g: 0, b: 0 }, setColor: () => { }, blink: false, setBlink: () => { } };
 
+
+  select = ({ detail: { index } }) => {
+    this.setState({ tab: index });
+  }
   onSelect = (index, color, setColor) => {
     if (index !== 0) {
       const i = (index - 1) >> 3;
@@ -419,61 +432,76 @@ class Container extends Component {
 
   render() {
     const { id, daemon, brightness = 128, vibro = 100, state = true, image, blink } = this.props;
-    const { color: { r, g, b } } = this.state;
+    const { color: { r, g, b }, tab } = this.state;
+    const palette = tab + 1;
     return (
-      <div className='paper'>
-        <div className={styles.top}>
-          <Button id={id} daemon={daemon} index={1} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
-          <div />
-          <Button id={id} daemon={daemon} index={2} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+      <div>
+        <div>
+          <TabBar activeTabIndex={tab} onActivate={this.select}>
+            <Tab>1</Tab>
+            <Tab>2</Tab>
+            <Tab>3</Tab>
+            <Tab>4</Tab>
+            <Tab>5</Tab>
+            <Tab>6</Tab>
+            <Tab>7</Tab>
+            <Tab>8</Tab>
+          </TabBar>
         </div>
-        <div className={styles.middle}>
-          <div className={styles.left}>
-            <Intensity id={id} daemon={daemon} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
-            <Power id={id} daemon={daemon} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+        <div className='paper'>
+          <div className={styles.top}>
+            <Button id={id} daemon={daemon} palette={palette} index={1} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <div />
+            <Button id={id} daemon={daemon} palette={palette} index={2} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+          </div>
+          <div className={styles.middle}>
+            <div className={styles.left}>
+              <Intensity id={id} daemon={daemon} palette={palette} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+              <Power id={id} daemon={daemon} palette={palette} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            </div>
+            <div>
+              <div className={styles.middle}>
+                <Gradient id={id} daemon={daemon} palette={palette} index={1} onSelect={this.onSelect} />
+                <Gradient id={id} daemon={daemon} palette={palette} index={2} onSelect={this.onSelect} />
+              </div>
+              <Display id={id} daemon={daemon} palette={palette} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+              <div className={styles.middle}>
+                <Gradient id={id} daemon={daemon} palette={palette} index={3} onSelect={this.onSelect} />
+                <Gradient id={id} daemon={daemon} palette={palette} index={4} onSelect={this.onSelect} />
+              </div>
+            </div>
+            <div className={styles.right}>
+              <Mode id={id} daemon={daemon} palette={palette} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            </div>
+          </div>
+          <div className={styles.bottom}>
+            <Button id={id} daemon={daemon} palette={palette} index={3} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <div><TextField onChange={this.setText} placeholder="Text" /></div>
+            <Button id={id} daemon={daemon} palette={palette} index={4} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
           </div>
           <div>
-            <div className={styles.middle}>
-              <Gradient id={id} daemon={daemon} index={1} onSelect={this.onSelect} />
-              <Gradient id={id} daemon={daemon} index={2} onSelect={this.onSelect} />
-            </div>
-            <Display id={id} daemon={daemon} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
-            <div className={styles.middle}>
-              <Gradient id={id} daemon={daemon} index={3} onSelect={this.onSelect} />
-              <Gradient id={id} daemon={daemon} index={4} onSelect={this.onSelect} />
-            </div>
+            <table>
+              <tbody>
+                <tr>
+                  <td width="30%"><div className="paper"><Slider label="r" value={r} min={0} max={255} step={1} discrete onInput={this.setR} /></div></td>
+                  <td width="30%"><div className="paper"><Slider label="g" value={g} min={0} max={255} step={1} discrete onInput={this.setG} /></div></td>
+                  <td width="30%"><div className="paper"><Slider label="b" value={b} min={0} max={255} step={1} discrete onInput={this.setB} /></div></td>
+                  <td width="10%"><div className="paper"><Checkbox label="blink" checked={!!this.state.blink} onChange={this.blink} /></div></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div className={styles.right}>
-            <Mode id={id} daemon={daemon} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td width="30%"><div className="paper"><Slider label="vibro" value={vibro / 25} min={0} max={10} step={1} discrete onInput={this.setVibro} /></div></td>
+                  <td width="50%"><div className="paper"><Slider label="brightness" value={brightness} min={0} max={255} step={1} discrete onInput={this.setBrightness} /></div></td>
+                  <td width="10%"><div className="paper"><Switch checked={!!state} onChange={this.onSwitch} /></div></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </div>
-        <div className={styles.bottom}>
-          <Button id={id} daemon={daemon} index={3} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
-          <div><TextField onChange={this.setText} placeholder="Text" /></div>
-          <Button id={id} daemon={daemon} index={4} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
-        </div>
-        <div>
-          <table>
-            <tbody>
-              <tr>
-                <td width="30%"><div className="paper"><Slider label="r" value={r} min={0} max={255} step={1} discrete onInput={this.setR} /></div></td>
-                <td width="30%"><div className="paper"><Slider label="g" value={g} min={0} max={255} step={1} discrete onInput={this.setG} /></div></td>
-                <td width="30%"><div className="paper"><Slider label="b" value={b} min={0} max={255} step={1} discrete onInput={this.setB} /></div></td>
-                <td width="10%"><div className="paper"><Checkbox label="blink" checked={!!this.state.blink} onChange={this.blink} /></div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <table>
-            <tbody>
-              <tr>
-                <td width="30%"><div className="paper"><Slider label="vibro" value={vibro / 25} min={0} max={10} step={1} discrete onInput={this.setVibro} /></div></td>
-                <td width="50%"><div className="paper"><Slider label="brightness" value={brightness} min={0} max={255} step={1} discrete onInput={this.setBrightness} /></div></td>
-                <td width="10%"><div className="paper"><Switch checked={!!state} onChange={this.onSwitch} /></div></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
     )
