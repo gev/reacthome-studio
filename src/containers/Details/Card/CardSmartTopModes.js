@@ -41,7 +41,7 @@ export default class extends Component {
 
 
   render() {
-    const { id, modes = [], timeout = 0, delay = 0, button } = this.props;
+    const { id, modes = [], timeout = 0, delay = 0, button, project } = this.props;
     const { index } = this.state;
     console.log(modes)
     return (
@@ -86,7 +86,7 @@ export default class extends Component {
         </TabBar>
         {
           modes[index] && (
-            <CardSmartTopMode id={modes[index]} button={button} />
+            <CardSmartTopMode id={modes[index]} button={button} project={project} />
           )
         }
       </div>

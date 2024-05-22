@@ -203,7 +203,7 @@ const ColorButton = ({ id, daemon, palette, index, image, blink, onSelect, onTog
         onSelect={onSelect}
         onToggle={onToggle}
       />
-      <Circle id={id} index={2 * index - 1} />
+      <Circle id={id} palette={palette} index={2 * index - 1} />
       <Pixel
         id={id}
         daemon={daemon}
