@@ -1,4 +1,5 @@
 
+import { Button } from '@rmwc/button';
 import { Checkbox } from '@rmwc/checkbox';
 import { Switch } from '@rmwc/switch';
 import { Tab, TabBar } from '@rmwc/tabs';
@@ -9,7 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify, request } from '../../actions';
 import Slider from '../../components/Slider';
-import { ACTION_BLINK, ACTION_DIMMER, ACTION_DO, ACTION_GRADIENT, ACTION_IMAGE, ACTION_PRINT, ACTION_RGB_DIM, ACTION_VIBRO } from '../../constants';
+import { ACTION_BLINK, ACTION_DIMMER, ACTION_DO, ACTION_GRADIENT, ACTION_IMAGE, ACTION_PALETTE, ACTION_PRINT, ACTION_RGB_DIM, ACTION_VIBRO } from '../../constants';
 import styles from './DeviceSmartNextFaceG4D.css';
 
 
@@ -188,7 +189,7 @@ const Gradient = connect(
   }
 })
 
-const Button = ({ id, daemon, palette, index, image, blink, onSelect, onToggle }) => {
+const ColorButton = ({ id, daemon, palette, index, image, blink, onSelect, onToggle }) => {
   return (
     <div className={styles.button}>
       <Pixel
@@ -430,6 +431,11 @@ class Container extends Component {
     request(daemon, { type: ACTION_PRINT, value, id });
   }
 
+  selectPalette = () => {
+    const { id, daemon, request } = this.props;
+    request(daemon, { type: ACTION_PALETTE, id, value: this.state.tab + 1 })
+  }
+
   render() {
     const { id, daemon, brightness = 128, vibro = 100, state = true, image, blink } = this.props;
     const { color: { r, g, b }, tab } = this.state;
@@ -446,13 +452,19 @@ class Container extends Component {
             <Tab>6</Tab>
             <Tab>7</Tab>
             <Tab>8</Tab>
+            <Tab>9</Tab>
+            <Tab>10</Tab>
+            <Tab>11</Tab>
+            <Tab>12</Tab>
           </TabBar>
         </div>
         <div className='paper'>
           <div className={styles.top}>
-            <Button id={id} daemon={daemon} palette={palette} index={1} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
-            <div />
-            <Button id={id} daemon={daemon} palette={palette} index={2} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <ColorButton id={id} daemon={daemon} palette={palette} index={1} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <div>
+              <Button onClick={this.selectPalette}>Select</Button>
+            </div>
+            <ColorButton id={id} daemon={daemon} palette={palette} index={2} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
           </div>
           <div className={styles.middle}>
             <div className={styles.left}>
@@ -475,9 +487,9 @@ class Container extends Component {
             </div>
           </div>
           <div className={styles.bottom}>
-            <Button id={id} daemon={daemon} palette={palette} index={3} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <ColorButton id={id} daemon={daemon} palette={palette} index={3} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
             <div><TextField onChange={this.setText} placeholder="Text" /></div>
-            <Button id={id} daemon={daemon} palette={palette} index={4} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
+            <ColorButton id={id} daemon={daemon} palette={palette} index={4} image={image} blink={blink} onSelect={this.onSelect} onToggle={this.onToggle} />
           </div>
           <div>
             <table>
