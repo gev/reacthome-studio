@@ -2,7 +2,7 @@
 import { Button } from '@rmwc/button';
 import { Tab, TabBar } from '@rmwc/tabs';
 import React, { Component } from 'react';
-import { TextField } from 'rmwc';
+import { MenuItem, SimpleMenu, TextField } from 'rmwc';
 import CardSmartTopMode from './CardSmartTopMode';
 
 
@@ -39,9 +39,13 @@ export default class extends Component {
     }
   }
 
+  setDefaultMode = (defaultMode) => () => {
+    this.props.change({ defaultMode });
+  }
+
 
   render() {
-    const { id, modes = [], timeout = 0, delay = 0, button, project } = this.props;
+    const { id, defaultMode, modes = [], timeout = 0, delay = 0, button, project } = this.props;
     const { index } = this.state;
     console.log(modes)
     return (
@@ -51,7 +55,19 @@ export default class extends Component {
             <tr>
               <td>
                 <div className="paper">
-                  <Button onClick={this.addMode}>Add mode</Button>
+                  <Button onClick={this.addMode}>Add</Button>
+                </div>
+              </td>
+              <td>
+                <div className="paper">
+                  <SimpleMenu handle={<Button>{defaultMode || `Default`}</Button>}>
+                    {
+                      (new Array(7)).fill(0).map((v, i) => (
+                        <MenuItem key={v} onClick={this.setDefaultMode(i)}>{i || 'None'}</MenuItem>
+                      ))
+                    }
+                  </SimpleMenu>
+
                 </div>
               </td>
               <td>
@@ -68,7 +84,7 @@ export default class extends Component {
                 modes[index] && (
                   <td>
                     <div className="paper">
-                      <Button onClick={this.removeMode(modes[index])}>Remove mode</Button>
+                      <Button onClick={this.removeMode(modes[index])}>Remove</Button>
                     </div>
                   </td>
                 )

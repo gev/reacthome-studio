@@ -25,7 +25,9 @@ class Container extends Component {
             <Tab key={`${id}/di/${i}`}>{i + 1}</Tab>
           ))}
         </TabBar>
-        <CardDiBind id={`${id}/${DI}/${index + 1}`} project={project} />
+        <div className="paper">
+          <CardDiBind id={`${id}/${DI}/${index + 1}`} project={project} />
+        </div>
       </div>
     );
   }
