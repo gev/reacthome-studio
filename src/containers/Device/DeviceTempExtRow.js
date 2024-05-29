@@ -27,11 +27,14 @@ class Container extends Component {
           <TextField label={id} value={code || ''} onChange={this.change} style={{ width: '100%' }} />
         </td>
         <td className="paper" >
-          <Typography use="body">{`${temperature_raw && (temperature_raw + temperature_correct).toFixed(2)}°C`}</Typography>
+          {
+            typeof temperature_raw === 'number' && typeof temperature_correct === 'number' &&
+            <Typography use="body">{`${(temperature_raw + temperature_correct).toFixed(2)}°C`}</Typography>
+          }
         </td>
         <td className="paper" width="30%" >
           <Slider
-            label={`${temperature_raw && (temperature_raw).toFixed(2)} °C, cor`}
+            label={typeof temperature_raw === 'number' && `${temperature_raw.toFixed(2)} °C, cor`}
             value={temperature_correct}
             min={-10}
             max={10}

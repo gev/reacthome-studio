@@ -12,11 +12,14 @@ const Row = ({ title, value, magnitude, onCorrect, correct, min, max, step }) =>
       <Typography use="body">{title}</Typography>
     </td>
     <td className="paper">
-      <Typography use="body">{value && (value + correct).toFixed(2)}{magnitude}</Typography>
+      {
+        typeof value === 'number' && typeof correct === 'number' &&
+        <Typography use="body">{(value + correct).toFixed(2)}{magnitude}</Typography>
+      }
     </td>
     <td width="50%" className="paper">
       <Slider
-        label={`${value && value.toFixed(2)}${magnitude}. cor`}
+        label={typeof value === 'number' && `${value.toFixed(2)}${magnitude}. cor`}
         value={correct}
         min={min}
         max={max}

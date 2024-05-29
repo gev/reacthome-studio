@@ -7,7 +7,7 @@ export default ({ label = 'value', value = 0, min, max, step, discrete, onInput 
     return (
         <div>
             <div>
-                <Typography use="caption">{[label, value.toFixed(1)].join(': ')}</Typography>
+                <Typography use="caption">{label}{typeof value === 'number' && `: ${value.toFixed(1)}`}</Typography>
             </div>
             <Slider
                 min={min}
