@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../../actions';
+import { HYSTERESIS, START_VENTILATION, STOP_VENTILATION, onStartVentilation, onStopVentilation } from '../../../../constants';
 import SelectScript from '../../SelectScript';
 import SelectCO2stat from './SelectCO2stat';
-import { HYSTERESIS, START_VENTILATION, STOP_VENTILATION, onStartVentilation, onStopVentilation } from '../../../../constants';
 
 class Container extends Component {
   set = (key) => (event) => {

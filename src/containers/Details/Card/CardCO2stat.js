@@ -116,7 +116,7 @@ export default connect(
     parent, id, field, multiple, daemon
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    setSetpoint: (value) => request(daemon, { id, type: ACTION_SETPOINT, value }),
+    setSetpoint: (co2) => request(daemon, { id, type: ACTION_SETPOINT, co2 }),
     change: (payload) => modify(id, payload),
   }, dispatch)
 )(Container);

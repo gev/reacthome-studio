@@ -171,7 +171,7 @@ export default connect(
     parent, id, field, multiple, daemon
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    setSetpoint: (value) => request(daemon, { id, type: ACTION_SETPOINT, value }),
+    setSetpoint: (humidity) => request(daemon, { id, type: ACTION_SETPOINT, humidity }),
     change: (payload) => modify(id, payload),
   }, dispatch)
 )(Container);
