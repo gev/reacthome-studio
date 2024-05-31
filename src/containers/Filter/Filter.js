@@ -64,4 +64,6 @@ class Container extends Component {
   }
 };
 
-export default connect(({ pool }) => ({ pool }))(Container);
+export default connect(
+  state => state
+)(Container);

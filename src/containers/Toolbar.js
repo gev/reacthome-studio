@@ -61,7 +61,7 @@ class MyToolbar extends Component {
 }
 
 export default connect(
-  (state, props) => props,
+  () => ({}),
   (dispatch, { project }) => bindActionCreators({
     back: goBack,
     details: () => push(`/${PROJECT}/${project}`),

@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@rmwc/textfield';
 
-type PropsType = {
-  value: ?[];
-};
-
-class Container extends Component<PropsType> {
+class Container extends Component {
   render() {
     const { value = [] } = this.props;
     return (

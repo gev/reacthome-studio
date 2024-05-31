@@ -91,7 +91,7 @@ class Container extends Component {
 }
 
 export default connect(
-  () => { },
+  () => ({}),
   (dispatch, { root }) => bindActionCreators({
     create: (id) => creates(root, id, SCRIPT, SCRIPT, SITE)
   }, dispatch)

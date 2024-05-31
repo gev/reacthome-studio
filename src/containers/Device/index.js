@@ -156,7 +156,7 @@ class Devices extends Component {
 export default connect(
   createSelector(
     ({ pool }, { id }) => pool[id] || {},
-    (_, props) => props,
+    () => ({}),
     (o, { daemon }) => ({ ...o, daemon })
   ),
   (dispatch, { id, daemon }) => bindActionCreators({
