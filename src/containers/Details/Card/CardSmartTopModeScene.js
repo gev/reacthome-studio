@@ -22,7 +22,7 @@ class Container extends Component {
       <div>
         <TabBar activeTabIndex={index} onActivate={this.select}>
           {(new Array(button)).fill(0).map((_, i) => (
-            <Tab key={`${id}/di/${i}`}>{i + 1}</Tab>
+            <Tab key={`${id}/tab/di/${i}`}>{i + 1}</Tab>
           ))}
         </TabBar>
         <div className="paper">

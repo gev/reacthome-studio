@@ -19,7 +19,7 @@ export default class extends Component {
           <ToolbarRow>
             <ToolbarSection alignStart>
               <ToolbarTitle>{title}</ToolbarTitle>
-              { action }
+              {action}
             </ToolbarSection>
           </ToolbarRow>
         </Toolbar>
@@ -28,7 +28,7 @@ export default class extends Component {
             <Grid>
               {
                 Array.isArray(children)
-                  ? children.map((c, i) => <GridCell key={'k'+i} span={4}>{c}</GridCell>)
+                  ? children.map((c, i) => <GridCell key={`k${i}`} span={4}>{c}</GridCell>)
                   : <GridCell span={4}>{children}</GridCell>
               }
             </Grid>

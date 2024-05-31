@@ -47,7 +47,7 @@ class Container extends Component {
   };
 
   render() {
-    const { sync, relay } = this.props;
+    const { id, sync, relay } = this.props;
     return (
       <div className="paper">
         <table>
@@ -72,7 +72,7 @@ class Container extends Component {
           <tbody>
             {
               Array(relay).fill(0).map((_, i) => (
-                <Row key={'k' + i} index={i + 1} onChange={this.change} sync={sync} />
+                <Row key={id + 'k' + i} index={i + 1} onChange={this.change} sync={sync} />
               ))
             }
           </tbody>

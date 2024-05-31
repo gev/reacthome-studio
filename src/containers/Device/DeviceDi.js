@@ -7,7 +7,7 @@ export default class extends Component {
     const { id, n = 4 } = this.props;
     const list = [];
     for (let i = 0; i < n; i++) {
-      list.push(<td className='paper' key={i}><Di id={id} index={i + 1} /></td>);
+      list.push(<td className='paper' key={`${id}/di/${i}`}><Di id={id} index={i + 1} /></td>);
     }
     return [
       <table>

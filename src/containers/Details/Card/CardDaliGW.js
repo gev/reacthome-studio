@@ -69,7 +69,7 @@ class Container extends Component {
           <Tab>Lights</Tab>
           <Tab>Groups</Tab>
         </TabBar>
-        <div key={tabIndex} style={{ maxWidth: '100%', maxHeight: 600, overflowY: 'auto' }}>
+        <div key={`${id}/tab/${tabIndex}`} tabIndex={tabIndex} style={{ maxWidth: '100%', maxHeight: 600, overflowY: 'auto' }}>
           <table>
             <tbody>
               {

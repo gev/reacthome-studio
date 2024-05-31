@@ -46,14 +46,14 @@ class Container extends Component {
           <tbody>
             {
               m.l.map((l, i) => [
-                <tr key={`l${i}`}>
+                <tr key={`${id}l${i}`}>
                   <td className="paper">{l.g ? 'G' : `N${i + 1}`}</td>
                   <td className="paper"><Di id={id} index={l.isU} title={`U / di ${l.isU}`} /></td>
                   <td className="paper"><Do id={id} daemon={daemon} index={l.on} title={`relay ${l.on}`} /></td>
                   <td className="paper"><Di id={id} index={l.isOn} title={`On/Off / di ${l.isOn}`} /></td>
                   {l.g ? (<td className="paper"><Do id={id} daemon={daemon} index={l.start} title={`start / relay ${l.start}`} /></td>) : <td />}
                 </tr>,
-                <tr key={`e${i}`}>
+                <tr key={`${id}e${i}`}>
                   <td />
                   <td colSpan={4}>
                     <div>
@@ -81,7 +81,7 @@ class Container extends Component {
             }
             {
               m.r.map((r, i) => (
-                <tr key={`r${i}`}>
+                <tr key={`${id}r${i}`}>
                   <td className="paper" />
                   <td className="paper"><Di id={id} index={r} title={`reset / di ${r}`} /></td>
                   <td className="paper" colSpan={3}><Button outlined onClick={resetError}>Reset Error</Button></td>

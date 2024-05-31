@@ -28,7 +28,7 @@ class GridHeaderColumn extends Component {
           </div>
         </td>
       </tr>,
-      (site || []).map(l => <Row key={`sub-${l}`} id={l} level={level + 1} project={project} selected={selected} />)
+      (site || []).map(l => <Row key={`${id}sub-${l}`} id={l} level={level + 1} project={project} selected={selected} />)
     ];
   }
 }
