@@ -48,8 +48,8 @@ class Container extends Component {
                 <div className="paper">
                   <SimpleMenu handle={<Button>{mode || `None`}</Button>}>
                     {
-                      modes.map((v) => (
-                        <MenuItem key={v} onClick={this.setMode(v)}>{v}</MenuItem>
+                      modes.map((v, i) => (
+                        <MenuItem key={`${id}/mode/${i}`} onClick={this.setMode(v)}>{v}</MenuItem>
                       ))
                     }
                   </SimpleMenu>

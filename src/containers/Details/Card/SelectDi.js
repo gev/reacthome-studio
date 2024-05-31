@@ -76,7 +76,7 @@ const Di = c(({
   } else {
     for (let i = 1; i <= n; i += 1) {
       a.push((
-        <MenuItem key={`o${i}`} index={i} onClick={select(i, DI)} id={`${id}/${DI}/${i}`} />
+        <MenuItem key={`${id}o${i}`} index={i} onClick={select(i, DI)} id={`${id}/${DI}/${i}`} />
       ));
     }
   }

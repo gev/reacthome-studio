@@ -33,7 +33,7 @@ export default connect(RS485)((props) => {
   };
 
   const {
-    index, baud, line_control, is_rbus = true
+    id, index, baud, line_control, is_rbus = true
   } = props;
 
   return (
@@ -57,7 +57,7 @@ export default connect(RS485)((props) => {
             <SimpleMenu handle={<Button>{RS485_LINE_CONTROLS[line_control] || 'Line Control'}</Button>}>
               {
                 RS485_LINE_CONTROLS.map((v, i) => (
-                  <MenuItem key={v} onClick={setLineControl(i)}>{v}</MenuItem>
+                  <MenuItem key={`${id}/line_control/${i}`} onClick={setLineControl(i)}>{v}</MenuItem>
                 ))
               }
             </SimpleMenu>

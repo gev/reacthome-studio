@@ -38,7 +38,7 @@ export default connect(DO)((props) => {
         <SimpleMenu handle={<Button>{group || index}</Button>}>
           {
             Array(groupNumber).fill(0).map((_, i) => (
-              <MenuItem key={i + 1} onClick={setGroup(i + 1)}>{i + 1}</MenuItem>
+              <MenuItem key={`${id}/group/${i}`} onClick={setGroup(i + 1)}>{i + 1}</MenuItem>
             ))
           }
         </SimpleMenu>

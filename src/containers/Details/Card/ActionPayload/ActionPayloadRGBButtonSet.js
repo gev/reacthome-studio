@@ -41,7 +41,7 @@ export default class extends Component {
                     <SimpleMenu handle={<Button>{payload.index === undefined ? 'select' : payload.index}</Button>}>
                       {
                         Array(6).fill(0).map((_, i) => (
-                          <MenuItem key={i} onClick={this.selectIndex(i)}>{i}</MenuItem>
+                          <MenuItem key={`${id}/index/${i}`} onClick={this.selectIndex(i)}>{i}</MenuItem>
                         ))
                       }
                     </SimpleMenu>

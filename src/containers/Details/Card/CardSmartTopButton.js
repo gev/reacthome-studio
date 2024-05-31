@@ -27,13 +27,13 @@ class Container extends Component {
   }
 
   render() {
-    const { action } = this.props;
+    const { id, action } = this.props;
     return (
       <div>
         <SimpleMenu handle={<Button>{action || `None`}</Button>}>
           {
-            buttons.map((v) => (
-              <MenuItem key={v} onClick={this.setAction(v)}>{v || 'None'}</MenuItem>
+            buttons.map((v, i) => (
+              <MenuItem key={`${id}/action/${i}`} onClick={this.setAction(v)}>{v || 'None'}</MenuItem>
             ))
           }
         </SimpleMenu>

@@ -1,6 +1,6 @@
 
+import { Tab, TabBar } from '@rmwc/tabs';
 import React, { Component } from 'react';
-import { TabBar, Tab } from '@rmwc/tabs';
 import DeviceDiChannelRelaySync from './DeviceDiChannelRelaySync';
 
 export default class extends Component {
@@ -20,7 +20,7 @@ export default class extends Component {
           onActivate={this.select}
         >
           {
-            Array(di).fill(0).map((_, i) => <Tab key={'k' + i}>{i + 1}</Tab>)
+            Array(di).fill(0).map((_, i) => <Tab key={`${id}/tab/di/${i}`}>{i + 1}</Tab>)
           }
         </TabBar>
         <DeviceDiChannelRelaySync id={id} daemon={daemon} index={index + 1} relay={relay} />

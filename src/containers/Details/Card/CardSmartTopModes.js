@@ -63,7 +63,7 @@ export default class extends Component {
                   <SimpleMenu handle={<Button>{defaultMode || `Default`}</Button>}>
                     {
                       (new Array(7)).fill(0).map((v, i) => (
-                        <MenuItem key={v} onClick={this.setDefaultMode(i)}>{i || 'None'}</MenuItem>
+                        <MenuItem key={`${id}/defaultMode/${i}`} value={v} onClick={this.setDefaultMode(i)}>{i || 'None'}</MenuItem>
                       ))
                     }
                   </SimpleMenu>
@@ -96,7 +96,7 @@ export default class extends Component {
         <TabBar activeTabIndex={index} onActivate={this.select}>
           {
             modes.map((_, i) => (
-              <Tab key={`${id}/mode/${i + 1}`}>{i + 1}</Tab>
+              <Tab key={`${id}/tab/mode/${i}`}>{i + 1}</Tab>
             ))
           }
         </TabBar>

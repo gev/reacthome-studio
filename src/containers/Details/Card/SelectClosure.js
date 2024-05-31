@@ -56,7 +56,7 @@ const Do = c(({
       endpoint.forEach(e => {
         if (e.cluster.includes('closure')) {
           a.push((
-            <MenuItem key={`o${e.id}`} index={e.id} onClick={select(e.id, ENDPOINT)} id={`${id}/${ENDPOINT}/${e.id}`} />
+            <MenuItem key={`${id}/${ENDPOINT}/${e.id}`} index={e.id} onClick={select(e.id, ENDPOINT)} id={`${id}/${ENDPOINT}/${e.id}`} />
           ));
         }
       });
@@ -64,7 +64,7 @@ const Do = c(({
   } else {
     for (let i = 1; i <= n; i += 1) {
       a.push((
-        <MenuItem key={`o${i}`} index={i} onClick={select(i, GROUP)} id={`${id}/${GROUP}/${i}`} />
+        <MenuItem key={`${id}/${GROUP}/${i}`} index={i} onClick={select(i, GROUP)} id={`${id}/${GROUP}/${i}`} />
       ));
     }
   }

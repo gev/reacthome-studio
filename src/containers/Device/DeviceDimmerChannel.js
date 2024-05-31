@@ -69,7 +69,7 @@ export default connect(DIM)((props) => {
         <SimpleMenu handle={<Button>{group || index}</Button>}>
           {
             Array(groupNumber).fill(0).map((_, i) => (
-              <MenuItem key={i + 1} onClick={setGroup(i + 1)}>{i + 1}</MenuItem>
+              <MenuItem key={`${id}/group/${i}`} onClick={setGroup(i + 1)}>{i + 1}</MenuItem>
             ))
           }
         </SimpleMenu>
@@ -78,7 +78,7 @@ export default connect(DIM)((props) => {
         <SimpleMenu handle={<Button>{DIM_TYPES[type] || 'Type'}</Button>}>
           {
             DIM_TYPES.map((v, i) => (
-              <MenuItem key={v} onClick={setType(i)}>{v}</MenuItem>
+              <MenuItem key={`${id}/type/${i}`} onClick={setType(i)}>{v}</MenuItem>
             ))
           }
         </SimpleMenu>

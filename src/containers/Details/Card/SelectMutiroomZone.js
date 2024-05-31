@@ -19,12 +19,12 @@ const Zone = c(({
   if (type === DEVICE_TYPE_LAN_AMP) {
     for (let i = 1; i <= 2; i += 1) {
       a.push((
-        <MenuItem key={`STEREO${i}`} label={STEREO} index={i} onClick={select(i, STEREO)} id={`${id}/${STEREO}/${i}`} />
+        <MenuItem key={`${id}STEREO${i}`} label={STEREO} index={i} onClick={select(i, STEREO)} id={`${id}/${STEREO}/${i}`} />
       ));
     }
     for (let i = 1; i <= 4; i += 1) {
       a.push((
-        <MenuItem key={`MONO${i}`} label={MONO} index={i} onClick={select(i, MONO)} id={`${id}/${MONO}/${i}`} />
+        <MenuItem key={`${id}MONO${i}`} label={MONO} index={i} onClick={select(i, MONO)} id={`${id}/${MONO}/${i}`} />
       ));
     }
   }

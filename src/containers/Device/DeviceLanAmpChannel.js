@@ -28,7 +28,7 @@ class Container extends Component {
           <SimpleMenu handle={<Button>{modes[mode]}</Button>}>
             {
               modes.map((title, i) => (
-                <MenuItem key={i} onClick={this.selectType(i)}>{title}</MenuItem>
+                <MenuItem key={`${id}/mode/${i}`} onClick={this.selectType(i)}>{title}</MenuItem>
               ))
             }
           </SimpleMenu>

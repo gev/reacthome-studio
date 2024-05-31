@@ -49,7 +49,7 @@ const Ir = c(({
   }
   for (let i = 1; i <= n; i += 1) {
     a.push((
-      <MenuItem key={`o${i}`} index={i} onClick={select(i)} id={`${id}/${IR}/${i}`} />
+      <MenuItem key={`${id}o${i}`} index={i} onClick={select(i)} id={`${id}/${IR}/${i}`} />
     ));
   }
   return (

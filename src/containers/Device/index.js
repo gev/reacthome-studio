@@ -112,7 +112,7 @@ class Devices extends Component {
                       .filter(([i, v]) => (
                         (String(DEVICE_TYPE_BOOTLOADER) !== i) && v.firmware))
                       .map(([i, v]) => (
-                        <MenuItem key={i} onClick={this.updateFirmware(v.firmware)}>
+                        <MenuItem key={`${id}/firmware/${i}`} onClick={this.updateFirmware(v.firmware)}>
                           {
                             v.firmware
                           }
