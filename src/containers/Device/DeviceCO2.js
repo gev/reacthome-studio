@@ -43,7 +43,7 @@ export default class extends Component {
       temperature_correct = 0, humidity_correct = 0, co2_correct = 0,
       daemon
     } = this.props;
-    const { temperature_raw = temperature, humidity_raw = humidity, co2_raw = co2 } = this.props;
+    const { temperature_raw = temperature, humidity_raw = humidity, co2_raw = co2, change } = this.props;
     return [
       <div key="tab">
         <TabBar
