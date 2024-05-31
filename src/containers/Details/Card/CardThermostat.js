@@ -51,7 +51,7 @@ class Container extends Component {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <div className="paper">
-          <Slider label="setpoint" value={setpoint || 25} min={15} max={35} step={1} onInput={this.setpoint} discrete />
+          <Slider label="setpoint" value={setpoint || 25} min={10} max={40} step={0.5} onInput={this.setpoint} discrete />
         </div>
         <div>
           <table>
