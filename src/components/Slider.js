@@ -3,19 +3,18 @@ import { Typography } from "@rmwc/typography";
 import React from "react";
 
 export default ({ label = 'value', value = 0, min, max, step, discrete, onInput }) => {
-    // const debounced = debounce(event => onInput(event), 100);
     return (
         <div>
             <div>
                 <Typography use="caption">{label}{typeof value === 'number' && `: ${value.toFixed(1)}`}</Typography>
             </div>
             <Slider
-                min={min}
-                max={max}
+                min={0}
+                max={max - min}
                 step={step}
-                value={value}
+                value={value - min}
                 discrete={discrete}
-                onInput={onInput}
+                onInput={event => onInput({ ...event, detail: { value: event.detail.value + min } })}
             />
         </div>
     )
