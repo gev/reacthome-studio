@@ -30,6 +30,6 @@ class Container extends Component {
 }
 
 export default connect(
-  () => ({}),
+  () => { },
   (dispatch) => bindActionCreators({ set, add }, dispatch)
 )(Container);

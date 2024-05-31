@@ -27,7 +27,7 @@ class Container extends Component {
 }
 
 export default connect(
-  ({ pool }, { payload: { id } = {} }) => pool[id] || {},
+  ({ pool }, { payload: { id } = {} }) => pool[id],
   (dispatch, { action, payload }) => bindActionCreators({
     modify: (id) => modify(action, { payload: { ...payload, id } }),
   }, dispatch)

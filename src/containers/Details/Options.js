@@ -27,7 +27,7 @@ const filter = (pool, root, select) => {
   return (pool.root || {})[select] || []
 };
 
-class Container extends Component {
+class Container extends Component{
   shouldComponentUpdate() {
     return false;
   }
@@ -47,5 +47,6 @@ class Container extends Component {
 };
 
 export default connect(
-  (state) => state
+  ({ pool }) => ({ pool })
 )(Container);
+  

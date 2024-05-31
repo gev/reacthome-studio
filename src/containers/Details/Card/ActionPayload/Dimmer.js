@@ -27,7 +27,7 @@ class Container extends Component {
 }
 
 export default connect(
-  () => ({}),
+  (state, { payload }) => payload,
   (dispatch, { action, payload }) => bindActionCreators({
     modify: (value) => modify(action, { payload: { ...payload, value } }),
   }, dispatch)

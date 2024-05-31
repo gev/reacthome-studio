@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CLOCK, DRIVER, LOCATION, MODEL, SCHEDULE, SCRIPT, TERMINAL, TIMER, WEATHER } from '../constants';
+import Toolbar from './Toolbar';
 import Details from './Details';
 import Grid from './Grid';
+import { MODEL, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER, SCHEDULE, TERMINAL } from '../constants';
 import Location from './Location';
-import Terminal from './Terminal';
-import Toolbar from './Toolbar';
 import Weather from './Weather';
+import Terminal from './Terminal';
 
 class Project extends Component {
   render() {
@@ -32,43 +32,43 @@ class Project extends Component {
           <div className="container">
             {
               isModel &&
-              <Grid project={project} />
+                <Grid project={project} />
             }
             {
               isScript &&
-              <Details project={project} daemon={daemon} id={project} field={SCRIPT} />
+                <Details project={project} daemon={daemon} id={project} field={SCRIPT} />
             }
             {
               isTimer &&
-              <Details project={project} daemon={daemon} id={project} field={TIMER} />
+                <Details project={project} daemon={daemon} id={project} field={TIMER} />
             }
             {
               isSchedule &&
-              <Details project={project} daemon={daemon} id={project} field={SCHEDULE} />
+                <Details project={project} daemon={daemon} id={project} field={SCHEDULE} />
             }
             {
               isClock &&
-              <Details project={project} daemon={daemon} id={project} field={CLOCK} />
+                <Details project={project} daemon={daemon} id={project} field={CLOCK} />
             }
             {
               isLocation &&
-              <Location daemon={daemon} id={project} />
+                <Location daemon={daemon} id={project} />
             }
             {
               isWeather &&
-              <Weather daemon={daemon} id={project} />
+                <Weather daemon={daemon} id={project} />
             }
             {
               isDriver &&
-              <Details project={project} daemon={daemon} id={project} field={DRIVER} />
+                <Details project={project} daemon={daemon} id={project} field={DRIVER} />
             }
             {
               isTerminal &&
-              <Terminal daemon={daemon} id={project} />
+                <Terminal daemon={daemon} id={project} />
             }
             {
               !(isModel || isScript || isTimer || isSchedule || isClock || isLocation || isWeather || isDriver || isTerminal) &&
-              <Details project={project} daemon={daemon} id={id || project} field={field} />
+                <Details project={project} daemon={daemon} id={id || project} field={field} />
             }
           </div>
         </div>
@@ -77,6 +77,5 @@ class Project extends Component {
   }
 }
 
-export default connect(
-  ({ pool }, { match: { params: { project } } }) => pool[project] || {}
-)(Project);
+export default connect(({ pool }, { match: { params: { project } } }) =>
+  pool[project] || {})(Project);
