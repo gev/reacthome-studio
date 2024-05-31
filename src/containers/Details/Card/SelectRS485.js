@@ -34,7 +34,7 @@ const Channel = c(({ id, type, index, onSelect }) => {
   }
   for (let i = 1; i <= n; i += 1) {
     a.push((
-      <MenuItem key={`${id}o${i}`} index={i} onClick={select(i)} id={`${id}/${RS485}/${i}`} />
+      <MenuItem key={`o${i}`} index={i} onClick={select(i)} id={`${id}/${RS485}/${i}`} />
     ));
   }
   return (

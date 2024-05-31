@@ -49,7 +49,7 @@ export default connect(ARTNET)((props) => {
         <SimpleMenu handle={<Button>{ARTNET_TYPES[type] || 'Type'}</Button>}>
           {
             ARTNET_TYPES.map((v, i) => (
-              <MenuItem key={`${id}/type/${i}`} onClick={setType(i)}>{v}</MenuItem>
+              <MenuItem key={v} onClick={setType(i)}>{v}</MenuItem>
             ))
           }
         </SimpleMenu>

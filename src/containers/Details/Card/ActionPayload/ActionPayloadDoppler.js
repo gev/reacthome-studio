@@ -48,7 +48,7 @@ class Container extends Component {
                   <SimpleMenu handle={<Button>channel {payload.index || ''}</Button>}>
                     {
                       new Array(payload.n).fill(0).map((_, i) => (
-                        <MenuItem key={`${id}/index/${i}`} onClick={this.selectIndex(i + 1)}>{i + 1}</MenuItem>
+                        <MenuItem key={i} onClick={this.selectIndex(i + 1)}>{i + 1}</MenuItem>
                       ))
                     }
                   </SimpleMenu>

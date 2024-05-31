@@ -37,7 +37,7 @@ class Container extends Component {
           <SimpleMenu handle={<Button>{m.title}</Button>}>
             {
               Object.values(modes).map(({ title, value }, i) => (
-                <MenuItem key={`${id}/mode/${i}`} onClick={() => setMode(value)}>{title}</MenuItem>
+                <MenuItem key={i} onClick={() => setMode(value)}>{title}</MenuItem>
               ))
             }
           </SimpleMenu>

@@ -49,7 +49,7 @@ class MyToolbar extends Component {
               <Button onClick={timer}><ButtonIcon icon="timer" />{TIMER}</Button>
               <Button onClick={schedule}><ButtonIcon icon="event" />{SCHEDULE}</Button>
               <Button onClick={clock}><ButtonIcon icon="access_time" />{CLOCK}</Button>
-              {/* <Button onClick={location}><ButtonIcon icon="location_on" />{LOCATION}</Button> */}
+              <Button onClick={location}><ButtonIcon icon="location_on" />{LOCATION}</Button>
               <Button onClick={weather}><ButtonIcon icon="filter_drama" />{WEATHER}</Button>
               <Button onClick={driver}><ButtonIcon icon="extension" />{DRIVER}</Button>
             </div>

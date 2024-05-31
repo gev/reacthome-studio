@@ -84,7 +84,7 @@ const Channel = c(({
   }
   for (let i = 1; i <= n; i += 1) {
     a.push((
-      <MenuItem key={`${id}/${t}/${i}`} index={i} onClick={select(i, t)} id={`${id}/${t}/${i}`} />
+      <MenuItem key={`o${i}`} index={i} onClick={select(i, t)} id={`${id}/${t}/${i}`} />
     ));
   }
   return (
