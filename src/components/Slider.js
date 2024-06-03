@@ -2,7 +2,7 @@ import { Slider } from "@rmwc/slider";
 import { Typography } from "@rmwc/typography";
 import React from "react";
 
-export default ({ label = 'value', value = 0, min, max, step, discrete, onInput }) => {
+export default ({ label = 'value', value = 0, min, max, step, onInput }) => {
     return (
         <div>
             <div>
@@ -13,7 +13,6 @@ export default ({ label = 'value', value = 0, min, max, step, discrete, onInput 
                 max={max - min}
                 step={step}
                 value={value - min}
-                discrete={discrete}
                 onInput={event => onInput({ ...event, detail: { value: event.detail.value + min } })}
             />
         </div>
