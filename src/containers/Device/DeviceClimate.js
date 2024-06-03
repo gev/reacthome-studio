@@ -2,6 +2,7 @@
 import { Tab, TabBar } from '@rmwc/tabs';
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
+import Slider from '../../components/Slider';
 import DeviceDi from './DeviceDi';
 import DeviceExt from './DeviceExt';
 
