@@ -1,48 +1,49 @@
 
+import { Button } from '@rmwc/button';
+import { SimpleMenu } from '@rmwc/menu';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SimpleMenu } from '@rmwc/menu';
-import { Button } from '@rmwc/button';
-import MenuItem from './MenuItem';
-import Autocomplete from '../../Filter';
 import {
-  DO,
-  DEVICE_TYPE_PLC,
-  DEVICE_TYPE_DO8,
-  DEVICE_TYPE_DO12,
-  DEVICE_TYPE_DIM4,
-  DEVICE_TYPE_DIM_4,
-  DEVICE_TYPE_DIM8_LEGACY,
-  DIM,
+  AO,
   ARTNET,
+  DALI_GROUP,
+  DALI_LIGHT,
+  DEVICE_TYPE_AO_4_DIN,
+  DEVICE_TYPE_DIM4,
+  DEVICE_TYPE_DIM8_LEGACY,
+  DEVICE_TYPE_DIM_12_AC_RS,
+  DEVICE_TYPE_DIM_12_DC_RS,
+  DEVICE_TYPE_DIM_12_LED_RS,
+  DEVICE_TYPE_DIM_4,
+  DEVICE_TYPE_DIM_8,
+  DEVICE_TYPE_DIM_8_RS,
+  DEVICE_TYPE_DI_4_RSM,
+  DEVICE_TYPE_DO12,
+  DEVICE_TYPE_DO8,
+  DEVICE_TYPE_MIX_1,
+  DEVICE_TYPE_MIX_1_RS,
+  DEVICE_TYPE_MIX_2,
+  DEVICE_TYPE_MIX_6x12_RS,
+  DEVICE_TYPE_PLC,
+  DEVICE_TYPE_RELAY_12,
+  DEVICE_TYPE_RELAY_12_RS,
+  DEVICE_TYPE_RELAY_2,
+  DEVICE_TYPE_RELAY_24,
+  DEVICE_TYPE_RELAY_2_DIN,
+  DEVICE_TYPE_RELAY_6,
+  DEVICE_TYPE_RS_HUB_4,
+  DEVICE_TYPE_SERVER,
+  DIM,
+  DO,
   DRIVER_TYPE_ARTNET,
   DRIVER_TYPE_BB_PLC1,
   DRIVER_TYPE_BB_PLC2,
-  DEVICE_TYPE_DIM_8,
-  DEVICE_TYPE_RELAY_2,
-  DEVICE_TYPE_RELAY_6,
-  DEVICE_TYPE_RELAY_12,
-  DEVICE_TYPE_RELAY_24,
-  ENDPOINT,
-  DEVICE_TYPE_RELAY_2_DIN,
-  DEVICE_TYPE_MIX_2,
-  DEVICE_TYPE_MIX_1,
-  DEVICE_TYPE_AO_4_DIN,
-  AO,
-  DEVICE_TYPE_MIX_1_RS,
-  DEVICE_TYPE_RELAY_12_RS,
-  DEVICE_TYPE_DIM_8_RS,
-  DEVICE_TYPE_DIM_12_LED_RS,
-  DEVICE_TYPE_DIM_12_AC_RS,
-  DEVICE_TYPE_DIM_12_DC_RS,
-  DEVICE_TYPE_MIX_6x12_RS,
-  DEVICE_TYPE_SERVER,
   DRIVER_TYPE_DALI_GW,
-  DALI_GROUP,
-  DALI_LIGHT,
+  ENDPOINT,
   GROUP,
-  DEVICE_TYPE_RS_HUB_4,
 } from '../../../constants';
+import Autocomplete from '../../Filter';
+import MenuItem from './MenuItem';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
@@ -97,6 +98,10 @@ const Do = c(({
       break;
     case DEVICE_TYPE_AO_4_DIN:
       n = 4;
+      t = AO;
+      break;
+    case DEVICE_TYPE_DI_4_RSM:
+      n = 1;
       t = AO;
       break;
     case DEVICE_TYPE_DIM4:

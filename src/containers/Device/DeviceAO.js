@@ -4,9 +4,16 @@ import Row from './DeviceAOChannel';
 
 export default class extends Component {
   render() {
-    const { n = 4 } = this.props;
+    const { n = 1 } = this.props;
     return (
       <table>
+        {
+          n === 1 ? (
+            <tbody>
+              <Row {...this.props} index={1} />
+            </tbody>
+          ) : null
+        }
         {
           n === 4 ? (
             <tbody>

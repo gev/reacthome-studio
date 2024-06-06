@@ -134,6 +134,7 @@ export const DEVICE_TYPE_CO2 = 0x2b;
 export const DEVICE_TYPE_SMART_6_PUSH = 0x2c;
 export const DEVICE_TYPE_DOPPLER_1_DI_4 = 0x2d;
 export const DEVICE_TYPE_DOPPLER_5_DI_4 = 0x2e;
+export const DEVICE_TYPE_DI_4_RSM = 0x2f;
 
 export const DEVICE_TYPE_RELAY_6 = 0xa0;
 export const DEVICE_TYPE_RELAY_12 = 0xa1;
@@ -628,7 +629,9 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_DI_4]: {
     title: 'DI 4',
-    hasFindMeAction: true
+  },
+  [DEVICE_TYPE_DI_4_RSM]: {
+    title: 'DI 4 RSM',
   },
   [DEVICE_TYPE_DI_8_DIN]: {
     title: 'DI 8',

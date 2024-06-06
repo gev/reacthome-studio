@@ -15,6 +15,7 @@ import {
   DEVICE_TYPE_DIM_8,
   DEVICE_TYPE_DIM_8_RS,
   DEVICE_TYPE_DI_4,
+  DEVICE_TYPE_DI_4_RSM,
   DEVICE_TYPE_DI_8_DIN,
   DEVICE_TYPE_DO12,
   DEVICE_TYPE_DO8,
@@ -58,6 +59,7 @@ import Climate from './DeviceClimate';
 import Di16 from './DeviceDi16';
 import Di24 from './DeviceDi24';
 import Di4 from './DeviceDi4';
+import DeviceDi4RSM from './DeviceDi4RSM';
 import Di8 from './DeviceDi8';
 import Dimmer from './DeviceDimmer';
 import Do12 from './DeviceDo12';
@@ -107,6 +109,7 @@ export default (props) => {
     case DEVICE_TYPE_DIM_12_DC_RS: return <Dimmer {...props} n={12} />;
     case DEVICE_TYPE_DIM8_LEGACY: return <Dimmer {...props} n={8} />;
     case DEVICE_TYPE_DI_4: return <Di4 {...props} />;
+    case DEVICE_TYPE_DI_4_RSM: return <DeviceDi4RSM {...props} />;
     case DEVICE_TYPE_DI_8_DIN: return <Di8 {...props} />;
     case DEVICE_TYPE_DI16: return <Di16 {...props} />;
     case DEVICE_TYPE_DI24: return <Di24 {...props} />;
