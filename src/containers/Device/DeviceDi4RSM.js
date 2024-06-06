@@ -21,8 +21,8 @@ export default class extends Component {
           onActivate={this.select}
         >
           <Tab>Inputs</Tab>
-          <Tab>Ext</Tab>
           <Tab>Analogs</Tab>
+          <Tab>Ext</Tab>
         </TabBar>
       </div>,
       <div key="body">
@@ -33,12 +33,12 @@ export default class extends Component {
         }
         {
           tabIndex === 1 && (
-            <DeviceExt {...this.props} />
+            <DeviceAO {...this.props} n={1} />
           )
         }
         {
           tabIndex === 2 && (
-            <DeviceAO {...this.props} n={1} />
+            <DeviceExt {...this.props} />
           )
         }
       </div>
