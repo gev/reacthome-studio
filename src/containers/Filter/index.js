@@ -45,8 +45,8 @@ class Container extends Component {
       buttons: ['Create', 'Cancel'],
       defaultId: 0,
       cancelId: 1,
-      detail: "Create a new script?",
-      message: this.props.title
+      detail: '',
+      message: 'Create a new script?'
     }) === 0) {
       const id = uuid();
       this.props.create(id);

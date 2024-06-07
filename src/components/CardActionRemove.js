@@ -9,8 +9,8 @@ export default class extends Component {
             buttons: ['Remove', 'Cancel'],
             defaultId: 0,
             cancelId: 1,
-            detail: "Remove an item?",
-            message: ''
+            detail: '',
+            message: 'Remove an item?'
         }) === 0) {
             this.props.remove();
         }
