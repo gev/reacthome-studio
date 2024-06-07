@@ -1,13 +1,13 @@
 
-import React, { Component } from 'react';
-import { Typography } from '@rmwc/typography';
 import { Icon } from '@rmwc/icon';
-import DoEndpoint from './DeviceDoEndpoint';
-import Do from './DeviceDo';
+import { Typography } from '@rmwc/typography';
+import React, { Component } from 'react';
+import { ACTION_MOVE_TO_HUE, ACTION_MOVE_TO_LEVEL, ACTION_MOVE_TO_SATURATION, ACTION_SETPOINT, ALARM, CLOSURE, COLOR, DO, HUMIDITY, ILLUMINATION, LEVEL, TEMPERATURE, THERMOSTAT } from '../../constants';
 import Closure from './DeviceClosureEndpoint';
-import SliderEndpoint from './DeviceSliderEndpoint';
+import Do from './DeviceDo';
+import DoEndpoint from './DeviceDoEndpoint';
 import Slider from './DeviceSlider';
-import { DO, TEMPERATURE, HUMIDITY, ILLUMINATION, ALARM, LEVEL, COLOR, ACTION_MOVE_TO_HUE, ACTION_MOVE_TO_SATURATION, ACTION_MOVE_TO_LEVEL, CLOSURE, THERMOSTAT, ACTION_SETPOINT } from '../../constants';
+import SliderEndpoint from './DeviceSliderEndpoint';
 
 const Row = ({ title, value, magnitude }) => (
   <table>
@@ -17,7 +17,7 @@ const Row = ({ title, value, magnitude }) => (
           <Typography use="body">{title}</Typography>
         </td>
         <td className="paper">
-          <Typography use="body">{`${value} ${magnitude}`}</Typography>
+          <Typography use="body">{`${typeof value === 'number' ? value.toFixed(2) : value} ${magnitude}`}</Typography>
         </td>
       </tr>
     </tbody>

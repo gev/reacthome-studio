@@ -26,7 +26,7 @@ const Row = ({
       <Typography use="body">{title}</Typography>
     </td>
     <td className="paper">
-      <Typography use="body">{value}{magnitude}</Typography>
+      <Typography use="body">{typeof value === 'number' && value.toFixed(2)}{magnitude}</Typography>
     </td>
     <td>
       {

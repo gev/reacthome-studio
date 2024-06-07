@@ -1,6 +1,7 @@
 
 import { List, ListDivider, ListItem, ListItemPrimaryText, ListItemSecondaryText, ListItemText } from '@rmwc/list';
 import debounce from 'debounce';
+import { remote } from 'electron';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -39,12 +40,20 @@ class Container extends Component {
   }
 
   create = () => {
-    if (window.confirm("Create a new script?")) {
+    if (remote.dialog.showMessageBoxSync(null, {
+      type: 'question',
+      buttons: ['Create', 'Cancel'],
+      defaultId: 0,
+      cancelId: 1,
+      detail: "Create a new script?",
+      message: this.props.title
+    }) === 0) {
       const id = uuid();
       this.props.create(id);
       this.select(id);
     }
   }
+
 
   render() {
     const { text, open, debounced } = this.state;
