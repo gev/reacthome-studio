@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../actions';
+import SelectSite from '../SelectSite';
 import CardSmartTopModeScene from './CardSmartTopModeScene';
 
 
@@ -37,8 +38,16 @@ class Container extends Component {
     this.props.change({ indicator });
   }
 
+  setPalette = (palette) => () => {
+    this.props.change({ palette });
+  }
+
+  setSite = (site) => {
+    this.props.change({ site });
+  }
+
   render() {
-    const { id, mode, indicator = 0, button, project } = this.props;
+    const { id, mode, site, palette = 0, indicator = 0, button, project } = this.props;
     return (
       <div>
         <table>
@@ -67,12 +76,40 @@ class Container extends Component {
                   </SimpleMenu>
                 </div>
               </td>
+              <td><div className="paper">Palette</div></td>
+              <td>
+                <div className="paper">
+                  <SimpleMenu handle={<Button>{palette || `None`}</Button>}>
+                    {
+                      (new Array(13)).fill(0).map((v, i) => (
+                        <MenuItem key={`${id}/palette/${i}`} index={i} onClick={this.setPalette(i)}>{i || `None`}</MenuItem>
+                      ))
+                    }
+                  </SimpleMenu>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
         {
+          mode !== MODE_SCENE && (
+            <table>
+              <tbody>
+                <tr>
+                  <td><div className="paper">Site</div></td>
+                  <td>
+                    <div className="paper">
+                      <SelectSite id={site} project={project} onSelect={this.setSite} />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          )
+        }
+        {
           mode === MODE_SCENE && (
-            <CardSmartTopModeScene id={id} button={button} project={project} />
+            <CardSmartTopModeScene id={site} button={button} project={project} />
           )
         }
       </div>

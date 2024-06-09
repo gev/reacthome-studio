@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { modify } from '../../actions';
-import SelectMenu from './SelectMenu';
 import { DAEMON } from '../../constants';
+import SelectMenu from './SelectMenu';
 
 class Container extends Component {
   select = (daemon) => {
@@ -14,7 +14,7 @@ class Container extends Component {
   }
 
   render() {
-    const { handle, daemon = [] } = this.props;
+    const { handle } = this.props;
     return (
       <SelectMenu handle={handle} select={[DAEMON]} onSelect={this.select} />
     );
