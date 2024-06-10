@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../actions';
 import SelectSite from '../SelectSite';
+import CardSmartTopModeMinMaxSetpoint from './CardSmartTopModeMinMaxSetpoint';
 import CardSmartTopModeScene from './CardSmartTopModeScene';
+import CardSmartTopModeSetpoint from './CardSmartTopModeSetpoint';
 
 
 const MODE_COOL = "MODE_COOL";
@@ -108,8 +110,18 @@ class Container extends Component {
           )
         }
         {
+          (mode === MODE_COOL || mode === MODE_HEAT || mode === MODE_WET || mode === MODE_VENTILATION) && (
+            <CardSmartTopModeSetpoint id={id} />
+          )
+        }
+        {
+          mode === MODE_WARM_FLOOR && (
+            <CardSmartTopModeMinMaxSetpoint id={id} />
+          )
+        }
+        {
           mode === MODE_SCENE && (
-            <CardSmartTopModeScene id={site} button={button} project={project} />
+            <CardSmartTopModeScene id={id} button={button} project={project} />
           )
         }
       </div>
