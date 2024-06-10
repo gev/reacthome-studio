@@ -28,7 +28,7 @@ const Sensor = connect(
   }, dispatch)
 )(({
   code, title, remove, onTemperature, onSelect, project,
-  temperature, temperature_correct = 0
+  temperature
 }) => (
   <table>
     <tbody>
