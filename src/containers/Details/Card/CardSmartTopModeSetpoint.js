@@ -14,12 +14,16 @@ class Container extends Component {
     this.setState({ index });
   }
 
-  setPalette = (palette_setpoint) => () => {
+  setSetPointPalette = (palette_setpoint) => () => {
     this.props.change({ palette_setpoint });
   }
 
+  setIntensityPalette = (palette_intensity) => () => {
+    this.props.change({ palette_intensity });
+  }
+
   render() {
-    const { id, palette_setpoint } = this.props;
+    const { id, intensity, palette_setpoint, palette_intensity } = this.props;
     return (
       <table>
         <tbody>
@@ -30,13 +34,31 @@ class Container extends Component {
                 <SimpleMenu handle={<Button>{palette_setpoint || `None`}</Button>}>
                   {
                     (new Array(13)).fill(0).map((v, i) => (
-                      <MenuItem key={`${id}/palette_setpoint/${i}`} index={i} onClick={this.setPalette(i)}>{i || `None`}</MenuItem>
+                      <MenuItem key={`${id}/palette_setpoint/${i}`} index={i} onClick={this.setSetPointPalette(i)}>{i || `None`}</MenuItem>
                     ))
                   }
                 </SimpleMenu>
               </div>
             </td>
           </tr>
+          {
+            intensity && (
+              <tr>
+                <td><div className="paper">Setpoint palette</div></td>
+                <td>
+                  <div className="paper">
+                    <SimpleMenu handle={<Button>{palette_intensity || `None`}</Button>}>
+                      {
+                        (new Array(13)).fill(0).map((v, i) => (
+                          <MenuItem key={`${id}/palette_intensity/${i}`} index={i} onClick={this.setIntensityPalette(i)}>{i || `None`}</MenuItem>
+                        ))
+                      }
+                    </SimpleMenu>
+                  </div>
+                </td>
+              </tr>
+            )
+          }
         </tbody>
       </table>
     );

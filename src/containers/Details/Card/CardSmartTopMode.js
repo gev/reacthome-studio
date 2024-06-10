@@ -110,7 +110,12 @@ class Container extends Component {
           )
         }
         {
-          (mode === MODE_COOL || mode === MODE_HEAT || mode === MODE_WET || mode === MODE_VENTILATION) && (
+          (mode === MODE_COOL || mode === MODE_HEAT || mode === MODE_VENTILATION) && (
+            <CardSmartTopModeSetpoint id={id} intensity />
+          )
+        }
+        {
+          mode === MODE_WET && (
             <CardSmartTopModeSetpoint id={id} />
           )
         }
