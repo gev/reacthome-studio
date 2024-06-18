@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import DeviceAO from './DeviceAO';
 import DeviceDi from './DeviceDi';
 import DeviceExt from './DeviceExt';
+import DeviceRS485Channel from './DeviceRS485Channel';
 
 
 export default class extends Component {
@@ -22,6 +23,7 @@ export default class extends Component {
         >
           <Tab>Inputs</Tab>
           <Tab>Analogs</Tab>
+          <Tab>RSM</Tab>
           <Tab>Ext</Tab>
         </TabBar>
       </div>,
@@ -38,6 +40,11 @@ export default class extends Component {
         }
         {
           tabIndex === 2 && (
+            <DeviceRS485Channel {...this.props} index={1} />
+          )
+        }
+        {
+          tabIndex === 3 && (
             <DeviceExt {...this.props} />
           )
         }

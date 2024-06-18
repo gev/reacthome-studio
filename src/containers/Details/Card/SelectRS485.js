@@ -1,11 +1,11 @@
 
+import { Button } from '@rmwc/button';
+import { SimpleMenu } from '@rmwc/menu';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SimpleMenu } from '@rmwc/menu';
-import { Button } from '@rmwc/button';
-import MenuItem from './MenuItem';
+import { DEVICE_TYPE_DI_4_RSM, DEVICE_TYPE_RELAY_12, DEVICE_TYPE_RELAY_24, DEVICE_TYPE_RELAY_6, DEVICE_TYPE_RSHUB, DEVICE_TYPE_RS_HUB_1, DEVICE_TYPE_RS_HUB_1_RS, DEVICE_TYPE_RS_HUB_4, DEVICE_TYPE_SERVER, RS485 } from '../../../constants';
 import Autocomplete from '../../Filter';
-import { DEVICE_TYPE_RSHUB, RS485, DEVICE_TYPE_RELAY_24, DEVICE_TYPE_RELAY_12, DEVICE_TYPE_RELAY_6, DEVICE_TYPE_RS_HUB_1_RS, DEVICE_TYPE_RS_HUB_1, DEVICE_TYPE_RS_HUB_4, DEVICE_TYPE_SERVER } from '../../../constants';
+import MenuItem from './MenuItem';
 
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
@@ -23,6 +23,7 @@ const Channel = c(({ id, type, index, onSelect }) => {
     case DEVICE_TYPE_RSHUB:
     case DEVICE_TYPE_RS_HUB_1:
     case DEVICE_TYPE_RS_HUB_1_RS:
+    case DEVICE_TYPE_DI_4_RSM:
       n = 1;
       break;
     case DEVICE_TYPE_RS_HUB_4:
