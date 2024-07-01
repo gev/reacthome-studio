@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import Autocomplete from '../../../Filter';
-import Setpoint from './Setpoint';
+import Intensity from './Intensity';
 
 export default class extends Component {
   select = (id) => {
@@ -16,7 +16,7 @@ export default class extends Component {
         <Autocomplete id={payload.id} root={root} onSelect={this.select} />
       </div>,
       <div key="value" className="paper">
-        <Setpoint action={id} payload={payload} />
+        <Intensity action={id} payload={payload} />
       </div>
     ];
   }

@@ -8,16 +8,16 @@ import Slider from '../../../../components/Slider';
 import SelectMenu from '../../SelectMenu';
 
 class Container extends Component {
-  state = { type: 'temperature' }
+  state = { type: 'cool' }
 
   componentDidMount() {
-    const { value, temperature, humidity, co2 } = this.props;
-    if (value !== undefined || temperature !== undefined) {
-      this.setState({ type: 'temperature' });
-    } else if (humidity !== undefined) {
-      this.setState({ type: 'humidity' });
-    } else if (co2 !== undefined) {
-      this.setState({ type: 'co2' });
+    const { cool, heat, ventilation } = this.props;
+    if (cool !== undefined) {
+      this.setState({ type: 'cool' });
+    } else if (heat !== undefined) {
+      this.setState({ type: 'heat' });
+    } else if (ventilation !== undefined) {
+      this.setState({ type: 'ventilation' });
     }
   }
 
@@ -31,23 +31,17 @@ class Container extends Component {
   }
 
   render() {
-    const { value, temperature, humidity, co2 } = this.props;
-    let min, max, v;
+    const { cool, heat, ventilation } = this.props;
+    let v;
     switch (this.state.type) {
-      case 'temperature':
-        min = 5;
-        max = 40;
-        v = temperature || value;
+      case 'cool':
+        v = cool;
         break;
-      case 'humidity':
-        min = 0;
-        max = 100;
-        v = humidity;
+      case 'heat':
+        v = heat;
         break;
-      case 'co2':
-        min = 200;
-        max = 1800;
-        v = co2;
+      case 'ventilation':
+        v = ventilation;
         break;
     }
     return (
@@ -55,12 +49,12 @@ class Container extends Component {
         <SelectMenu
           handle={<Button>{this.state.type}</Button>}
           onSelect={this.onSelect}
-          options={['temperature', 'humidity', 'co2']}
+          options={['cool', 'heat', 'ventilation']}
         />
         <Slider
-          label="setpoint"
-          min={min}
-          max={max}
+          label="intensity"
+          min={0}
+          max={9}
           step={1}
           value={v}
           onInput={this.input}

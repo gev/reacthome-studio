@@ -18,6 +18,7 @@ import {
   ACTION_ENABLE,
   ACTION_HYGROSTAT_HANDLE,
   ACTION_INC_SETPOINT,
+  ACTION_INTENSITY,
   ACTION_LIMIT_HEATING_HANDLE,
   ACTION_NIGHT_TEST,
   ACTION_OFF,
@@ -36,7 +37,17 @@ import {
   ACTION_SITE_LIGHT_DIM_RELATIVE,
   ACTION_SITE_LIGHT_OFF,
   ACTION_SITE_LIGHT_ON,
+  ACTION_START_COOL,
+  ACTION_START_FAN,
+  ACTION_START_HEAT,
+  ACTION_START_VENTILATION,
+  ACTION_START_WET,
   ACTION_STOP,
+  ACTION_STOP_COOL,
+  ACTION_STOP_FAN,
+  ACTION_STOP_HEAT,
+  ACTION_STOP_VENTILATION,
+  ACTION_STOP_WET,
   ACTION_THERMOSTAT_HANDLE,
   ACTION_TIMER_START,
   ACTION_TIMER_STOP,
@@ -75,6 +86,7 @@ import ActionPayloadThermostat from './ActionPayloadThermostat';
 import ActionPayloadTimerStart from './ActionPayloadTimerStart';
 import ActionPayloadTimerStop from './ActionPayloadTimerStop';
 import ActionPayloadToggle from './ActionPayloadToggle';
+import ActionPayloadIntensity from './ActionPayloadIntensity';
 
 const Container = (props) => {
   switch (props.type) {
@@ -85,6 +97,16 @@ const Container = (props) => {
     case ACTION_OPEN:
     case ACTION_CLOSE:
     case ACTION_STOP:
+    case ACTION_START_COOL:
+    case ACTION_STOP_COOL:
+    case ACTION_START_HEAT:
+    case ACTION_STOP_HEAT:
+    case ACTION_START_FAN:
+    case ACTION_STOP_FAN:
+    case ACTION_START_VENTILATION:
+    case ACTION_STOP_VENTILATION:
+    case ACTION_START_WET:
+    case ACTION_STOP_WET:
       return <ActionPayloadOnOff {...props} />;
     case ACTION_DIM:
       return <ActionPayloadDim {...props} />;
@@ -129,6 +151,8 @@ const Container = (props) => {
       return <ActionPayloadHeatLimit {...props} />;
     case ACTION_SETPOINT:
       return <ActionPayloadSetpoint {...props} />;
+    case ACTION_INTENSITY:
+      return <ActionPayloadIntensity {...props} />;
     case ACTION_SETPOINT_MIN_MAX:
       return <ActionPayloadSetpointMinMax {...props} />;
     case ACTION_INC_SETPOINT:
