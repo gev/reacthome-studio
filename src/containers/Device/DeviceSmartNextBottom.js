@@ -4,6 +4,7 @@ import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
 import Slider from '../../components/Slider';
 import { DEVICE_TYPE_SMART_BOTTOM_2 } from '../../constants';
+import DeviceALED from './DeviceALED';
 import DeviceDi from './DeviceDi';
 import DeviceExt from './DeviceExt';
 
@@ -42,8 +43,10 @@ export default class extends Component {
     const {
       co2, temperature, humidity,
       temperature_correct = 0, humidity_correct = 0, co2_correct = 0,
-      type, change } = this.props;
+      type, change, version } = this.props;
     const { temperature_raw = temperature, humidity_raw = humidity, co2_raw = co2 } = this.props;
+    const major = Number.parseInt((version || '').split('.')[0]);
+    const hasALED = major >= 4;
     const hasCO2 = type === DEVICE_TYPE_SMART_BOTTOM_2;
     const tabs = [
       <Tab key="inputs">Inputs</Tab>,
@@ -51,6 +54,9 @@ export default class extends Component {
     ];
     if (hasCO2) {
       tabs.push(<Tab key="climate">Climate</Tab>);
+    }
+    if (hasALED) {
+      tabs.push(<Tab key="aled">ALED</Tab>);
     }
     return [
       <div key="tab">
@@ -68,7 +74,7 @@ export default class extends Component {
           )
         }
         {
-          tabIndex === 2 && (
+          tabIndex === 2 && hasCO2 && (
             <table style={{ textAlign: 'left' }}>
               <tbody>
                 <Row title="Temperature" value={temperature_raw} magnitude="°C" min={-10} max={10} step={0.1} correct={temperature_correct} onCorrect={temperature_correct => change({ temperature_correct })} />
@@ -76,6 +82,11 @@ export default class extends Component {
                 <Row title="CO2" value={co2_raw} magnitude="ppm" min={-200} max={200} step={1} correct={co2_correct} onCorrect={co2_correct => change({ co2_correct })} />
               </tbody>
             </table>
+          )
+        }
+        {
+          (tabIndex === 2 && !hasCO2 || tabIndex === 3) && (
+            <DeviceALED {...this.props} />
           )
         }
       </div>,
