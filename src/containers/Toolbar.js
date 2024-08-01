@@ -7,7 +7,7 @@ import {
   ToolbarSection,
   ToolbarTitle,
 } from '@rmwc/toolbar';
-import { remote } from 'electron';
+import { dialog } from '@electron/remote';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { goBack, push } from 'react-router-redux';
@@ -18,7 +18,7 @@ import { CLOCK, DRIVER, LOCATION, MODEL, PROJECT, SCHEDULE, SCRIPT, TIMER, WEATH
 
 class MyToolbar extends Component {
   exportProject = () => {
-    remote.dialog.showOpenDialog(
+    dialog.showOpenDialog(
       { buttonLabel: 'Export', properties: ['openDirectory', 'createDirectory'] },
       (folder) => {
         this.props.exportProject(folder[0]);

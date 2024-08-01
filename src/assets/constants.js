@@ -1,8 +1,8 @@
 
 import path from 'path';
-import { remote } from 'electron';
+import { app } from '@electron/remote';
 
-const p = (...s) => path.join(remote.app.getPath('home'), ...s);
+const p = (...s) => path.join(app.getPath('home'), ...s);
 
 export const HOME = p('.reacthome-studio');
 export const VAR = p('.reacthome-studio', 'var');

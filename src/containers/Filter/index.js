@@ -1,7 +1,7 @@
 
 import { List, ListDivider, ListItem, ListItemPrimaryText, ListItemSecondaryText, ListItemText } from '@rmwc/list';
 import debounce from 'debounce';
-import { remote } from 'electron';
+import { dialog } from '@electron/remote';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -40,7 +40,7 @@ class Container extends Component {
   }
 
   create = () => {
-    if (remote.dialog.showMessageBoxSync(null, {
+    if (dialog.showMessageBoxSync(null, {
       type: 'question',
       buttons: ['Create', 'Cancel'],
       defaultId: 0,

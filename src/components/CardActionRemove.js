@@ -1,10 +1,10 @@
 import { CardAction } from '@rmwc/card';
-import { remote } from 'electron';
+import { dialog } from '@electron/remote';
 import React, { Component } from 'react';
 
 export default class extends Component {
     remove = () => {
-        if (remote.dialog.showMessageBoxSync(null, {
+        if (dialog.showMessageBoxSync(null, {
             type: 'question',
             buttons: ['Remove', 'Cancel'],
             defaultId: 0,

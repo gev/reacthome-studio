@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link href="assets/material-icons.css" rel="stylesheet">
-    <link href="assets/ubuntu.css" rel="stylesheet">
-    <link href="assets/xterm.css" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
-    <title>Reacthome Studio</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script>
-      var bundlePath = './bundle/renderer.bundle.js';
-      if(typeof process !== 'undefined' && process.env.NODE_ENV === 'DEV') {
-        const port = process.env.PORT || 8888;
-        bundlePath = `http://localhost:${port}/bundle/renderer.bundle.js`;
-        var bundleScriptEl = document.createElement('script');
-        bundleScriptEl.src = bundlePath;
-        bundleScriptEl.async = true;
-        document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
-      } else {
-        require(bundlePath);
-      }
-    </script>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <link href="assets/material-icons.css" rel="stylesheet">
+  <link href="assets/ubuntu.css" rel="stylesheet">
+  <link href="assets/xterm.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
+  <title>Reacthome Studio</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    var bundlePath = './bundle/renderer.bundle.js';
+    if (typeof process !== 'undefined' && process.env.NODE_ENV === 'DEV') {
+      const port = process.env.PORT || 8888;
+      bundlePath = `http://localhost:${port}/bundle/renderer.bundle.js`;
+    }
+    var bundleScriptEl = document.createElement('script');
+    bundleScriptEl.src = bundlePath;
+    bundleScriptEl.async = true;
+    document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
+  </script>
+</body>
+
 </html>
