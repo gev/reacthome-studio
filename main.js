@@ -1,5 +1,6 @@
-
 const { app, BrowserWindow } = require('electron');
+const remote = require('@electron/remote/main');
+
 
 const path = require('path');
 const url = require('url');
@@ -9,11 +10,16 @@ let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
     webPreferences: {
-      nodeIntegration: true
+      webSecurity: false,
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
     },
-    fullscreen: true,
+    fullscreen: false,
     show: false
   });
+
+  remote.enable(mainWindow.webContents);
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -31,6 +37,8 @@ function createWindow() {
     mainWindow.show();
   });
 }
+
+remote.initialize();
 
 app.on('ready', createWindow);
 

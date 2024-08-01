@@ -1,42 +1,25 @@
 
-import { remote } from 'electron';
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { goBack, push } from 'react-router-redux';
-import { connect } from 'react-redux';
+import { dialog } from '@electron/remote';
+import { Button, ButtonIcon } from '@rmwc/button';
 import {
   Toolbar,
-  ToolbarRow,
-  ToolbarTitle,
+  ToolbarFixedAdjust,
   ToolbarIcon,
+  ToolbarRow,
   ToolbarSection,
-  ToolbarFixedAdjust
+  ToolbarTitle
 } from '@rmwc/toolbar';
-import { Button, ButtonIcon } from '@rmwc/button';
-import { MODEL, PROJECT, SCRIPT, TIMER, CLOCK, LOCATION, WEATHER, DRIVER, SCHEDULE } from '../constants';
-import { sendProject, exportProject } from '../actions';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { goBack, push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { exportProject, sendProject } from '../actions';
+import { CLOCK, DRIVER, LOCATION, MODEL, PROJECT, SCHEDULE, SCRIPT, TIMER, WEATHER } from '../constants';
 
-type Props = {
-  project: string,
-  title: ?string,
-  openMenu: () => {},
-  back: () => void,
-  details: () => void,
-  model: () => void,
-  script: () => void,
-  timer: () => void,
-  schedule: () => void,
-  clock: () => void,
-  location: () => void,
-  weather: () => void,
-  driver: () => void,
-  sendProject: () => void,
-  exportProject: (folder: string) => void
-};
 
-class MyToolbar extends Component<Props> {
+class MyToolbar extends Component {
   exportProject = () => {
-    remote.dialog.showOpenDialog(
+    dialog.showOpenDialog(
       { buttonLabel: 'Export', properties: ['openDirectory', 'createDirectory'] },
       (folder) => {
         this.props.exportProject(folder[0]);

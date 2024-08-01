@@ -18,6 +18,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', (req, res) => {
+  res.setHeader('Content-Security-Policy', "default-src * self file: blob: data: gap:; style-src * self 'unsafe - inline' file: blob: data: gap:; script-src * 'self' 'unsafe - eval' 'unsafe - inline' file: blob: data: gap:; object-src * 'self' file: blob: data: gap:; img-src *  'unsafe - inline' file: blob: data: gap:; connect-src self * 'unsafe - inline' file: blob: data: gap:; frame-src * self file: blob: data: gap:;");
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
