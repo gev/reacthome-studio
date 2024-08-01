@@ -33,6 +33,7 @@ import {
   DRIVER_TYPE_BB_PLC2,
   DRIVER_TYPE_COMFOVENT,
   DRIVER_TYPE_DALI_GW,
+  DRIVER_TYPE_DLC_02,
   DRIVER_TYPE_INTESIS_BOX,
   DRIVER_TYPE_M206,
   DRIVER_TYPE_M230,
@@ -119,6 +120,7 @@ import CardTimer from './CardTimer';
 import CardTouch from './CardTouch';
 import CardVarmann from './CardVarmann';
 import CardZigbee from './CardZigbee';
+import CardDLC02 from './CardDLC02';
 
 const Container = (props) => {
   if (props.protocol === ZIGBEE) {
@@ -219,6 +221,8 @@ const Container = (props) => {
       return <CardArtnet {...props} />;
     case DRIVER_TYPE_DALI_GW:
       return <CardDaliGW {...props} />
+    case DRIVER_TYPE_DLC_02:
+      return <CardDLC02 {...props} />
     case DRIVER_TYPE_BB_PLC1:
       return <CardBBPLC1 {...props} />;
     case DRIVER_TYPE_BB_PLC2:
