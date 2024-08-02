@@ -1,4 +1,5 @@
 
+import { dialog } from '@electron/remote';
 import { Button, ButtonIcon } from '@rmwc/button';
 import {
   Toolbar,
@@ -7,7 +8,6 @@ import {
   ToolbarSection,
   ToolbarTitle,
 } from '@rmwc/toolbar';
-import { dialog } from '@electron/remote';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { goBack, push } from 'react-router-redux';
