@@ -201,7 +201,7 @@ export const ACTION_MULTIROOM_ZONE = 'ACTION_MULTIROOM_ZONE';
 
 export const DRIVER_TYPE_ARTNET = 'ARTNET';
 export const DRIVER_TYPE_DALI_GW = 'DALI_GW';
-export const DRIVER_TYPE_DLC_02 = 'DLC_02';
+export const DRIVER_TYPE_DALI_DLC = 'DALI_DLC';
 export const DRIVER_TYPE_RS21 = 'RS21';
 export const DRIVER_TYPE_BB_PLC1 = 'BB_PLC1';
 export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
@@ -850,9 +850,9 @@ export const DRIVER_TYPES = {
     title: 'Artnet'
   },
   [DRIVER_TYPE_DALI_GW]: {
-    title: 'Dali GW'
+    title: 'Dali GW-2'
   },
-  [DRIVER_TYPE_DLC_02]: {
+  [DRIVER_TYPE_DALI_DLC]: {
     title: 'DLC-02'
   },
   [DRIVER_TYPE_RS21]: {
