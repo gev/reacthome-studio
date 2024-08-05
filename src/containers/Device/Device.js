@@ -189,5 +189,3 @@ export default (props) => {
     }
   }
 };
-
-// все смарты

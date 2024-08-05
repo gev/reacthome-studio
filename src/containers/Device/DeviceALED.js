@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { Tab, TabBar } from 'rmwc';
+import DeviceALEDGroup from './DeviceALEDGroup';
 
 
 
@@ -12,7 +13,7 @@ export default class extends Component {
   }
   render() {
     const { tabIndex } = this.state;
-    const { change } = this.props;
+    const { id } = this.props;
     return (
       <div>
         <TabBar activeTabIndex={tabIndex} onActivate={this.select}>
@@ -28,21 +29,9 @@ export default class extends Component {
           <Tab>10</Tab>
         </TabBar>
         <div className="paper">
-          {tabIndex + 1}
+          <DeviceALEDGroup id={`${id}/group/${tabIndex + 1}`} />
         </div>
       </div>
-      // <table style={{ textAlign: 'left' }}>
-      //   <tbody>
-      //     <tr>
-      //       <td className='paper'>
-      //         <Typography use="body">Groups</Typography>
-      //       </td>
-      //       <td className='paper'>
-      //         <Typography use="body">Brightness</Typography>
-      //       </td>
-      //     </tr>
-      //   </tbody>
-      // </table>
     );
   }
 }
