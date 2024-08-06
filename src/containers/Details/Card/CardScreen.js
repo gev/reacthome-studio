@@ -98,7 +98,6 @@ export default connect(
     project, parent, id, field, multiple, daemon,
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    details: () => push(`/project/${project}/${id}`),
     change: (payload) => modify(id, payload),
     config: (dev, index, brand, model) => request(daemon, {
       type: ACTION_IR_CONFIG, id, dev, index, brand, model

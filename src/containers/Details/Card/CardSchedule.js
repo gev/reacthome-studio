@@ -59,9 +59,6 @@ class Container extends Component {
           <Typography use="headline4">{schedule}</Typography>
         </div>
         <CardActions>
-          <CardActionButtons>
-            <CardAction onClick={details}>Details</CardAction>
-          </CardActionButtons>
           <CardActionIcons>
             <CardActionRemove remove={removeField} />
           </CardActionIcons>
@@ -77,7 +74,6 @@ export default connect(
     project, parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    details: () => push(`/project/${project}/${id}`),
     change: (payload) => modify(id, payload)
   }, dispatch)
 )(Container);

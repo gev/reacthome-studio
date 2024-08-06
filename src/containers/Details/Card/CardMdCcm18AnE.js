@@ -36,9 +36,9 @@ class Container extends Component {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
-  toggle = () => {
-    const { id, daemon, value } = this.props;
-    const type = value ? ACTION_OFF : ACTION_ON;
+  toggle = ({ target: { checked } }) => {
+    const { id, daemon } = this.props;
+    const type = checked ? ACTION_ON : ACTION_OFF;
     send(daemon, { id, type });
   };
   setFanSpeed = ({ detail: { value } }) => {
@@ -59,7 +59,7 @@ class Container extends Component {
   };
   render() {
     const {
-      code, project, bind, title, fan_speed, value, setpoint, removeField
+      code, project, bind, title, fan_speed, value, mode, setpoint, direction, removeField
     } = this.props;
     return (
       <Card>
@@ -76,12 +76,25 @@ class Container extends Component {
           <Switch checked={!!value} onChange={this.toggle} />
         </div>
         <div className="paper">
+          <table>
+            <tbody>
+              <tr>
+                <Check checked={mode === 0} onChange={this.setMode(0)} label="Auto" />
+                <Check checked={mode === 1} onChange={this.setMode(1)} label="Heat" />
+                <Check checked={mode === 2} onChange={this.setMode(2)} label="Dry" />
+                <Check checked={mode === 3} onChange={this.setMode(3)} label="Vent" />
+                <Check checked={mode === 4} onChange={this.setMode(4)} label="Cool" />
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="paper">
           <Typography>Fan speed</Typography>
           <Slider
-            label="fan speed"
+            id="fan speed"
             min={0}
             step={1}
-            max={10}
+            max={3}
             value={fan_speed || 0}
             onInput={this.setFanSpeed}
             discrete
@@ -91,9 +104,9 @@ class Container extends Component {
           <Typography>Set point</Typography>
           <Slider
             label="setpoint"
-            min={15}
-            step={0.5}
-            max={30}
+            min={16}
+            step={1}
+            max={32}
             value={setpoint || 0}
             onInput={this.setPoint}
             discrete

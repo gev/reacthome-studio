@@ -215,6 +215,7 @@ export const DRIVER_TYPE_SWIFT = 'SWIFT';
 export const DRIVER_TYPE_COMFOVENT = 'COMFOVENT';
 export const DRIVER_TYPE_VARMANN = 'VARMANN';
 export const DRIVER_TYPE_INTESIS_BOX = 'INTESIS_BOX';
+export const DRIVER_TYPE_MD_CCM18_AN_E = 'MD_CCM18_AN_E';
 export const DRIVER_TYPE_RTD_RA = 'RT_DA';
 
 export const DRIVER_TYPE_ALINK = 'ALINK';
@@ -853,7 +854,7 @@ export const DRIVER_TYPES = {
     title: 'Dali GW-2'
   },
   [DRIVER_TYPE_DALI_DLC]: {
-    title: 'DLC-02'
+    title: 'Dali DLC-02'
   },
   [DRIVER_TYPE_RS21]: {
     title: 'Wi-Fi Temperature Sensor RS21'
@@ -881,6 +882,9 @@ export const DRIVER_TYPES = {
   },
   [DRIVER_TYPE_INTESIS_BOX]: {
     title: 'Intesis Box'
+  },
+  [DRIVER_TYPE_MD_CCM18_AN_E]: {
+    title: 'MD-CCM18 AN-E'
   },
   [DRIVER_TYPE_RTD_RA]: {
     title: 'RTD-RA'

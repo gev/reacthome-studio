@@ -58,8 +58,8 @@ export default connect(
     parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    details: () => push(`/daemon/${id}`),
     terminal: () => push(`/daemon/${id}/${TERMINAL}`),
+    details: () => push(`/daemon/${id}`),
     change: (payload) => modify(id, payload),
   }, dispatch)
 )(Container);

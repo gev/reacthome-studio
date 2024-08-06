@@ -1,22 +1,22 @@
 
-import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import Dropzone from 'react-dropzone';
 import {
   Card,
-  CardMedia,
   CardAction,
-  CardActions,
+  CardActionButtons,
   CardActionIcons,
-  CardActionButtons
+  CardActions,
+  CardMedia
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
-import { remove, modify, attach } from '../../../actions';
-import { TITLE, CODE, IMAGE } from '../../../constants';
-import { asset } from '../../../fs';
+import React, { Component } from 'react';
+import Dropzone from 'react-dropzone';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { attach, modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
+import { CODE, IMAGE, TITLE } from '../../../constants';
+import { asset } from '../../../fs';
 
 
 const ColorPair = ({ color, backgroundColor, children }) => (
@@ -137,8 +137,8 @@ export default connect(
     project, parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    details: () => push(`/project/${project}/${id}`),
     attachImage: (file) => attach(id, IMAGE, file),
+    details: () => push(`/project/${project}/${id}`),
     change: (payload) => modify(id, payload)
   }, dispatch)
 )(Container);

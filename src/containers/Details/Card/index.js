@@ -32,11 +32,12 @@ import {
   DRIVER_TYPE_BB_PLC1,
   DRIVER_TYPE_BB_PLC2,
   DRIVER_TYPE_COMFOVENT,
-  DRIVER_TYPE_DALI_GW,
   DRIVER_TYPE_DALI_DLC,
+  DRIVER_TYPE_DALI_GW,
   DRIVER_TYPE_INTESIS_BOX,
   DRIVER_TYPE_M206,
   DRIVER_TYPE_M230,
+  DRIVER_TYPE_MD_CCM18_AN_E,
   DRIVER_TYPE_MODBUS,
   DRIVER_TYPE_MODBUS_RBUS,
   DRIVER_TYPE_MODBUS_TCP,
@@ -86,6 +87,7 @@ import CardClock from './CardClock';
 import CardClosure from './CardClosure';
 import CardComfovent from './CardComfovent';
 import CardDaemon from './CardDaemon';
+import CardDaliDLC from './CardDaliDLC';
 import CardDaliGW from './CardDaliGW';
 import CardDefault from './CardDefault';
 import CardDi from './CardDi';
@@ -98,6 +100,7 @@ import CardHydrostat from './CardHydrostat';
 import CardIntercom from './CardIntercom';
 import CardIntesisBox from './CardIntesisBox';
 import CardLeakage from './CardLeakage';
+import CardMdCcm18AnE from './CardMdCcm18AnE';
 import CardModbusRBUS from './CardModbusRBUS';
 import CardModbusTCP from './CardModbusTCP';
 import CardMultiroom from './CardMultiroom';
@@ -120,7 +123,6 @@ import CardTimer from './CardTimer';
 import CardTouch from './CardTouch';
 import CardVarmann from './CardVarmann';
 import CardZigbee from './CardZigbee';
-import CardDaliDLC from './CardDaliDLC';
 
 const Container = (props) => {
   if (props.protocol === ZIGBEE) {
@@ -239,6 +241,8 @@ const Container = (props) => {
       return <CardVarmann {...props} />;
     case DRIVER_TYPE_INTESIS_BOX:
       return <CardIntesisBox {...props} />;
+    case DRIVER_TYPE_MD_CCM18_AN_E:
+      return <CardMdCcm18AnE {...props} />;
     case DRIVER_TYPE_RTD_RA:
       return <CardRTDRA {...props} />;
     case DRIVER_TYPE_ALINK:

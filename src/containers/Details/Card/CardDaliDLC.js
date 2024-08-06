@@ -1,8 +1,6 @@
 
 import {
   Card,
-  CardAction,
-  CardActionButtons,
   CardActionIcons,
   CardActions
 } from '@rmwc/card';
@@ -10,7 +8,6 @@ import { Tab, TabBar } from '@rmwc/tabs';
 import { TextField } from '@rmwc/textfield';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 
 import { Button, MenuItem, SimpleMenu } from 'rmwc';
@@ -24,7 +21,8 @@ class Container extends Component {
   state = { tabIndex: 0 };
 
   bind = (bind) => {
-    this.props.change({ bind });
+    const { id } = this.props;
+    this.props.makeBind(id, bind);
   }
 
   select = ({ detail: { index } }) => {
@@ -92,9 +90,6 @@ class Container extends Component {
           </table>
         </div>
         <CardActions>
-          <CardActionButtons>
-            <CardAction onClick={details}>Details</CardAction>
-          </CardActionButtons>
           <CardActionIcons>
             <CardActionRemove remove={removeField} />
           </CardActionIcons>
@@ -110,7 +105,6 @@ export default connect(
     project, parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
-    details: () => push(`/project/${project}/${id}`),
     change: (payload) => modify(id, payload),
     makeBind
   }, dispatch)
