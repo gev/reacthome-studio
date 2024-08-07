@@ -32,6 +32,9 @@ const list = (pool, id, type, a = [], f = []) => {
       if (o.top) {
         list(pool, o.top, type, a, f);
       }
+      if (Array.isArray(o.driver)) {
+        o.driver.forEach(i => Object.keys(pool).filter(id => id.startsWith(`${i}/`)).filter(i => list(pool, i, type, a, f)));
+      }
     }
   }
   return a;

@@ -1,19 +1,19 @@
 
-import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
   Card,
   CardAction,
-  CardActions,
+  CardActionButtons,
   CardActionIcons,
-  CardActionButtons
+  CardActions
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
-import { remove, modify } from '../../../actions';
-import { TITLE, CODE } from '../../../constants';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
+import { CODE, TITLE } from '../../../constants';
 
 class Container extends Component {
   change = (event) => {
@@ -35,6 +35,9 @@ class Container extends Component {
           <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
         </div>
         <CardActions>
+          <CardActionButtons>
+            <CardAction onClick={details}>Details</CardAction>
+          </CardActionButtons>
           <CardActionIcons>
             <CardActionRemove remove={removeField} />
           </CardActionIcons>
@@ -50,6 +53,7 @@ export default connect(
     project, parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
+    details: () => push(`/project/${project}/${id}`),
     change: (payload) => modify(id, payload)
   }, dispatch)
 )(Container);

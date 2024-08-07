@@ -1,12 +1,12 @@
 
-import React from 'react';
-import { Typography } from '@rmwc/typography';
 import { Switch } from '@rmwc/switch';
+import { Typography } from '@rmwc/typography';
+import React from 'react';
 import Slider from '../../../components/Slider';
 import {
   ACTION_DALI,
-  DALI_FADE,
-  DALI_ON, DALI_OFF, DALI_LIGHT, DALI_GROUP,
+  DALI_GROUP,
+  DALI_LIGHT
 } from '../../../constants';
 import connect from '../../Device/connect';
 

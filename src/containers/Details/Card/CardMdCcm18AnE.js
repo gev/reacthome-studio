@@ -5,18 +5,17 @@ import {
   CardActions
 } from '@rmwc/card';
 import { Radio } from '@rmwc/radio';
-import { Switch } from '@rmwc/switch';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
+import { Button, MenuItem, SimpleMenu } from 'rmwc';
 import { makeBind, modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
-import Slider from '../../../components/Slider';
-import { ACTION_OFF, ACTION_ON, ACTION_SETPOINT, ACTION_SET_DIRECTION, ACTION_SET_FAN_SPEED, ACTION_SET_MODE, CODE, TITLE } from '../../../constants';
+import { ACTION_SET, CODE, TITLE } from '../../../constants';
 import { send } from '../../../websocket/peer';
+import CardMdCcm18AnEAC from './CardMdCcm18AnEAC';
 import SelectModbus from './SelectModbus';
 
 const Check = ({ checked, onChange, label }) => (
@@ -27,6 +26,7 @@ const Check = ({ checked, onChange, label }) => (
 );
 
 class Container extends Component {
+  state = { index: 1 };
   change = (event) => {
     const { change } = this.props;
     const { id, value } = event.target;
@@ -36,30 +36,20 @@ class Container extends Component {
     const { id } = this.props;
     this.props.makeBind(id, bind);
   }
-  toggle = ({ target: { checked } }) => {
-    const { id, daemon } = this.props;
-    const type = checked ? ACTION_ON : ACTION_OFF;
-    send(daemon, { id, type });
-  };
-  setFanSpeed = ({ detail: { value } }) => {
-    const { id, daemon } = this.props;
-    send(daemon, { id, type: ACTION_SET_FAN_SPEED, value });
-  };
-  setMode = (value) => () => {
-    const { id, daemon } = this.props;
-    send(daemon, { id, type: ACTION_SET_MODE, value });
-  };
-  setDirection = (value) => () => {
-    const { id, daemon } = this.props;
-    send(daemon, { id, type: ACTION_SET_DIRECTION, value });
-  };
-  setPoint = ({ detail: { value } }) => {
-    const { id, daemon } = this.props;
-    send(daemon, { id, type: ACTION_SETPOINT, value });
-  };
+  setIndex = (index) => () => {
+    this.setState({ index });
+  }
+  setNumberAC = ({ target: { value } }) => {
+    const { daemon, id, change } = this.props;
+    let numberAC = parseInt(value, 10);
+    if (numberAC < 0) numberAC = 0;
+    if (numberAC > 64) numberAC = 64;
+    send(daemon, { type: ACTION_SET, id, payload: { numberAC } });
+  }
   render() {
+    const { index } = this.state;
     const {
-      code, project, bind, title, fan_speed, value, mode, setpoint, direction, removeField
+      id, daemon, code, project, bind, title, removeField, numberAC = 0
     } = this.props;
     return (
       <Card>
@@ -72,45 +62,35 @@ class Container extends Component {
         <div className="paper">
           <SelectModbus id={bind} root={project} onSelect={this.select} />
         </div>
+        <table>
+          <tbody>
+            <tr>
+              <td className="paper">
+                <TextField value={numberAC} label="Number AC" type="number" onChange={this.setNumberAC} />
+              </td>
+              {
+                numberAC > 0 && (
+                  <td className="paper">
+                    <SimpleMenu handle={<Button>AC {index}</Button>}>
+                      {
+                        Array(numberAC).fill(0).map((_, i) => (
+                          <MenuItem key={`${id}/ac/${i + 1}`} onClick={this.setIndex(i + 1)}>{i + 1}</MenuItem>
+                        ))
+                      }
+                    </SimpleMenu>
+                  </td>
+
+                )
+              }
+            </tr>
+          </tbody>
+        </table>
         <div className="paper">
-          <Switch checked={!!value} onChange={this.toggle} />
-        </div>
-        <div className="paper">
-          <table>
-            <tbody>
-              <tr>
-                <Check checked={mode === 0} onChange={this.setMode(0)} label="Auto" />
-                <Check checked={mode === 1} onChange={this.setMode(1)} label="Heat" />
-                <Check checked={mode === 2} onChange={this.setMode(2)} label="Dry" />
-                <Check checked={mode === 3} onChange={this.setMode(3)} label="Vent" />
-                <Check checked={mode === 4} onChange={this.setMode(4)} label="Cool" />
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="paper">
-          <Typography>Fan speed</Typography>
-          <Slider
-            id="fan speed"
-            min={0}
-            step={1}
-            max={3}
-            value={fan_speed || 0}
-            onInput={this.setFanSpeed}
-            discrete
-          />
-        </div>
-        <div className="paper">
-          <Typography>Set point</Typography>
-          <Slider
-            label="setpoint"
-            min={16}
-            step={1}
-            max={32}
-            value={setpoint || 0}
-            onInput={this.setPoint}
-            discrete
-          />
+          {
+            numberAC > 0 && (
+              <CardMdCcm18AnEAC id={id} index={index} daemon={daemon} />
+            )
+          }
         </div>
         <CardActions>
           <CardActionIcons>
@@ -125,7 +105,7 @@ class Container extends Component {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
-    project, parent, id, field, multiple
+    parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     change: (payload) => modify(id, payload),

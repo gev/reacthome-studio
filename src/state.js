@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, unlinkSync } from "fs";
 import { ASSETS } from "./assets/constants";
-import { DAEMON, DEVICE, IMAGE, MODES, POOL, PROJECT, ROOT, SCRIPT, SITE } from "./constants";
+import { DAEMON, DEVICE, DRIVER, IMAGE, MODES, POOL, PROJECT, ROOT, SCRIPT, SITE } from "./constants";
 import { asset } from "./fs";
 
 function isNumber(str) {
@@ -55,7 +55,8 @@ const build = (id, pool, state, assets) => {
             });
             break;
 
-          case DEVICE: {
+          case DEVICE:
+          case DRIVER: {
             v.forEach(d => {
               // if (typeof d === 'string') {
               Object
