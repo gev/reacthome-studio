@@ -35,7 +35,7 @@ class Container extends Component {
 
   render() {
     const {
-      id, code, title, n, removeField, details, daemon, project, onDoppler
+      id, code, title, n, removeField, daemon, project, onDoppler
     } = this.props;
     return (
       <Card>

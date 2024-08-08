@@ -36,7 +36,7 @@ class Container extends Component {
       id, title, code, host, port = 0x1936,
       net = 0, subnet = 0, universe = 0,
       rate = 40, size = 0,
-      details, removeField
+      removeField
     } = this.props;
     const rows = [];
     for (let i = 0; i < Math.min(512, size); i += 1) {

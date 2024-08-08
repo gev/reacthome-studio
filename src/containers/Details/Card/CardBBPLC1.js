@@ -56,7 +56,7 @@ class Container extends Component {
     const {
       id, daemon, project,
       title, code, host, port = 502,
-      details, removeField
+      removeField
     } = this.props;
     // const rows = [];
     // for (let i = 0; i < Math.min(512, size); i += 1) {

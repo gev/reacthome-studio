@@ -1,20 +1,17 @@
 
-import React, { Component } from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {
   Card,
-  CardAction,
-  CardActions,
   CardActionIcons,
-  CardActionButtons
+  CardActions
 } from '@rmwc/card';
 import { TextField } from '@rmwc/textfield';
 import { Typography } from '@rmwc/typography';
-import { remove, modify } from '../../../actions';
-import { TITLE, CODE } from '../../../constants';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
+import { CODE, TITLE } from '../../../constants';
 
 
 class Container extends Component {
@@ -45,7 +42,7 @@ class Container extends Component {
 
   render() {
     const {
-      code, title, removeField, details, state
+      code, title, removeField, state
     } = this.props;
     const { time } = this.state;
     return (

@@ -30,7 +30,7 @@ class Container extends Component {
 
   render() {
     const {
-      code, title, removeField, details, main_URL, preview_URL, active
+      code, title, removeField, main_URL, preview_URL, active
     } = this.props;
     return (
       <Card>

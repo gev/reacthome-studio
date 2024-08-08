@@ -45,7 +45,7 @@ class Container extends Component {
 
   render() {
     const {
-      code, title, schedule, removeField, details, state
+      code, title, schedule, removeField
     } = this.props;
     return (
       <Card>

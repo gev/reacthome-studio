@@ -10,11 +10,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, MenuItem, SimpleMenu } from 'rmwc';
 import { makeBind, modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
-import { CODE, DALI_GROUP, DALI_LIGHT, PORT, TITLE } from '../../../constants';
-import { DaliGroup, DaliLight } from './DaliChannel';
+import { CODE, TITLE } from '../../../constants';
+import DaliDLCPort from './DaliDLCPort';
 import SelectModbus from './SelectModbus';
 
 class Container extends Component {
@@ -35,24 +34,9 @@ class Container extends Component {
     change({ [id]: value });
   }
 
-  setPort = (port) => () => {
-    this.props.change({ port });
-  }
-
   render() {
     const { tabIndex } = this.state;
-    const {
-      id, project, title, code, bind,
-      details, removeField, port = 1
-    } = this.props;
-    const lights = [];
-    for (let i = 0; i < 64; i += 1) {
-      lights.push(<DaliLight {...this.props} key={`${id}/${DALI_LIGHT}/${i}`} index={i} />);
-    }
-    const groups = [];
-    for (let i = 0; i < 16; i += 1) {
-      groups.push(<DaliGroup {...this.props} key={`${id}/${DALI_GROUP}/${i}`} index={i} />);
-    }
+    const { id, project, title, code, bind, removeField } = this.props;
     return (
       <Card>
         <div className="paper">
@@ -64,31 +48,14 @@ class Container extends Component {
         <div className="paper">
           <SelectModbus id={bind} root={project} onSelect={this.bind} />
         </div>
-        <div className="paper">
-          <SimpleMenu handle={<Button>{PORT} {port}</Button>}>
-            <MenuItem onClick={this.setPort(1)}>port 1</MenuItem>
-            <MenuItem onClick={this.setPort(2)}>port 2</MenuItem>
-          </SimpleMenu>
-        </div>
         <TabBar
           activeTabIndex={tabIndex}
           onActivate={this.select}
         >
-          <Tab>Lights</Tab>
-          <Tab>Groups</Tab>
+          <Tab>Port 1</Tab>
+          <Tab>Port 2</Tab>
         </TabBar>
-        <div key={`${id}/tab/${tabIndex}`} tabIndex={tabIndex} style={{ maxWidth: '100%', maxHeight: 600, overflowY: 'auto' }}>
-          <table>
-            <tbody>
-              {
-                tabIndex === 0 && lights
-              }
-              {
-                tabIndex === 1 && groups
-              }
-            </tbody>
-          </table>
-        </div>
+        <DaliDLCPort {...this.props} port={tabIndex + 1} />
         <CardActions>
           <CardActionIcons>
             <CardActionRemove remove={removeField} />
@@ -102,7 +69,7 @@ class Container extends Component {
 export default connect(
   ({ pool }, { id }) => pool[id] || {},
   (dispatch, {
-    project, parent, id, field, multiple
+    parent, id, field, multiple
   }) => bindActionCreators({
     removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
     change: (payload) => modify(id, payload),

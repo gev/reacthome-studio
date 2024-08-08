@@ -1,21 +1,14 @@
 
-import {
-  Card,
-  CardActionIcons,
-  CardActions
-} from '@rmwc/card';
 import { Tab, TabBar } from '@rmwc/tabs';
 import { TextField } from '@rmwc/textfield';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { makeBind, modify, remove } from '../../../actions';
-import CardActionRemove from '../../../components/CardActionRemove';
-import { ACTION_SET, CODE, DALI_GROUP, DALI_LIGHT, TITLE } from '../../../constants';
+import { modify } from '../../../actions';
+import { ACTION_SET, DALI_GROUP, DALI_LIGHT } from '../../../constants';
 import { send } from '../../../websocket/peer';
 import { DaliGroup, DaliLight } from './DaliChannel';
-import SelectModbus from './SelectModbus';
 
 class Container extends Component {
   state = { tabIndex: 0 };
@@ -29,44 +22,27 @@ class Container extends Component {
     this.setState({ tabIndex: index });
   }
 
-  change = (event) => {
-    const { change } = this.props;
-    const { id, value } = event.target;
-    change({ [id]: value });
-  }
   setNumber = (name, max) => ({ target: { value } }) => {
-    const { daemon, id } = this.props;
+    const { daemon, id, port } = this.props;
     let number = parseInt(value, 10);
     if (number < 0) number = 0;
     if (number > max) number = max;
-    send(daemon, { type: ACTION_SET, id, payload: { [name]: number } });
+    send(daemon, { type: ACTION_SET, id: `${id}/port/${port}`, payload: { [name]: number } });
   }
 
   render() {
     const { tabIndex } = this.state;
-    const {
-      id, project, title, code, bind,
-      removeField, numberLights = 0, numberGroups = 0
-    } = this.props;
+    const { id, port, numberLights = 0, numberGroups = 0 } = this.props;
     const lights = [];
     for (let i = 0; i < numberLights; i += 1) {
-      lights.push(<DaliLight {...this.props} key={`${id}/${DALI_LIGHT}/${i}`} index={i} />);
+      lights.push(<DaliLight {...this.props} key={`${id}/${DALI_LIGHT}/${port}.${i}`} port={port} index={i} />);
     }
     const groups = [];
     for (let i = 0; i < numberGroups; i += 1) {
-      groups.push(<DaliGroup {...this.props} key={`${id}/${DALI_GROUP}/${i}`} index={i} />);
+      groups.push(<DaliGroup {...this.props} key={`${id}/${DALI_GROUP}/${port}.${i}`} port={port} index={i} />);
     }
     return (
-      <Card>
-        <div className="paper">
-          <TextField id={TITLE} value={title || ''} onChange={this.change} placeholder="Untitled" fullwidth />
-        </div>
-        <div className="paper">
-          <TextField id={CODE} value={code || ''} onChange={this.change} label={CODE} />
-        </div>
-        <div className="paper">
-          <SelectModbus id={bind} root={project} onSelect={this.bind} />
-        </div>
+      <div>
         <table>
           <tbody>
             <tr>
@@ -98,23 +74,14 @@ class Container extends Component {
             </tbody>
           </table>
         </div>
-        <CardActions>
-          <CardActionIcons>
-            <CardActionRemove remove={removeField} />
-          </CardActionIcons>
-        </CardActions>
-      </Card>
+      </div>
     );
   }
 }
 
 export default connect(
-  ({ pool }, { id }) => pool[id] || {},
-  (dispatch, {
-    parent, id, field, multiple
-  }) => bindActionCreators({
-    removeField: () => (multiple ? remove(parent, field, id) : modify(parent, { [field]: null })),
+  ({ pool }, { id, port }) => pool[`${id}/port/${port}`] || {},
+  (dispatch, { id }) => bindActionCreators({
     change: (payload) => modify(id, payload),
-    makeBind
   }, dispatch)
 )(Container);

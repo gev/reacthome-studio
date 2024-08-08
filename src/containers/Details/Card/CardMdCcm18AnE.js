@@ -15,7 +15,7 @@ import { makeBind, modify, remove } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
 import { ACTION_SET, CODE, TITLE } from '../../../constants';
 import { send } from '../../../websocket/peer';
-import CardMdCcm18AnEAC from './CardMdCcm18AnEAC';
+import CardMdCcm18AnEAC from './MdCcm18AnEAC';
 import SelectModbus from './SelectModbus';
 
 const Check = ({ checked, onChange, label }) => (
@@ -40,7 +40,7 @@ class Container extends Component {
     this.setState({ index });
   }
   setNumberAC = ({ target: { value } }) => {
-    const { daemon, id, change } = this.props;
+    const { daemon, id } = this.props;
     let numberAC = parseInt(value, 10);
     if (numberAC < 0) numberAC = 0;
     if (numberAC > 64) numberAC = 64;

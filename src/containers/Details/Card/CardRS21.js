@@ -34,7 +34,7 @@ class Container extends Component {
 
   render() {
     const {
-      online, code, title, details, ip, removeField, temperature, onTemperature, project
+      online, code, title, ip, removeField, temperature, onTemperature, project
     } = this.props;
     return (
       <Card className={!online && 'offline'}>
