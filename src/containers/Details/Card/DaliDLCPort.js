@@ -27,12 +27,14 @@ class Container extends Component {
     let number = parseInt(value, 10);
     if (number < 0) number = 0;
     if (number > max) number = max;
-    send(daemon, { type: ACTION_SET, id: `${id}/port/${port}`, payload: { [name]: number } });
+    send(daemon, { type: ACTION_SET, id: id, payload: { [name + port]: number } });
   }
 
   render() {
     const { tabIndex } = this.state;
-    const { id, port, numberLights = 0, numberGroups = 0 } = this.props;
+    const { id, port } = this.props;
+    const numberLights = this.props[`numberLights${port}`] || 0;
+    const numberGroups = this.props[`numberGroups${port}`] || 0;
     const lights = [];
     for (let i = 0; i < numberLights; i += 1) {
       lights.push(<DaliLight {...this.props} key={`${id}/${DALI_LIGHT}/${port}.${i}`} port={port} index={i} />);
@@ -80,7 +82,7 @@ class Container extends Component {
 }
 
 export default connect(
-  ({ pool }, { id, port }) => pool[`${id}/port/${port}`] || {},
+  ({ pool }, { id }) => pool[id] || {},
   (dispatch, { id }) => bindActionCreators({
     change: (payload) => modify(id, payload),
   }, dispatch)

@@ -38,6 +38,7 @@ import {
   DRIVER_TYPE_ARTNET,
   DRIVER_TYPE_BB_PLC1,
   DRIVER_TYPE_BB_PLC2,
+  DRIVER_TYPE_DALI_DLC,
   DRIVER_TYPE_DALI_GW,
   ENDPOINT,
   GROUP,
@@ -47,9 +48,10 @@ import MenuItem from './MenuItem';
 
 const c = connect(({ pool }, { id }) => pool[id] || {});
 
-const Do = c(({
-  id, type, type_, version = '', endpoint, index, onSelect, size = 0
-}) => {
+const Do = c((props) => {
+  const {
+    id, type, type_, version = '', endpoint, index, onSelect, size = 0
+  } = props;
   const a = [];
   const select = (i, t) => () => {
     onSelect(i, t);
@@ -142,14 +144,35 @@ const Do = c(({
       n = 0;
   }
   if (type === DRIVER_TYPE_DALI_GW) {
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < props.numberGroups; i++) {
       a.push((
-        <MenuItem label={DALI_GROUP} key={`g${i}`} index={i} onClick={select(i, DALI_GROUP)} id={`${id}/${DALI_GROUP}/${i}`} />
+        <MenuItem label={DALI_GROUP} key={`${id}${DALI_GROUP}${i}`} index={i} onClick={select(i, DALI_GROUP)} id={`${id}/${DALI_GROUP}/${i}`} />
       ));
     }
-    for (let i = 0; i < 64; i++) {
+    for (let i = 0; i < props.numberLights; i++) {
       a.push((
-        <MenuItem label={DALI_LIGHT} key={`g${i}`} index={i} onClick={select(i, DALI_LIGHT)} id={`${id}/${DALI_LIGHT}/${i}`} />
+        <MenuItem label={DALI_LIGHT} key={`${id}${DALI_LIGHT}${i}`} index={i} onClick={select(i, DALI_LIGHT)} id={`${id}/${DALI_LIGHT}/${i}`} />
+      ));
+    }
+  } else if (type === DRIVER_TYPE_DALI_DLC) {
+    for (let i = 0; i < props.numberGroups1; i++) {
+      a.push((
+        <MenuItem label={DALI_GROUP + ' 1.'} key={`${id}${DALI_GROUP}1.${i}`} index={i} onClick={select(i, DALI_GROUP + ' 1.')} id={`${id}/${DALI_GROUP}/1.${i}`} />
+      ));
+    }
+    for (let i = 0; i < props.numberLights1; i++) {
+      a.push((
+        <MenuItem label={DALI_LIGHT + ' 1.'} key={`${id}${DALI_LIGHT}1 ${i}`} index={i} onClick={select(i, DALI_LIGHT + ' 1.')} id={`${id}/${DALI_LIGHT}/1.${i}`} />
+      ));
+    }
+    for (let i = 0; i < props.numberGroups2; i++) {
+      a.push((
+        <MenuItem label={DALI_GROUP + ' 2.'} key={`${id}${DALI_GROUP}2.${i}`} index={i} onClick={select(i, DALI_GROUP + ' 2.')} id={`${id}/${DALI_GROUP}/2.${i}`} />
+      ));
+    }
+    for (let i = 0; i < props.numberLights2; i++) {
+      a.push((
+        <MenuItem label={DALI_LIGHT + ' 2.'} key={`${id}${DALI_LIGHT}2 ${i}`} index={i} onClick={select(i, DALI_LIGHT + ' 2.')} id={`${id}/${DALI_LIGHT}/2.${i}`} />
       ));
     }
   } else if (n === 0) {
