@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../actions';
 import Slider from '../../components/Slider';
-import { DEVICE_TYPES, DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D } from '../../constants';
+import { DEVICE_TYPES, DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_G4D, DEVICE_TYPE_SMART_TOP_A4T, DEVICE_TYPE_SMART_TOP_A6T, DEVICE_TYPE_SMART_TOP_G6 } from '../../constants';
 import DeviceDi from './DeviceDi';
 import DeviceSmartNextFaceG4D from './DeviceSmartNextFaceG4D';
 
@@ -63,9 +63,21 @@ class Container extends Component {
       <Tab key="climate">Climate</Tab>,
     ];
     switch (type) {
+      case DEVICE_TYPE_SMART_TOP_A6T:
+        button = 6;
+        led = 7;
+        break;
+      case DEVICE_TYPE_SMART_TOP_G6:
+        button = 6;
+        led = 12;
+        break;
       case DEVICE_TYPE_SMART_TOP_A6P:
         button = 6;
         led = 6;
+        break;
+      case DEVICE_TYPE_SMART_TOP_A4T:
+        button = 4;
+        led = 5;
         break;
       case DEVICE_TYPE_SMART_TOP_G4D:
         button = 4;

@@ -181,6 +181,9 @@ export const DEVICE_TYPE_DIM_12_DC_RS = 0xb4;
 
 export const DEVICE_TYPE_SMART_TOP_A6P = 0x30;
 export const DEVICE_TYPE_SMART_TOP_G4D = 0x31;
+export const DEVICE_TYPE_SMART_TOP_A4T = 0x32;
+export const DEVICE_TYPE_SMART_TOP_A6T = 0x33;
+export const DEVICE_TYPE_SMART_TOP_G6  = 0x34;
 export const DEVICE_TYPE_SMART_BOTTOM_1 = 0x3a;
 export const DEVICE_TYPE_SMART_BOTTOM_2 = 0x3b;
 
@@ -793,6 +796,15 @@ export const DEVICE_TYPES = {
   },
   [DEVICE_TYPE_SMART_TOP_G4D]: {
     title: 'Smart Top G4D',
+  },
+  [DEVICE_TYPE_SMART_TOP_A4T]: {
+    title: 'Smart Top A4T',
+  },
+  [DEVICE_TYPE_SMART_TOP_A6T]: {
+    title: 'Smart Top A6T',
+  },
+  [DEVICE_TYPE_SMART_TOP_G6]: {
+    title: 'Smart Top G6',
   },
   [DEVICE_TYPE_CO2]: {
     title: 'CO2',
