@@ -12,20 +12,20 @@ import {
 import { send } from '../../../websocket/peer';
 
 const dali = (kind) => connect(
-  ({ pool }, { id, index, port }) => pool[`${id}/${kind}/${port !== undefined ? port + '.' + index : index}`] || {}
+  ({ pool }, { id, index }) => pool[`${id}/${kind}/${index}`] || {}
 )(
   (props) => {
-    const { id, port, daemon, index, value } = props;
+    const { id, daemon, index, value } = props;
 
     const setValue = (event) => {
       send(daemon, {
-        type: ACTION_DALI, id, kind, port, index, value: event.detail.value
+        type: ACTION_DALI, id, kind, index, value: event.detail.value
       });
     };
 
     const onoff = (event) => {
       send(daemon, {
-        type: ACTION_DALI, id, kind, port, index, value: event.target.checked ? 254 : 0
+        type: ACTION_DALI, id, kind, index, value: event.target.checked ? 254 : 0
       });
     };
 

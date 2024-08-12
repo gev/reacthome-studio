@@ -50,11 +50,11 @@ const c = connect(({ pool }, { id }) => pool[id] || {});
 
 const Do = c((props) => {
   const {
-    id, type, type_, version = '', endpoint, port, index, onSelect, size = 0
+    id, type, type_, version = '', endpoint, index, onSelect, size = 0
   } = props;
   const a = [];
-  const select = (i, t, p) => () => {
-    onSelect(i, t, p);
+  const select = (i, t) => () => {
+    onSelect(i, t);
   };
   let n;
   let t;
@@ -157,22 +157,22 @@ const Do = c((props) => {
   } else if (type === DRIVER_TYPE_DALI_DLC) {
     for (let i = 0; i < props.numberGroups1; i++) {
       a.push((
-        <MenuItem label={DALI_GROUP + ' 1.'} key={`${id}${DALI_GROUP}1.${i}`} index={i} onClick={select(i, DALI_GROUP, 1)} id={`${id}/${DALI_GROUP}/1.${i}`} />
+        <MenuItem label={DALI_GROUP + ' 1.'} key={`${id}${DALI_GROUP}1.${i}`} index={i} onClick={select('1.' + i, DALI_GROUP)} id={`${id}/${DALI_GROUP}/1.${i}`} />
       ));
     }
     for (let i = 0; i < props.numberLights1; i++) {
       a.push((
-        <MenuItem label={DALI_LIGHT + ' 1.'} key={`${id}${DALI_LIGHT}1 ${i}`} index={i} onClick={select(i, DALI_LIGHT, 1)} id={`${id}/${DALI_LIGHT}/1.${i}`} />
+        <MenuItem label={DALI_LIGHT + ' 1.'} key={`${id}${DALI_LIGHT}1 ${i}`} index={i} onClick={select('1.' + i, DALI_LIGHT)} id={`${id}/${DALI_LIGHT}/1.${i}`} />
       ));
     }
     for (let i = 0; i < props.numberGroups2; i++) {
       a.push((
-        <MenuItem label={DALI_GROUP + ' 2.'} key={`${id}${DALI_GROUP}2.${i}`} index={i} onClick={select(i, DALI_GROUP, 2)} id={`${id}/${DALI_GROUP}/2.${i}`} />
+        <MenuItem label={DALI_GROUP + ' 2.'} key={`${id}${DALI_GROUP}2.${i}`} index={i} onClick={select('2.' + i, DALI_GROUP)} id={`${id}/${DALI_GROUP}/2.${i}`} />
       ));
     }
     for (let i = 0; i < props.numberLights2; i++) {
       a.push((
-        <MenuItem label={DALI_LIGHT + ' 2.'} key={`${id}${DALI_LIGHT}2 ${i}`} index={i} onClick={select(i, DALI_LIGHT, 2)} id={`${id}/${DALI_LIGHT}/2.${i}`} />
+        <MenuItem label={DALI_LIGHT + ' 2.'} key={`${id}${DALI_LIGHT}2 ${i}`} index={i} onClick={select('2.' + i, DALI_LIGHT)} id={`${id}/${DALI_LIGHT}/2.${i}`} />
       ));
     }
   } else if (n === 0) {
@@ -200,7 +200,7 @@ const Do = c((props) => {
     }
   }
   return (
-    <SimpleMenu handle={<Button>{type_ || 'select'} {port ? port + '.' + index : index}</Button>}>
+    <SimpleMenu handle={<Button>{type_ || 'select'} {index}</Button>}>
       {a}
     </SimpleMenu>
   );
@@ -210,37 +210,23 @@ class Container extends Component {
   state = {}
   componentWillMount() {
     const { id, device } = this.props;
-    const [dev, , idx = ''] = (id || '').split('/');
-    let port = null;
-    let index = null;
-    if (idx.includes('.')) {
-      [port, index] = idx.split('.');
-    } else {
-      index = idx;
-    }
-    this.setState({ dev: dev || device, port, index });
+    const [dev, , index] = (id || '').split('/');
+    this.setState({ dev: dev || device, index });
   }
   componentWillReceiveProps({ id }) {
     if (!id) return;
-    const [dev, type, idx = ''] = (id || '').split('/');
-    let port = null;
-    let index = null;
-    if (idx.includes('.')) {
-      [port, index] = idx.split('.');
-    } else {
-      index = idx;
-    }
-    this.setState({ dev, index, port, type });
+    const [dev, type, index] = (id || '').split('/');
+    this.setState({ dev, index, type });
   }
   selectDev = (dev) => {
-    this.setState({ dev, index: null, type: null, port: null });
+    this.setState({ dev, index: null, type: null });
   }
-  selectDo = (index, type, port) => {
-    this.setState({ index, type, port });
-    this.props.onSelect(`${this.state.dev}/${type}/${port ? port + '.' + index : index}`);
+  selectDo = (index, type) => {
+    this.setState({ index, type });
+    this.props.onSelect(`${this.state.dev}/${type}/${index}`);
   }
   render() {
-    const { dev, index, type, port } = this.state;
+    const { dev, index, type } = this.state;
     const { root } = this.props;
     return (
       <table>
@@ -250,7 +236,7 @@ class Container extends Component {
               <Autocomplete id={dev} root={root} onSelect={this.selectDev} />
             </td>
             <td className="paper">
-              <Do id={dev} type_={type} port={port} index={index} onSelect={this.selectDo} />
+              <Do id={dev} type_={type} index={index} onSelect={this.selectDo} />
             </td>
           </tr>
         </tbody>

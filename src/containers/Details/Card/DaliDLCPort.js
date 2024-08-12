@@ -37,11 +37,13 @@ class Container extends Component {
     const numberGroups = this.props[`numberGroups${port}`] || 0;
     const lights = [];
     for (let i = 0; i < numberLights; i += 1) {
-      lights.push(<DaliLight {...this.props} key={`${id}/${DALI_LIGHT}/${port}.${i}`} port={port} index={i} />);
+      const idx = `${port}.${i}`;
+      lights.push(<DaliLight {...this.props} key={`${id}/${DALI_LIGHT}/${idx}`} index={idx} />);
     }
     const groups = [];
     for (let i = 0; i < numberGroups; i += 1) {
-      groups.push(<DaliGroup {...this.props} key={`${id}/${DALI_GROUP}/${port}.${i}`} port={port} index={i} />);
+      const idx = `${port}.${i}`;
+      groups.push(<DaliGroup {...this.props} key={`${id}/${DALI_GROUP}/${idx}`} index={idx} />);
     }
     return (
       <div>
