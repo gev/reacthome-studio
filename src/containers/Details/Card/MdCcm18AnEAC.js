@@ -68,11 +68,11 @@ class Container extends Component {
           <table>
             <tbody>
               <tr>
-                <Check checked={mode === 3} onChange={this.setMode(0)} label="Vent" />
-                <Check checked={mode === 2} onChange={this.setMode(1)} label="Dry" />
-                <Check checked={mode === 1} onChange={this.setMode(2)} label="Heat" />
-                <Check checked={mode === 4} onChange={this.setMode(3)} label="Cool" />
-                <Check checked={mode === 0} onChange={this.setMode(4)} label="Auto" />
+                <Check checked={mode === 0} onChange={this.setMode(0)} label="Vent" />
+                <Check checked={mode === 1} onChange={this.setMode(1)} label="Dry" />
+                <Check checked={mode === 2} onChange={this.setMode(2)} label="Heat" />
+                <Check checked={mode === 3} onChange={this.setMode(3)} label="Cool" />
+                <Check checked={mode === 4} onChange={this.setMode(4)} label="Auto" />
               </tr>
             </tbody>
           </table>
