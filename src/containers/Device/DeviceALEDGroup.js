@@ -56,6 +56,7 @@ class Container extends Component {
     if (!Array.isArray(segments)) {
       segments = [];
     }
+    console.log(index, value);
     return (
       <div>
         <table width="100%">
