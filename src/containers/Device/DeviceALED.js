@@ -13,7 +13,7 @@ export default class extends Component {
   }
   render() {
     const { tabIndex } = this.state;
-    const { id } = this.props;
+    const { id, daemon } = this.props;
     return (
       <div>
         <TabBar activeTabIndex={tabIndex} onActivate={this.select}>
@@ -29,7 +29,7 @@ export default class extends Component {
           <Tab>10</Tab>
         </TabBar>
         <div className="paper">
-          <DeviceALEDGroup id={`${id}/group/${tabIndex + 1}`} />
+          <DeviceALEDGroup id={id} index={tabIndex + 1} daemon={daemon} />
         </div>
       </div>
     );
