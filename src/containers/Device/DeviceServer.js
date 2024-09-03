@@ -5,6 +5,7 @@ import DeviceDi from './DeviceDi';
 import DeviceDimmer from './DeviceDimmer';
 import DeviceExt from './DeviceExt';
 import DeviceRSHub4 from './DeviceRSHub4l';
+import DeviceALED from './DeviceALED';
 
 
 export default class extends Component {
@@ -24,6 +25,7 @@ export default class extends Component {
           <Tab>Inputs</Tab>
           <Tab>Dimmer</Tab>
           <Tab>Ext</Tab>
+          <Tab>ALED</Tab>
         </TabBar>
       </div>,
       <div key="body">
@@ -45,6 +47,11 @@ export default class extends Component {
         {
           tabIndex === 3 && (
             <DeviceExt {...this.props} />
+          )
+        }
+        {
+          tabIndex === 4 && (
+            <DeviceALED {...this.props} />
           )
         }
       </div>
