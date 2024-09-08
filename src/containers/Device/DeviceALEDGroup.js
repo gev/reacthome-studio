@@ -105,5 +105,5 @@ class Container extends Component {
 }
 
 export default connect(
-  ({ pool }, { id, index }) => pool[`${id}/group/${index}`] || {}
+  ({ pool }, { id, index }) => pool[`${id}/LA/${index}`] || {}
 )(Container);

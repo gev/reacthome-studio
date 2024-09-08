@@ -33,6 +33,8 @@ import {
   DEVICE_TYPE_RELAY_6,
   DEVICE_TYPE_RS_HUB_4,
   DEVICE_TYPE_SERVER,
+  DEVICE_TYPE_SMART_BOTTOM_1,
+  DEVICE_TYPE_SMART_BOTTOM_2,
   DIM,
   DO,
   DRIVER_TYPE_ARTNET,
@@ -127,6 +129,11 @@ const Do = c((props) => {
     case DEVICE_TYPE_RS_HUB_4:
       n = 3;
       t = DIM;
+      break;
+    case DEVICE_TYPE_SMART_BOTTOM_1:
+    case DEVICE_TYPE_SMART_BOTTOM_2:
+      n = 10;
+      t = 'LA'
       break;
     case DEVICE_TYPE_DO8:
       n = 8;
