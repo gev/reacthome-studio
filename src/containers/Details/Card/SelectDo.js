@@ -150,7 +150,13 @@ const Do = c((props) => {
     default:
       n = 0;
   }
-  if (type === DRIVER_TYPE_DALI_GW) {
+  if (type === DEVICE_TYPE_SERVER || type === DEVICE_TYPE_RS_HUB_4) {
+    for (let i = 1; i <= 10; i++) {
+      a.push((
+        <MenuItem label={t} key={`${id}LA${i}`} index={i} onClick={select(i, 'LA')} id={`${id}/LA/${i}`} />
+      ));
+    }
+  } else if (type === DRIVER_TYPE_DALI_GW) {
     for (let i = 0; i < props.numberGroups; i++) {
       a.push((
         <MenuItem label={DALI_GROUP} key={`${id}${DALI_GROUP}${i}`} index={i} onClick={select(i, DALI_GROUP)} id={`${id}/${DALI_GROUP}/${i}`} />
