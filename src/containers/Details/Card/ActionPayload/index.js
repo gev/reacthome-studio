@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { modify } from '../../../../actions';
 import {
+  ACTION_ALED_CLIP,
+  ACTION_ALED_COLOR_ANIMATION_PLAY,
+  ACTION_ALED_COLOR_ANIMATION_STOP,
+  ACTION_ALED_MASK_ANIMATION_PLAY,
+  ACTION_ALED_MASK_ANIMATION_STOP,
   ACTION_CLOCK_START,
   ACTION_CLOCK_STOP,
   ACTION_CLOCK_TEST,
@@ -56,6 +61,9 @@ import {
   NOTIFY,
   RING
 } from '../../../../constants';
+import ActionPayloadAledAnimationPlay, { colorAnimations, maskAnimations } from './ActionPayloadAledAnimationPlay';
+import ActionPayloadAledAnimationStop from './ActionPayloadAledAnimationStop';
+import ActionPayloadAledClip from './ActionPayloadAledClip';
 import ActionPayloadCO2stat from './ActionPayloadCO2stat';
 import ActionPayloadClock from './ActionPayloadClock';
 import ActionPayloadClockTest from './ActionPayloadClockTest';
@@ -64,9 +72,10 @@ import ActionPayloadDim from './ActionPayloadDim';
 import ActionPayloadDimRelative from './ActionPayloadDimRelative';
 import ActionPayloadDoppler from './ActionPayloadDoppler';
 import ActionPayloadFanSpeed from './ActionPayloadFanSpeed';
-import ActionPayloadHeatLimit from './ActionPayloadHeatLimt';
+import ActionPayloadHeatLimit from './ActionPayloadHeatLimit';
 import ActionPayloadHygrostat from './ActionPayloadHygrostat';
 import ActionPayloadIncDecSetpoint from './ActionPayloadIncDecSetpoint';
+import ActionPayloadIntensity from './ActionPayloadIntensity';
 import ActionPayloadNotification from './ActionPayloadNotification';
 import ActionPayloadOnOff from './ActionPayloadOnOff';
 import ActionPayloadRGBButtonSet from './ActionPayloadRGBButtonSet';
@@ -86,7 +95,6 @@ import ActionPayloadThermostat from './ActionPayloadThermostat';
 import ActionPayloadTimerStart from './ActionPayloadTimerStart';
 import ActionPayloadTimerStop from './ActionPayloadTimerStop';
 import ActionPayloadToggle from './ActionPayloadToggle';
-import ActionPayloadIntensity from './ActionPayloadIntensity';
 
 const Container = (props) => {
   switch (props.type) {
@@ -123,6 +131,15 @@ const Container = (props) => {
       return <ActionPayloadRGBDim {...props} />;
     case ACTION_RGB_BUTTON_SET:
       return <ActionPayloadRGBButtonSet {...props} />;
+    case ACTION_ALED_COLOR_ANIMATION_PLAY:
+      return <ActionPayloadAledAnimationPlay {...props} animations={colorAnimations} />;
+    case ACTION_ALED_MASK_ANIMATION_PLAY:
+      return <ActionPayloadAledAnimationPlay {...props} animations={maskAnimations} />;
+    case ACTION_ALED_COLOR_ANIMATION_STOP:
+    case ACTION_ALED_MASK_ANIMATION_STOP:
+      return <ActionPayloadAledAnimationStop {...props} />;
+    case ACTION_ALED_CLIP:
+      return <ActionPayloadAledClip {...props} />;
     case ACTION_TIMER_START:
       return <ActionPayloadTimerStart {...props} />;
     case ACTION_TIMER_STOP:

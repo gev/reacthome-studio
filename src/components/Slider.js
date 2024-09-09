@@ -2,11 +2,11 @@ import { Slider } from "@rmwc/slider";
 import { Typography } from "@rmwc/typography";
 import React from "react";
 
-export default ({ label = 'value', value = 0, min, max, step, onInput }) => {
+export default ({ label = 'value', value = 0, min, max, step, onInput, scale = v => v }) => {
     return (
         <div>
             <div>
-                <Typography use="caption">{label}{typeof value === 'number' && `: ${value.toFixed(1)}`}</Typography>
+                <Typography use="caption">{label}{typeof value === 'number' && `: ${scale(value).toFixed(2)}`}</Typography>
             </div>
             <Slider
                 min={0}
