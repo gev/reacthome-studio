@@ -15,16 +15,23 @@ export const colorAnimations = {
 }
 
 export const maskAnimations = {
-  0x01: a("RandomOff", 0),
-  0x02: a("SlideOff", 0),
-  0x03: a("SlideOff'", 0),
-  0x04: a("SlideOffIn", 0),
-  0x05: a("SlideOffOut", 0),
-  0x11: a("RandomOn", 0),
-  0x12: a("SlideOn", 0),
-  0x13: a("SlideOn'", 0),
-  0x14: a("SlideOnIn", 0),
-  0x15: a("SlideOnOut", 0),
+  0x00: a("Off", 0),
+  0x01: a("FadeOff", 0),
+  0x02: a("RandomOff", 0),
+  0x03: a("SlideOff", 0),
+  0x04: a("SlideOff'", 0),
+  0x05: a("SlideOffIn", 0),
+  0x06: a("SlideOffOut", 0),
+
+  0x10: a("On", 0),
+  0x11: a("FadeOn", 0),
+  0x12: a("RandomOn", 0),
+  0x13: a("SlideOn", 0),
+  0x14: a("SlideOn'", 0),
+  0x15: a("SlideOnIn", 0),
+  0x16: a("SlideOnOut", 0),
+
+  0x20: a("Blink", 0),
   0x21: a("Random", 3),
   0x22: a("Eiffel", 3),
   0x23: a("Slide", 2),
@@ -36,36 +43,36 @@ export const maskAnimations = {
 
 export default class extends Component {
   select = (id) => {
-    const { change, payload } = this.props;
+    const { change, payload = {} } = this.props;
     change({ payload: { ...payload, id } });
   }
 
   setType = (animation) => () => {
-    const { change, payload } = this.props;
+    const { change, payload = {} } = this.props;
     change({ payload: { ...payload, animation } });
   }
 
   setDuration = ({ detail: { value } }) => {
-    const { change, payload } = this.props;
+    const { change, payload = {} } = this.props;
     change({ payload: { ...payload, duration: value } });
   }
 
   setPhase = ({ detail: { value } }) => {
-    const { change, payload } = this.props;
+    const { change, payload = {} } = this.props;
     change({ payload: { ...payload, phase: value } });
   }
 
   scaleDuration = v => 4 * (v + 1) / 25;
 
-  scalePhase = v => 0.4 * (v - 128) / 25;
+  scalePhase = v => (v - 128) / 25;
 
   setLoop = () => {
-    const { change, payload } = this.props;
+    const { change, payload = {} } = this.props;
     change({ payload: { ...payload, loop: !payload.loop } });
   }
 
   setSplit = () => {
-    const { change, payload } = this.props;
+    const { change, payload = {} } = this.props;
     change({ payload: { ...payload, split: !payload.split } });
   }
 
@@ -77,8 +84,9 @@ export default class extends Component {
   }
 
   render() {
-    const { root, payload: { id, duration = 5, phase = 128, loop = false, split = true, params = [] } = {}, animations = {} } = this.props;
-    const animation = animations[this.props.payload.animation] || {};
+    const { root, payload = {}, animations = {} } = this.props;
+    const { id, duration = 5, phase = 128, loop = false, split = true, params = [] } = payload;
+    const animation = animations[payload.animation] || {};
     return (
       <div>
         <div className="paper">
