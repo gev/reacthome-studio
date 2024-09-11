@@ -34,6 +34,7 @@ import {
   DRIVER_TYPE_COMFOVENT,
   DRIVER_TYPE_DALI_DLC,
   DRIVER_TYPE_DALI_GW,
+  DRIVER_TYPE_DAUERHAFT,
   DRIVER_TYPE_INTESIS_BOX,
   DRIVER_TYPE_M206,
   DRIVER_TYPE_M230,
@@ -89,6 +90,7 @@ import CardComfovent from './CardComfovent';
 import CardDaemon from './CardDaemon';
 import CardDaliDLC from './CardDaliDLC';
 import CardDaliGW from './CardDaliGW';
+import CardDauerhaft from './CardDauerhaft';
 import CardDefault from './CardDefault';
 import CardDi from './CardDi';
 import CardDo from './CardDo';
@@ -225,6 +227,8 @@ const Container = (props) => {
       return <CardDaliGW {...props} />
     case DRIVER_TYPE_DALI_DLC:
       return <CardDaliDLC {...props} />
+    case DRIVER_TYPE_DAUERHAFT:
+      return <CardDauerhaft {...props} />
     case DRIVER_TYPE_BB_PLC1:
       return <CardBBPLC1 {...props} />;
     case DRIVER_TYPE_BB_PLC2:

@@ -213,6 +213,7 @@ export const ACTION_MULTIROOM_ZONE = 'ACTION_MULTIROOM_ZONE';
 export const DRIVER_TYPE_ARTNET = 'ARTNET';
 export const DRIVER_TYPE_DALI_GW = 'DALI_GW';
 export const DRIVER_TYPE_DALI_DLC = 'DALI_DLC';
+export const DRIVER_TYPE_DAUERHAFT = 'DAUERHAFT';
 export const DRIVER_TYPE_RS21 = 'RS21';
 export const DRIVER_TYPE_BB_PLC1 = 'BB_PLC1';
 export const DRIVER_TYPE_BB_PLC2 = 'BB_PLC2';
@@ -871,6 +872,9 @@ export const DRIVER_TYPES = {
   },
   [DRIVER_TYPE_DALI_DLC]: {
     title: 'Dali DLC-02'
+  },
+  [DRIVER_TYPE_DAUERHAFT]: {
+    title: 'Dauerhaft'
   },
   [DRIVER_TYPE_RS21]: {
     title: 'Wi-Fi Temperature Sensor RS21'
