@@ -103,7 +103,7 @@ class Container extends Component {
 
   render() {
     const { address, channel } = this.state;
-    const { code, title, position } = this.props;
+    const { code, title, position, value } = this.props;
     return (
       <div>
         <div className="paper">
@@ -185,7 +185,10 @@ class Container extends Component {
           </tbody>
         </table>
         <div className="paper">
-          <Typography>Position</Typography>
+          <Typography>Current position</Typography>
+          <Typography use="headline3">{value}</Typography>
+        </div>
+        <div className="paper">
           <Slider
             label="Position"
             min={0}
