@@ -1,13 +1,12 @@
 
 import { Tab, TabBar } from '@rmwc/tabs';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import DeviceALED from './DeviceALED';
 import DeviceDi from './DeviceDi';
 import DeviceDoppler from './DeviceDoppler';
-import DeviceALED from './DeviceALED';
 
 
-class Container extends Component {
+export default class extends Component {
   state = { index: 0 }
 
 
@@ -47,5 +46,3 @@ class Container extends Component {
     );
   }
 }
-
-export default connect(({ pool }, { id }) => pool[id] || {})(Container);
