@@ -20,6 +20,8 @@ import {
   DEVICE_TYPE_DI_4_RSM,
   DEVICE_TYPE_DO12,
   DEVICE_TYPE_DO8,
+  DEVICE_TYPE_DOPPLER_1_DI_4,
+  DEVICE_TYPE_DOPPLER_5_DI_4,
   DEVICE_TYPE_MIX_1,
   DEVICE_TYPE_MIX_1_RS,
   DEVICE_TYPE_MIX_2,
@@ -130,6 +132,8 @@ const Do = c((props) => {
       n = 3;
       t = DIM;
       break;
+    case DEVICE_TYPE_DOPPLER_1_DI_4:
+    case DEVICE_TYPE_DOPPLER_5_DI_4:
     case DEVICE_TYPE_SMART_BOTTOM_1:
     case DEVICE_TYPE_SMART_BOTTOM_2:
       n = 10;
