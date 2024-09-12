@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DeviceDi from './DeviceDi';
 import DeviceDoppler from './DeviceDoppler';
+import DeviceALED from './DeviceALED';
 
 
 class Container extends Component {
@@ -25,6 +26,7 @@ class Container extends Component {
         >
           <Tab>Inputs</Tab>
           <Tab>Doppler</Tab>
+          <Tab>ALED</Tab>
         </TabBar>
         {
           index === 0 && (
@@ -34,6 +36,11 @@ class Container extends Component {
         {
           index === 1 && (
             <DeviceDoppler {...this.props} n={doppler} />
+          )
+        }
+        {
+          index === 2 && (
+            <DeviceALED {...this.props} />
           )
         }
       </div>
