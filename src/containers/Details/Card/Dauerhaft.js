@@ -9,7 +9,7 @@ import { Button } from 'rmwc';
 import { modify } from '../../../actions';
 import DangerButton from '../../../components/DangerButton';
 import Slider from '../../../components/Slider';
-import { ACTION_DONE, ACTION_DOWN, ACTION_LEARN, ACTION_LIMIT_DOWN, ACTION_LIMIT_UP, ACTION_SET_ADDRESS, ACTION_SET_POSITION, ACTION_STOP, ACTION_UP, CODE, TITLE } from '../../../constants';
+import { ACTION_DELETE_ADDRESS, ACTION_DOWN, ACTION_LEARN, ACTION_LIMIT_DOWN, ACTION_LIMIT_UP, ACTION_SET_ADDRESS, ACTION_SET_POSITION, ACTION_STOP, ACTION_UP, CODE, TITLE } from '../../../constants';
 import { send } from '../../../websocket/peer';
 
 const Check = ({ checked, onChange, label }) => (
@@ -62,7 +62,7 @@ class Container extends Component {
     let channel = parseInt(value, 10);
     if (channel < 1) channel = 1;
     if (channel > 16) channel = 16;
-    this.setState({ channel: parseInt(value, 10) });
+    this.setState({ channel });
   }
 
   up = () => {
@@ -95,15 +95,15 @@ class Container extends Component {
     send(daemon, { id, type: ACTION_LEARN, index });
   }
 
-  done = () => {
+  deleteAddress = () => {
     const { id, daemon, index } = this.props;
-    send(daemon, { id, type: ACTION_DONE, index });
+    send(daemon, { id, type: ACTION_DELETE_ADDRESS, index });
   }
 
 
   render() {
-    const { address, channel } = this.state;
-    const { code, title, position, value } = this.props;
+    const { code, title, index, position, value } = this.props;
+    const { address = index, channel = 1 } = this.state;
     return (
       <div>
         <div className="paper">
@@ -151,46 +151,56 @@ class Container extends Component {
             <tr>
               <td className="paper">
                 <DangerButton
-                  label="Learn"
-                  message="Learn"
-                  detail={`Enter to the learn mode for device ${address}/${channel}`}
-                  onClick={this.learn}
+                  label="Limit Down"
+                  message="Limit Down"
+                  detail={`Limit lower position for the device ${address}/${channel}?`}
+                  onClick={this.limitDown}
                 />
               </td>
               <td className="paper">
                 <DangerButton
                   label="Limit Up"
                   message="Limit Up"
-                  detail={`Limit upper position for device ${address}/${channel}?`}
+                  detail={`Limit upper position for the device ${address}/${channel}?`}
                   onClick={this.limitUp}
-                />
-              </td>
-              <td className="paper">
-                <DangerButton
-                  label="Limit Down"
-                  message="Limit Down"
-                  detail={`Limit lower position for device ${address}/${channel}?`}
-                  onClick={this.limitDown}
-                />
-              </td>
-              <td className="paper">
-                <DangerButton
-                  label="Done"
-                  message="Done"
-                  detail={`Exit from learn mode for device ${address}/${channel}`}
-                  onClick={this.done}
                 />
               </td>
             </tr>
           </tbody>
         </table>
-        <div className="paper">
-          <Typography>Current position</Typography>
-          <Typography use="headline3">{value}</Typography>
+        <table>
+          <tbody>
+            <tr>
+              <td className="paper">
+                <DangerButton
+                  label="Learn"
+                  message="Learn"
+                  detail={`Enter to the learn mode for the device ${address}/${channel}`}
+                  onClick={this.learn}
+                />
+              </td>
+              <td className="paper">
+                <DangerButton
+                  label="Delete"
+                  message="Delete address"
+                  detail={`Delete address and channel for the device ${address}/${channel}`}
+                  onClick={this.deleteAddress}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <span className="paper">
+            <Typography>Current position</Typography>
+          </span>
+          <span className="paper">
+            <Typography use="headline4">{value}</Typography>
+          </span>
         </div>
         <div className="paper">
           <Slider
-            label="Position"
+            label="Set position"
             min={0}
             step={1}
             max={100}
