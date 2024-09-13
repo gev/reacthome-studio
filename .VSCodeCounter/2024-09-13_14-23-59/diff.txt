@@ -1,0 +1,43 @@
+Date : 2024-09-13 14:23:59
+Directory : /Users/evgenygazdovsky/workspace/reacthome-studio
+Total : 10 files,  401 codes, 0 comments, 31 blanks, all 432 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         10 |        401 |          0 |         31 |        432 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                             |         10 |        401 |          0 |         31 |        432 |
+| src                                                                                                                           |         10 |        401 |          0 |         31 |        432 |
+| src (Files)                                                                                                                   |          1 |         23 |          0 |          3 |         26 |
+| src/components                                                                                                                |          1 |         23 |          0 |          2 |         25 |
+| src/containers                                                                                                                |          8 |        355 |          0 |         26 |        381 |
+| src/containers/Details                                                                                                        |          6 |        338 |          0 |         27 |        365 |
+| src/containers/Details/Card                                                                                                   |          6 |        338 |          0 |         27 |        365 |
+| src/containers/Details/Card (Files)                                                                                           |          5 |        332 |          0 |         25 |        357 |
+| src/containers/Details/Card/ActionPayload                                                                                     |          1 |          6 |          0 |          2 |          8 |
+| src/containers/Device                                                                                                         |          2 |         17 |          0 |         -1 |         16 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                      | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/components/DangerButton.js                                              | JavaScript |         23 |          0 |          2 |         25 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/constants.js                                                            | JavaScript |         23 |          0 |          3 |         26 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/containers/Details/Card/ActionPayload/ActionPayloadAledAnimationPlay.js | JavaScript |          6 |          0 |          2 |          8 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/containers/Details/Card/CardDauerhaft.js                                | JavaScript |        109 |          0 |          5 |        114 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/containers/Details/Card/Dauerhaft.js                                    | JavaScript |        203 |          0 |         20 |        223 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/containers/Details/Card/SelectDi.js                                     | JavaScript |          3 |          0 |          0 |          3 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/containers/Details/Card/SelectDo.js                                     | JavaScript |          4 |          0 |          0 |          4 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/containers/Details/Card/index.js                                        | JavaScript |         13 |          0 |          0 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/containers/Device/DeviceDopplerDI.js                                    | JavaScript |          5 |          0 |         -1 |          4 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/src/containers/Device/DeviceSmartNextTop.js                                 | JavaScript |         12 |          0 |          0 |         12 |
+| Total                                                                                                                         |            |        401 |          0 |         31 |        432 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

@@ -24,10 +24,13 @@ import {
   DEVICE_TYPE_SMART_6_PUSH,
   DEVICE_TYPE_SMART_BOTTOM_1,
   DEVICE_TYPE_SMART_BOTTOM_2,
-  DEVICE_TYPE_SMART_TOP_A6P,
-  DEVICE_TYPE_SMART_TOP_G4D,
+  DEVICE_TYPE_SMART_TOP_A4P,
   DEVICE_TYPE_SMART_TOP_A4T,
+  DEVICE_TYPE_SMART_TOP_A6P,
   DEVICE_TYPE_SMART_TOP_A6T,
+  DEVICE_TYPE_SMART_TOP_G2,
+  DEVICE_TYPE_SMART_TOP_G4,
+  DEVICE_TYPE_SMART_TOP_G4D,
   DEVICE_TYPE_SMART_TOP_G6,
   DEVICE_TYPE_TEMPERATURE_EXT,
   DRIVER_TYPE_ALINK,
@@ -156,11 +159,17 @@ const Container = (props) => {
     case DEVICE_TYPE_SMART_TOP_G4D:
       return <CardSmartTop {...props} button={4} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_TOP_A4T:
-        return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_TOP_A6T:
-        return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
+      return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_TOP_G6:
-        return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
+      return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
+    case DEVICE_TYPE_SMART_TOP_G4:
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
+    case DEVICE_TYPE_SMART_TOP_G2:
+      return <CardSensor {...props} button={2} hasTemperature hasHumidity />;
+    case DEVICE_TYPE_SMART_TOP_A4P:
+      return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_BOTTOM_1:
       return <CardSensor {...props} button={4} />;
     case DEVICE_TYPE_SMART_BOTTOM_2:
