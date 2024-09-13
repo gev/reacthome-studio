@@ -26,6 +26,9 @@ import {
   DEVICE_TYPE_SMART_BOTTOM_2,
   DEVICE_TYPE_SMART_TOP_A6P,
   DEVICE_TYPE_SMART_TOP_G4D,
+  DEVICE_TYPE_SMART_TOP_A4T,
+  DEVICE_TYPE_SMART_TOP_A6T,
+  DEVICE_TYPE_SMART_TOP_G6,
   DEVICE_TYPE_TEMPERATURE_EXT,
   DRIVER_TYPE_ALINK,
   DRIVER_TYPE_ARTNET,
@@ -152,6 +155,12 @@ const Container = (props) => {
       return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_TOP_G4D:
       return <CardSmartTop {...props} button={4} hasTemperature hasHumidity />;
+    case DEVICE_TYPE_SMART_TOP_A4T:
+        return <CardSensor {...props} button={4} hasTemperature hasHumidity />;
+    case DEVICE_TYPE_SMART_TOP_A6T:
+        return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
+    case DEVICE_TYPE_SMART_TOP_G6:
+        return <CardSensor {...props} button={6} hasTemperature hasHumidity />;
     case DEVICE_TYPE_SMART_BOTTOM_1:
       return <CardSensor {...props} button={4} />;
     case DEVICE_TYPE_SMART_BOTTOM_2:
