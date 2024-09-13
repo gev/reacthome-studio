@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { modify } from '../../actions';
 import Slider from '../../components/Slider';
 import { DEVICE_TYPES, DEVICE_TYPE_SMART_TOP_A4P, DEVICE_TYPE_SMART_TOP_A4T, DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_A6T, DEVICE_TYPE_SMART_TOP_G2, DEVICE_TYPE_SMART_TOP_G4, DEVICE_TYPE_SMART_TOP_G4D, DEVICE_TYPE_SMART_TOP_G6 } from '../../constants';
+import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
 import DeviceSmartNextFaceG4D from './DeviceSmartNextFaceG4D';
 
@@ -61,6 +62,7 @@ class Container extends Component {
     const tabs = [
       <Tab key="buttons">Buttons</Tab>,
       <Tab key="climate">Climate</Tab>,
+      <Tab key="face">Face</Tab>,
     ];
     switch (type) {
       case DEVICE_TYPE_SMART_TOP_A6T:
@@ -82,7 +84,6 @@ class Container extends Component {
       case DEVICE_TYPE_SMART_TOP_G4D:
         button = 4;
         led = 8;
-        tabs.push(<Tab key="face">Face</Tab>);
         break;
       case DEVICE_TYPE_SMART_TOP_G4:
         button = 4;
@@ -97,6 +98,14 @@ class Container extends Component {
         led = 4;
         break;
     }
+    const rgb = (n) => {
+      const a = [];
+      for (let i = 1; i <= n; i++) {
+        a.push(<RGB id={id} index={i} daemon={daemon} key={`${id}/rgb/${i}`} />);
+      }
+      return a;
+    };
+
     return type ? [
       <div key="header">
         <table>
@@ -145,7 +154,11 @@ class Container extends Component {
         }
         {
           tabIndex === 2 && (
-            <DeviceSmartNextFaceG4D id={id} daemon={daemon} />
+            type === DEVICE_TYPE_SMART_TOP_G4D ? (
+              <DeviceSmartNextFaceG4D id={id} daemon={daemon} />
+            ) : (
+              rgb(led)
+            )
           )
         }
       </div>,
