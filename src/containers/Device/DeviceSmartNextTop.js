@@ -5,9 +5,10 @@ import { Typography } from '@rmwc/typography';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { modify } from '../../actions';
+import { Switch } from 'rmwc';
+import { modify, request } from '../../actions';
 import Slider from '../../components/Slider';
-import { DEVICE_TYPES, DEVICE_TYPE_SMART_TOP_A4P, DEVICE_TYPE_SMART_TOP_A4T, DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_A6T, DEVICE_TYPE_SMART_TOP_G2, DEVICE_TYPE_SMART_TOP_G4, DEVICE_TYPE_SMART_TOP_G4D, DEVICE_TYPE_SMART_TOP_G6 } from '../../constants';
+import { ACTION_DIMMER, ACTION_DO, ACTION_VIBRO, DEVICE_TYPES, DEVICE_TYPE_SMART_TOP_A4P, DEVICE_TYPE_SMART_TOP_A4T, DEVICE_TYPE_SMART_TOP_A6P, DEVICE_TYPE_SMART_TOP_A6T, DEVICE_TYPE_SMART_TOP_G2, DEVICE_TYPE_SMART_TOP_G4, DEVICE_TYPE_SMART_TOP_G4D, DEVICE_TYPE_SMART_TOP_G6 } from '../../constants';
 import RGB from '../RGB';
 import DeviceDi from './DeviceDi';
 import DeviceSmartNextFaceG4D from './DeviceSmartNextFaceG4D';
@@ -39,12 +40,36 @@ const Row = ({ title, value, magnitude, onCorrect, correct, min, max, step }) =>
 
 class Container extends Component {
   state = { tabIndex: 0 };
+
   change = (event) => {
     const { value } = event.target;
     this.props.change({ code: value });
   }
+
   select = ({ detail: { index } }) => {
     this.setState({ tabIndex: index });
+  }
+
+  setVibro = ({ detail: { value } }) => {
+    const { id, daemon, request } = this.props;
+    request(daemon, {
+      type: ACTION_VIBRO, value: value * 25, id,
+    })
+  }
+
+  setBrightness = ({ detail: { value } }) => {
+    const { id, daemon, request } = this.props;
+    request(daemon, {
+      type: ACTION_DIMMER, value, id,
+    })
+  }
+
+  onSwitch = () => {
+    const { id, daemon, state = true, request } = this.props;
+    console.log(daemon, id, state ? 0 : 1)
+    request(daemon, {
+      type: ACTION_DO, id, value: state ? 0 : 1
+    })
   }
   render() {
     const { tabIndex } = this.state;
@@ -52,7 +77,7 @@ class Container extends Component {
       id, code, ip, address, timestamp, version,
       temperature, humidity,
       temperature_correct, humidity_correct, change,
-      daemon, type,
+      daemon, type, brightness, vibro, state,
     } = this.props;
     const { temperature_raw = temperature, humidity_raw = humidity } = this.props;
     const { title } = DEVICE_TYPES[type] || {};
@@ -157,7 +182,21 @@ class Container extends Component {
             type === DEVICE_TYPE_SMART_TOP_G4D ? (
               <DeviceSmartNextFaceG4D id={id} daemon={daemon} />
             ) : (
-              rgb(led)
+              <div>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td width="30%"><div className="paper"><Slider label="vibro" value={vibro / 25} min={0} max={10} step={1} discrete onInput={this.setVibro} /></div></td>
+                      <td width="50%"><div className="paper"><Slider label="brightness" value={brightness} min={0} max={255} step={1} discrete onInput={this.setBrightness} /></div></td>
+                      <td width="10%"><div className="paper"><Switch checked={!!state} onChange={this.onSwitch} /></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+                {
+                  rgb(led)
+                }
+              </div>
+
             )
           )
         }
@@ -170,5 +209,6 @@ export default connect(
   ({ pool }, { id, daemon }) => ({ ...pool[id], daemon }),
   (dispatch, { id }) => bindActionCreators({
     change: (payload) => modify(id, payload),
+    request: (daemon, payload) => request(daemon, payload),
   }, dispatch)
 )(Container);

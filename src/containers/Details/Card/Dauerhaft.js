@@ -9,7 +9,7 @@ import { Button } from 'rmwc';
 import { modify } from '../../../actions';
 import DangerButton from '../../../components/DangerButton';
 import Slider from '../../../components/Slider';
-import { ACTION_DELETE_ADDRESS, ACTION_DOWN, ACTION_LEARN, ACTION_LIMIT_DOWN, ACTION_LIMIT_UP, ACTION_SET_ADDRESS, ACTION_SET_POSITION, ACTION_STOP, ACTION_UP, CODE, TITLE } from '../../../constants';
+import { ACTION_DELETE_ADDRESS, ACTION_DOWN, ACTION_LEARN, ACTION_LIMIT_DOWN, ACTION_LIMIT_UP, ACTION_SET, ACTION_SET_ADDRESS, ACTION_SET_POSITION, ACTION_STOP, ACTION_UP, CODE, TITLE } from '../../../constants';
 import { send } from '../../../websocket/peer';
 
 const Check = ({ checked, onChange, label }) => (
@@ -20,8 +20,6 @@ const Check = ({ checked, onChange, label }) => (
 );
 
 class Container extends Component {
-  state = {};
-
   componentDidMount() {
     const { address, channel } = this.props;
     this.setState({ address, channel });
@@ -46,8 +44,7 @@ class Container extends Component {
   };
 
   setAddress = () => {
-    const { id, daemon, index } = this.props;
-    const { address, channel } = this.state;
+    const { id, daemon, index, address, channel } = this.props;
     send(daemon, { id, type: ACTION_SET_ADDRESS, index, address, channel });
   }
 
@@ -55,14 +52,18 @@ class Container extends Component {
     let address = parseInt(value, 10);
     if (address < 1) address = 1;
     if (address > 99) address = 99;
-    this.setState({ address });
+    const { id, daemon, index } = this.props;
+    const ch = `${id}/curtain/${index}`;
+    send(daemon, { type: ACTION_SET, id: ch, payload: { address } });
   }
 
   seCh = ({ target: { value } }) => {
     let channel = parseInt(value, 10);
     if (channel < 1) channel = 1;
     if (channel > 16) channel = 16;
-    this.setState({ channel });
+    const { id, daemon, index } = this.props;
+    const ch = `${id}/curtain/${index}`;
+    send(daemon, { type: ACTION_SET, id: ch, payload: { channel } });
   }
 
   up = () => {
@@ -102,8 +103,7 @@ class Container extends Component {
 
 
   render() {
-    const { code, title, index, position, value } = this.props;
-    const { address = index, channel = 1 } = this.state;
+    const { code, title, index, position, value, address = index, channel = 1 } = this.props;
     return (
       <div>
         <div className="paper">
