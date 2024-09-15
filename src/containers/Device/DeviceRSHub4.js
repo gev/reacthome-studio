@@ -1,6 +1,7 @@
 
 import { Tab, TabBar } from '@rmwc/tabs';
 import React, { Component } from 'react';
+import DeviceALED from './DeviceALED';
 import DeviceDi from './DeviceDi';
 import DeviceDimmer from './DeviceDimmer';
 import DeviceExt from './DeviceExt';
@@ -24,6 +25,7 @@ export default class extends Component {
           <Tab>Inputs</Tab>
           <Tab>Dimmer</Tab>
           <Tab>Ext</Tab>
+          <Tab>ALED</Tab>
         </TabBar>
       </div>,
       <div key="body">
@@ -45,6 +47,11 @@ export default class extends Component {
         {
           tabIndex === 3 && (
             <DeviceExt {...this.props} />
+          )
+        }
+        {
+          tabIndex === 4 && (
+            <DeviceALED {...this.props} n={1} />
           )
         }
       </div>
