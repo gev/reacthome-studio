@@ -39,6 +39,7 @@ import {
   ACTION_SETPOINT,
   ACTION_SETPOINT_MIN_MAX,
   ACTION_SET_FAN_SPEED,
+  ACTION_SET_POSITION,
   ACTION_SITE_LIGHT_DIM_RELATIVE,
   ACTION_SITE_LIGHT_OFF,
   ACTION_SITE_LIGHT_ON,
@@ -95,6 +96,7 @@ import ActionPayloadThermostat from './ActionPayloadThermostat';
 import ActionPayloadTimerStart from './ActionPayloadTimerStart';
 import ActionPayloadTimerStop from './ActionPayloadTimerStop';
 import ActionPayloadToggle from './ActionPayloadToggle';
+import ActionPayloadSetPosition from './ActionPayloadSetPosition';
 
 const Container = (props) => {
   switch (props.type) {
@@ -118,6 +120,8 @@ const Container = (props) => {
       return <ActionPayloadOnOff {...props} />;
     case ACTION_DIM:
       return <ActionPayloadDim {...props} />;
+    case ACTION_SET_POSITION:
+      return <ActionPayloadSetPosition {...props} />;
     case ACTION_SET_FAN_SPEED:
       return <ActionPayloadFanSpeed {...props} />;
     case ACTION_DIM_RELATIVE:
