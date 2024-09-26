@@ -15,7 +15,7 @@ class Container extends Component {
     return (
       <Slider
         label="fan speed"
-        min={1}
+        min={0}
         max={10}
         step={1}
         value={value}
