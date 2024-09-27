@@ -8,10 +8,10 @@ const a = (title, n) => ({ title, n });
 
 export const colorAnimations = {
   0x00: a('Fade', 4),
-  0x10: a('SpectrumT', 4),
-  0x11: a('SpectrumX', 4),
-  0x20: a('RandomT', 0),
-  0x21: a('RandomX', 0),
+  0x10: a('SpectrumT', 8),
+  0x11: a('SpectrumX', 8),
+  0x20: a('RandomT', 4),
+  0x21: a('RandomX', 4),
 }
 
 export const maskAnimations = {
