@@ -8,10 +8,10 @@ const a = (title, n) => ({ title, n });
 
 export const colorAnimations = {
   0x00: a('Fade', 4),
-  0x10: a('SpectrumT', 8),
-  0x11: a('SpectrumX', 8),
-  0x20: a('RandomT', 4),
-  0x21: a('RandomX', 4),
+  0x10: a('SpectrumT', 12),
+  0x11: a('SpectrumX', 12),
+  0x20: a('RandomT', 8),
+  0x21: a('RandomX', 8),
 }
 
 export const maskAnimations = {
@@ -76,6 +76,11 @@ export default class extends Component {
     change({ payload: { ...payload, split: !payload.split } });
   }
 
+  setInverseTime = () => {
+    const { change, payload = {} } = this.props;
+    change({ payload: { ...payload, inverseTime: !payload.inverseTime } });
+  }
+
   setParam = (i) => ({ detail: { value } }) => {
     const { change, payload = {} } = this.props;
     const params = [...payload.params || []];
@@ -85,7 +90,7 @@ export default class extends Component {
 
   render() {
     const { root, payload = {}, animations = {} } = this.props;
-    const { id, duration = 5, phase = 128, loop = false, split = true, params = [] } = payload;
+    const { id, duration = 5, phase = 128, loop = false, split = true, inverseTime = false, params = [] } = payload;
     const animation = animations[payload.animation] || {};
     return (
       <div>
@@ -111,11 +116,14 @@ export default class extends Component {
         <table>
           <tbody>
             <tr>
-              <td width="50%">
+              <td width="33%">
                 <Checkbox label="Loop" checked={loop} onChange={this.setLoop} />
               </td>
-              <td width="50%">
+              <td width="33%">
                 <Checkbox label="Split" checked={split} onChange={this.setSplit} />
+              </td>
+              <td>
+                <Checkbox label="Inverse time" checked={inverseTime} onChange={this.setInverseTime} />
               </td>
             </tr>
           </tbody>
@@ -131,14 +139,74 @@ export default class extends Component {
         </div>
         {
           animation.n > 0 && (
-            Array(animation.n).fill(0).map((_, i) => (
-              <div className="paper">
-                <Slider key={`${this.props.id}/p/${i + 1}`} label={`Param ${i + 1}`} value={params[i] || 0} min={0} max={255} step={1} onInput={this.setParam(i)} />
-              </div>
-            ))
+            <table>
+              {
+                animation.n === 12 ? (
+                  <tbody>
+                    <tr>
+                      <td><Param i={0} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={1} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={2} params={params} setParam={this.setParam} /></td>
+                    </tr>
+                    <tr>
+                      <td><Param i={3} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={4} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={5} params={params} setParam={this.setParam} /></td>
+                    </tr>
+                    <tr>
+                      <td><Param i={6} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={7} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={8} params={params} setParam={this.setParam} /></td>
+                    </tr>
+                    <tr>
+                      <td><Param i={9} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={10} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={11} params={params} setParam={this.setParam} /></td>
+                    </tr>
+                  </tbody>
+                ) : animation.n === 8 ? (
+                  <tbody>
+                    <tr>
+                      <td><Param i={0} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={1} params={params} setParam={this.setParam} /></td>
+                    </tr>
+                    <tr>
+                      <td><Param i={2} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={3} params={params} setParam={this.setParam} /></td>
+                    </tr>
+                    <tr>
+                      <td><Param i={4} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={5} params={params} setParam={this.setParam} /></td>
+                    </tr>
+                    <tr>
+                      <td><Param i={6} params={params} setParam={this.setParam} /></td>
+                      <td><Param i={7} params={params} setParam={this.setParam} /></td>
+                    </tr>
+                  </tbody>
+                ) : (
+                  <tbody>
+                    {
+                      Array(animation.n).fill(0).map((_, i) => (
+                        <tr key={`${this.props.id}/p/${i + 1}`}>
+                          <td>
+                            <Param i={i} params={params} setParam={this.setParam} />
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                )
+              }
+            </table>
           )
         }
       </div>
     );
   }
 }
+
+const Param = ({ i, params, setParam }) => (
+  <div className="paper">
+    <Slider label={`Param ${i + 1}`} value={params[i] || 0} min={0} max={255} step={1} onInput={setParam(i)} />
+  </div>
+);
