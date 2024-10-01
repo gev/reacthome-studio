@@ -19,24 +19,19 @@ export const maskAnimations = {
   0x01: a("FadeOff", 0),
   0x02: a("RandomOff", 0),
   0x03: a("SlideOff", 0),
-  0x04: a("SlideOff'", 0),
-  0x05: a("SlideOffIn", 0),
-  0x06: a("SlideOffOut", 0),
+  0x04: a("SlideOffInOut", 0),
 
   0x10: a("On", 0),
   0x11: a("FadeOn", 0),
   0x12: a("RandomOn", 0),
   0x13: a("SlideOn", 0),
-  0x14: a("SlideOn'", 0),
-  0x15: a("SlideOnIn", 0),
-  0x16: a("SlideOnOut", 0),
+  0x14: a("SlideOnInOut", 0),
 
   0x20: a("Blink", 0),
   0x21: a("Random", 4),
   0x22: a("Eiffel", 4),
   0x23: a("Slide", 3),
-  0x24: a("Slide'", 3),
-  0x25: a("Slide''", 3),
+  0x24: a("SlideInOut", 3),
 }
 
 
