@@ -32,6 +32,7 @@ export const maskAnimations = {
   0x22: a("Eiffel", 4),
   0x23: a("Slide", 3),
   0x24: a("SlideInOut", 3),
+  0x25: a("SlideInOut'", 3),
 }
 
 
