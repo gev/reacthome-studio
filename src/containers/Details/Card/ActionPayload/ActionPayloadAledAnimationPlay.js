@@ -37,7 +37,6 @@ export const maskAnimations = {
   0x23: a("Slide", 3),
   0x24: a("Slide'", 3),
   0x25: a("Slide''", 3),
-  0xff: a("Const", 0),
 }
 
 
@@ -76,9 +75,9 @@ export default class extends Component {
     change({ payload: { ...payload, split: !payload.split } });
   }
 
-  setInverseTime = () => {
+  setInverseDirection = () => {
     const { change, payload = {} } = this.props;
-    change({ payload: { ...payload, inverseTime: !payload.inverseTime } });
+    change({ payload: { ...payload, inverseDirection: !payload.inverseDirection } });
   }
 
   setParam = (i) => ({ detail: { value } }) => {
@@ -90,7 +89,7 @@ export default class extends Component {
 
   render() {
     const { root, payload = {}, animations = {} } = this.props;
-    const { id, duration = 5, phase = 128, loop = false, split = true, inverseTime = false, params = [] } = payload;
+    const { id, duration = 5, phase = 128, loop = false, split = true, inverseDirection = false, params = [] } = payload;
     const animation = animations[payload.animation] || {};
     return (
       <div>
@@ -123,7 +122,7 @@ export default class extends Component {
                 <Checkbox label="Split" checked={split} onChange={this.setSplit} />
               </td>
               <td>
-                <Checkbox label="Inverse time" checked={inverseTime} onChange={this.setInverseTime} />
+                <Checkbox label="Inverse direction" checked={inverseDirection} onChange={this.setInverseDirection} />
               </td>
             </tr>
           </tbody>
@@ -144,9 +143,9 @@ export default class extends Component {
                 animation.n === 12 ? (
                   <tbody>
                     <tr>
-                      <td><Param i={0} params={params} setParam={this.setParam} /></td>
+                      <td width="33%"><Param i={0} params={params} setParam={this.setParam} /></td>
                       <td><Param i={1} params={params} setParam={this.setParam} /></td>
-                      <td><Param i={2} params={params} setParam={this.setParam} /></td>
+                      <td width="33%"><Param i={2} params={params} setParam={this.setParam} /></td>
                     </tr>
                     <tr>
                       <td><Param i={3} params={params} setParam={this.setParam} /></td>
@@ -167,8 +166,8 @@ export default class extends Component {
                 ) : animation.n === 8 ? (
                   <tbody>
                     <tr>
-                      <td><Param i={0} params={params} setParam={this.setParam} /></td>
-                      <td><Param i={1} params={params} setParam={this.setParam} /></td>
+                      <td width="50%"><Param i={0} params={params} setParam={this.setParam} /></td>
+                      <td width="50%"><Param i={1} params={params} setParam={this.setParam} /></td>
                     </tr>
                     <tr>
                       <td><Param i={2} params={params} setParam={this.setParam} /></td>
