@@ -2,6 +2,7 @@
 
 import { Tab, TabBar } from '@rmwc/tabs';
 import React, { Component } from 'react';
+import DeviceALED from './DeviceALED';
 import DeviceDi from './DeviceDi';
 import DeviceExt from './DeviceExt';
 
@@ -13,14 +14,21 @@ export default class extends Component {
   }
   render() {
     const { tabIndex } = this.state;
+    const { id, version } = this.props;
+    const major = parseInt(version.split('.')[0], 10);
+    const tabs = [
+      <Tab>Inputs</Tab>,
+      <Tab>Ext</Tab>
+    ];
+    if (major >= 5) {
+      tabs.push(<Tab>ALED</Tab>);
+    }
     return ([
       <div key="tab">
         <TabBar
           activeTabIndex={tabIndex}
           onActivate={this.select}
-        >
-          <Tab>Inputs</Tab>
-          <Tab>Ext</Tab>
+        >{tabs}
         </TabBar>
       </div>,
       <div key="body">
@@ -32,6 +40,11 @@ export default class extends Component {
         {
           tabIndex === 1 && (
             <DeviceExt {...this.props} />
+          )
+        }
+        {
+          tabIndex === 2 && (
+            <DeviceALED {...this.props} />
           )
         }
       </div>
