@@ -154,13 +154,7 @@ const Do = c((props) => {
     default:
       n = 0;
   }
-  if (type === DEVICE_TYPE_SERVER || type === DEVICE_TYPE_RS_HUB_4) {
-    for (let i = 1; i <= 10; i++) {
-      a.push((
-        <MenuItem label={t} key={`${id}LA${i}`} index={i} onClick={select(i, 'LA')} id={`${id}/LA/${i}`} />
-      ));
-    }
-  } else if (type === DRIVER_TYPE_DALI_GW) {
+  if (type === DRIVER_TYPE_DALI_GW) {
     for (let i = 0; i < props.numberGroups; i++) {
       a.push((
         <MenuItem label={DALI_GROUP} key={`${id}${DALI_GROUP}${i}`} index={i} onClick={select(i, DALI_GROUP)} id={`${id}/${DALI_GROUP}/${i}`} />
@@ -203,6 +197,13 @@ const Do = c((props) => {
         });
     }
   } else {
+    if (type === DEVICE_TYPE_SERVER || type === DEVICE_TYPE_RS_HUB_4) {
+      for (let i = 1; i <= 10; i++) {
+        a.push((
+          <MenuItem label="LA" key={`${id}LA${i}`} index={i} onClick={select(i, 'LA')} id={`${id}/LA/${i}`} />
+        ));
+      }
+    }
     if (hasGroups) {
       for (let i = 1; i <= n / 2; i += 1) {
         a.push((
