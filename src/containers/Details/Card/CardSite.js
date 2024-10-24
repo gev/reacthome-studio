@@ -13,7 +13,7 @@ import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
-import { attach, modify, remove } from '../../../actions';
+import { attach, modify, remove, vibrant } from '../../../actions';
 import CardActionRemove from '../../../components/CardActionRemove';
 import { CODE, IMAGE, TITLE } from '../../../constants';
 import { asset } from '../../../fs';
@@ -41,6 +41,16 @@ class Container extends Component {
     attachImage(path);
   }
 
+  componentDidMount() {
+    const { image, palette, change } = this.props;
+    if (image && !palette) {
+      vibrant(asset(image), palette => {
+        change({ palette });
+      });
+
+    }
+  }
+
   render() {
     const {
       code, title, removeField, details, image,
@@ -56,42 +66,6 @@ class Container extends Component {
             <Dropzone className="dropzone" accept="image/jpeg, image/png, image/svg+xml" onDrop={this.attachImage} multiple={false} />
           </div>
         </CardMedia>
-        {
-          // image && (
-          //   <Palette image={url}>
-          //     {
-          //       (palette) => {
-          //         const {
-          //           darkMuted, darkVibrant, lightMuted, lightVibrant, muted, vibrant
-          //         } = palette;
-          //         // setPalette(palette);
-          //         return (
-          //           <div>
-          //             <ColorPair color="#fff" backgroundColor={darkMuted}>
-          //               darkMuted
-          //             </ColorPair>
-          //             <ColorPair color="#fff" backgroundColor={darkVibrant}>
-          //               darkVibrant
-          //             </ColorPair>
-          //             <ColorPair color="#333" backgroundColor={lightMuted}>
-          //               lightMuted
-          //             </ColorPair>
-          //             <ColorPair color="#333" backgroundColor={lightVibrant}>
-          //               lightVibrant
-          //             </ColorPair>
-          //             <ColorPair color="#fff" backgroundColor={muted}>
-          //               muted
-          //             </ColorPair>
-          //             <ColorPair color="#fff" backgroundColor={vibrant}>
-          //               vibrant
-          //             </ColorPair>
-          //           </div>
-          //         );
-          //       }
-          //     }
-          //   </Palette>
-          // )
-        }
         <div>
           <ColorPair color="#fff" backgroundColor={darkMuted}>
             darkMuted

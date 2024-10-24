@@ -3,7 +3,7 @@ import { ACTION_ASSET, ACTION_SET } from '../constants';
 import { asset, readFile } from '../fs';
 import { get } from '../state';
 import { send } from '../websocket/peer';
-import { compare } from './create';
+import { compare, vibrant } from './create';
 
 export const dispatchAction = (action) => (dispatch) => {
   const { id, payload } = action;
@@ -19,22 +19,23 @@ export const request = (id, action) => () => {
   send(id, action);
 };
 
-export const sendProject = (pid) => (_, getState) => {
+export const sendProject = (pid) => (dispatch, getState) => {
   const { pool } = getState();
   const project = pool[pid];
   if (!project || !project.daemon) return;
   const { state, assets } = get(pool, pid);
-  Object.entries(state).forEach(([id, payload]) => {
-    send(project.daemon, { type: ACTION_SET, id, payload });
-  });
   assets.forEach(async (name) => {
     try {
-      const data = await readFile(asset(name));
+      const file = asset(name);
+      const data = await readFile(file);
       const payload = data.toString('base64');
       send(project.daemon, { type: ACTION_ASSET, name, payload });
     } catch (e) {
       console.error(e);
     }
+  });
+  Object.entries(state).forEach(([id, payload]) => {
+    send(project.daemon, { type: ACTION_SET, id, payload });
   });
 };
 
