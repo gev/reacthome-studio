@@ -1,5 +1,6 @@
 
 import { createReadStream, createWriteStream } from 'fs';
+import Vibrant from 'node-vibrant';
 import path from 'path';
 import { v4 as uuid } from 'uuid';
 import { ACTION_SET, BIND } from '../constants';
@@ -83,17 +84,17 @@ export const attach = (id, field, file) => (dispatch) => {
   rs.on('error', console.error);
   ws.on('error', console.error);
   ws.on('close', () => {
-    //   Vibrant
-    //     .from(file)
-    //     .getPalette((err, data) => {
-    //       if (err) {
-    //         console.error(err);
-    //         return;
-    //       }
-    //       const palette = Object.entries(data).reduce((a, [i, swatch]) =>
-    //         (swatch ? ({ ...a, [i[0].toLowerCase() + i.slice(1)]: swatch.getHex() }) : a), {});
-    dispatch(modify(id, { [field]: name, screen: ext.toLowerCase() === '.svg' ? 'plan' : 'site' }));
-    //     });
+    Vibrant
+      .from(file)
+      .getPalette((err, data) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        const palette = Object.entries(data).reduce((a, [i, swatch]) =>
+          (swatch ? ({ ...a, [i[0].toLowerCase() + i.slice(1)]: swatch.getHex() }) : a), {});
+        dispatch(modify(id, { [field]: name, palette, screen: ext.toLowerCase() === '.svg' ? 'plan' : 'site' }));
+      });
   });
   rs.pipe(ws);
 };
